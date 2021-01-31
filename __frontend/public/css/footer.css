@@ -1,0 +1,103 @@
+footer{
+    position:relative;
+    margin-top: 30px;
+    bottom:0px;
+    flex-shrink: 0;
+    bottom: 0;
+    border-top: 1px dashed #000;
+    width: 100%;
+    background: #f1f1f1f1;
+    color: #333;
+}
+.contenu-footer{
+    width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 20px;
+    padding: 50px 0 100px;
+}
+.bloc{
+    width: 25%;
+    margin: 0 30px;
+}
+.footer-services h3,
+.footer-contact h3,
+.liste-connexion h3,
+.footer-medias h3{
+    font-size: 25px;
+    padding-bottom: 20px;
+}
+.liste-services,
+.liste-contact,
+.liste-connexion,
+.liste-medias{
+    list-style-type: none;
+}
+.liste-services a{
+    text-decoration: none;
+    color: #333;
+}
+.liste-contact a{
+    text-decoration: none;
+    color: #333;
+}
+.liste-connexion a{
+    text-decoration: none;
+    color: #333;
+}
+.liste-medias a{
+    text-decoration: none;
+    color: #333;
+}
+.liste-services a:hover{
+    color: rgb(3,3,3);
+}
+.liste-contact a:hover{
+    color: rgb(3,3,3);
+}
+.liste-connexion a:hover{
+    color: rgb(3,3,3);
+}
+.liste-medias a:hover{
+    color: rgb(3,3,3);
+}
+#footer-img{
+    width: 20px;
+}
+
+@media screen and (max-width: 1200px ){
+
+    .contenu-footer{
+        width: 700px;
+        flex-wrap: wrap;
+    }
+    .bloc{
+        width: 40%;
+        margin: 0 0;
+    }
+    .liste-services,
+    .liste-contact{
+        margin-bottom: 50px;
+    }
+
+
+}
+
+@media screen and (max-width: 800px){
+    .contenu-footer{
+        width: 320px;
+    }
+    .bloc{
+        width: 300px;
+        margin: 30px 30px;
+    }
+    .liste-services,
+    .liste-contact{
+        margin-bottom: 30px;
+    }
+    .footer-services{
+        margin-top: 0px;
+    }
+}
