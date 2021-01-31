@@ -1,0 +1,21 @@
+{
+"rootAPI" : "/api/v1/",
+"port" : 8080,
+"secret" : "Jkps75z9*/se32~",
+"members": {
+    "defaultAvarat":"avatar/defaut.png"
+},
+"db": {
+    "host":"localhost",
+    "database": "nodejs",
+    "user": "root",
+    "password": ""
+},
+"errors":{
+    "wrongID" : "wrong ID",
+    "wrongMaxValue" : "wrong max value",
+    "nameAlreadyTaken" : "name already taken",
+    "noNameValue" : "no name value",
+    "sameName" : "same name"
+}
+}
