@@ -1,5 +1,24 @@
 const db = require('./db');
 
+
+
+exports.getByMemberId = (id) => {
+    return new Promise((resolve, reject) =>{
+        db.query('SELECT * FROM articles WHERE author_id = ?',[id], (err, result) =>{
+            if(err) return reject(err.message)
+            else{
+                resolve(result)
+            }
+        })
+            
+    })
+}
+
+
+
+
+
+
 exports.isUniqueTitle = (title) => {
     return new Promise((resolve, reject) =>{
         db.query('SELECT * FROM articles WHERE title = ?',[title], (err, result) =>{

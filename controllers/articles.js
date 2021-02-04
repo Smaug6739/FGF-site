@@ -9,13 +9,19 @@ exports.createArticle = (req, res) =>{
             req.body.content,
             req.body.authorId
         )
-        .then((result) =>{
-           res.json(checkAndChange({ 
-               status : success
-             }));
-        })
-        .catch(error => res.json(checkAndChange(new Error(error))))
+    .then((result) =>{
+        res.json(checkAndChange(result));
+    })
+    .catch(error => res.json(checkAndChange(new Error(error))))
 }
-
+exports.getMemberArticles = (req, res) =>{
+    Articles.getByMemberId(
+            req.params.id
+        )
+    .then((result) =>{
+        res.json(checkAndChange(result));
+    })
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 
 

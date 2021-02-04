@@ -3,6 +3,17 @@ const  dbFunctions  = require("../../models/articles");
 
 let Articles = class Articles{
 
+    static getByMemberId(id){
+        return new Promise((next, reject) => {
+            dbFunctions.getByMemberId(id)
+            .then((result) => {
+                if (result) next(result)
+                else reject(new Error("Aucun article trouvé"))
+            })
+            .catch(error => reject(new Error(error)))
+        })
+    }
+
     static add(categorie, title, miniature, content, authorId) {
         return new Promise(async(next, reject) => {
             
@@ -22,8 +33,8 @@ let Articles = class Articles{
             if(authorId && authorId.length > 250) return reject(new Error("Error length authorId. (250)"))
             
             
-           /* dbFunctions.isUniqueTitle(title)
-            .then(result =>{if(!result) return reject(new Error("Ce titre est déja utiliser. Merci d'en choisir un autre."))})*/
+             dbFunctions.isUniqueTitle(title)
+            .then(result =>{if(!result) return reject(new Error("Ce titre est déja utiliser. Merci d'en choisir un autre."))})
             .catch(err => console.log(err))
             
             const article = {
