@@ -56,14 +56,14 @@ exports.authMember = async (req, res)=>{
 }
 
 exports.getMember = (req, res)=>{
-    Members.getByID(req.params.id)
+    Members.getByID(req.params.userId)
     .then(result =>  res.json(checkAndChange(result)))
     .catch(error =>  res.json(checkAndChange(new Error(error))))
 }
 
 exports.updateMember = async(req, res) =>{
     Members.put(
-        req.params.id, 
+        req.params.userId, 
         req.body.avatar,
         req.body.pseudo,
         req.body.firstName,
@@ -79,7 +79,7 @@ exports.updateMember = async(req, res) =>{
 }
 exports.updateMemberPassword = async(req, res) =>{
     Members.updatePassword(
-        req.params.id, 
+        req.params.userId, 
         req.body.oldPassword,
         req.body.password1,
         req.body.password2,
@@ -90,7 +90,7 @@ exports.updateMemberPassword = async(req, res) =>{
 }
 
 exports.deleteMember = async(req,res) =>{
-    Members.delete(req.params.id, req.params.password, req.user.userPermissions)
+    Members.delete(req.params.userId, req.params.password, req.user.userPermissions)
     .then(result =>  res.json(checkAndChange(result)))
     .catch(error =>  res.json(checkAndChange(new Error(error))))
 }

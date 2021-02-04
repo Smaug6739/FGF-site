@@ -11,14 +11,12 @@ module.exports = async (req, res, next) => {
         req.user = {
             userPermissions : userPermissions
         }
-        if(req.params.id && req.params.id !== userId){
+        if(req.params.userId && req.params.userId !== userId){
             if(userPermissions < 3) throw 'User ID non valable';
             else {
                 next();
             }
         }else next();
-        
-
     }catch(err){
         console.log(err);
         res.status(401).json(checkAndChange(new Error('Requete non authentifiée')));

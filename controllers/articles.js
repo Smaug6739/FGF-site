@@ -16,7 +16,7 @@ exports.createArticle = (req, res) =>{
 }
 exports.getMemberArticles = (req, res) =>{
     Articles.getAllByMemberId(
-            req.params.id
+            req.params.userId
         )
     .then((result) =>{
         res.json(checkAndChange(result));
