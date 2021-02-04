@@ -5,8 +5,8 @@ const auth = require('../middleware/auth');
 
 
 ArticlesRouter.post('/', auth, articlesCtrl.createArticle);//OK
-ArticlesRouter.get('/:id', auth, articlesCtrl.getMemberArticles);//OK
 ArticlesRouter.get('/:userId/:articleId', auth, articlesCtrl.getMemberArticle);//OK
+ArticlesRouter.get('/:id', auth, articlesCtrl.getMemberArticles);//OK
 /*ArticlesRouter.get('/all/:page', auth, articlesCtrl.getAllMembers);//OK
 ArticlesRouter.get('/login', articlesCtrl.authMember);//OK
 ArticlesRouter.get('/:id', auth, articlesCtrl.getMember);//OK

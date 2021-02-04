@@ -281,20 +281,27 @@ exports.getArticles = (req, res) => {
 }
 
 exports.getUpdateArticlePage = (req,res) => {
-    return console.log(req.session.user)
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.id}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    /*.then((responce) => {
-        res.render(path.join(__dirname, '../pages/admin/adminupdate.ejs'),{
-            userConnected : statusUser(req.session),
-            member : responce.data.result,
-        })
+    .then((responce) => {
+        if(responce.data.result){
+            res.render(path.join(__dirname, '../pages/member/articleupdate.ejs'),{
+                userConnected : statusUser(req.session),
+                article : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : statusUser(req.session),
+                error : "Aucun article trouvé...",
+            })
+        }
+
     })
     .catch((error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : statusUser(req.session),
             error : error,
         })
-    });*/
+    });
 }

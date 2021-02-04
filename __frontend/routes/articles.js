@@ -8,6 +8,7 @@ const articlesCtrl = require('../controllers/articles');
 ArticlesRouter.get('/post', articlesCtrl.getPost)
 //ArticlesRouter.post('/',multerMidMiniature, articlesCtrl.post)
 ArticlesRouter.post('/',multerMidMiniature, articlesCtrl.post)
+ArticlesRouter.post('/update',multerMidMiniature, articlesCtrl.post)
 
 
 
