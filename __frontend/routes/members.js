@@ -19,5 +19,6 @@ MembersRouter.get('/articles', memberCtrl.getArticles)
 MembersRouter.post('/articles',multerMidMiniature, memberCtrl.post)
 MembersRouter.get('/articles/update/:id', memberCtrl.getUpdateArticlePage)
 MembersRouter.post('/articles/update/:articleId', multerMidMiniature, memberCtrl.updateArticle)
+MembersRouter.post('/articles/delete/:articleId', multerMidMiniature, memberCtrl.deleteArticle)
 
 module.exports = MembersRouter;

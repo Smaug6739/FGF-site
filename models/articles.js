@@ -71,3 +71,15 @@ exports.updateArticle = (id, newParams) => {
       
     })
 }
+
+exports.deleteArticle = (id) =>{
+    return new Promise((resolve, reject) =>{
+        if(!id) return reject("Missing id")
+        db.query('DELETE FROM articles WHERE id = ?',[id],(err, result) =>{
+            if(err) return reject(err.message)
+            else{
+                resolve(result)
+            }
+        })
+    })
+}

@@ -37,16 +37,18 @@ exports.putArticle = (req, res) =>{
     })
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.deleteArticle = (req, res) =>{
+    Articles.delete(req.params.articleId)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 
 
 exports.getMemberArticle = (req, res) =>{
     Articles.getByMemberId(
             req.params.userId,
-            req.params.articleId
-            )
-    .then((result) =>{
-        res.json(checkAndChange(result));
-    })
+            req.params.articleId)
+    .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 

@@ -96,7 +96,16 @@ let Articles = class Articles{
         })
     }
 
+    static delete(id) {
+        return new Promise((next, reject) => {
+            if(!id || id && id.trim() == '') return reject(new Error("Missing ID"));
+            dbFunctions.deleteArticle(id)
+            .then(() =>{next(true)})
+            .catch((err) =>{reject(err)})
+            
+        })
 
+    }
 
 }
 

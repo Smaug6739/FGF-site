@@ -375,3 +375,24 @@ exports.updateArticle = (req, res) => {
         })
     })
 }
+exports.deleteArticle = (req, res) => {
+    let file = "";
+    if(req.file && req.file.filename) file = req.file.filename
+    axios.delete(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`,{
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then((responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : statusUser(req.session),
+                error : responce.data.message,
+            })
+        }else if(responce.data.status === 'success') res.redirect('/member/account')
+    })
+    .catch((error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : statusUser(req.session),
+            error : error
+        })
+    })
+}
