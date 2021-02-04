@@ -15,9 +15,11 @@ MembersRouter.post('/:id/update',multerMidAvatar, memberCtrl.updateMember)
 MembersRouter.post('/updatepassword/:id', memberCtrl.updatePassword)
 MembersRouter.post('/:id/delete', memberCtrl.deleteMember)
 
-MembersRouter.get('/articles', memberCtrl.getArticles)
-MembersRouter.post('/articles',multerMidMiniature, memberCtrl.post)
-MembersRouter.get('/articles/update/:id', memberCtrl.getUpdateArticlePage)
+
+MembersRouter.get('/articles/post', memberCtrl.getPostArticle)//Add article (get)
+MembersRouter.get('/articles/update/:articleId', memberCtrl.getUpdateArticlePage)//Update article (get)
+MembersRouter.get('/articles', memberCtrl.getArticles)// All articles of member
+MembersRouter.post('/articles',multerMidMiniature, memberCtrl.postArticle)//Create article (post)
 MembersRouter.post('/articles/update/:articleId', multerMidMiniature, memberCtrl.updateArticle)
 MembersRouter.post('/articles/delete/:articleId', multerMidMiniature, memberCtrl.deleteArticle)
 

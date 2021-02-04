@@ -4,7 +4,7 @@ const articlesCtrl = require('../controllers/articles');
 const auth = require('../middleware/auth');
 
 
-ArticlesRouter.post('/', auth, articlesCtrl.createArticle);//Create article
+ArticlesRouter.post('/:userId', auth, articlesCtrl.createArticle);//Create article
 ArticlesRouter.get('/:userId/:articleId', auth, articlesCtrl.getMemberArticle);//Tous les articles d'un membre
 ArticlesRouter.get('/:userId', auth, articlesCtrl.getMemberArticles);//Un article de 1 membre
 ArticlesRouter.put('/:userId/:articleId', auth, articlesCtrl.putArticle);//OK

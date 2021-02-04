@@ -1,5 +1,6 @@
-const axios = require('axios');
 const path = require('path');
+const fs = require('fs')
+const axios = require('axios');
 const { config } = require('process');
 const {statusUser} = require('../functions');
 const dirMemberPages = '../pages/member';
@@ -156,8 +157,7 @@ exports.updateMember = (req, res) => {
         age: req.body.age || "",
         email: req.body.email || "",
         phoneNumber: req.body.phoneNumber ||""
-    },
-    {
+    },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -183,8 +183,7 @@ exports.updatePassword = (req, res) => {
         oldPassword : req.body.oldPassword,
         password1 : req.body.password1,
         password2 : req.body.password2
-    },
-    {
+    },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -252,13 +251,13 @@ function renderError(res, err, session) {
         error : err
     })
 }*/
-exports.getPost = (req, res) => {
-    res.render(path.join(__dirname, `${dirArticles}/post.ejs`), {
+exports.getPostArticle = (req, res) => {
+    res.render(path.join(__dirname, `${dirMemberPages}/postarticle.ejs`), {
         userConnected : statusUser(req.session),
     })
 }
 
-exports.post = (req, res) => {
+exports.postArticle = (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename;
     else {
@@ -267,15 +266,14 @@ exports.post = (req, res) => {
             error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
         })
     }
-    axios.post('http://localhost:8080/api/v1/articles', {
+    axios.post(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
             categorie: req.body.categorie,
             title: req.body.title,
             miniature: file,
             content: req.body.contenu,
             authorId: req.session.user.userID
         
-    },
-    {headers : { 'Authorization' : `token ${req.session.user.token}`}}
+    },{headers : { 'Authorization' : `token ${req.session.user.token}`}}
     )
     .then((responce) => {
         if(responce.data.status === 'error'){
@@ -294,7 +292,6 @@ exports.post = (req, res) => {
         })
     })
 }
-
 exports.getArticles = (req, res) => {
     if (!req.session || !req.session.user) return res.redirect('/member/login')
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
@@ -322,7 +319,7 @@ exports.getArticles = (req, res) => {
 }
 
 exports.getUpdateArticlePage = (req,res) => {
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.id}`, {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -356,8 +353,7 @@ exports.updateArticle = (req, res) => {
             title: req.body.title,
             miniature: file,
             content: req.body.contenu,
-    },
-    {
+    },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -378,21 +374,38 @@ exports.updateArticle = (req, res) => {
 exports.deleteArticle = (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename
-    axios.delete(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`,{
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then((responce) => {
-        if(responce.data.status === 'error'){
-            res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
-                error : responce.data.message,
-            })
-        }else if(responce.data.status === 'success') res.redirect('/member/account')
+    .then(result => {
+        if(result.data.status === 'success'){
+            fs.unlink(path.join(__dirname, `../uploads/articles/${result.data.result.lien_miniature}`), (err) => {
+                if (err) console.log(err);
+              });
+              axios.delete(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`,{
+                headers : { 'Authorization' : `token ${req.session.user.token}`},
+                })
+                .then((responce) => {
+                    if(responce.data.status === 'error'){
+                        res.render(path.join(__dirname, '../pages/error.ejs'),{
+                            userConnected : statusUser(req.session),
+                            error : responce.data.message,
+                        })
+                    }else if(responce.data.status === 'success') res.redirect('/member/account')
+                })
+                .catch((error) => {
+                    res.render(path.join(__dirname, '../pages/error.ejs'),{
+                        userConnected : statusUser(req.session),
+                        error : error
+                    })
+                })
+        }
+
     })
-    .catch((error) => {
+    .catch(error => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : statusUser(req.session),
-            error : error
+            error : error,
         })
     })
 }
