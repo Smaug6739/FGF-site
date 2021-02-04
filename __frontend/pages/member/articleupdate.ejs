@@ -12,35 +12,35 @@
   <body>
     <script>
       function preview_image(event) 
-  {
-   var reader = new FileReader();
-   reader.onload = function()
-   {
-    var output = document.getElementById('miniature-form');
-    output.src = reader.result
-    //output.setAttribute("src",`${output.result}`)
-    
-   }
-   reader.readAsDataURL(event.target.files[0]);
-  }
+      {
+      var reader = new FileReader();
+      reader.onload = function()
+      {
+        var output = document.getElementById('miniature-form');
+        output.src = reader.result
+        //output.setAttribute("src",`${output.result}`)
+        
+      }
+      reader.readAsDataURL(event.target.files[0]);
+      }
     </script>
     <%- include ('../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Espace de rédaction</h1>
     <% console.log(article) %>
     <div class="container-fluid">
       <section>
-          <form action="/articles/update" method="post" class="mt-5" id="create_form" enctype="multipart/form-data">
+          <form action="/member/articles/update/<%= article.id %>" method="post" class="mt-5" id="create_form" enctype="multipart/form-data">
               <fieldset class="form-group">
                   <legend>Type d'article</legend>
                   <div class="form-group d-flex flex-column">
                       <label for="categorie">Catégorie de votre article :</label>
-                      <select id="categorie" name="categorie" value="<%= article.categorie %>">
-                          <option value="1">Console</option>
-                          <option value="2">Jeux</option>
-                          <option value="3">Informatique</option>
-                          <option value="4">Musique</option>
-                          <option value="5">Partenaires</option>
-                          <option value="6">Divers</option>
+                      <select id="categorie" name="categorie">
+                          <option value="1" <%if(article.categorie === 1){%> selected <%}%>>Console</option>
+                          <option value="2" <%if(article.categorie === 2){%> selected <%}%>>Jeux</option>
+                          <option value="3" <%if(article.categorie === 3){%> selected <%}%>>Informatique</option>
+                          <option value="4" <%if(article.categorie === 4){%> selected <%}%>>Musique</option>
+                          <option value="5" <%if(article.categorie === 5){%> selected <%}%>>Partenaires</option>
+                          <option value="6" <%if(article.categorie === 6){%> selected <%}%>>Divers</option>
                       </select>
                   </div>
               </fieldset>
@@ -53,11 +53,11 @@
                       <input type="text" class="form-control" id="title" name="title" placeholder="Titre" value="<%= article.title %>">
 
 
-                      <label for="avatar">Miniature de l'article :</label>
+                      <label for="miniature-upload">Miniature de l'article :</label>
                         <img style="width:30%;height:30%;" id="miniature-form" src="/uploads/articles/<%= article.lien_miniature %>">
                     
-                    <label class="custom-file-upload" for="avatar-upload">
-                      <input class="invisible" id="avatar-upload" type="file" onchange="preview_image(event)" name="avatar-upload"/>
+                    <label class="custom-file-upload" for="miniature-upload">
+                      <input class="invisible" id="miniature-upload" type="file" onchange="preview_image(event)" name="miniature-upload"/>
                       Choisir un fichier
                   </label>
                       
@@ -67,8 +67,14 @@
 
                       <label style="font-size:20px;" for="btn_submit">Poster votre article :</label>
                       <button id="btn_submit" type="submit" class="btn btn-primary">Mettre a jour votre article</button>
+                      
               </fieldset>
           </form>
+          <label style="font-size:20px;" for="btn_submit">Supprimer votre article :</label>
+                      <form action="/member/articles/delete/<%= article.id %>">
+                        <p>Je suis sur de vouloir supprimer cet article : <input type="checkbox" required  name="confirm"></p>
+                        <button id="btn_submit" type="submit" class="btn btn-danger">Supprimer</button>
+                      </form>
       </section>
 
   </div>

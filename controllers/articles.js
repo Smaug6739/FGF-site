@@ -23,6 +23,20 @@ exports.getMemberArticles = (req, res) =>{
     })
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.putArticle = (req, res) =>{
+    Articles.put(
+        req.params.userId,
+        req.params.articleId,
+        req.body.categorie,
+        req.body.title,
+        req.body.miniature,
+        req.body.content,
+        )
+    .then((result) =>{
+        res.json(checkAndChange(result));
+    })
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 
 
 exports.getMemberArticle = (req, res) =>{

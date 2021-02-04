@@ -56,3 +56,18 @@ exports.addArticle = (article) => {
     })
 }
 
+
+
+exports.updateArticle = (id, newParams) => {
+    return new Promise((resolve, reject) =>{
+        if(!id) return reject('Missing id');
+        if(!newParams) return reject('Missing new params');
+        db.query('UPDATE articles SET title=?,categorie=?,content=?,lien_miniature=? WHERE id = ?',[newParams.title,newParams.categorie,newParams.content,newParams.miniature, id], (err, result) =>{
+            if(err) return reject(err.message)
+            else{
+                resolve(result)
+            }
+        })
+      
+    })
+}

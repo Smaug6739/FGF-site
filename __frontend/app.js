@@ -39,7 +39,7 @@ app.use(session({
       
     app.use('/member',routerMembers)
     app.use('/admin',routerAdmin)
-    app.use('/articles',routerArticles)
+    //app.use('/articles',routerArticles)
     app.use('/static', express.static(path.join(__dirname, 'public')));
     app.get('/', (req, res) => {
         res.render(`${__dirname}/pages/index.ejs`,{

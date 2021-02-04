@@ -27,7 +27,8 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/member/account">Profil</a></li>
                         <li><a class="dropdown-item" href="/member/edit">Paramètres</a></li>
-                        <% if(userConnected.auth === true && userConnected.userPermissions >= 3){ %>
+                        <li><a class="dropdown-item" href="/member/articles">Vos articles</a></li>
+                        <% if(userConnected.userPermissions >= 3){ %>
                         <li><a class="dropdown-item" href="/admin">Admin</a></li>
                         <% } %>
                         <li role="separator" class="dropdown-divider"></li>
