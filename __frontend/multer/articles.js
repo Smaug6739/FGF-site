@@ -1,15 +1,14 @@
-const path = require('path');
-const multer = require('multer');
-
-
+const multer = require('multer')
+const path = require('path')
 let name;
 let extension;
 let fullName;
+const tailleMax = 1 * 1024 * 1024 // 1MB
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
     'image/png': 'png'
-};
+    };
 
 const storage =  multer.diskStorage({
     destination: (req, file, callback) => {
@@ -22,21 +21,20 @@ const storage =  multer.diskStorage({
         if(!extension) callback(new Error("Only images allowed"))
         callback(null, fullName);
     }
-    });
-
-module.exports =  multer({
+    
+});
+exports.uploadMiniature = multer({
     storage: storage,
     limits:{
-        fileSize: 10//100000,
+        fileSize: tailleMax,
     },
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
           cb(null, true);
+          console.log('test')
         } else {
           cb(null, false);
           //return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
     },
-}).single('miniature-upload');
-
-
+})//.single('miniature-upload')

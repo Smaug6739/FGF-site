@@ -3,6 +3,10 @@ const {statusUser} = require('../functions');
 const dirArticles = '../pages/articles';
 const axios = require('axios')
 
+
+
+
+
 exports.getPost = (req, res) => {
     res.render(path.join(__dirname, `${dirArticles}/post.ejs`), {
         userConnected : statusUser(req.session),
@@ -10,10 +14,29 @@ exports.getPost = (req, res) => {
 }
 
 exports.post = (req, res) => {
+    
+    /*uploadMiniature(req, res, function(err){
+        if(err){
+            if(err.message.match("File too large")) {
+                res.render(path.join(__dirname, '../pages/error.ejs'),{
+                    userConnected : statusUser(req.session),
+                    error : "Le fichier est trop gros."
+                })
+            }
+            else {
+                res.render(path.join(__dirname, '../pages/error.ejs'),{
+                    userConnected : statusUser(req.session),
+                    error : "Merci d'uploader un fichier dans un format correct"
+                })
+            }
+        }
+
+    })*/
     console.log("Upload article")
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename;
-    else {
+    console.log(req.body)
+    /*else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : statusUser(req.session),
             error : "Merci d'uploader un fichier dans un format correct"
@@ -28,7 +51,7 @@ exports.post = (req, res) => {
         
     },
     {headers : { 'Authorization' : `token ${req.session.user.token}`}}
-    )
+    )*/
     //.then((responce) => {
         /*if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{

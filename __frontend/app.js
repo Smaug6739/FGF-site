@@ -36,6 +36,7 @@ app.use(session({
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
     app.listen(config.port, () => console.log('Started on port '+ config.port));
+      
     app.use('/member',routerMembers)
     app.use('/admin',routerAdmin)
     app.use('/articles',routerArticles)
@@ -57,7 +58,21 @@ app.use(session({
     res.render(path.join(__dirname, 'pages/test.ejs'), {userConnected : statusUser(req.session)});
     });
 
-
+    app.use(function(err, req, res, next) {
+        if(err){
+            if(err.message.match('File too large')){
+                res.render(path.join(__dirname, '/pages/error.ejs'),{
+                    userConnected : statusUser(req.session),
+                    error : "Le fichier est trop gros."
+                })
+            }else{
+                res.render(path.join(__dirname, '/pages/error.ejs'),{
+                    userConnected : statusUser(req.session),
+                    error : err
+                })
+            }
+        }
+      });
 
     /*app.get('/admin',(req,res) => {
         if(req.session.user){
