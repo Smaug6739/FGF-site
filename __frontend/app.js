@@ -13,6 +13,12 @@ const routerMembers = require('./routes/members')
 const routerAdmin = require('./routes/admin')
 const routerArticles = require('./routes/articles')
 
+const {WebhookClient} = require('discord.js')
+const errorHook = new WebhookClient(
+    `806511987155927050`, `myeEkGU5YO4RtJyFShn7_4LaDRMSmYnGx-IZfHSt6Urdxo7o-AFpSpQYI-GU8YhhJlF4`);
+
+//errorHook.send("@Admin-FGF nouvel photo en attente sur le site : http://localhost/admin/album/en-attentes")
+
 db = require("./util/mongoose");
 db.init();
 app.set('trust proxy', 1) // trust first proxy
@@ -39,6 +45,7 @@ app.use(session({
             userConnected : statusUser(req.session)
         })
     });
+    
     app.get('/uploads/:dir/:image', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, `uploads/${req.params.dir}/${req.params.image}`));
     });
