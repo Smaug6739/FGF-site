@@ -118,31 +118,7 @@ exports.getAccount = (req, res) => {
         })
     })
 }
-exports.getArticles = (req, res) => {
-    if (!req.session || !req.session.user) return res.redirect('/member/login')
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
-        headers : { 'Authorization' : `token ${req.session.user.token}`},
-    })
-    .then((responce) => {
-        if(responce.data.status === 'success'){
-            res.render(path.join(__dirname, `${dirMemberPages}/articles.ejs`),{
-                userConnected : statusUser(req.session),
-                articles : responce.data.result,
-            })
-        } else {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected : statusUser(req.session),
-                error : responce.data.message
-            })
-        }    
-    })
-    .catch((error) => {
-        res.render(path.join(__dirname, '../pages/error.ejs'), {
-            userConnected : statusUser(req.session),
-            error : error,
-        })
-    })
-}
+
 exports.getEditAccount = (req, res) => {
     if (!req.session || !req.session.user) return res.redirect('/member/login')
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.userID}`, {
@@ -276,3 +252,49 @@ function renderError(res, err, session) {
         error : err
     })
 }*/
+
+
+exports.getArticles = (req, res) => {
+    if (!req.session || !req.session.user) return res.redirect('/member/login')
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then((responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, `${dirMemberPages}/articles.ejs`),{
+                userConnected : statusUser(req.session),
+                articles : responce.data.result,
+            })
+        } else {
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : statusUser(req.session),
+                error : responce.data.message
+            })
+        }    
+    })
+    .catch((error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    })
+}
+
+exports.getUpdateArticlePage = (req,res) => {
+    return console.log(req.session.user)
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.id}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    /*.then((responce) => {
+        res.render(path.join(__dirname, '../pages/admin/adminupdate.ejs'),{
+            userConnected : statusUser(req.session),
+            member : responce.data.result,
+        })
+    })
+    .catch((error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    });*/
+}

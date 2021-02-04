@@ -11,10 +11,11 @@ module.exports = async (req, res, next) => {
         req.user = {
             userPermissions : userPermissions
         }
-        
         if(req.params.id && req.params.id !== userId){
             if(userPermissions < 3) throw 'User ID non valable';
-            else next();
+            else {
+                next();
+            }
         }else next();
         
 

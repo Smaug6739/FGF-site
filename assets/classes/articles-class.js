@@ -3,9 +3,20 @@ const  dbFunctions  = require("../../models/articles");
 
 let Articles = class Articles{
 
-    static getByMemberId(id){
+    static getAllByMemberId(id){
         return new Promise((next, reject) => {
-            dbFunctions.getByMemberId(id)
+            dbFunctions.getAllByMemberId(id)
+            .then((result) => {
+                if (result) next(result)
+                else reject(new Error("Aucun article trouvé"))
+            })
+            .catch(error => reject(new Error(error)))
+        })
+    }
+
+    static getByMemberId(userId, articleId){
+        return new Promise((next, reject) => {
+            dbFunctions.getByMemberId(userId, articleId)
             .then((result) => {
                 if (result) next(result)
                 else reject(new Error("Aucun article trouvé"))

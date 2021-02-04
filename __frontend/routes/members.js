@@ -9,12 +9,13 @@ MembersRouter.post('/register', memberCtrl.postRegister)
 MembersRouter.post('/login', memberCtrl.postLogin)
 MembersRouter.get('/disconnection', memberCtrl.disconnection)
 MembersRouter.get('/account', memberCtrl.getAccount)
-MembersRouter.get('/articles', memberCtrl.getArticles)
 MembersRouter.get('/edit', memberCtrl.getEditAccount)
 MembersRouter.post('/:id/update',multerMidAvatar, memberCtrl.updateMember)
 MembersRouter.post('/updatepassword/:id', memberCtrl.updatePassword)
 MembersRouter.post('/:id/delete', memberCtrl.deleteMember)
 
+MembersRouter.get('/articles', memberCtrl.getArticles)
+MembersRouter.get('/articles/update/:id', memberCtrl.getUpdateArticlePage)
 
 
 module.exports = MembersRouter;

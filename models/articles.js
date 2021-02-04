@@ -2,12 +2,23 @@ const db = require('./db');
 
 
 
-exports.getByMemberId = (id) => {
+exports.getAllByMemberId = (id) => {
     return new Promise((resolve, reject) =>{
         db.query('SELECT * FROM articles WHERE author_id = ?',[id], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)
+            }
+        })
+            
+    })
+}
+exports.getByMemberId = (userId, articleId) => {
+    return new Promise((resolve, reject) =>{
+        db.query('SELECT * FROM articles WHERE author_id = ? AND id = ?',[userId, articleId], (err, result) =>{
+            if(err) return reject(err.message)
+            else{
+                resolve(result[0])
             }
         })
             

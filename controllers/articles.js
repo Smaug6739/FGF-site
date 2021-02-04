@@ -15,7 +15,7 @@ exports.createArticle = (req, res) =>{
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getMemberArticles = (req, res) =>{
-    Articles.getByMemberId(
+    Articles.getAllByMemberId(
             req.params.id
         )
     .then((result) =>{
@@ -24,4 +24,15 @@ exports.getMemberArticles = (req, res) =>{
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 
+
+exports.getMemberArticle = (req, res) =>{
+    Articles.getByMemberId(
+            req.params.userId,
+            req.params.articleId
+            )
+    .then((result) =>{
+        res.json(checkAndChange(result));
+    })
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 
