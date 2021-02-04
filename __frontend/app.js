@@ -65,11 +65,6 @@ app.use(session({
                     userConnected : statusUser(req.session),
                     error : "Le fichier est trop gros."
                 })
-            }else{
-                res.render(path.join(__dirname, '/pages/error.ejs'),{
-                    userConnected : statusUser(req.session),
-                    error : err
-                })
             }
         }
       });

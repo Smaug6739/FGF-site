@@ -14,8 +14,6 @@ exports.getPost = (req, res) => {
 }
 
 exports.post = (req, res) => {
-
-    console.log("Upload article")
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename;
     else {
@@ -34,21 +32,20 @@ exports.post = (req, res) => {
     },
     {headers : { 'Authorization' : `token ${req.session.user.token}`}}
     )
-    //.then((responce) => {
-        /*if(responce.data.status === 'error'){
+    .then((responce) => {
+        if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : statusUser(req.session),
                 error : responce.data.message
             })
         }else if(responce.data.status === 'success') {
             res.redirect('/member/account')
-        };*/
-    //})
-    //.catch((error) => {
-        /*res.render(path.join(__dirname, '../pages/error.ejs'),{
+        };
+    })
+    .catch((error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : statusUser(req.session),
             error : error
-
-        })*/
-    //})
+        })
+    })
 }
