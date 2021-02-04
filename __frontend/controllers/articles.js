@@ -14,32 +14,14 @@ exports.getPost = (req, res) => {
 }
 
 exports.post = (req, res) => {
-    
-    /*uploadMiniature(req, res, function(err){
-        if(err){
-            if(err.message.match("File too large")) {
-                res.render(path.join(__dirname, '../pages/error.ejs'),{
-                    userConnected : statusUser(req.session),
-                    error : "Le fichier est trop gros."
-                })
-            }
-            else {
-                res.render(path.join(__dirname, '../pages/error.ejs'),{
-                    userConnected : statusUser(req.session),
-                    error : "Merci d'uploader un fichier dans un format correct"
-                })
-            }
-        }
 
-    })*/
     console.log("Upload article")
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename;
-    console.log(req.body)
-    /*else {
+    else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : statusUser(req.session),
-            error : "Merci d'uploader un fichier dans un format correct"
+            error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
         })
     }
     axios.post('http://localhost:8080/api/v1/articles', {
@@ -51,7 +33,7 @@ exports.post = (req, res) => {
         
     },
     {headers : { 'Authorization' : `token ${req.session.user.token}`}}
-    )*/
+    )
     //.then((responce) => {
         /*if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{

@@ -5,6 +5,7 @@ const multer = require('multer');
 let name;
 let extension;
 let fullName;
+const tailleMax = 1 * 1024 * 1024 // 1MB
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
@@ -27,7 +28,7 @@ const storage =  multer.diskStorage({
 module.exports =  multer({
     storage: storage,
     limits:{
-        fileSize: 10//100000,
+        fileSize: tailleMax,
     },
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
