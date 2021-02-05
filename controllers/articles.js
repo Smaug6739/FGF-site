@@ -31,6 +31,7 @@ exports.putArticle = (req, res) =>{
         req.body.title,
         req.body.miniature,
         req.body.content,
+        req.body.status,
         )
     .then((result) =>{
         res.json(checkAndChange(result));

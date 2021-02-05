@@ -72,7 +72,7 @@ let Articles = class Articles{
             .catch(error => reject(new Error(error)))
         })
     }
-    static put(userId, articleId, categorie, title, miniature, content){
+    static put(userId, articleId, categorie, title, miniature, content, status){
         return new Promise(async(next, reject) => {
             if(!articleId || articleId && articleId.trim() == '') return reject(new Error("Wrong ID"))
             if (!categorie || categorie && categorie.trim() == '') return reject(new Error("Merci de renseigner une catégorie valide"))
@@ -81,16 +81,19 @@ let Articles = class Articles{
 
             if(categorie && categorie.length > 50) return reject(new Error("La catégorie est trop longue. (50)"))
             if(title && title.length > 150) return reject(new Error("Le title est trop long. (150)"))
+            if(content && content.length > 60000) return reject(new Error("Le contenu trop long. (60000)"))
             if(miniature && miniature.length > 250) return reject(new Error("Le nom de la miniature est trop long. (250)"))
+            if(status && status.length > 2) return reject(new Error("Wrong status"))
         
-            
-            dbFunctions.getByMemberId(userId, articleId).then(article =>{
+            dbFunctions.getArticle(userId, articleId).then(article =>{
                 if (article) {
                     if(title != article.title) {
                         dbFunctions.isUniqueTitle(title)
                         .then(result =>{if(!result) return reject(new Error("Ce titre est déja utiliser. Merci d'en choisir un autre."))})
                         .catch(err => console.log(err))
                     }
+                    if(req.user.userPermissions < 3) status = article.status
+                    else status = article.status
                     if(!miniature) miniature = article.lien_miniature
                     const newArticle = {
                         categorie : categorie,
