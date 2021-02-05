@@ -56,23 +56,25 @@ let Articles = class Articles{
                 }
             })
             dbFunctions.isUniqueTitle(title)
-            .then(result =>{if(!result) return reject(new Error("Ce titre est déja utiliser. Merci d'en choisir un autre."))})
-            .catch(err => console.log(err))
-
-            const article = {
-                categorie : categorie,
-                title: title,
-                miniature: miniature,
-                content: content,
-                authorId: authorId,
-                status: 0,
-                timestamp: Date.now()
-            }
-            dbFunctions.addArticle(article)
-            .then(result =>  next(article))
+            .then(result =>{
+                if(!result) return reject(new Error("Ce titre est déja utiliser. Merci d'en choisir un autre."))
+                const article = {
+                    categorie : categorie,
+                    title: title,
+                    miniature: miniature,
+                    content: content,
+                    authorId: authorId,
+                    status: 0,
+                    timestamp: Date.now()
+                }
+                dbFunctions.addArticle(article)
+                .then(result =>  next(article))
+                .catch(error => reject(new Error(error)))
+            })
             .catch(error => reject(new Error(error)))
         })
     }
+
     static put(userPermissions, articleId, categorie, title, miniature, content, status){
         console.log('User permissions for put article :' + userPermissions)
         return new Promise(async(next, reject) => {
@@ -87,15 +89,17 @@ let Articles = class Articles{
             if(miniature && miniature.length > 250) return reject(new Error("Le nom de la miniature est trop long. (250)"))
             if(status && status.length > 2) return reject(new Error("Wrong status"))
 
-            content = xss(content)
+            content = xss(content, {
+                onIgnoreTagAttr: function(tag, name, value, isWhiteAttr) {
+                  if (name.substring(0, 5) === "data-") {
+                    // escape its value using built-in escapeAttrValue function
+                    return name.substring(5) + '="' + xss.escapeAttrValue(value) + '"';
+                  }
+                }
+            })
 
-            dbFunctions.getArticle(articleId).then(article =>{
+            dbFunctions.getArticle(articleId).then(async article =>{
                 if (article) {
-                    if(title != article.title) {
-                        dbFunctions.isUniqueTitle(title)
-                        .then(result =>{if(!result) return reject(new Error("Ce titre est déja utiliser. Merci d'en choisir un autre."))})
-                        .catch(err => console.log(err))
-                    }
                     if(userPermissions < 3) status = article.status
                     else status = status
                     if(!miniature) miniature = article.lien_miniature

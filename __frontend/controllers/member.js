@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs')
+const {WebhookClient} = require('discord.js')
 const axios = require('axios');
 const { config } = require('process');
 const {statusUser} = require('../functions');
@@ -7,6 +8,7 @@ const dirMemberPages = '../pages/member';
 const fetch = axios.create({
     baseURL: 'http://localhost:8080/api/v1'
 });
+const Webhook = new WebhookClient(`807328987360657428`, `CfuF2mNaIPjMztP2_TBfHueT2daKqWU-Fu4r85lx-IEMJ66C283BNn4jx9Vbwaa3UAsl`);
 var demo = function(converter) {
     return [
         {
@@ -295,6 +297,7 @@ exports.postArticle = (req, res) => {
                 error : responce.data.message
             })
         }else if(responce.data.status === 'success') {
+            Webhook.send("<@&503135942152945675> un nouvel article vient d'etre poster. http://localhost:8081/admin/articles/1")
             res.redirect('/member/account')
         };
     })
@@ -344,7 +347,7 @@ exports.getUpdateArticlePage = (req,res) => {
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : statusUser(req.session),
-                error : "Aucun article trouvé...",
+                error : responce.data.message,
             })
         }
 
