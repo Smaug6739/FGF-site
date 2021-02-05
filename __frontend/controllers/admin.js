@@ -43,17 +43,17 @@ exports.getUpdatePage = (req,res) => {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
-        res.render(path.join(__dirname, '../pages/admin/adminupdate.ejs'),{
+        res.render(path.join(__dirname, '../pages/admin/update/member.ejs'),{
             userConnected : statusUser(req.session),
             member : responce.data.result,
         })
     })
-    .catch((error) => {
+    /*.catch((error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : statusUser(req.session),
             error : error,
         })
-    });
+    });*/
 }
 
 
@@ -92,9 +92,7 @@ exports.postUpdateMemberPassword = (req, res) => {
         password2: req.body.password2,
     },
     {
-        //headers : { 'x-access-token' : req.session.user.token}
         headers : { 'Authorization' : `token ${req.session.user.token}`},
-
     })
     .then((responce) => {
         if(responce.data.status === 'error'){
@@ -165,7 +163,6 @@ exports.getUpdateArticlePage = (req,res) => {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
-        console.log(responce)
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/admin/update/article.ejs'),{
                 userConnected : statusUser(req.session),

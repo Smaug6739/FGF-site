@@ -7,6 +7,18 @@ const dirMemberPages = '../pages/member';
 const fetch = axios.create({
     baseURL: 'http://localhost:8080/api/v1'
 });
+var demo = function(converter) {
+    return [
+        {
+            type: 'html',
+            regex: '<img src=(.*)\/>',
+            replace: '<img style="max-width:90%" src=$1>'
+        }
+    ];
+}
+var showdown  = require('showdown'),
+converter  = new showdown.Converter({extensions: [demo]});
+
 
 exports.getRegister = (req, res) => {
     if (req.session && req.session.user) return res.redirect('/member/account')
@@ -266,11 +278,13 @@ exports.postArticle = (req, res) => {
             error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
         })
     }
+    let htmlContent = "";
+    htmlContent = converter.makeHtml(req.body.contenu)
     axios.post(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
             categorie: req.body.categorie,
             title: req.body.title,
             miniature: file,
-            content: req.body.contenu,
+            content: htmlContent,
             authorId: req.session.user.userID
         
     },{headers : { 'Authorization' : `token ${req.session.user.token}`}}

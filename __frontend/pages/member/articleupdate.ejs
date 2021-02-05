@@ -26,6 +26,10 @@
     </script>
     <%- include ('../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Espace de rédaction</h1>
+    <div style="margin-left:25%;max-width: 50%;text-align:center;">
+      <div style="max-width: 100%;overflow:scroll"><%- article.content %></div>
+      
+    </div>
     <div class="container-fluid">
       <section>
           <form action="/member/articles/update/<%= article.id %>" method="post" class="mt-5" id="create_form" enctype="multipart/form-data">

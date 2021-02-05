@@ -39,7 +39,7 @@
             <td> <img src="/uploads/avatars/<%=element.avatar%>" id="avatar"></td>
             <td> <%= element.pseudo  %> </td>
             <td> <%= `${date}/${month}/${year}`  %> </td>
-            <td> <a class="btn btn-primary mt-3"href="/admin/updatepage/<%=element.userID%>">Modiffier </a> <a class="btn btn-primary mt-3"href="/admin/updatepage/<%=element.userID%>">Supprimer </a></td>
+            <td> <a class="btn btn-primary mt-3"href="/admin/update/<%=element.userID%>">Modiffier </a> <a class="btn btn-primary mt-3"href="/admin/update/<%=element.userID%>">Supprimer </a></td>
             </tr>
       <% }) %>
     </tbody>
