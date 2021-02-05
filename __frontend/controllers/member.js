@@ -12,7 +12,7 @@ var demo = function(converter) {
         {
             type: 'html',
             regex: '<img src=(.*)\/>',
-            replace: '<img style="max-width:90%" src=$1>'
+            replace: '<img data-id="img-article" src=$1>'
         }
     ];
 }
@@ -286,7 +286,6 @@ exports.postArticle = (req, res) => {
             miniature: file,
             content: htmlContent,
             authorId: req.session.user.userID
-        
     },{headers : { 'Authorization' : `token ${req.session.user.token}`}}
     )
     .then((responce) => {

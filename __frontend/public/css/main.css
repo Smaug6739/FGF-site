@@ -16,7 +16,9 @@ body{
 #menu-compte{
     margin-right: 10px;
 }
-
+#img-article{
+    max-width: 90%;
+  }
 
 
 
