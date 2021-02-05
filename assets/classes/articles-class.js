@@ -1,6 +1,5 @@
 const  dbFunctions  = require("../../models/articles");
-
-
+const xss = require('xss')
 let Articles = class Articles{
 
     static getAllByMemberId(id){
@@ -37,7 +36,6 @@ let Articles = class Articles{
 
     static add(categorie, title, miniature, content, authorId) {
         return new Promise(async(next, reject) => {
-            
             if (!categorie || categorie && categorie.trim() == '') return reject(new Error("Merci de renseigner une categorie valide"))
             if (!title || title && title.trim() == '') return reject(new Error("Merci de renseigner un titre valide"))
             if (!miniature || miniature && miniature.trim() == '') return reject(new Error("Merci de renseigner une miniature valide"))
@@ -49,10 +47,18 @@ let Articles = class Articles{
             if(miniature && miniature.length > 250) return reject(new Error("La miniature est trop long. (250)"))
             if(content && content.length > 60000) return reject(new Error("Le contenu trop long. (60000)"))
             if(authorId && authorId.length > 250) return reject(new Error("Error length authorId. (250)"))
-            
-             dbFunctions.isUniqueTitle(title)
+            content = xss(content, {
+                onIgnoreTagAttr: function(tag, name, value, isWhiteAttr) {
+                  if (name.substring(0, 5) === "data-") {
+                    // escape its value using built-in escapeAttrValue function
+                    return name.substring(5) + '="' + xss.escapeAttrValue(value) + '"';
+                  }
+                }
+            })
+            dbFunctions.isUniqueTitle(title)
             .then(result =>{if(!result) return reject(new Error("Ce titre est déja utiliser. Merci d'en choisir un autre."))})
             .catch(err => console.log(err))
+
             const article = {
                 categorie : categorie,
                 title: title,
@@ -80,7 +86,9 @@ let Articles = class Articles{
             if(content && content.length > 60000) return reject(new Error("Le contenu trop long. (60000)"))
             if(miniature && miniature.length > 250) return reject(new Error("Le nom de la miniature est trop long. (250)"))
             if(status && status.length > 2) return reject(new Error("Wrong status"))
-        
+
+            content = xss(content)
+
             dbFunctions.getArticle(articleId).then(article =>{
                 if (article) {
                     if(title != article.title) {

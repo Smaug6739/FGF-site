@@ -54,7 +54,7 @@ let Members = class Members{
             if(lastName && lastName.length > 25) return reject(new Error("Le nom est trop long. (25)"))
             if(age && age.length > 3) return reject(new Error("L'age est trop long. (3)"))
             if(email && email.length > 50) return reject(new Error("L'email est trop long. (50)"))
-            if(phoneNumber && phoneNumber.length > 50) return reject(new Error("Le numéro de téléphone est trop long. (50)"))
+            if(phoneNumber && phoneNumber.length > 20) return reject(new Error("Le numéro de téléphone est trop long. (20)"))
             if(status && status.length > 250) return reject(new Error("Le status est trop long. (250)"))
             if(site && site.length > 200) return reject(new Error("Le site est trop long. (200)"))
             
@@ -135,7 +135,7 @@ let Members = class Members{
             if(lastName && lastName.length > 25) return reject(new Error("Le nom est trop long. (25)"))
             if(age && age.length > 3) return reject(new Error("L'age est trop long. (3)"))
             if(email && email.length > 50) return reject(new Error("L'email est trop long. (50)"))
-            if(phoneNumber && phoneNumber.length > 50) return reject(new Error("Le numéro de téléphone est trop long. (50)"))
+            if(phoneNumber && phoneNumber.length > 20) return reject(new Error("Le numéro de téléphone est trop long. (20)"))
             if(status && status.length > 250) return reject(new Error("Le status est trop long. (250)"))
             if(site && site.length > 200) return reject(new Error("Le site est trop long. (200)"))
 

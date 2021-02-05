@@ -21,7 +21,8 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.4",
     "promise-mysql": "^5.0.2",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "xss": "^1.0.8"
   },
   "devDependencies": {
     "morgan": "^1.10.0"
