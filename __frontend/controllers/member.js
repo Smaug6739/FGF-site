@@ -323,7 +323,7 @@ exports.getUpdateArticlePage = (req,res) => {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
-        if(responce.data.result){
+        if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/member/articleupdate.ejs'),{
                 userConnected : statusUser(req.session),
                 article : responce.data.result,

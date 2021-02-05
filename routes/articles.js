@@ -6,8 +6,8 @@ const auth = require('../middleware/auth');
 ArticlesRouter.get('/:userId/all/:page', auth, articlesCtrl.getAllArticles);
 
 ArticlesRouter.post('/:userId', auth, articlesCtrl.createArticle);//Create article
-ArticlesRouter.get('/:userId/:articleId', auth, articlesCtrl.getMemberArticle);//Tous les articles d'un membre
-ArticlesRouter.get('/:userId', auth, articlesCtrl.getMemberArticles);//Un article de 1 membre
+ArticlesRouter.get('/:userId/:articleId', auth, articlesCtrl.getArticle);
+ArticlesRouter.get('/:userId', auth, articlesCtrl.getMemberArticles);
 ArticlesRouter.put('/:userId/:articleId', auth, articlesCtrl.putArticle);//OK
 ArticlesRouter.delete('/:userId/:articleId', auth, articlesCtrl.deleteArticle);//OK
 

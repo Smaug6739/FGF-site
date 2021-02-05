@@ -159,3 +159,29 @@ exports.getArticles = (req,res) => {
         })
     });
 }
+
+exports.getUpdateArticlePage = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then((responce) => {
+        console.log(responce)
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/update/article.ejs'),{
+                userConnected : statusUser(req.session),
+                article : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch((error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    });
+}

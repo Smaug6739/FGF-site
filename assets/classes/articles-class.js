@@ -4,7 +4,6 @@ const  dbFunctions  = require("../../models/articles");
 let Articles = class Articles{
 
     static getAllByMemberId(id){
-        console.log(1)
         return new Promise((next, reject) => {
             dbFunctions.getAllByMemberId(id)
             .then((result) => {
@@ -15,10 +14,9 @@ let Articles = class Articles{
         })
     }
 
-    static getByMemberId(userId, articleId){
-        console.log(2)
+    static getArticle(articleId){
         return new Promise((next, reject) => {
-            dbFunctions.getByMemberId(userId, articleId)
+            dbFunctions.getByMemberId(articleId)
             .then((result) => {
                 if (result) next(result)
                 else reject(new Error("Aucun article trouvé"))
