@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 
 
 MembersRouter.post('/', memberCtrl.createMember);
-MembersRouter.get('/all/:page', auth, memberCtrl.getAllMembers);
+MembersRouter.get('/:userId/all/:page', auth, memberCtrl.getAllMembers);
 MembersRouter.get('/login', memberCtrl.authMember);
 MembersRouter.get('/:userId', auth, memberCtrl.getMember);
 MembersRouter.put('/:userId', auth, memberCtrl.updateMember);

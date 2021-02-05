@@ -12,7 +12,7 @@ exports.getInfos = (req,res) => {
     })
 }
 exports.getMembers = (req,res) => {
-    axios.get(`http://localhost:8080/api/v1/members/all/${req.params.page}`, {
+    axios.get(`http://localhost:8080/api/v1/members/${req.session.user.userID}/all/${req.params.page}`, {
         //headers : { 'x-access-token' : req.session.user.token}
         headers : { 'Authorization' : `token ${req.session.user.token}`}
     })
@@ -131,4 +131,31 @@ exports.postDeleteMember = (req, res) => {
             error : error,
         })
     })
+}
+
+
+
+exports.getArticles = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/all/${req.params.page}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then((responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/articles.ejs'),{
+                userConnected : statusUser(req.session),
+                articles : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch((error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    });
 }

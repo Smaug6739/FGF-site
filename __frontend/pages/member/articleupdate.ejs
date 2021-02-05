@@ -26,7 +26,6 @@
     </script>
     <%- include ('../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Espace de rédaction</h1>
-    <% console.log(article) %>
     <div class="container-fluid">
       <section>
           <form action="/member/articles/update/<%= article.id %>" method="post" class="mt-5" id="create_form" enctype="multipart/form-data">

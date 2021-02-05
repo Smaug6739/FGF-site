@@ -1,6 +1,16 @@
 const db = require('./db');
 
-
+exports.getAllArticles = (skip) => {
+    return new Promise((resolve, reject) =>{
+        if(skip < 0) return reject('Skip ne peux pas etre inferieur a 0.')
+        db.query('SELECT * FROM articles LIMIT 5 OFFSET ?',[skip], (err, result) =>{
+            if(err) return reject(err.message)
+            else{
+                resolve(result)
+            }
+        }) 
+    })
+}
 
 exports.getAllByMemberId = (id) => {
     return new Promise((resolve, reject) =>{

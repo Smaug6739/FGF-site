@@ -52,3 +52,11 @@ exports.getMemberArticle = (req, res) =>{
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 
+
+exports.getAllArticles = (req, res) => {
+    if(req.user.userPermissions < 3) return res.json(checkAndChange(new Error("Permissions denied")))
+    Articles.getAll(req.params.page)
+        .then(result => res.json(checkAndChange(result)))
+        .catch(error => res.json(checkAndChange(new Error(error))))
+}
+

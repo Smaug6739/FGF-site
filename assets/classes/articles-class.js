@@ -4,6 +4,7 @@ const  dbFunctions  = require("../../models/articles");
 let Articles = class Articles{
 
     static getAllByMemberId(id){
+        console.log(1)
         return new Promise((next, reject) => {
             dbFunctions.getAllByMemberId(id)
             .then((result) => {
@@ -15,6 +16,7 @@ let Articles = class Articles{
     }
 
     static getByMemberId(userId, articleId){
+        console.log(2)
         return new Promise((next, reject) => {
             dbFunctions.getByMemberId(userId, articleId)
             .then((result) => {
@@ -22,6 +24,16 @@ let Articles = class Articles{
                 else reject(new Error("Aucun article trouvé"))
             })
             .catch(error => reject(new Error(error)))
+        })
+    }
+
+    static getAll(page) {
+        return new Promise((resolve, reject) => {
+            if(!page) return reject(new Error('Merci de spécifier une page valide'))
+            const skip = (page * 5) -5
+            dbFunctions.getAllArticles(skip)
+            .then((result) => resolve(result))
+            .catch((err) => reject(err))
         })
     }
 

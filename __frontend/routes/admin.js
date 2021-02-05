@@ -12,5 +12,6 @@ AdminRouter.post('/updatemember/:id', adminMid, adminCtrl.postUpdateMember)
 AdminRouter.post('/updatememberpassword/:id', adminMid, adminCtrl.postUpdateMemberPassword)
 AdminRouter.post('/deletemember/:id', adminMid, adminCtrl.postDeleteMember)
     
+AdminRouter.get('/articles/:page', adminMid, adminCtrl.getArticles)
 
 module.exports = AdminRouter;
