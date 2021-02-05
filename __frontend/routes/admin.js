@@ -3,6 +3,7 @@ let AdminRouter = express.Router()
 
 const adminCtrl = require('../controllers/admin');
 const adminMid = require('../middleware/admin.js')
+const multerMidMiniature = require('../middleware/multer-article')
 
 AdminRouter.get('/', adminMid, adminCtrl.getIndex)
 AdminRouter.get('/infos', adminMid, adminCtrl.getInfos)
@@ -13,6 +14,7 @@ AdminRouter.post('/updatememberpassword/:id', adminMid, adminCtrl.postUpdateMemb
 AdminRouter.post('/deletemember/:id', adminMid, adminCtrl.postDeleteMember)
     
 AdminRouter.get('/articles/:page', adminMid, adminCtrl.getArticles)
-AdminRouter.get('/update/articles/:articleId', adminMid, adminCtrl.getUpdateArticlePage)
+AdminRouter.get('/articles/update/:articleId', adminMid, adminCtrl.getUpdateArticlePage)
+AdminRouter.post('/articles/update/:articleId', multerMidMiniature, adminCtrl.updateArticle)
 
 module.exports = AdminRouter;

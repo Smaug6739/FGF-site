@@ -23,7 +23,7 @@ exports.getAllByMemberId = (id) => {
             
     })
 }
-exports.getByMemberId = (articleId) => {
+exports.getArticle = (articleId) => {
     return new Promise((resolve, reject) =>{
         db.query('SELECT * FROM articles WHERE id = ?',[articleId], (err, result) =>{
             if(err) return reject(err.message)
@@ -71,7 +71,7 @@ exports.updateArticle = (id, newParams) => {
     return new Promise((resolve, reject) =>{
         if(!id) return reject('Missing id');
         if(!newParams) return reject('Missing new params');
-        db.query('UPDATE articles SET title=?,categorie=?,content=?,lien_miniature=? WHERE id = ?',[newParams.title,newParams.categorie,newParams.content,newParams.miniature, id], (err, result) =>{
+        db.query('UPDATE articles SET title=?,categorie=?,content=?,lien_miniature=?,status=? WHERE id = ?',[newParams.title,newParams.categorie,newParams.content,newParams.miniature,newParams.status, id], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)

@@ -25,7 +25,7 @@ exports.getMemberArticles = (req, res) =>{
 }
 exports.putArticle = (req, res) =>{
     Articles.put(
-        req.params.userId,
+        req.user.userPermissions,
         req.params.articleId,
         req.body.categorie,
         req.body.title,

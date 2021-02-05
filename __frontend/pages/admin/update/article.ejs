@@ -28,7 +28,7 @@
     <h1 class="mb-5 text-center">Espace de rédaction</h1>
     <div class="container-fluid">
       <section>
-          <form action="/member/articles/update/<%= article.id %>" method="post" class="mt-5" id="create_form" enctype="multipart/form-data">
+          <form action="/admin/articles/update/<%= article.id %>" method="post" class="mt-5" id="create_form" enctype="multipart/form-data">
               <fieldset class="form-group">
                   <legend>Type d'article</legend>
                   <div class="form-group d-flex flex-column">
@@ -43,6 +43,16 @@
                       </select>
                   </div>
               </fieldset>
+              <fieldset class="form-group">
+                <legend>Status de l'article</legend>
+                <div class="form-group d-flex flex-column">
+                    <label for="status">Catégorie de votre article :</label>
+                    <select id="status" name="status">
+                      <option value="0" <%if(article.status === 0){%> selected <%}%>>En attente</option>
+                      <option value="1" <%if(article.status === 1){%> selected <%}%>>Validé</option>
+                    </select>
+                </div>
+            </fieldset>
 
               <fieldset class="form-group">
                   <legend>Votre article</legend>
