@@ -109,7 +109,6 @@ exports.disconnection = (req, res) => {
 }
 
 exports.getAccount = (req, res) => {
-    if (!req.session || !req.session.user) return res.redirect('/member/login')
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.userID}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
@@ -135,7 +134,6 @@ exports.getAccount = (req, res) => {
 }
 
 exports.getEditAccount = (req, res) => {
-    if (!req.session || !req.session.user) return res.redirect('/member/login')
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.userID}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
@@ -281,7 +279,6 @@ exports.postArticle = (req, res) => {
     })
 }
 exports.getArticles = (req, res) => {
-    if (!req.session || !req.session.user) return res.redirect('/member/login')
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
