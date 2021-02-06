@@ -5,7 +5,7 @@ const multerMidMiniature = require('../middleware/multer-article')
 const articlesCtrl = require('../controllers/articles');
 
 
-//ArticlesRouter.get('/post', articlesCtrl.getPost)
+ArticlesRouter.get('/:articleId', articlesCtrl.getArticle)
 //ArticlesRouter.post('/',multerMidMiniature, articlesCtrl.post)
 
 //ArticlesRouter.post('/',multerMidMiniature, articlesCtrl.post)

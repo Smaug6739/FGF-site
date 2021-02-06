@@ -11,6 +11,7 @@ const config = require('./config.json');
 const {statusUser} = require('./functions')
 const routerMembers = require('./routes/members')
 const routerAdmin = require('./routes/admin')
+const routerForum = require('./routes/forum')
 const routerArticles = require('./routes/articles')
 
 
@@ -34,8 +35,9 @@ app.use(session({
     app.listen(config.port, () => console.log('Started on port '+ config.port));
       
     app.use('/member',routerMembers)
+    app.use('/forum',routerForum)
     app.use('/admin',routerAdmin)
-    //app.use('/articles',routerArticles)
+    app.use('/articles',routerArticles)
     app.use('/static', express.static(path.join(__dirname, 'public')));
     app.get('/', (req, res) => {
         res.render(`${__dirname}/pages/index.ejs`,{

@@ -236,35 +236,7 @@ exports.deleteMember = (req, res) => {
     })
 }
 
-/*function apiCall(url, method, data, headers, session, res, next) {
-    fetch({
-        method : method,
-        headers: headers,
-        url : url,
-        data : data
-    })
-    .then((response) => {
-            if (response.data.status == 'success') {
-                next(response.data.result)
-            }
-            else {
-                renderError(res, response.data.message, session)
-            }
-        })
-        .catch((err) => renderError(res, err.message))
-}
-function renderError(res, err, session) {
 
-    console.log(res)
-    console.log(err)
-    console.log(session)
-    res.render(res.render(path.join(__dirname, '../pages/error.ejs')), {
-        userConnected:{
-            userPermissions :  session.user.userPermissions
-        },
-        error : err
-    })
-}*/
 exports.getPostArticle = (req, res) => {
     res.render(path.join(__dirname, `${dirMemberPages}/postarticle.ejs`), {
         userConnected : statusUser(req.session),
@@ -297,7 +269,7 @@ exports.postArticle = (req, res) => {
                 error : responce.data.message
             })
         }else if(responce.data.status === 'success') {
-            Webhook.send("<@&503135942152945675> un nouvel article vient d'etre poster. http://localhost:8081/admin/articles/1")
+            Webhook.send("<@&807597601348255785> un nouvel article vient d'etre poster. http://localhost:8081/admin/articles/1")
             res.redirect('/member/account')
         };
     })
@@ -364,11 +336,13 @@ exports.getUpdateArticlePage = (req,res) => {
 exports.updateArticle = (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename
+    let htmlContent = "";
+    htmlContent = converter.makeHtml(req.body.contenu)
     axios.put(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`,{
             categorie: req.body.categorie,
             title: req.body.title,
             miniature: file,
-            content: req.body.contenu,
+            content: htmlContent,
     },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
@@ -425,3 +399,33 @@ exports.deleteArticle = (req, res) => {
         })
     })
 }
+
+/*function apiCall(url, method, data, headers, session, res, next) {
+    fetch({
+        method : method,
+        headers: headers,
+        url : url,
+        data : data
+    })
+    .then((response) => {
+            if (response.data.status == 'success') {
+                next(response.data.result)
+            }
+            else {
+                renderError(res, response.data.message, session)
+            }
+        })
+        .catch((err) => renderError(res, err.message))
+}
+function renderError(res, err, session) {
+
+    console.log(res)
+    console.log(err)
+    console.log(session)
+    res.render(res.render(path.join(__dirname, '../pages/error.ejs')), {
+        userConnected:{
+            userPermissions :  session.user.userPermissions
+        },
+        error : err
+    })
+}*/

@@ -7,29 +7,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link  rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/markdown/css/simplemde.css">
+    <script src="/static/js/preview.js"></script>
+    <script src="/static/markdown/js/simplemde.js"></script>
+    <script src="/static/markdown/js/simplemde2.js"></script>
     <title>API Members</title>
   </head>
   <body>
-    <script>
-      function preview_image(event) 
-      {
-      var reader = new FileReader();
-      reader.onload = function()
-      {
-        var output = document.getElementById('miniature-form');
-        output.src = reader.result
-        //output.setAttribute("src",`${output.result}`)
-        
-      }
-      reader.readAsDataURL(event.target.files[0]);
-      }
-    </script>
     <%- include ('../include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">Espace de rédaction</h1>
-    <div style="margin-left:25%;max-width: 50%;text-align:center;">
-      <div style="max-width: 100%;overflow:scroll"><%- article.content %></div>
-      
-    </div>
+    <h1 class="mb-5 text-center">Mettre à jour votre article :</h1>
     <div class="container-fluid">
       <section>
           <form action="/member/articles/update/<%= article.id %>" method="post" class="mt-5" id="create_form" enctype="multipart/form-data">
@@ -47,41 +33,33 @@
                       </select>
                   </div>
               </fieldset>
-
               <fieldset class="form-group">
                   <legend>Votre article</legend>
                   <div class="form-group d-flex flex-column">
-
                       <label for="title">Le titre de votre article</label>
                       <input type="text" class="form-control" id="title" name="title" placeholder="Titre" value="<%= article.title %>">
-
-
                       <label for="miniature-upload">Miniature de l'article :</label>
-                        <img style="width:30%;height:30%;" id="miniature-form" src="/uploads/articles/<%= article.lien_miniature %>">
-                    
-                    <label class="custom-file-upload" for="miniature-upload">
-                      <input class="invisible" id="miniature-upload" type="file" onchange="preview_image(event)" name="miniature-upload"/>
-                      Choisir un fichier
-                  </label>
-                      
+                      <img style="width:30%;height:30%;" id="miniature-form" src="/uploads/articles/<%= article.lien_miniature %>">
+                      <label class="custom-file-upload" for="miniature-upload">
+                        <input class="invisible" id="miniature-upload" type="file" onchange="preview_image(event)" name="miniature-upload"/>
+                        Choisir un fichier
+                      </label>
                       <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
                       <textarea type="hidden" name="contenu" id="contenu"><%= article.content %></textarea>
-
-
                       <label style="font-size:20px;" for="btn_submit">Poster votre article :</label>
                       <button id="btn_submit" type="submit" class="btn btn-primary">Mettre a jour votre article</button>
-                      
+                  </div>
               </fieldset>
           </form>
-          <label style="font-size:20px;" for="btn_submit">Supprimer votre article :</label>
-                      <form action="/member/articles/delete/<%= article.id %>" method="POST">
-                        <p>Je suis sur de vouloir supprimer cet article : <input type="checkbox" required  name="confirm"></p>
-                        <button id="btn_submit" type="submit" class="btn btn-danger">Supprimer</button>
-                      </form>
+          <fieldset class="form-group">
+            <label style="font-size:20px;" for="btn_submit">Supprimer votre article :</label>
+            <form action="/member/articles/delete/<%= article.id %>" method="POST">
+              <p>Je suis sur de vouloir supprimer cet article : <input type="checkbox" required  name="confirm"></p>
+              <button id="btn_submit" type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+          </fieldset>
       </section>
-
   </div>
-
 
     <%- include('../include/footer.ejs') %>
     <!-- Optional JavaScript -->
@@ -89,9 +67,29 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-
   </body>
 </html>
 
+
+<style>
+  /* don't mess with MDE textarea attributes */
+.mdeContainer {
+  display: inline-block;
+  width: 48%;
+  vertical-align: top;
+}
+</style>
+
+
+
+<script>
+  const editMde = new SimpleMDE({
+  element: document.getElementById('contenu'),
+  initialValue: '',
+  hideIcons: ['guide', 'fullscreen', 'side-by-side']
+  // guide implmentation is open to you
+  // fullscreen and sxs muss up layout
+});
+
+</script>
 

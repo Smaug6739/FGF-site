@@ -45,10 +45,19 @@ exports.deleteArticle = (req, res) =>{
 }
 
 
-exports.getArticle = (req, res) =>{
+exports.getArticleByMember = (req, res) =>{
     Articles.getArticle(req.params.articleId)
     .then(result => {
         if(result.status !== 1 && req.user.userPermissions < 3) res.json(checkAndChange(new Error("Cet article n'est pas encore aprouvé.")))
+        else res.json(checkAndChange(result))
+       })
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+
+exports.getArticle = (req, res) =>{
+    Articles.getArticle(req.params.articleId)
+    .then(result => {
+        if(result.status !== 1) res.json(checkAndChange(new Error("Cet article n'est pas encore aprouvé.")))
         else res.json(checkAndChange(result))
        })
     .catch(error => res.json(checkAndChange(new Error(error))))
