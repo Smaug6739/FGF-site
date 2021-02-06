@@ -17,9 +17,9 @@ MembersRouter.post('/:id/delete', memberCtrl.deleteMember)
 
 MembersRouter.get('/articles', auth, memberCtrl.getArticles)// All articles of member
 MembersRouter.get('/articles/post', auth, memberCtrl.getPostArticle)//Add article (get)
-MembersRouter.get('/articles/update/:articleId', auth, memberCtrl.getUpdateArticlePage)//Update article (get)
+MembersRouter.get('/articles/update/:articleId', auth, memberCtrl.getUpdateArticle)//Update article (get)
 MembersRouter.post('/articles', multerMidMiniature, memberCtrl.postArticle)//Create article (post)
-MembersRouter.post('/articles/update/:articleId', multerMidMiniature, memberCtrl.updateArticle)
-MembersRouter.post('/articles/delete/:articleId', multerMidMiniature, memberCtrl.deleteArticle)
+MembersRouter.post('/articles/update/:articleId', multerMidMiniature, memberCtrl.postUpdateArticle)
+MembersRouter.post('/articles/delete/:articleId', multerMidMiniature, memberCtrl.postDeleteArticle)
 
 module.exports = MembersRouter;

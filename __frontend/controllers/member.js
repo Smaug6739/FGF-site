@@ -234,7 +234,30 @@ exports.deleteMember = (req, res) => {
     })
 }
 
-
+exports.getArticles = (req, res) => {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then((responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, `${dirMemberPages}/articles.ejs`),{
+                userConnected : statusUser(req.session),
+                articles : responce.data.result,
+            })
+        } else {
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : statusUser(req.session),
+                error : responce.data.message
+            })
+        }    
+    })
+    .catch((error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    })
+}
 exports.getPostArticle = (req, res) => {
     res.render(path.join(__dirname, `${dirMemberPages}/postarticle.ejs`), {
         userConnected : statusUser(req.session),
@@ -278,32 +301,9 @@ exports.postArticle = (req, res) => {
         })
     })
 }
-exports.getArticles = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
-        headers : { 'Authorization' : `token ${req.session.user.token}`},
-    })
-    .then((responce) => {
-        if(responce.data.status === 'success'){
-            res.render(path.join(__dirname, `${dirMemberPages}/articles.ejs`),{
-                userConnected : statusUser(req.session),
-                articles : responce.data.result,
-            })
-        } else {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected : statusUser(req.session),
-                error : responce.data.message
-            })
-        }    
-    })
-    .catch((error) => {
-        res.render(path.join(__dirname, '../pages/error.ejs'), {
-            userConnected : statusUser(req.session),
-            error : error,
-        })
-    })
-}
 
-exports.getUpdateArticlePage = (req,res) => {
+
+exports.getUpdateArticle = (req,res) => {
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
@@ -330,7 +330,7 @@ exports.getUpdateArticlePage = (req,res) => {
 }
 
 
-exports.updateArticle = (req, res) => {
+exports.postUpdateArticle = (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename
     let htmlContent = "";
@@ -358,7 +358,7 @@ exports.updateArticle = (req, res) => {
         })
     })
 }
-exports.deleteArticle = (req, res) => {
+exports.postDeleteArticle = (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`, {
