@@ -1,9 +1,10 @@
 var mysql = require('mysql');
+const config = require('../config')
 var connection  = mysql.createConnection({
-  host            : 'localhost',
-  user            : 'root',
-  password        : '',
-  database        : 'members_api'
+  host            : config.database.host,
+  user            : config.database.user,
+  password        : config.database.password,
+  database        : config.database.name
 });
 connection.connect(function(err) {
     if (err) {
