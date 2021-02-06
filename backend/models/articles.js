@@ -1,5 +1,15 @@
 const db = require('./db');
 
+exports.getLastsArticles = (limit) => {
+    return new Promise((resolve, reject) =>{
+        db.query('SELECT * FROM articles WHERE status = 1 ORDER BY date_insert DESC LIMIT ?',[limit],(err, result) =>{
+            if(err) return reject(err.message)
+            else{
+                resolve(result)
+            }
+        })
+    })
+}
 exports.getAllArticles = (skip) => {
     return new Promise((resolve, reject) =>{
         if(skip < 0) return reject('Skip ne peux pas etre inferieur a 0.')

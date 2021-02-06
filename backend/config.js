@@ -1,4 +1,4 @@
-/*module.exports = {
+module.exports = {
     rootAPI : "/api/v1/",
     port    : 8080,
     secret  : "Jkps75z9*d/se32~",
@@ -14,12 +14,12 @@
             userPermissions: 1,
         }
     }
-}*/
+}
 
-module.exports = {
+/*module.exports = {
     rootAPI : "/api/v1/",
     port    : 8080,
-    secret  : "Jkps75z9*/se32~",
+    secret  : "Jkps75z9*s/se32~",
     database: {
         host      : 'localhost',
         user      : 'root',
@@ -32,4 +32,4 @@ module.exports = {
             userPermissions: 1,
         }
     }
-}
+}*/

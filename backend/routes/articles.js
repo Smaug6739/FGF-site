@@ -3,12 +3,16 @@ let ArticlesRouter = express.Router();
 const articlesCtrl = require('../controllers/articles');
 const auth = require('../middleware/auth');
 
-ArticlesRouter.get('/:userId/all/:page', auth, articlesCtrl.getAllArticles);
 
-ArticlesRouter.post('/:userId', auth, articlesCtrl.createArticle);//Create article
+ArticlesRouter.get('/:userId', auth, articlesCtrl.getMemberArticles);
+ArticlesRouter.get('/get/lasted', articlesCtrl.getLastedArticles);
 ArticlesRouter.get('/get/:articleId', articlesCtrl.getArticle);
 ArticlesRouter.get('/:userId/:articleId', auth, articlesCtrl.getArticleByMember);
-ArticlesRouter.get('/:userId', auth, articlesCtrl.getMemberArticles);
+ArticlesRouter.get('/:userId/all/:page', auth, articlesCtrl.getAllArticles);
+
+
+
+ArticlesRouter.post('/:userId', auth, articlesCtrl.createArticle);//Create article
 ArticlesRouter.put('/:userId/:articleId', auth, articlesCtrl.putArticle);//OK
 ArticlesRouter.delete('/:userId/:articleId', auth, articlesCtrl.deleteArticle);//OK
 

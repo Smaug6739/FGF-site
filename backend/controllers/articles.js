@@ -71,3 +71,11 @@ exports.getAllArticles = (req, res) => {
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 
+exports.getLastedArticles = (req, res) => {
+    Articles.getLastsArticles(6)
+        .then(result => res.json(checkAndChange(result)))
+        .catch(error => res.json(checkAndChange(new Error(error))))
+}
+
+
+

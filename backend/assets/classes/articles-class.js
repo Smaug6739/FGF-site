@@ -12,6 +12,16 @@ let Articles = class Articles{
             .catch(error => reject(new Error(error)))
         })
     }
+    static getLastsArticles(limit){
+        return new Promise((next, reject) => {
+            dbFunctions.getLastsArticles(limit)
+            .then((result) => {
+                if (result) next(result)
+                else reject(new Error("Aucun article trouvé"))
+            })
+            .catch(error => reject(new Error(error)))
+        })
+    }
 
     static getArticle(articleId){
         return new Promise((next, reject) => {
@@ -49,9 +59,9 @@ let Articles = class Articles{
             if(authorId && authorId.length > 250) return reject(new Error("Error length authorId. (250)"))
             content = xss(content, {
                 onIgnoreTagAttr: function(tag, name, value, isWhiteAttr) {
-                  if (name.substring(0, 5) === "data-") {
+                  if (name +'='+ value === "id=img-article") {
                     // escape its value using built-in escapeAttrValue function
-                    return name.substring(5) + '="' + xss.escapeAttrValue(value) + '"';
+                    return name.substring(0) + '="' + xss.escapeAttrValue(value) + '"';
                   }
                 }
             })
@@ -91,17 +101,17 @@ let Articles = class Articles{
 
             content = xss(content, {
                 onIgnoreTagAttr: function(tag, name, value, isWhiteAttr) {
-                  if (name.substring(0, 5) === "data-") {
+                  if (name +'='+ value === "id=img-article") {
                     // escape its value using built-in escapeAttrValue function
-                    return name.substring(5) + '="' + xss.escapeAttrValue(value) + '"';
+                    return name.substring(0) + '="' + xss.escapeAttrValue(value) + '"';
                   }
                 }
             })
-
             dbFunctions.getArticle(articleId).then(async article =>{
                 if (article) {
                     if(userPermissions < 3) status = article.status
-                    else status = status
+                    else if(status) status = status
+                    else status = article.status
                     if(!miniature) miniature = article.lien_miniature
                     const newArticle = {
                         categorie : categorie,
