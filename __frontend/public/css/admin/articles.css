@@ -14,3 +14,9 @@ thead,tfoot {
     margin: auto;
     max-width: 80%;
 }
+
+@media screen and (max-width: 550px){
+    table{
+        zoom:0.6;
+    }
+}

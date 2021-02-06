@@ -14,7 +14,7 @@ var demo = function(converter) {
         {
             type: 'html',
             regex: '<img src=(.*)\/>',
-            replace: '<img data-id="img-article" src=$1>'
+            replace: '<img id="img-article" src=$1>'
         }
     ];
 }

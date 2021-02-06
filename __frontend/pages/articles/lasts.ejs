@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link  rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/articles/post.css">
+    <title>API Members</title>
+  </head>
+  <body>
+   
+    <%- include ('../include/nav.ejs'); -%>
+    <%console.log(articles)%>
+    <div style="display:flex;flex-wrap: wrap;text-align:center;">
+    <% articles.forEach(article => { %>
+        <div class="card article col-xl-3 pt-3 pb-3" style="margin:auto;margin-left:15px;margin-top:8px">
+          <img src="/uploads/articles/<%=article.lien_miniature%>" class="card-img-top">
+          <div class="card-body p-0 pl-2 d-flex flex-column">
+            <h5 class="card-title mt-3"><%=article.title%></h5>
+            <a href="/articles/<%=article.id%>" class="btn btn-danger align-self-end mt-auto">Lire l'article</a>
+          </div>
+        </div>
+  
+      <% }); %>
+  </div>
+ 
+
+    <%- include('../include/footer.ejs') %>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>

@@ -3,7 +3,7 @@
     padding: 0;
 }
 body{
-    background-color: #f6f6f6;
+    background-color: #dbdbdb;
 }
 /* Headers */
 #adminHeader{
@@ -18,7 +18,7 @@ body{
 }
 #img-article{
     max-width: 90%;
-  }
+}
 
 
 

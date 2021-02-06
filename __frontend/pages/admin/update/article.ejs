@@ -74,12 +74,12 @@
                       <textarea type="hidden" name="contenu" id="contenu"><%= article.content %></textarea>
 
 
-                      <label style="font-size:20px;" for="btn_submit">Poster votre article :</label>
-                      <button id="btn_submit" type="submit" class="btn btn-primary">Mettre a jour votre article</button>
+                      <label style="font-size:20px;" for="btn_submit">Poster cet article :</label>
+                      <button id="btn_submit" type="submit" class="btn btn-primary">Mettre a jour cet article</button>
                       
               </fieldset>
           </form>
-          <label style="font-size:20px;" for="btn_submit">Supprimer votre article :</label>
+          <label style="font-size:20px;" for="btn_submit">Supprimer cet article :</label>
                       <form action="/member/articles/delete/<%= article.id %>" method="POST">
                         <p>Je suis sur de vouloir supprimer cet article : <input type="checkbox" required  name="confirm"></p>
                         <button id="btn_submit" type="submit" class="btn btn-danger">Supprimer</button>

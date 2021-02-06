@@ -1,0 +1,29 @@
+#article{
+    background-color: #ffffff;
+    margin-left:20%;
+    margin-top:20px;
+    max-width: 60%;
+    padding: 25px 0px 10px 0px;
+    box-shadow: 0px 3px 15px black;
+}
+#container{
+    margin-left: 8%;
+    margin-right: 8%;
+}
+#ligne-1{
+    display: flex;
+}
+.date{
+    text-align:right;
+    font-weight: 1000;
+}
+
+
+.title{
+    font-weight: 1000;
+    margin-left: 0.5%;
+}
+.content{
+    text-align: justify;
+}
+
