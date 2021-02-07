@@ -29,7 +29,7 @@ exports.getMemberPermission = async (userId) => {
   let userPermissions = -1 ;
   await Members.getByID(userId)
    .then(responce =>{
-     if(responce.user_permissions) userPermissions = responce.user_permissions;
+     if(responce.member_user_permissions) userPermissions = responce.member_user_permissions;
      else userPermissions = -1
    })
    .catch(err => userPermissions = -1)

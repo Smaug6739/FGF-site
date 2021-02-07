@@ -1,22 +1,38 @@
 const  dbFunctions  = require("../../models/forum");
 let Forum = class Forum{
 
-    static add(name, content, categorie, author) {
+    static getForums() {
         return new Promise(async(next, reject) => {
-            if (!name || name && name.trim() == '') return reject(new Error("Merci de renseigner un nom valide"))
-            if (!content || content && content.trim() == '') return reject(new Error("Merci de renseigner un contenu valide"))
-            if (!categorie || categorie && categorie.trim() == '') return reject(new Error("Merci de renseigner une categorie valide"))
-            if (!content || content && content.trim() == '') return reject(new Error("Merci de renseigner un contenu valide"))
-            if (!author || author && author.trim() == '') return reject(new Error("Vous n'etes pas connectés"))
-
-            const topic = {
-                name : name,
-                content: content,
-                categorie: categorie,
-                author: author,
-            }
-                dbFunctions.addTopic(topic)
-                .then(result =>  next(topic))
+                dbFunctions.getForums()
+                .then(result =>  next(result))
+                .catch(error => reject(new Error(error)))
+            })
+    }
+    static getCategories() {
+        return new Promise(async(next, reject) => {
+                dbFunctions.getCategories()
+                .then(result =>  next(result))
+                .catch(error => reject(new Error(error)))
+            })
+    }
+    static getCategorie(categorieId) {
+        return new Promise(async(next, reject) => {
+                dbFunctions.getCategorie(categorieId)
+                .then(result =>  next(result))
+                .catch(error => reject(new Error(error)))
+            })
+    }
+    static getTopic(topicId) {
+        return new Promise(async(next, reject) => {
+                dbFunctions.getTopic(topicId)
+                .then(result =>  next(result))
+                .catch(error => reject(new Error(error)))
+            })
+    }
+    static voirForum(forumId) {
+        return new Promise(async(next, reject) => {
+                dbFunctions.voirForum(forumId)
+                .then(result =>  next(result))
                 .catch(error => reject(new Error(error)))
             })
     }

@@ -8,7 +8,7 @@
     <link  rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
     <link  rel="stylesheet" href="/static/css/member/edit.css">
-    <script src="/static/js/preview.js"></script>
+    <script src="/static/js/img-preview.js"></script>
     <title>API Members</title>
   </head>
   <body>
@@ -38,36 +38,36 @@
 
   <div class="account-infos">
           <h2 id="center-text">Paramètres généraux</h2>
-          <form id ="form1" action="/member/<%= member.userID %>/update" method="post" enctype="multipart/form-data">
+          <form id ="form1" action="/member/<%= member.member_userID %>/update" method="post" enctype="multipart/form-data">
               <div class="form-group">
                   <label for="firstName">Nom d'utilisateur :</label>
-                  <input type="text" class="form-field" id="firstName" name="firstName" placeholder="Prénom" value="<%= member.first_name %>" >
-                  <input  type="text" class="form-field" id="lastName" name="lastName" placeholder="Nom" value="<%= member.last_name %>" >
+                  <input type="text" class="form-field" id="firstName" name="firstName" placeholder="Prénom" value="<%= member.member_first_name %>" >
+                  <input  type="text" class="form-field" id="lastName" name="lastName" placeholder="Nom" value="<%= member.member_last_name %>" >
               <div>
                     <label for="avatar">Photo de profil :</label>
                   
                         <img id="avatar-form" src="/uploads/avatars/<%= userConnected.userAvatar %>">
                     
                     <label class="custom-file-upload" for="avatar-upload">
-                      <input class="invisible" id="avatar-upload" type="file" onchange="preview_image(event)" name="avatar-upload"/>
+                      <input class="invisible" id="avatar-upload" type="file" onchange="preview_image(event,'avatar-form')" name="avatar-upload"/>
                       Choisir un fichier
                   </label>
                 </div>
                 <div id="conteneur-field-start">
                   <label for="pseudo">Pseudo :</label>
-                  <input  type="text" class="form-field" id="pseudo" name="pseudo" placeholder="Pseudo" value="<%= member.pseudo %>" >
+                  <input  type="text" class="form-field" id="pseudo" name="pseudo" placeholder="Pseudo" value="<%= member.member_pseudo %>" >
                 </div>
                 <div id="conteneur-field-start">
                   <label for="age">Age :</label>
-                  <input type="text" class="form-field" id="age" name="age" placeholder="Age" value="<%= member.age %>" >
+                  <input type="text" class="form-field" id="age" name="age" placeholder="Age" value="<%= member.member_age %>" >
                 </div>
                 <div id="conteneur-field-start">
                   <label for="email">Adresse mail :</label>
-                  <input type="text" class="form-field" id="email" name="email" placeholder="Adresse mail" value="<%= member.email %>" >
+                  <input type="text" class="form-field" id="email" name="email" placeholder="Adresse mail" value="<%= member.member_email %>" >
                 </div>
                 <div id="conteneur-field-start">
                   <label for="phoneNumber">Téléphone :</label>
-                  <input type="text" class="form-field" id="phoneNumber" name="phoneNumber" placeholder="Numéro de téléphone" value="<%= member.phone_number %>" >
+                  <input type="text" class="form-field" id="phoneNumber" name="phoneNumber" placeholder="Numéro de téléphone" value="<%= member.member_phone_number %>" >
                 </div>
               </div>
 

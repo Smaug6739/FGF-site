@@ -50,6 +50,7 @@ exports.postRegister = (req, res) => {
             })
         }else if(responce.data.status === 'success') {
             req.session.user = {
+                id : responce.data.result.id,
                 userID: responce.data.result.userID,
                 userPermissions: responce.data.result.userPermissions,
                 token : responce.data.result.token,
@@ -86,6 +87,7 @@ exports.postLogin = (req, res) => {
     .then(responce =>{
         if(responce.data.status === "success"){
             req.session.user = {
+                id : responce.data.result.id,
                 userID: responce.data.result.userID,
                 userPermissions: responce.data.result.userPermissions,
                 token : responce.data.result.token,

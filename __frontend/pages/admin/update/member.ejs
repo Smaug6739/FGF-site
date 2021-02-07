@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <%- include ('../../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/admin/adminupdatepage.css">
     <title>API Members</title>
   </head>
@@ -15,21 +16,21 @@
     <%- include ('../../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Modification d'un membre</h1>
 
-    <form id ="form1" action='/admin/update/member/<%= member.userID %>' method="post">
+    <form id ="form1" action='/admin/update/member/<%= member.member_userID %>' method="post">
         <div class="form-group">
             <label for="pseudo">Pseudo</label>
-            <input type="text" class="form-control" id="pseudo" name="pseudo" value="<%= member.pseudo %>" >
+            <input type="text" class="form-control" id="pseudo" name="pseudo" value="<%= member.member_pseudo %>" >
 
             <label for="pseudo">Nom</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" value="<%= member.last_name %>" >
+            <input type="text" class="form-control" id="lastName" name="lastName" value="<%= member.member_last_name %>" >
             <label for="pseudo">Prénom</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" value="<%= member.first_name %>" >
+            <input type="text" class="form-control" id="firstName" name="firstName" value="<%= member.member_first_name %>" >
             <label for="pseudo">Age</label>
-            <input type="text" class="form-control" id="age" name="age" value="<%= member.age %>" >
+            <input type="text" class="form-control" id="age" name="age" value="<%= member.member_age %>" >
             <label for="pseudo">Adresse mail</label>
-            <input type="text" class="form-control" id="email" name="email" value="<%= member.email %>" >
+            <input type="text" class="form-control" id="email" name="email" value="<%= member.member_email %>" >
             <label for="pseudo">Téléphone</label>
-            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<%= member.phone_number  %>" >
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<%= member.member_phone_number  %>" >
         </div>
 
   <button type="submit" class="btn btn-primary">Modifier</button>

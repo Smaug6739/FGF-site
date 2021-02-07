@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/forum/main.css">
+    <title>FGF Forum</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+
+
+    <h1>Bienvenue sur le Forum de la FGF</h1>
+
+    <% let categorie %>
+    <% console.log(forum)%>
+
+    <% forum.forEach(element => {%>
+        <% const totalDesMessages = element.forum_topic + 1; %>
+        <% const nombreDeMessagesParPage = 25 %>
+        <% const nombreDePages = Math.ceil(totalDesMessages/nombreDeMessagesParPage)
+    <%});%>
+
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+  </body>
+</html>

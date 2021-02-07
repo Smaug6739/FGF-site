@@ -18,15 +18,16 @@ exports.createMember = (req, res) =>{
         req.body.site
         )
         .then((result) =>{
-            const token = jwt.sign({id : result.userID}, config.secret, {
+            const token = jwt.sign({id : result.member_userID}, config.secret, {
                 expiresIn: 86400 // expires in 24 hours
             })
            res.json(checkAndChange({ 
                auth: true, 
-               token: token, 
-               userID : result.userID, 
-               userPermissions: result.userPermissions,
-               userAvatar: result.avatar || ""
+               token: token,
+               id: result.member_id,
+               userID : result.member_userID, 
+               userPermissions: result.member_userPermissions,
+               userAvatar: result.member_avatar || ""
              }));
         })
         .catch(error => res.json(checkAndChange(new Error(error))))
@@ -41,15 +42,16 @@ exports.getAllMembers = (req, res)=>{
 exports.authMember = async (req, res)=>{
     Members.getAuthUser(req.query.pseudo, req.query.password)
     .then(result =>{
-        const token = jwt.sign({id : result.userID}, config.secret, {
+        const token = jwt.sign({id : result.member_userID}, config.secret, {
             expiresIn: 86400 // expires in 24 hours
         })
         res.status(200).json(checkAndChange({
             auth: true, 
             token: token, 
-            userID : result.userID, 
-            userPermissions: result.user_permissions,
-            userAvatar : result.avatar || ""
+            id: result.member_id,
+            userID: result.member_userID, 
+            userPermissions: result.member_user_permissions,
+            userAvatar: result.member_avatar || ""
         }));
     })
     .catch(error => res.json(checkAndChange(new Error(error))))

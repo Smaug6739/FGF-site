@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/forum/main.css">
+    <title>FGF Forum</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+
+
+    <% console.log(topic) %>
+    <div class="container">
+        <div id="container-messages">
+        <% topic.forEach(element => {%>
+            <div class="author-infos"><p><%=element.member_pseudo%></p></div>
+            <p class="message"><%=element.post_texte%></p>
+            <hr>
+        
+        </div>
+        <div class="jumbotron">
+            <div class = "form-message">
+                <form action="/forum/message/<%=element.topic_id%>" method="post">
+                    <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="content"></textarea>
+                    <button type="submit" class="btn btn-success" id="send">Poster</button>
+                <% }); %>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+  </body>
+</html>
+
+<style>
+.container{
+
+display : flex;
+justify-content: center;
+flex-direction: column;
+flex-wrap : wrap; /* Responsive */
+align-items: center;
+}
+
+.jumbotron{
+background-color: #e9ecef;
+width : 50%;
+}
+.title-form{
+text-align : center;
+}
+.form-message{
+margin-left: auto;
+margin-right: auto;
+width : 25em;
+}
+#container-messages{
+    margin-top: 25px;
+    background-color: #ffffff;
+    text-align: center;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+</style>

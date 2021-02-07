@@ -30,16 +30,16 @@
     <tbody>
 
       <%  members.forEach(element => { %>
-      <%  const account_date = new Date(parseInt(element.account_date)) %>
+      <%  const account_date = new Date(parseInt(element.member_account_date)) %>
       <%  var months = ['1','2','3','4','5','6','7','8','9','10','11','12'];  %>
       <%  const year = account_date.getFullYear() %>
       <%  const month = months[account_date.getMonth()] %>
       <%  const date = account_date.getDate() %>
             <tr>
-            <td> <img src="/uploads/avatars/<%=element.avatar%>" id="avatar"></td>
-            <td> <%= element.pseudo  %> </td>
+            <td> <img src="/uploads/avatars/<%=element.member_avatar%>" id="avatar"></td>
+            <td> <%= element.member_pseudo  %> </td>
             <td> <%= `${date}/${month}/${year}`  %> </td>
-            <td> <a class="btn btn-primary mt-3"href="/admin/update/<%=element.userID%>">Modiffier </a> <a class="btn btn-primary mt-3"href="/admin/update/<%=element.userID%>">Supprimer </a></td>
+            <td> <a class="btn btn-primary mt-3"href="/admin/update/<%=element.member_userID%>">Modiffier </a> <a class="btn btn-primary mt-3"href="/admin/update/<%=element.member_userID%>">Supprimer </a></td>
             </tr>
       <% }) %>
     </tbody>

@@ -3,7 +3,13 @@ let ForumRouter = express.Router();
 const forumCtrl = require('../controllers/forum');
 const auth = require('../middleware/auth');
 
-ForumRouter.post('/:userId', auth, forumCtrl.createTopic)
+ForumRouter.get('/getForums', forumCtrl.getForums)
+ForumRouter.get('/getCategories', forumCtrl.getCategories)
+ForumRouter.get('/getCategorie/:categorieId', forumCtrl.getCategorie)
+ForumRouter.get('/getTopic/:topicId', forumCtrl.getTopic)
+ForumRouter.get('/voirForum/:forum', forumCtrl.voirForum)
+
+ForumRouter.post('/message/:topicId',forumCtrl.postMessage)
 /*ForumRouter.get('/:userId/all/:page', auth, forumCtrl.getAllArticles);
 
 ForumRouter.post('/:userId', auth, forumCtrl.createArticle);//Create article

@@ -113,7 +113,7 @@ let Members = class Members{
             const passwordHash = crypto.createHash('sha256').update(password1).digest('hex');
             dbFunctions.getUserById(id).then(user =>{
                 if(user){
-                    if(oldPasswordHash !== user.password && userPermissions < 3) return reject(new Error("Votre ancien mot de passe n'est pas correct."));
+                    if(oldPasswordHash !== user.member_password && userPermissions < 3) return reject(new Error("Votre ancien mot de passe n'est pas correct."));
                     dbFunctions.updateUserPassword(user.userID, passwordHash)
                     .then(result => next(true))
                     .catch(error => reject(new Error(error)))
@@ -147,12 +147,12 @@ let Members = class Members{
             
             dbFunctions.getUserById(id).then(user =>{
                 if (user) {
-                    if(pseudo != user.pseudo) {
+                    if(pseudo != user.member_pseudo) {
                         dbFunctions.isUniquePseudo(pseudo)
                         .then(result => {if(!result) return reject(new Error("Ce pseudo est déja utiliser. Merci d'en choisir un autre."))})
                         .catch(error => { return reject(new Error(error))})
                     }
-                    if(!avatar) avatar = user.avatar
+                    if(!avatar) avatar = user.member_avatar
                     const newUser = {
                         avatar : avatar,
                         pseudo: pseudo,
@@ -164,7 +164,7 @@ let Members = class Members{
                         status: user.status,
                         site: user.site
                     }
-                    dbFunctions.updateUser(user.userID, newUser)
+                    dbFunctions.updateUser(user.member_userID, newUser)
                     .then(() => next(newUser))
                     .catch(error => reject(new Error(error)))
                     
@@ -179,7 +179,7 @@ let Members = class Members{
             if(password) passwordHash = crypto.createHash('sha256').update(password).digest('hex');
             dbFunctions.getUserById(id).then(result =>{
                 if (result) {
-                    if(passwordHash !== result.password && userPermissions < 3) return reject(new Error("Votre mot de passe n'est pas correct"))
+                    if(passwordHash !== result.member_password && userPermissions < 3) return reject(new Error("Votre mot de passe n'est pas correct"))
                     dbFunctions.deleteUser(result.userID)
                     .then(() =>{next(true)})
                     .catch((err) =>{reject(err)})
