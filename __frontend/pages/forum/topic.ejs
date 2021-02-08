@@ -9,87 +9,82 @@
     <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
-    <link  rel="stylesheet" href="/static/css/forum/main.css">
+    <link  rel="stylesheet" href="/static/css/forum/topic.css">
     <title>FGF Forum</title>
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
-    <%console.log(userConnected)%>
+    <% if(topic[0]){ %>
+    <div id="container">
+      <div id="container-topic">
+        <% topic.forEach(element => { %>
+          <div id="element">
+            <div>
+              <img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
 
-    <div class="container">
-        <div id="container-messages">
-        <% topic.forEach(element => {%>
-            <div class="author-infos">
-              <p><%=element.member_pseudo%>&ensp;
-              <% if(element.member_id === userConnected.id){ %>
-                <div><a href="/forum/message/delete/<%=element.post_id%>" class="btn btn-danger" id="btn-delete">Supprimer</a></div>
-                <div class="edit" id="edit-<%=element.post_id%>"><a  onclick="viewEdit(<%=element.post_id%>, `<%=element.post_texte%>`)" class="btn btn-primary" id="btn-delete">Modiffier</a></div>
-              <% } %></p>
-            </div>
-            <p class="message"><%=element.post_texte%></p>
-            <hr>
+              <%  const post_date = new Date(parseInt(element.post_time)) %>
+              <%  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
+              <%  const year = post_date.getFullYear() %>
+              <%  const month = months[post_date.getMonth()] %>
+              <%  const date = post_date.getDate() %>
+              <%=element.member_pseudo%> 
+              <% if(element.member_id === userConnected.id || userConnected.userPermissions >= 2){ %>
+                <a href="/forum/message/delete/<%=element.post_id%>"><img class="btn-control right" src ="/static/images/btn_delete.svg"></a>
+                <%} if(element.member_id === userConnected.id || userConnected.userPermissions >= 2){ %>
+                <a onclick="viewEdit(<%=element.post_id%>, `<%=element.post_texte%>`)" href="#"><img class="btn-control right" src ="/static/images/btn_edit.svg"></a>
+                <% } %>
+                <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img class="btn-control right" src ="/static/images/btn_report.svg"></a>
+                <br><%= `${date}/${month}/${year}`  %>
+                <div id='<%=element.post_id%>'></div>
+                <div id="edit-<%=element.post_id%>"></div>
+                <hr>
+                <p><%= element.post_texte %></p>
+            </div>          
+          </div>
         <% }); %>
-        </div>
-        <div class="jumbotron">
-            <div class = "form-message">
-                <form action="/forum/message/<%=topic[0].topic_id%>" method="post">
-                    <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="content"></textarea>
-                    <button type="submit" class="btn btn-success" id="send">Poster</button>
-                
-                </form>
-            </div>
-        </div>
-    </div>
-    
+        <div id="container-reply">
+          <div id="form-message">
+              <form action="/forum/message/<%=topic[0].topic_id%>" method="post">
+                <fieldset class="form-group">
+                  <legend>Poster un message</legend>
+                  <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="content"></textarea>
+                  <button type="submit" class="btn btn-success" id="send">Poster</button>
+                </fieldset>
+              </form>
+          </div>
+      </div>
+      </div>
 
-    <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
-  </body>
+    </div>
+    <% } %>
+        
+
+    <div id="btn-pages">
+      <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+      <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    </div>
+
+
+
+<%- include ('../include/footer.ejs'); -%>
+<%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+</body>
 </html>
 <script>
-  function viewEdit(id, texte){
-    document.getElementById(`edit-${id}`).innerHTML = `<form action="/forum/message/update/${id}" method="POST">
-                                                          <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="contentEdit">${texte}</textarea>
-                                                          <button type="submit" class="btn btn-success" id="send">Poster</button>
-                                                          </form>`
-  }
+let page = window.location.href.split('/').reverse()[0]
+let topic = window.location.href.split('/').reverse()[1]
+const pageSuivante = parseInt(page) + 1
+const pagePrecedente = parseInt(page) - 1
+document.getElementById("suivant").setAttribute("href", `/forum/topic/${topic}/${pageSuivante}`)
+document.getElementById("precedent").setAttribute("href", `/forum/topic/${topic}/${pagePrecedente}`)
+function viewEdit(id, texte){
+document.getElementById(`edit-${id}`).innerHTML = `<form action="/forum/message/update/${id}" method="POST">
+                                                      <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="contentEdit">${texte}</textarea>
+                                                      <button type="submit" class="btn btn-success" id="send">Poster</button>
+                                                      </form>`
+}
+function report(topicId, id) {
+fetch(`/forum/report/topic/${topicId}/${page}`)
+document.getElementById(id).innerHTML = '<div class="alert alert-success report-message" role="alert"> Le message à été reporté ! </div>'
+}
 </script>
-<style>
-.container{
-
-display : flex;
-justify-content: center;
-flex-direction: column;
-flex-wrap : wrap; /* Responsive */
-align-items: center;
-}
-
-.jumbotron{
-background-color: #e9ecef;
-width : 50%;
-}
-
-.title-form{
-text-align : center;
-}
-.form-message{
-margin-left: auto;
-margin-right: auto;
-width : 25em;
-}
-#container-messages{
-    margin-top: 25px;
-    background-color: #ffffff;
-    text-align: center;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-}
-#author-infos{
-  display: flex;
-  flex-direction: column;
-}
-#btn-delete{
-  width: 18%;
-}
-</style>

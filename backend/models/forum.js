@@ -28,10 +28,10 @@ exports.getCategorie = (categorieId) => {
     })
 }
 
-exports.getTopic = (topicId) => {
+exports.getTopic = (topicId, skip) => {
     return new Promise((resolve, reject) =>{
-        db.query('SELECT * from forum_post LEFT JOIN members ON members.member_id = forum_post.post_createur  WHERE topic_id = ?',[topicId], (err, result)=>{
-            if(err) reject(err.stack)
+        db.query('SELECT * from forum_post LEFT JOIN members ON members.member_id = forum_post.post_createur  WHERE topic_id = ? LIMIT 5 OFFSET ?',[topicId, skip], (err, result)=>{
+            if(err) reject(err.message)
             else resolve(result)
         })
     })

@@ -5,13 +5,14 @@ const forumCtrl = require('../controllers/forum');
 const auth = require('../middleware/auth')
 
 ForumRouter.get('/',  forumCtrl.getIndex)
+ForumRouter.get('/report/topic/:topicId/:page',  forumCtrl.reportTopic)
 ForumRouter.get('/categories',  forumCtrl.getCategories)
 ForumRouter.get('/categorie/:categorieId',  forumCtrl.getCategorie)
-ForumRouter.get('/topic/:topicId',  forumCtrl.getTopic)
+ForumRouter.get('/topic/:topicId/:page',  forumCtrl.getTopic)
 
 ForumRouter.get('/message/delete/:messageId', auth, forumCtrl.deleteMessage)
 
-ForumRouter.post('/topic/:categorieId', auth, forumCtrl.postTopic)
+ForumRouter.post('/topic/:categorieId/', auth, forumCtrl.postTopic)
 ForumRouter.post('/message/:topicId', auth, forumCtrl.postMessage)
 ForumRouter.post('/message/update/:messageId', auth, forumCtrl.updateMessage)
 

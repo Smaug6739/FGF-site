@@ -1,0 +1,52 @@
+#container{
+    display: flex;
+    justify-content: center;
+}
+#container-topic{
+    width: 60%;
+    background-color: #ffffff;
+}
+#element{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 2px black solid;
+}
+
+.author-avatar{
+    width: 50px;
+    border-radius: 50%;
+}
+.btn-control{
+    width: 2.5%;
+}
+.right{
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+
+/*REPLY*/
+#container-reply{
+    background-color: #e9ecef;
+    margin: auto;
+    width : 100%;
+    padding: 1px;
+}
+#form-message{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width : 25em;
+}
+/*PAGES*/
+#btn-pages{
+    margin-top: 15px;
+}

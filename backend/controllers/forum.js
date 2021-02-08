@@ -17,7 +17,7 @@ exports.getCategorie = (req, res) =>{
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getTopic = (req, res) =>{
-    Forum.getTopic(req.params.topicId)
+    Forum.getTopic(req.params.topicId, req.params.page)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }

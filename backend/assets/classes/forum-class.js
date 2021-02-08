@@ -25,9 +25,11 @@ let Forum = class Forum{
                 .catch(error => reject(new Error(error)))
             })
     }
-    static getTopic(topicId) {
+    static getTopic(topicId, page) {
         return new Promise(async(next, reject) => {
-                dbFunctions.getTopic(topicId)
+            if(!page) return reject(new Error('Merci de spécifier une page valide'))
+                const skip = (page * 5) -5
+                dbFunctions.getTopic(topicId, skip)
                 .then(result =>  next(result))
                 .catch(error => reject(new Error(error)))
             })
@@ -38,6 +40,7 @@ let Forum = class Forum{
             if(!content || content && content.trim() == '') return reject(new Error("Missing message"))
             if(!topicId) return reject(new Error("Missing topic id"))
             const postTime = Date.now()
+            console.log(postTime)
                 db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, ?)',[author, content, postTime, topicId],(err, result) =>{
                     if(err) return reject(err.message)
                     else resolve(result)
@@ -51,7 +54,7 @@ let Forum = class Forum{
             if(!userPermissions) reject(new Error('Missing user permissions'))
             db.query('SELECT * FROM forum_post WHERE post_id = ?',[message], (err, result) =>{
                 if(err) reject(new Error(err))
-                else if(result.post_createur = author || userPermissions >= 2){
+                else if(result.post_createur === author || userPermissions >= 2){
                     db.query('DELETE FROM forum_post WHERE post_id = ?',[message], (err, result) =>{
                         if(err) reject(new Error(err))
                         else resolve(true)
@@ -68,7 +71,7 @@ let Forum = class Forum{
             if(!content) reject(new Error('Missing message'))
             db.query('SELECT * FROM forum_post WHERE post_id = ?',[postId], (err, result) =>{
                 if(err) reject(new Error(err))
-                else if(result.post_createur = author){
+                else if(result.post_createur === author){
                     db.query('UPDATE forum_post SET post_texte = ? WHERE post_id = ?',[content, postId], (err, result) =>{
                         if(err) reject(new Error(err))
                         else resolve(true)

@@ -1,6 +1,8 @@
 const axios = require('axios')
 const path = require('path');
 const {statusUser} = require('../functions');
+const {WebhookClient} = require('discord.js')
+const WebhookReport = new WebhookClient(`808349481934258188`, `7RynJIo8X6vzsNV5c_2cL7twt51Bb7yXJb07I1UdN2SRk_Av1xFrJrs3J0ah7bYczEM3`);
 
 exports.getIndex = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/forum/getForums`)
@@ -73,7 +75,7 @@ exports.getCategorie = (req, res) => {
     });
 }
 exports.getTopic = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/forum/getTopic/${req.params.topicId}`)
+    axios.get(`http://localhost:8080/api/v1/forum/getTopic/${req.params.topicId}/${req.params.page}`)
     .then((responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/forum/topic.ejs'),{
@@ -94,6 +96,9 @@ exports.getTopic = (req, res) => {
             error : error,
         })
     });
+}
+exports.reportTopic = (req, res) => {
+  WebhookReport.send(`<@&807597601348255785> un message vient d'etre signalé : http://localhost:8081/forum/topic/${req.params.topicId}/${req.params.page}  `)
 }
 exports.postTopic = (req, res) => {
     axios.post(`http://localhost:8080/api/v1/forum/topic`,{

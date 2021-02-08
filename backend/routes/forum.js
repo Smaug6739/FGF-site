@@ -6,7 +6,7 @@ const auth = require('../middleware/auth');
 ForumRouter.get('/getForums', forumCtrl.getForums)
 ForumRouter.get('/getCategories', forumCtrl.getCategories)
 ForumRouter.get('/getCategorie/:categorieId', forumCtrl.getCategorie)
-ForumRouter.get('/getTopic/:topicId', forumCtrl.getTopic)
+ForumRouter.get('/getTopic/:topicId/:page', forumCtrl.getTopic)
 ForumRouter.get('/voirForum/:forum', forumCtrl.voirForum)
 
 ForumRouter.post('/message',forumCtrl.postMessage)
