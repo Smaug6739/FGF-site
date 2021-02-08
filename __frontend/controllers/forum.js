@@ -55,6 +55,7 @@ exports.getCategorie = (req, res) => {
             res.render(path.join(__dirname, '../pages/forum/categorie.ejs'),{
                 userConnected : statusUser(req.session),
                 topics : responce.data.result,
+                categorieId : req.params.categorieId
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -94,15 +95,15 @@ exports.getTopic = (req, res) => {
         })
     });
 }
-
-exports.postMessage = (req, res) => {
-    axios.post(`http://localhost:8080/api/v1/forum/message`,{
+exports.postTopic = (req, res) => {
+    axios.post(`http://localhost:8080/api/v1/forum/topic`,{
+        categorie: req.params.categorieId,
         author: req.session.user.id,
-        content: req.body.content,
-        topicId : req.params.topicId
+        title: req.body.title,
+        content: req.body.content
     })
     .then((responce) => {
-        if(responce.data.status === 'success') res.redirect(`/forum/topic/${responce.topicId}`)
+        if(responce.data.status === 'success') res.redirect(`/forum/categorie/${req.params.categorieId}`)
         else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : statusUser(req.session),
@@ -118,6 +119,85 @@ exports.postMessage = (req, res) => {
         })
     });
 }
+exports.postMessage = (req, res) => {
+    axios.post(`http://localhost:8080/api/v1/forum/message`,{
+        author: req.session.user.id,
+        content: req.body.content,
+        topicId : req.params.topicId
+    })
+    .then((responce) => {
+        if(responce.data.status === 'success') res.redirect(`/forum/topic/${responce.data.result.topicId}`)
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+exports.updateMessage = (req, res) => {
+    axios.put(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.userID}`,{
+        content: req.body.contentEdit
+    },{
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then((responce) => {
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+
+exports.deleteMessage = (req, res) => {
+    axios.delete(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.userID}`,{
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then((responce) => {
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
+
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+
+
+
+
+
+
+
 
 exports.getVoirForum = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/forum/voirForum/${req.params.forum}`)

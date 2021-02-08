@@ -39,12 +39,14 @@ exports.statusUser = (session) => {
         userConnected = {
             auth : false,
             userPermissions : -1,
+            id: -1,
             userAvatar : "default.png"
         }
         return userConnected;
     }else{
         userConnected = {
             auth : true,
+            id: session.user.id,
             userPermissions : session.user.userPermissions,
             userAvatar : session.user.userAvatar
         }

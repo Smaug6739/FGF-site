@@ -79,7 +79,7 @@ exports.updateUserPassword = (userID, newPassword) =>{
     return new Promise((resolve, reject) =>{
         if(!userID) return reject("Missing userID")
         if(!newPassword) return reject("Missing password")
-        db.query('UPDATE members SETmember_ password = ? WHERE member_userID = ?',[newPassword,userID],(err, result) =>{
+        db.query('UPDATE members SET member_ password = ? WHERE member_userID = ?',[newPassword,userID],(err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)

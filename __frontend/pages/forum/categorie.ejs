@@ -13,26 +13,58 @@
     <title>FGF Forum</title>
   </head>
   <body>
+    
     <%- include ('../include/nav.ejs'); -%>
-
-
-    <h2>Bienvenue sur le Forum de la FGF Categorie vous etes sur la page de la catégorie <%= topics[0].cat_nom %></h2>
-    <table>
-        <th scope="col">Sujet</th>
-        <th scope="col">Autheur</th>
-        <th scope="col">Catégorie</th>
-        <% topics.forEach(topic => { %>
-            <tr>
-                <td><a href="/forum/topic/<%=topic.topic_id%>"><%=topic.topic_titre%></a></td>
-                <td><%=topic.member_pseudo%></td>
-                <td><%=topic.cat_nom%></td>
-            </tr>
-        <% }); %>
-    </table>
-    <% console.log(topics) %>
-   
+    <% if(topics[0]){ %>
+      <h2>Bienvenue sur le Forum de la FGF Categorie vous etes sur la page de la catégorie <%= topics[0].cat_nom %></h2>
+      <table>
+          <th scope="col">Sujet</th>
+          <th scope="col">Autheur</th>
+          <th scope="col">Catégorie</th>
+          <% topics.forEach(topic => { %>
+              <tr>
+                  <td><a href="/forum/topic/<%=topic.topic_id%>"><%=topic.topic_titre%></a></td>
+                  <td><%=topic.member_pseudo%></td>
+                  <td><%=topic.cat_nom%></td>
+              </tr>
+              
+          <% }); %>
+      </table>
+    <% }else{ %>
+              <h2>Aucun topic</h2>
+         <% } %>
+         <div id="container">
+            <fieldset class="form-group" id="container-form-message">
+              <legend>Nouveau topic :</legend>
+                  <form action="/forum/topic/<%=categorieId%>" id="post" method="POST">
+                    <input id="title" name="title" class="form-control" placeholder="Titre"><br>
+                    <textarea id="content" class="form-control" name="content" placeholder="Votre message ici"></textarea><br>
+                    <button id="send" class="btn btn-success">Send</button>
+                  </form>
+            </fieldset>
+         </div>
 
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
   </body>
 </html>
+
+<style>
+  #container{
+    display : flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap : wrap; /* Responsive */
+    align-items: center;
+  }
+  #container-form-message{
+    /*margin-left: auto;
+    margin-right: auto;*/
+    width : 35%;
+
+}
+.title-form{
+    text-align : center;
+}
+
+</style>

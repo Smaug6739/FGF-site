@@ -2,14 +2,18 @@ var express = require('express')
 let ForumRouter = express.Router()
 
 const forumCtrl = require('../controllers/forum');
-const multerMidMiniature = require('../middleware/multer-article')
+const auth = require('../middleware/auth')
 
 ForumRouter.get('/',  forumCtrl.getIndex)
 ForumRouter.get('/categories',  forumCtrl.getCategories)
 ForumRouter.get('/categorie/:categorieId',  forumCtrl.getCategorie)
 ForumRouter.get('/topic/:topicId',  forumCtrl.getTopic)
 
-ForumRouter.post('/message/:topicId',forumCtrl.postMessage)
+ForumRouter.get('/message/delete/:messageId', auth, forumCtrl.deleteMessage)
+
+ForumRouter.post('/topic/:categorieId', auth, forumCtrl.postTopic)
+ForumRouter.post('/message/:topicId', auth, forumCtrl.postMessage)
+ForumRouter.post('/message/update/:messageId', auth, forumCtrl.updateMessage)
 
 //ForumRouter.get('/voirforum/:forum',  forumCtrl.getVoirForum)
 //ForumRouter.get('/voirTopic/:topic',  forumCtrl.getVoirTopic)

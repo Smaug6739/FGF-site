@@ -14,23 +14,28 @@
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
+    <%console.log(userConnected)%>
 
-
-    <% console.log(topic) %>
     <div class="container">
         <div id="container-messages">
         <% topic.forEach(element => {%>
-            <div class="author-infos"><p><%=element.member_pseudo%></p></div>
+            <div class="author-infos">
+              <p><%=element.member_pseudo%>&ensp;
+              <% if(element.member_id === userConnected.id){ %>
+                <div><a href="/forum/message/delete/<%=element.post_id%>" class="btn btn-danger" id="btn-delete">Supprimer</a></div>
+                <div class="edit" id="edit-<%=element.post_id%>"><a  onclick="viewEdit(<%=element.post_id%>, `<%=element.post_texte%>`)" class="btn btn-primary" id="btn-delete">Modiffier</a></div>
+              <% } %></p>
+            </div>
             <p class="message"><%=element.post_texte%></p>
             <hr>
-        
+        <% }); %>
         </div>
         <div class="jumbotron">
             <div class = "form-message">
-                <form action="/forum/message/<%=element.topic_id%>" method="post">
+                <form action="/forum/message/<%=topic[0].topic_id%>" method="post">
                     <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="content"></textarea>
                     <button type="submit" class="btn btn-success" id="send">Poster</button>
-                <% }); %>
+                
                 </form>
             </div>
         </div>
@@ -41,7 +46,14 @@
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
   </body>
 </html>
-
+<script>
+  function viewEdit(id, texte){
+    document.getElementById(`edit-${id}`).innerHTML = `<form action="/forum/message/update/${id}" method="POST">
+                                                          <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="contentEdit">${texte}</textarea>
+                                                          <button type="submit" class="btn btn-success" id="send">Poster</button>
+                                                          </form>`
+  }
+</script>
 <style>
 .container{
 
@@ -56,6 +68,7 @@ align-items: center;
 background-color: #e9ecef;
 width : 50%;
 }
+
 .title-form{
 text-align : center;
 }
@@ -71,5 +84,12 @@ width : 25em;
     width: 50%;
     display: flex;
     flex-direction: column;
+}
+#author-infos{
+  display: flex;
+  flex-direction: column;
+}
+#btn-delete{
+  width: 18%;
 }
 </style>
