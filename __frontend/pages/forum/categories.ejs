@@ -16,15 +16,27 @@
     <%- include ('../include/nav.ejs'); -%>
 
 
-    <h1>Bienvenue sur le Forum de la FGF Categories :</h1>
 
-    <%console.log(categories)%>
-    <table id="table-forums">
-      <th>Forums</th>
+    <div id="container">
+
       <% categories.forEach(element => { %>
-              <td><a href="/forum/categorie/<%=element.cat_id%>/1"><%=element.cat_nom%></a></td>
+        <div id="element" class="article col-lg-3 pt-3 pb-3" >
+          <h3 class="cat-title"><img src="/static/images/icons/<%=element.icon%>" alt="icon" class="icon">&nbsp;<a href="/forum/categorie/<%=element.cat_id%>/1"><%=element.cat_nom%></a></h3>
+          <hr>
+          <p class="cat-description"><%=element.cat_description%></p>
+          <a href="/forum/categorie/<%=element.cat_id%>/1" class="btn btn-danger btn-view-forum">Voir le forum</a>
+        </div>
+
+
       <%}); %>
-    </table>
+
+    </div>
+
+
+
+
+
+
 
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>

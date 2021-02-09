@@ -22,7 +22,7 @@
         <%  const month = months[post_date.getMonth()] %>
         <%  const date = post_date.getDate() %>
           <div id="element">
-            <div class="container-message">
+            <div class="container-message" id="<%=element.post_id%>">
               <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
               <%=element.member_pseudo%> 
                 <% if(element.member_id === userConnected.id || userConnected.userPermissions >= 2){ %>
@@ -32,7 +32,7 @@
                 <% } %>
                 <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img class="btn-control right" src ="/static/images/btn_report.svg"></a>
                 </p>
-                <p><%= `${date}/${month}/${year}`%></p>
+                <p><a href="#<%=element.post_id%>" class="link-msg"><%= `${date}/${month}/${year}`%></a></p>
                 <div id='<%=element.post_id%>'></div>
                 <div id="edit-<%=element.post_id%>"></div>
                 <hr>
@@ -69,6 +69,10 @@
 <script>
 let page = window.location.href.split('/').reverse()[0]
 let topic = window.location.href.split('/').reverse()[1]
+if(page.startsWith('#')) {
+  page = window.location.href.split('/').reverse()[1]
+  topic = window.location.href.split('/').reverse()[2]
+}
 const pageSuivante = parseInt(page) + 1
 const pagePrecedente = parseInt(page) - 1
 document.getElementById("suivant").setAttribute("href", `/forum/topic/${topic}/${pageSuivante}`)
@@ -80,7 +84,9 @@ document.getElementById(`edit-${id}`).innerHTML = `<form action="/forum/message/
                                                       </form>`
 }
 function report(topicId, id) {
-fetch(`/forum/report/topic/${topicId}/${page}`)
+  console.log(id)
+  console.log(`/forum/report/topic/${topicId}/${page}/${id}`)
+  fetch(`/forum/report/topic/${topicId}/${page}/${id}`)
 document.getElementById(id).innerHTML = '<div class="alert alert-success report-message" role="alert"> Le message à été reporté ! </div>'
 }
 </script>

@@ -5,7 +5,7 @@ const forumCtrl = require('../controllers/forum');
 const auth = require('../middleware/auth')
 
 ForumRouter.get('/',  forumCtrl.getIndex)
-ForumRouter.get('/report/topic/:topicId/:page',  forumCtrl.reportTopic)
+ForumRouter.get('/report/topic/:topicId/:page/:postId',  forumCtrl.reportTopic)
 ForumRouter.get('/categories',  forumCtrl.getCategories)
 ForumRouter.get('/categorie/:categorieId/:page',  forumCtrl.getCategorie)
 ForumRouter.get('/topic/:topicId/:page',  forumCtrl.getTopic)
