@@ -3,9 +3,9 @@ let ForumRouter = express.Router();
 const forumCtrl = require('../controllers/forum');
 const auth = require('../middleware/auth');
 
-ForumRouter.get('/getForums', forumCtrl.getForums)
+//ForumRouter.get('/getForums', forumCtrl.getForums)
 ForumRouter.get('/getCategories', forumCtrl.getCategories)
-ForumRouter.get('/getCategorie/:categorieId', forumCtrl.getCategorie)
+ForumRouter.get('/getCategorie/:categorieId/:page', forumCtrl.getCategorie)
 ForumRouter.get('/getTopic/:topicId/:page', forumCtrl.getTopic)
 ForumRouter.get('/voirForum/:forum', forumCtrl.voirForum)
 

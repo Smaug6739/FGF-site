@@ -6,6 +6,7 @@ exports.createArticle = (req, res) =>{
             req.body.categorie,
             req.body.title,
             req.body.miniature,
+            req.body.intro,
             req.body.content,
             req.body.authorId
         )
@@ -15,9 +16,7 @@ exports.createArticle = (req, res) =>{
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getMemberArticles = (req, res) =>{
-    Articles.getAllByMemberId(
-            req.params.userId
-        )
+    Articles.getAllByMemberId(req.params.userId)
     .then((result) =>{
         res.json(checkAndChange(result));
     })
@@ -30,6 +29,7 @@ exports.putArticle = (req, res) =>{
         req.body.categorie,
         req.body.title,
         req.body.miniature,
+        req.body.intro,
         req.body.content,
         req.body.status,
         )
@@ -73,6 +73,11 @@ exports.getAllArticles = (req, res) => {
 
 exports.getLastedArticles = (req, res) => {
     Articles.getLastsArticles(6)
+        .then(result => res.json(checkAndChange(result)))
+        .catch(error => res.json(checkAndChange(new Error(error))))
+}
+exports.getArticles = (req, res) => {
+    Articles.getArticles(req.params.page)
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }

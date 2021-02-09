@@ -4,7 +4,7 @@ exports.getAllMembers = (skip) => {
     return new Promise((resolve, reject) =>{
         if(skip < 0) return reject('Skip ne peux pas etre inferieur a 0.')
 
-        db.query('SELECT * FROM members LIMIT 5 OFFSET ?',[skip], (err, result) =>{
+        db.query('SELECT * FROM members ORDER BY member_account_date DESC LIMIT 5 OFFSET ?',[skip], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)

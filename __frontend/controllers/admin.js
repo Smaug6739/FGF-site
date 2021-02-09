@@ -14,7 +14,7 @@ exports.getInfos = (req,res) => {
     })
 }
 exports.getMembers = (req,res) => {
-    axios.get(`http://localhost:8080/api/v1/members/${req.session.user.userID}/all/${req.params.page}`, {
+    axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}/all/${req.params.page}`, {
         //headers : { 'x-access-token' : req.session.user.token}
         headers : { 'Authorization' : `token ${req.session.user.token}`}
     })
@@ -145,7 +145,7 @@ exports.postDeleteMember = (req, res) => {
 
 
 exports.getArticles = (req,res) => {
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/all/${req.params.page}`, {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/all/${req.params.page}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`}
     })
     .then((responce) => {
@@ -170,7 +170,7 @@ exports.getArticles = (req,res) => {
 }
 
 exports.getUpdateArticlePage = (req,res) => {
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`, {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -197,10 +197,11 @@ exports.getUpdateArticlePage = (req,res) => {
 exports.updateArticle = (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename
-    axios.put(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`,{
+    axios.put(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`,{
             categorie: req.body.categorie,
             title: req.body.title,
             miniature: file,
+            intro: req.body.intro,
             content: req.body.contenu,
             status : req.body.status
     },{

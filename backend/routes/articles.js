@@ -4,11 +4,13 @@ const articlesCtrl = require('../controllers/articles');
 const auth = require('../middleware/auth');
 
 
-ArticlesRouter.get('/:userId', auth, articlesCtrl.getMemberArticles);
-ArticlesRouter.get('/get/lasted', articlesCtrl.getLastedArticles);
-ArticlesRouter.get('/get/:articleId', articlesCtrl.getArticle);
+ArticlesRouter.get('/:userId', auth, articlesCtrl.getMemberArticles); //ArticlesOfMember
+
+ArticlesRouter.get('/all/:page', articlesCtrl.getArticles);
+ArticlesRouter.get('/view/:articleId', articlesCtrl.getArticle);
+
 ArticlesRouter.get('/:userId/:articleId', auth, articlesCtrl.getArticleByMember);
-ArticlesRouter.get('/:userId/all/:page', auth, articlesCtrl.getAllArticles);
+ArticlesRouter.get('/:userId/all/:page', auth, articlesCtrl.getAllArticles);//For admin
 
 
 

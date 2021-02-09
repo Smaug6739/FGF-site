@@ -1,0 +1,50 @@
+#container{
+    width: 70%;
+    margin: auto;
+    background-color: #f2f2f2;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+
+.ico {width:2%}
+.titre { width:61%; }
+.nombremessages { width:2%; }
+.nombrevu { width:4%; }
+.nombresujets { width:2%; }
+.auteur { width:7%; }
+.derniermessage { width:18%; }
+.categorie { width:92%; background-color : rgb(244,238,250); }
+
+td { border: 1px solid black; }
+table {  border: 1px solid black; }
+th {  border: 1px solid black; }
+
+#table-forums{
+    width: 80%;
+    margin: auto;
+}
+#container-form-message{
+    width: 80%;
+    margin: auto;
+}
+
+.title-categorie{
+    margin-left: 10%;
+    font-weight: 1000;
+    color: #a5303a;
+}
+#center{text-align: center;}
+@media screen and (max-width: 900px ){
+    #container{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px ){
+    .author-column,.cat-column{
+        display: none;
+    }
+    #table-forums{width: 95%;}
+}

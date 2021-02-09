@@ -1,23 +1,20 @@
-#article{
-    background-color: #ffffff;
-    margin-left:20%;
-    margin-top:20px;
-    max-width: 60%;
-    padding: 25px 0px 10px 0px;
-    box-shadow: 0px 3px 15px black;
-}
-#container{
-    margin-left: 8%;
-    margin-right: 8%;
-}
-#ligne-1{
+#container-articles{
     display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-left: 2%;
+    margin-right: 2%;
+
 }
+
 .date{
     text-align:right;
     font-weight: 1000;
 }
-
+.article{
+    min-width: 25%;
+    background-color: #ffffff;
+}
 
 .title{
     font-weight: 1000;
@@ -27,3 +24,25 @@
     text-align: justify;
 }
 
+.card-img-top{
+    
+    width: 100%;
+    height: 200px;
+    border: 3px black solid;
+}
+.card-intro {
+    height: 160px;
+    overflow: hidden;
+}
+
+#btns-page{
+    margin-top: 15px;
+    text-align: center;
+}
+@media screen and (max-width: 900px ){
+    
+}
+
+@media screen and (max-width: 450px ){
+    
+}

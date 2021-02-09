@@ -18,11 +18,14 @@ let Forum = class Forum{
                 .catch(error => reject(new Error(error)))
             })
     }
-    static getCategorie(categorieId) {
+    static getCategorie(categorieId,page) {
         return new Promise(async(next, reject) => {
-                dbFunctions.getCategorie(categorieId)
-                .then(result =>  next(result))
-                .catch(error => reject(new Error(error)))
+            if(!categorieId) return reject(new Error('Merci de spécifier une catégorie valide.'))
+            if(!page) return reject(new Error('Merci de spécifier une page valide'))
+            const skip = (page * 20) -20
+            dbFunctions.getCategorie(categorieId,skip)
+            .then(result =>  next(result))
+            .catch(error => reject(new Error(error)))
             })
     }
     static getTopic(topicId, page) {
@@ -39,6 +42,7 @@ let Forum = class Forum{
             if(!author) return reject(new Error("Missing author id"))
             if(!content || content && content.trim() == '') return reject(new Error("Missing message"))
             if(!topicId) return reject(new Error("Missing topic id"))
+            if(content.length > 5000) reject(new Error("Le message est trop long. (5000)"))
             const postTime = Date.now()
             console.log(postTime)
                 db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, ?)',[author, content, postTime, topicId],(err, result) =>{
@@ -69,6 +73,7 @@ let Forum = class Forum{
             if(!postId) reject(new Error('Missing postId'))
             if(!author) reject(new Error('Missing author'))
             if(!content) reject(new Error('Missing message'))
+            if(content.length > 5000) reject(new Error("Le message est trop long. (5000)"))
             db.query('SELECT * FROM forum_post WHERE post_id = ?',[postId], (err, result) =>{
                 if(err) reject(new Error(err))
                 else if(result.post_createur === author){
@@ -87,6 +92,9 @@ let Forum = class Forum{
             if(!author) return reject(new Error("Missing author id"))
             if(!title || title && title.trim() == '') return reject(new Error("Missing message title"))
             if(!content || content && content.trim() == '') return reject(new Error("Missing message"))
+
+            if(title.length > 250) reject(new Error("Le titre est trop long. (250)"))
+            if(content.length > 5000) reject(new Error("Le message est trop long. (5000)"))
             const postTime = Date.now()
             const topicId2 =  `${author}${Date.now()}${crypto.randomBytes(16).toString("hex")}`
             console.log(topicId2)

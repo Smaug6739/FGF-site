@@ -51,7 +51,7 @@ exports.getCategories = (req, res) => {
     });
 }
 exports.getCategorie = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/forum/getCategorie/${req.params.categorieId}`)
+    axios.get(`http://localhost:8080/api/v1/forum/getCategorie/${req.params.categorieId}/${req.params.page}`)
     .then((responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/forum/categorie.ejs'),{
@@ -108,7 +108,7 @@ exports.postTopic = (req, res) => {
         content: req.body.content
     })
     .then((responce) => {
-        if(responce.data.status === 'success') res.redirect(`/forum/categorie/${req.params.categorieId}`)
+        if(responce.data.status === 'success') res.redirect(`/forum/categorie/${req.params.categorieId}/1`)
         else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : statusUser(req.session),

@@ -97,13 +97,12 @@ let Members = class Members{
 
     static updatePassword(id, oldPassword, password1, password2, userPermissions) {
         return new Promise((next, reject) => {
-            if(!id || id && id.trim() == '') return reject(new Error("Missing ID"));
+            if(!id) return reject(new Error("Missing ID"));
             if (!oldPassword || oldPassword && oldPassword.trim() == '' ) {
                 if(userPermissions < 3) return reject(new Error("Merci de renseigner un ancien password valide"));
             }
             if (!password1 || password1 && password1.trim() == '') return reject(new Error("Merci de renseigner un password valide"));
             if (!password2 || password2 && password2.trim() == '') return reject(new Error("Merci de renseigner un password valide"));
-            id = id.trim()
             if(oldPassword) oldPassword = oldPassword.trim()
             password1 = password1.trim()
             password2 = password2.trim()
@@ -124,7 +123,7 @@ let Members = class Members{
 
     static put(id, avatar, pseudo, firstName, lastName, age, email, phoneNumber, status, site) {
         return new Promise(async(next, reject) => {
-            if(!id || id && id.trim() == '') return reject(new Error("Wrong ID"))
+            if(!id) return reject(new Error("Wrong ID"))
             if (!pseudo || pseudo && pseudo.trim() == '') return reject(new Error("Merci de renseigner un pseudo valide"))
             if (!age || age && age.trim() == '') return reject(new Error("Merci de renseigner un age valide"))
             if (!email || email && email.trim() == '') return reject(new Error("Merci de renseigner un email valide"))
@@ -173,7 +172,7 @@ let Members = class Members{
     }
     static delete(id, password, userPermissions) {
         return new Promise((next, reject) => {
-            if(!id || id && id.trim() == '') return reject(new Error("Missing ID"));
+            if(!id) return reject(new Error("Missing ID"));
             let passwordHash = "";
             if(password) passwordHash = crypto.createHash('sha256').update(password).digest('hex');
             dbFunctions.getUserById(id).then(result =>{

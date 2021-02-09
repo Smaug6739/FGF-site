@@ -7,26 +7,30 @@
     <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link  rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
-    <link  rel="stylesheet" href="/static/css/articles/post.css">
+    <link  rel="stylesheet" href="/static/css/articles/articles.css">
+    <script  src="/static/js/articles/articles.js"></script>
     <title>API Members</title>
   </head>
   <body>
-   
+
     <%- include ('../include/nav.ejs'); -%>
     <%console.log(articles)%>
-    <div style="display:flex;flex-wrap: wrap;text-align:center;">
-    <% articles.forEach(article => { %>
-        <div class="card article col-xl-3 pt-3 pb-3" style="margin:auto;margin-left:15px;margin-top:8px">
+    <div id="container-articles">
+      <% articles.forEach(article => { %>
+        <div class="article col-lg-3 pt-3 pb-3" style="margin:auto;margin-left:15px;margin-top:10px;">
           <img src="/uploads/articles/<%=article.lien_miniature%>" class="card-img-top">
-          <div class="card-body p-0 pl-2 d-flex flex-column">
+          <hr>
             <h5 class="card-title mt-3"><%=article.title%></h5>
-            <a href="/articles/<%=article.id%>" class="btn btn-danger align-self-end mt-auto">Lire l'article</a>
-          </div>
+            <div class="card-intro mt-3"><%=article.intro%></div>
+              <a href="/articles/<%=article.id%>" class="btn btn-danger align-self-end mt-auto">Lire l'article</a>
         </div>
-  
       <% }); %>
+
   </div>
- 
+    <div id="btns-page">
+      <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+      <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    </div>
 
     <%- include('../include/footer.ejs') %>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>

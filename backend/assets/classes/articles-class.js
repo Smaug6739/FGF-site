@@ -1,4 +1,5 @@
 const  dbFunctions  = require("../../models/articles");
+const db = require('../../models/db')
 const xss = require('xss')
 let Articles = class Articles{
 
@@ -22,6 +23,18 @@ let Articles = class Articles{
             .catch(error => reject(new Error(error)))
         })
     }
+    static getArticles(page) {
+        return new Promise((next, reject) => {
+            if(!page) return reject(new Error('Merci de spécifier une page valide'))
+            const skip = (page * 6) - 6;
+            db.query('SELECT * FROM articles WHERE status = 1 LIMIT 6 OFFSET ?',[skip], (err, result) => {
+                if(err) reject(new Error(err.stack))
+                else next(result)
+            })
+            
+        })
+
+    }
 
     static getArticle(articleId){
         return new Promise((next, reject) => {
@@ -44,18 +57,20 @@ let Articles = class Articles{
         })
     }
 
-    static add(categorie, title, miniature, content, authorId) {
+    static add(categorie, title, miniature, intro, content, authorId) {
         return new Promise(async(next, reject) => {
             if (!categorie || categorie && categorie.trim() == '') return reject(new Error("Merci de renseigner une categorie valide"))
             if (!title || title && title.trim() == '') return reject(new Error("Merci de renseigner un titre valide"))
             if (!miniature || miniature && miniature.trim() == '') return reject(new Error("Merci de renseigner une miniature valide"))
             if (!content || content && content.trim() == '') return reject(new Error("Merci de renseigner un contenu valide"))
-            if (!authorId || authorId && authorId.trim() == '') return reject(new Error("Vous n'etes pas connectés"))
+            if (!intro || intro && intro.trim() == '') return reject(new Error("Merci de renseigner une intro valide."))
+            if (!authorId) return reject(new Error("Vous n'etes pas connectés"))
 
             if(categorie && categorie.length > 250) return reject(new Error("La catégorie est trop long. (250)"))
             if(title && title.length > 150) return reject(new Error("Le titre est trop long. (150)"))
             if(miniature && miniature.length > 250) return reject(new Error("La miniature est trop long. (250)"))
             if(content && content.length > 60000) return reject(new Error("Le contenu trop long. (60000)"))
+            if(intro && intro.length > 250) return reject(new Error("L'intro trop longue. (250)"))
             if(authorId && authorId.length > 250) return reject(new Error("Error length authorId. (250)"))
             content = xss(content, {
                 onIgnoreTagAttr: function(tag, name, value, isWhiteAttr) {
@@ -72,6 +87,7 @@ let Articles = class Articles{
                     categorie : categorie,
                     title: title,
                     miniature: miniature,
+                    intro: intro,
                     content: content,
                     authorId: authorId,
                     status: 0,
@@ -85,17 +101,19 @@ let Articles = class Articles{
         })
     }
 
-    static put(userPermissions, articleId, categorie, title, miniature, content, status){
+    static put(userPermissions, articleId, categorie, title, miniature, intro, content, status){
         console.log('User permissions for put article :' + userPermissions)
         return new Promise(async(next, reject) => {
-            if(!articleId || articleId && articleId.trim() == '') return reject(new Error("Wrong ID"))
+            if(!articleId) return reject(new Error("Wrong ID"))
             if (!categorie || categorie && categorie.trim() == '') return reject(new Error("Merci de renseigner une catégorie valide"))
             if (!title || title && title.trim() == '') return reject(new Error("Merci de renseigner un title valide"))
             if (!content || content && content.trim() == '') return reject(new Error("Merci de renseigner un contenu valide"))
+            if (!intro || intro && intro.trim() == '') return reject(new Error("Merci de renseigner une intro valide"))
 
             if(categorie && categorie.length > 50) return reject(new Error("La catégorie est trop longue. (50)"))
             if(title && title.length > 150) return reject(new Error("Le title est trop long. (150)"))
             if(content && content.length > 60000) return reject(new Error("Le contenu trop long. (60000)"))
+            if(intro && intro.length > 250) return reject(new Error("L'intro est trop longue'. (250)"))
             if(miniature && miniature.length > 250) return reject(new Error("Le nom de la miniature est trop long. (250)"))
             if(status && status.length > 2) return reject(new Error("Wrong status"))
 
@@ -117,6 +135,7 @@ let Articles = class Articles{
                         categorie : categorie,
                         title: title,
                         miniature: miniature,
+                        intro: intro,
                         content: content,
                         status: status
                     }
@@ -130,7 +149,7 @@ let Articles = class Articles{
 
     static delete(id) {
         return new Promise((next, reject) => {
-            if(!id || id && id.trim() == '') return reject(new Error("Missing ID"));
+            if(!id) return reject(new Error("Missing ID"));
             dbFunctions.deleteArticle(id)
             .then(() =>{next(true)})
             .catch((err) =>{reject(err)})

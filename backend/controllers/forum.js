@@ -12,7 +12,7 @@ exports.getCategories = (req, res) =>{
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getCategorie = (req, res) =>{
-    Forum.getCategorie(req.params.categorieId)
+    Forum.getCategorie(req.params.categorieId,req.params.page)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }

@@ -228,7 +228,7 @@ exports.deleteMember = (req, res) => {
     })
 }
 
-exports.getArticles = (req, res) => {
+exports.getArticlesOfMember = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
@@ -273,6 +273,7 @@ exports.postArticle = (req, res) => {
             categorie: req.body.categorie,
             title: req.body.title,
             miniature: file,
+            intro: req.body.intro,
             content: htmlContent,
             authorId: req.session.user.id
     },{headers : { 'Authorization' : `token ${req.session.user.token}`}}
@@ -333,6 +334,7 @@ exports.postUpdateArticle = (req, res) => {
             categorie: req.body.categorie,
             title: req.body.title,
             miniature: file,
+            intro: req.body.intro,
             content: htmlContent,
     },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},

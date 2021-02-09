@@ -17,12 +17,17 @@
             <li class="nav-li" class="nav-item">
                 <a class="nav-link text-white" href="/">ACCUEIL</a>
             </li>
+            <li class="nav-li" class="nav-item">
+                <a class="nav-link text-white" href="/forum">FORUM</a>
+            </li>
+            <li class="nav-li" class="nav-item">
+                <a class="nav-link text-white" href="/forum">ARTICLES</a>
+            </li>
             <% if(userConnected.auth === true){ %>
             <li id="menu-compte"class="nav-li">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                         Mon compte
-                        <span class="caret"></span>
+                        <span class="caret">Mon compte</span>
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/member/account">Profil</a></li>

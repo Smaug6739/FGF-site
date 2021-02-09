@@ -19,9 +19,9 @@ exports.getCategories = () => {
         })
     })
 }
-exports.getCategorie = (categorieId) => {
+exports.getCategorie = (categorieId, skip) => {
     return new Promise((resolve, reject) =>{
-        db.query('SELECT * from forum_topic LEFT JOIN forum_categorie ON forum_topic.topic_categorie = forum_categorie.cat_id LEFT JOIN members ON forum_topic.topic_createur = members.member_id WHERE topic_categorie = ?',[categorieId], (err, result)=>{
+        db.query('SELECT * from forum_topic LEFT JOIN forum_categorie ON forum_topic.topic_categorie = forum_categorie.cat_id LEFT JOIN members ON forum_topic.topic_createur = members.member_id WHERE topic_categorie = ? ORDER BY topic_time DESC LIMIT 20 OFFSET ?',[categorieId, skip], (err, result)=>{
             if(err) reject(err.stack)
             else resolve(result)
         })

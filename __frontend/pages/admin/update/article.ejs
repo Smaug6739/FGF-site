@@ -7,23 +7,14 @@
     <%- include ('../../include/bootstrap/bootstrap.css.ejs'); -%>
     <link  rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
+    <script src="/static/js/admin/update/article.js"></script>
+    <link  rel="stylesheet" href="/static/markdown/css/simplemde.css">
+    <script src="/static/js/img-preview.js"></script>
+    <script src="/static/markdown/js/simplemde.js"></script>
+    <script src="/static/markdown/js/simplemde2.js"></script>
     <title>API Members</title>
   </head>
   <body>
-    <script>
-      function preview_image(event) 
-      {
-      var reader = new FileReader();
-      reader.onload = function()
-      {
-        var output = document.getElementById('miniature-form');
-        output.src = reader.result
-        //output.setAttribute("src",`${output.result}`)
-        
-      }
-      reader.readAsDataURL(event.target.files[0]);
-      }
-    </script>
     <%- include ('../../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Espace de rédaction</h1>
     <div class="container-fluid">
@@ -66,13 +57,13 @@
                         <img style="width:30%;height:30%;" id="miniature-form" src="/uploads/articles/<%= article.lien_miniature %>">
                     
                     <label class="custom-file-upload" for="miniature-upload">
-                      <input class="invisible" id="miniature-upload" type="file" onchange="preview_image(event)" name="miniature-upload"/>
+                      <input class="invisible" id="miniature-upload" type="file" onchange="preview_image(event,'miniature-form')" name="miniature-upload"/>
                       Choisir un fichier
                   </label>
-                      
+                      <label style="font-size:20px;" for="intro">Ecrivez ci-dessous l'intro de l'article :</label>
+                      <textarea type="hidden" name="intro" id="intro"><%=article.intro%></textarea>
                       <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
                       <textarea type="hidden" name="contenu" id="contenu"><%= article.content %></textarea>
-
 
                       <label style="font-size:20px;" for="btn_submit">Poster cet article :</label>
                       <button id="btn_submit" type="submit" class="btn btn-primary">Mettre a jour cet article</button>
@@ -80,18 +71,16 @@
               </fieldset>
           </form>
           <label style="font-size:20px;" for="btn_submit">Supprimer cet article :</label>
-                      <form action="/member/articles/delete/<%= article.id %>" method="POST">
-                        <p>Je suis sur de vouloir supprimer cet article : <input type="checkbox" required  name="confirm"></p>
-                        <button id="btn_submit" type="submit" class="btn btn-danger">Supprimer</button>
-                      </form>
+            <form action="/member/articles/delete/<%= article.id %>" method="POST">
+              <p>Je suis sur de vouloir supprimer cet article : <input type="checkbox" required  name="confirm"></p>
+              <button id="btn_submit" type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
       </section>
 
   </div>
 
-
     <%- include('../../include/footer.ejs') %>
     <%- include ('../../include/bootstrap/bootstrap.js.ejs'); -%>
-
 
   </body>
 </html>

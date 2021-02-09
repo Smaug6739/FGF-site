@@ -13,7 +13,7 @@ exports.getLastsArticles = (limit) => {
 exports.getAllArticles = (skip) => {
     return new Promise((resolve, reject) =>{
         if(skip < 0) return reject('Skip ne peux pas etre inferieur a 0.')
-        db.query('SELECT * FROM articles LIMIT 5 OFFSET ?',[skip], (err, result) =>{
+        db.query('SELECT * FROM articles ORDER BY date_insert DESC LIMIT 5 OFFSET ?',[skip], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)
@@ -67,7 +67,7 @@ exports.addArticle = (article) => {
     return new Promise((resolve, reject) =>{
         if(!article) return reject('Aucun paramètres')
         else{
-            db.query('INSERT INTO `articles` (`author_id`, `title`, `categorie`, `content`, `lien_miniature`, `status`, `date_insert`) VALUES (?,?,?,?,?,?,?)',[article.authorId, article.title, article.categorie, article.content, article.miniature, article.status, article.timestamp], (err, result)=>{
+            db.query('INSERT INTO `articles` (`author_id`, `title`, `categorie`, `intro`, `content`, `lien_miniature`, `status`, `date_insert`) VALUES (?,?,?,?,?,?,?,?)',[article.authorId, article.title, article.categorie, article.intro, article.content, article.miniature, article.status, article.timestamp], (err, result)=>{
                 if(err) reject(err.message)
                 else resolve(result)
             })
@@ -81,7 +81,7 @@ exports.updateArticle = (id, newParams) => {
     return new Promise((resolve, reject) =>{
         if(!id) return reject('Missing id');
         if(!newParams) return reject('Missing new params');
-        db.query('UPDATE articles SET title=?,categorie=?,content=?,lien_miniature=?,status=? WHERE id = ?',[newParams.title,newParams.categorie,newParams.content,newParams.miniature,newParams.status, id], (err, result) =>{
+        db.query('UPDATE articles SET title=?,categorie=?,intro=?,content=?,lien_miniature=?,status=? WHERE id = ?',[newParams.title,newParams.categorie,newParams.intro,newParams.content,newParams.miniature,newParams.status, id], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)

@@ -17,6 +17,10 @@ thead,tfoot {
 
 @media screen and (max-width: 550px){
     table{
-        zoom:0.6;
+        zoom:0.65;
+    }
+    #table-members{
+        margin: auto;
+        max-width: 95%;
     }
 }

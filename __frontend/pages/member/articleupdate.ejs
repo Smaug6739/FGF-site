@@ -44,6 +44,8 @@
                         <input class="invisible" id="miniature-upload" type="file" onchange="preview_image(event)" name="miniature-upload"/>
                         Choisir un fichier
                       </label>
+                      <label style="font-size:20px;" for="intro">Ecrivez ci-dessous l'intro de l'article :</label>
+                      <textarea type="hidden" name="intro" id="intro"><%=article.intro%></textarea>
                       <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
                       <textarea type="hidden" name="contenu" id="contenu"><%= article.content %></textarea>
                       <label style="font-size:20px;" for="btn_submit">Poster votre article :</label>
