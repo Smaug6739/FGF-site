@@ -1,6 +1,8 @@
 const axios = require('axios')
 const path = require('path');
 const {statusUser} = require('../functions');
+
+
 exports.getIndex = (req,res) => {
     res.render(path.join(__dirname, '../pages/admin/index.ejs'),{
         userConnected : statusUser(req.session),
@@ -43,17 +45,26 @@ exports.getUpdatePage = (req,res) => {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
-        res.render(path.join(__dirname, '../pages/admin/update/member.ejs'),{
-            userConnected : statusUser(req.session),
-            member : responce.data.result,
-        })
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/update/member.ejs'),{
+                userConnected : statusUser(req.session),
+                member : responce.data.result,
+            })
+        } else {
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+        
     })
-    /*.catch((error) => {
+    .catch((error) => {
+        console.log(error)
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : statusUser(req.session),
             error : error,
         })
-    });*/
+    });
 }
 
 

@@ -15,21 +15,8 @@ exports.createMember = (req, res) =>{
         req.body.email,
         req.body.phoneNumber,
         req.body.status,
-        req.body.site
-        )
-        .then((result) =>{
-            const token = jwt.sign({id : result.member_userID}, config.secret, {
-                expiresIn: 86400 // expires in 24 hours
-            })
-           res.json(checkAndChange({ 
-               auth: true, 
-               token: token,
-               id: result.member_id,
-               userID : result.member_userID, 
-               userPermissions: result.member_userPermissions,
-               userAvatar: result.member_avatar || ""
-             }));
-        })
+        req.body.site)
+        .then(result => res.json(checkAndChange({message: "Account created."})))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getAllMembers = (req, res)=>{
@@ -42,7 +29,7 @@ exports.getAllMembers = (req, res)=>{
 exports.authMember = async (req, res)=>{
     Members.getAuthUser(req.query.pseudo, req.query.password)
     .then(result =>{
-        const token = jwt.sign({id : result.member_userID}, config.secret, {
+        const token = jwt.sign({id : result.member_id}, config.secret, {
             expiresIn: 86400 // expires in 24 hours
         })
         res.status(200).json(checkAndChange({

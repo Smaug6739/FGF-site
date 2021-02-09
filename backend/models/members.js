@@ -15,7 +15,7 @@ exports.getAllMembers = (skip) => {
 
 exports.getUserById = (userID) =>{
     return new Promise((resolve, reject) =>{
-        db.query('SELECT * FROM members WHERE member_userID = ?',[userID], (err, result) =>{
+        db.query('SELECT * FROM members WHERE member_id = ?',[userID], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result[0])
@@ -66,7 +66,7 @@ exports.updateUser = (userID, newParams) => {
     return new Promise((resolve, reject) =>{
         if(!userID) return reject('Missing user id');
         if(!newParams) return reject('Missing new params');
-        db.query('UPDATE members SET member_avatar=?, member_pseudo=?, member_first_name=?, member_last_name=?, member_age=?, member_email=?, member_phone_number=?, member_status=?, member_site=? WHERE member_userID = ?',[newParams.avatar, newParams.pseudo, newParams.firstName, newParams.lastName, newParams.age, newParams.email, newParams.phoneNumber, newParams.status, newParams.site, userID], (err, result) =>{
+        db.query('UPDATE members SET member_avatar=?, member_pseudo=?, member_first_name=?, member_last_name=?, member_age=?, member_email=?, member_phone_number=?, member_status=?, member_site=? WHERE member_id = ?',[newParams.avatar, newParams.pseudo, newParams.firstName, newParams.lastName, newParams.age, newParams.email, newParams.phoneNumber, newParams.status, newParams.site, userID], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)
@@ -79,7 +79,7 @@ exports.updateUserPassword = (userID, newPassword) =>{
     return new Promise((resolve, reject) =>{
         if(!userID) return reject("Missing userID")
         if(!newPassword) return reject("Missing password")
-        db.query('UPDATE members SET member_ password = ? WHERE member_userID = ?',[newPassword,userID],(err, result) =>{
+        db.query('UPDATE members SET member_password = ? WHERE member_id = ?',[newPassword,userID],(err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)
@@ -91,7 +91,7 @@ exports.updateUserPassword = (userID, newPassword) =>{
 exports.deleteUser = (userID) =>{
     return new Promise((resolve, reject) =>{
         if(!userID) return reject("Missing userID")
-        db.query('DELETE FROM members WHERE member_userID = ?',[userID],(err, result) =>{
+        db.query('DELETE FROM members WHERE member_id = ?',[userID],(err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)

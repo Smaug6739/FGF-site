@@ -114,7 +114,7 @@ let Members = class Members{
             dbFunctions.getUserById(id).then(user =>{
                 if(user){
                     if(oldPasswordHash !== user.member_password && userPermissions < 3) return reject(new Error("Votre ancien mot de passe n'est pas correct."));
-                    dbFunctions.updateUserPassword(user.userID, passwordHash)
+                    dbFunctions.updateUserPassword(user.member_id, passwordHash)
                     .then(result => next(true))
                     .catch(error => reject(new Error(error)))
                 } else reject(new Error("Wrong ID"));
@@ -144,7 +144,6 @@ let Members = class Members{
             if(!phoneNumber) phoneNumber = ""
             if(!status) status = ""
             if(!site) site = ""
-            
             dbFunctions.getUserById(id).then(user =>{
                 if (user) {
                     if(pseudo != user.member_pseudo) {
@@ -164,7 +163,7 @@ let Members = class Members{
                         status: user.status,
                         site: user.site
                     }
-                    dbFunctions.updateUser(user.member_userID, newUser)
+                    dbFunctions.updateUser(user.member_id, newUser)
                     .then(() => next(newUser))
                     .catch(error => reject(new Error(error)))
                     
@@ -180,7 +179,7 @@ let Members = class Members{
             dbFunctions.getUserById(id).then(result =>{
                 if (result) {
                     if(passwordHash !== result.member_password && userPermissions < 3) return reject(new Error("Votre mot de passe n'est pas correct"))
-                    dbFunctions.deleteUser(result.userID)
+                    dbFunctions.deleteUser(result.member_id)
                     .then(() =>{next(true)})
                     .catch((err) =>{reject(err)})
                 } else reject(new Error("Wrong ID"));

@@ -43,21 +43,13 @@ exports.postRegister = (req, res) => {
         phoneNumber: req.body.phoneNumber
     })
     .then((responce) => {
-        if(responce.data.status === 'error'){
+        if(responce.data.status === 'success') res.redirect('/member/login');
+        else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : statusUser(req.session),
                 error : responce.data.message
             })
-        }else if(responce.data.status === 'success') {
-            req.session.user = {
-                id : responce.data.result.id,
-                userID: responce.data.result.userID,
-                userPermissions: responce.data.result.userPermissions,
-                token : responce.data.result.token,
-                userAvatar : responce.data.result.userAvatar || config.defaultAvatar
-            }
-            res.redirect('/member/account')
-        };
+        } 
     })
     .catch((error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -111,7 +103,7 @@ exports.disconnection = (req, res) => {
 }
 
 exports.getAccount = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/members/${req.session.user.userID}`, {
+    axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -136,7 +128,7 @@ exports.getAccount = (req, res) => {
 }
 
 exports.getEditAccount = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/members/${req.session.user.userID}`, {
+    axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -163,7 +155,7 @@ exports.getEditAccount = (req, res) => {
 exports.updateMember = (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename
-    axios.put(`http://localhost:8080/api/v1/members/${req.params.id}`,{
+    axios.put(`http://localhost:8080/api/v1/members/${req.session.user.id}`,{
         pseudo : req.body.pseudo || "",
         avatar : file || "",
         firstName: req.body.firstName || "",
@@ -193,7 +185,7 @@ exports.updateMember = (req, res) => {
     })
 }
 exports.updatePassword = (req, res) => {
-    axios.put(`http://localhost:8080/api/v1/members/${req.params.id}/password`,{
+    axios.put(`http://localhost:8080/api/v1/members/${req.session.user.id}/password`,{
         oldPassword : req.body.oldPassword,
         password1 : req.body.password1,
         password2 : req.body.password2
@@ -217,7 +209,7 @@ exports.updatePassword = (req, res) => {
 }
 
 exports.deleteMember = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/members/${req.params.id}/${req.body.password}`,{
+    axios.delete(`http://localhost:8080/api/v1/members/${req.session.user.id}/${req.body.password}`,{
         headers : { 'Authorization' : `token ${req.session.user.token}`} 
     })
     .then((responce) => {
@@ -237,7 +229,7 @@ exports.deleteMember = (req, res) => {
 }
 
 exports.getArticles = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -277,12 +269,12 @@ exports.postArticle = (req, res) => {
     }
     let htmlContent = "";
     htmlContent = converter.makeHtml(req.body.contenu)
-    axios.post(`http://localhost:8080/api/v1/articles/${req.session.user.userID}`, {
+    axios.post(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
             categorie: req.body.categorie,
             title: req.body.title,
             miniature: file,
             content: htmlContent,
-            authorId: req.session.user.userID
+            authorId: req.session.user.id
     },{headers : { 'Authorization' : `token ${req.session.user.token}`}}
     )
     .then((responce) => {
@@ -306,7 +298,7 @@ exports.postArticle = (req, res) => {
 
 
 exports.getUpdateArticle = (req,res) => {
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`, {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
@@ -337,7 +329,7 @@ exports.postUpdateArticle = (req, res) => {
     if(req.file && req.file.filename) file = req.file.filename
     let htmlContent = "";
     htmlContent = converter.makeHtml(req.body.contenu)
-    axios.put(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`,{
+    axios.put(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`,{
             categorie: req.body.categorie,
             title: req.body.title,
             miniature: file,
@@ -363,7 +355,7 @@ exports.postUpdateArticle = (req, res) => {
 exports.postDeleteArticle = (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`, {
+    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then(result => {
@@ -371,7 +363,7 @@ exports.postDeleteArticle = (req, res) => {
             fs.unlink(path.join(__dirname, `../uploads/articles/${result.data.result.lien_miniature}`), (err) => {
                 if (err) console.log(err);
               });
-              axios.delete(`http://localhost:8080/api/v1/articles/${req.session.user.userID}/${req.params.articleId}`,{
+              axios.delete(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`,{
                 headers : { 'Authorization' : `token ${req.session.user.token}`},
                 })
                 .then((responce) => {

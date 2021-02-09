@@ -1,11 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
     <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
@@ -14,27 +11,28 @@
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
+
     <% if(topic[0]){ %>
     <div id="container">
       <div id="container-topic">
         <% topic.forEach(element => { %>
+        <%  const post_date = new Date(parseInt(element.post_time)) %>
+        <%  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
+        <%  const year = post_date.getFullYear() %>
+        <%  const month = months[post_date.getMonth()] %>
+        <%  const date = post_date.getDate() %>
           <div id="element">
-            <div>
-              <img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
-
-              <%  const post_date = new Date(parseInt(element.post_time)) %>
-              <%  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
-              <%  const year = post_date.getFullYear() %>
-              <%  const month = months[post_date.getMonth()] %>
-              <%  const date = post_date.getDate() %>
+            <div class="container-message">
+              <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
               <%=element.member_pseudo%> 
-              <% if(element.member_id === userConnected.id || userConnected.userPermissions >= 2){ %>
+                <% if(element.member_id === userConnected.id || userConnected.userPermissions >= 2){ %>
                 <a href="/forum/message/delete/<%=element.post_id%>"><img class="btn-control right" src ="/static/images/btn_delete.svg"></a>
-                <%} if(element.member_id === userConnected.id || userConnected.userPermissions >= 2){ %>
+                <%} if(element.member_id === userConnected.id){ %>
                 <a onclick="viewEdit(<%=element.post_id%>, `<%=element.post_texte%>`)" href="#"><img class="btn-control right" src ="/static/images/btn_edit.svg"></a>
                 <% } %>
                 <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img class="btn-control right" src ="/static/images/btn_report.svg"></a>
-                <br><%= `${date}/${month}/${year}`  %>
+                </p>
+                <p><%= `${date}/${month}/${year}`%></p>
                 <div id='<%=element.post_id%>'></div>
                 <div id="edit-<%=element.post_id%>"></div>
                 <hr>
@@ -42,23 +40,21 @@
             </div>          
           </div>
         <% }); %>
-        <div id="container-reply">
-          <div id="form-message">
-              <form action="/forum/message/<%=topic[0].topic_id%>" method="post">
-                <fieldset class="form-group">
-                  <legend>Poster un message</legend>
-                  <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="content"></textarea>
-                  <button type="submit" class="btn btn-success" id="send">Poster</button>
-                </fieldset>
-              </form>
-          </div>
-      </div>
+          <div id="container-reply">
+            <div id="container-form-reply">
+                <form action="/forum/message/<%=topic[0].topic_id%>" method="post">
+                  <fieldset class="form-group">
+                    <legend class="reply-legent">Poster un message</legend>
+                    <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="content"></textarea>
+                    <button type="submit" class="btn btn-success" id="send">Poster</button>
+                  </fieldset>
+                </form>
+            </div>
+        </div>
       </div>
 
     </div>
     <% } %>
-        
-
     <div id="btn-pages">
       <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
       <a href="#" class="btn btn-info" id="suivant">Suivant ></a>

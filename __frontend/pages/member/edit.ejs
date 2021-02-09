@@ -21,7 +21,7 @@
     <div class="popup_block">
         <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="btn_close" src="/static/images/close_pop.png"></a>
         <h2>Supprimer votre compte</h2>
-        <form action="/member/<%= member.userID %>/delete" method="post" class="mt-5">
+        <form action="/member/<%= member.member_id %>/delete" method="post" class="mt-5">
           <div class="form-group">
             <div id="conteneur-field-start">
               <label for="password">Mot de passe :</label>
@@ -84,7 +84,7 @@
 <br>
 <div class="account-infos">
   <h2 id="center-text">Changer votre mot de passe</h2>
-  <form action="/member/updatepassword/<%= member.userID %>" method="post" class="mt-5">
+  <form action="/member/updatepassword/<%= member.member_id %>" method="post" class="mt-5">
     <div class="form-group">
       <div id="conteneur-field-start">
         <label for="oldPassword">Ancien mot de passe :</label>
