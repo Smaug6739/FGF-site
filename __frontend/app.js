@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const app = express();
 const  morgan = require('morgan')('dev');
 const bodyParser = require('body-parser');
-const config = require('./config.json');
+const config = require('./config.js');
 const {statusUser} = require('./functions')
 const routerMembers = require('./routes/members')
 const routerAdmin = require('./routes/admin')
@@ -28,8 +28,8 @@ app.use(session({
     expires: new Date(Date.now() + (1 * 60 * 1000)/*(30 * 86400 * 1000)*/),
     cookie: {}
 }));
-
-    app.use(morgan)
+    
+    if(!config.prod) app.use(morgan)
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
     app.listen(config.port, () => console.log('Started on port '+ config.port));

@@ -15,7 +15,7 @@ const apiRouterV1Members = require('./routes/member')
 const apiRouterV1Articles = require('./routes/articles')
 const apiRouterV1Forum = require('./routes/forum')
 
-    app.use(morgan)
+    if(!config.prod) app.use(morgan)
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
 

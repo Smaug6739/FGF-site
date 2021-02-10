@@ -29,9 +29,11 @@ exports.getAllMembers = (req, res)=>{
 exports.authMember = async (req, res)=>{
     Members.getAuthUser(req.query.pseudo, req.query.password)
     .then(result =>{
-        const token = jwt.sign({id : result.member_id}, config.secret, {
-            expiresIn: 86400 // expires in 24 hours
-        })
+        const token = jwt.sign({
+            exp: Math.floor(Math . floor ( Date . now ( ) / 1000 ) + (6 * 60 * 60 )),
+            expiresIn: 20000,//86400 // expires in 24 hours
+            userId: result.member_id,
+            userPermissions: result.member_user_permissions}, config.secret)
         res.status(200).json(checkAndChange({
             auth: true, 
             token: token, 

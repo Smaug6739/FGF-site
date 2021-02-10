@@ -7,10 +7,8 @@ module.exports = async (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, config.secret);
         const userId = decodedToken.id;
-        const userPermissions = await getMemberPermission(userId);
-        req.user = {
-            userPermissions : userPermissions
-        }
+        const userPermissions = decodedToken.userPermissions
+        req.user = {userPermissions : userPermissions}
         if(req.params.userId){
             if(parseInt(req.params.userId) !== userId){
                 if(userPermissions < 3) throw 'User ID non valable';
