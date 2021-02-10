@@ -35,7 +35,7 @@ exports.getAllByMemberId = (id) => {
 }
 exports.getArticle = (articleId) => {
     return new Promise((resolve, reject) =>{
-        db.query('SELECT * FROM articles WHERE id = ?',[articleId], (err, result) =>{
+        db.query('SELECT * FROM `articles`  LEFT JOIN `members` ON articles.author_id = members.member_id WHERE id = ?',[articleId], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result[0])

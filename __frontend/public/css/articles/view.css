@@ -1,0 +1,18 @@
+@import "../theme-variable.css";
+
+#container-article{
+    width: 80%;
+    margin-top: 2%;
+    margin-left: 10%;
+    background-color: var(--container-color);
+}
+#article{padding: 4% 7% 4% 7%;}
+.title{color: var(--title-color);font-size: var(--title-size);}
+.content{text-align: justify;}
+.author{color:var(--color-grey)}
+.author-avatar{width: 5%;}
+
+@media screen and (max-width: 550px){
+    #container-article{width: 98%;margin-left: 1%;}
+    .author-avatar{width: 10%;}
+}

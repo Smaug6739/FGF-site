@@ -13,19 +13,19 @@
   <body>
     <%- include ('../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Espace membre</h1>
-    <div id="block1">
-      <img id="cadre-margin-auto" width="150px" height="150px" src="/uploads/avatars/<%= userConnected.userAvatar %>">
-      <h2 id="cadre-margin-auto"><%= member.member_pseudo %></h2>
+    <div id="block">
+      <img class="center" src="/uploads/avatars/<%= userConnected.userAvatar %>">
+      <h2 class="center"><%= member.member_pseudo %></h2>
     </div>
     <div id="block">
-      <h3 id="cadre-title">A propos de moi :</h3>
-      <h6 id="cadre-text-element">Nom : <%= member.member_last_name || "Non renseigné" %></h6>
-      <h6 id="cadre-text-element">Prénom : <%= member.member_first_name || "Non renseigné" %></h6>
-      <h6 id="cadre-text-element">Age : <%= member.member_age || "Non renseigné" %></h6>
-      <h6 id="cadre-text-element">Email : <%= member.member_email || "Non renseigné" %></h6>
-      <h6 id="cadre-text-element">Numéro de téléphone : <%= member.member_phone_number || "Non renseigné" %></h6>      
-      <h3 id="cadre-title">Informations sur le compte :</h3>
-      <h6 id="cadre-text-element">Compte crée le : <%= new Date(parseInt(member.member_account_date)) || "Inconu" %></h6>
+      <h3 class="title">A propos de moi :</h3>
+      <h6 class="element">Nom : <%= member.member_last_name || "Non renseigné" %></h6>
+      <h6 class="element">Prénom : <%= member.member_first_name || "Non renseigné" %></h6>
+      <h6 class="element">Age : <%= member.member_age || "Non renseigné" %></h6>
+      <h6 class="element">Email : <%= member.member_email || "Non renseigné" %></h6>
+      <h6 class="element">Numéro de téléphone : <%= member.member_phone_number || "Non renseigné" %></h6>      
+      <h3 class="title">Informations sur le compte :</h3>
+      <h6 class="element">Compte crée le : <%= new Date(parseInt(member.member_account_date)) || "Inconu" %></h6>
     </div>  
 
     <%- include('../include/footer.ejs') %>

@@ -1,0 +1,8 @@
+:root{
+    --color-grey : #666969;
+    --container-color : #ffffff;
+}
+.title{
+    --title-size : 28px;
+    --title-color: #a5303a;
+}
