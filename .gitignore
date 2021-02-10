@@ -3,3 +3,4 @@ package-lock.json
 
 uploads
 config.js
+prod.config.js
