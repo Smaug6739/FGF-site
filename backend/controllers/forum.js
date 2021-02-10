@@ -41,6 +41,11 @@ exports.deleteMessage = (req, res) => {
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.deleteTopic = (req, res) => {
+    Forum.deleteTopic(req.params.topicId, req.params.userId, req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 exports.voirForum = (req, res) =>{
     Forum.voirForum(req.params.forum)
     .then(result => res.json(checkAndChange(result)))

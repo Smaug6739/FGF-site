@@ -58,7 +58,7 @@ let Forum = class Forum{
             if(!userPermissions) reject(new Error('Missing user permissions'))
             db.query('SELECT * FROM forum_post WHERE post_id = ?',[message], (err, result) =>{
                 if(err) reject(new Error(err))
-                else if(result.post_createur === author || userPermissions >= 2){
+                else if(result[0].post_createur === parseInt(author) || userPermissions >= 2){
                     db.query('DELETE FROM forum_post WHERE post_id = ?',[message], (err, result) =>{
                         if(err) reject(new Error(err))
                         else resolve(true)
@@ -66,6 +66,19 @@ let Forum = class Forum{
                 } else reject(new Error('Bad permissions'))
             })
 
+        })
+    }
+    static deleteTopic(topicId, userId, userPermissions) {
+        return new Promise(async(resolve, reject) => {
+            if(!topicId) reject(new Error('Missing topicId'))
+            if(!userId) reject(new Error('Missing userId'))
+            if(!userPermissions) reject(new Error('Missing user permissions'))
+            if(userPermissions >= 2){
+                db.query('DELETE FROM forum_topic WHERE topic_id = ?',[topicId], (err, result) =>{
+                    if(err) reject(new Error(err))
+                    else resolve(true)
+                })
+            } else reject(new Error("Bad permissions"))
         })
     }
     static updateMessage(postId, author, content) {
@@ -76,7 +89,7 @@ let Forum = class Forum{
             if(content.length > 5000) reject(new Error("Le message est trop long. (5000)"))
             db.query('SELECT * FROM forum_post WHERE post_id = ?',[postId], (err, result) =>{
                 if(err) reject(new Error(err))
-                else if(result.post_createur === author){
+                else if(result[0].post_createur === parseInt(author)){
                     db.query('UPDATE forum_post SET post_texte = ? WHERE post_id = ?',[content, postId], (err, result) =>{
                         if(err) reject(new Error(err))
                         else resolve(true)
@@ -97,7 +110,6 @@ let Forum = class Forum{
             if(content.length > 5000) reject(new Error("Le message est trop long. (5000)"))
             const postTime = Date.now()
             const topicId2 =  `${author}${Date.now()}${crypto.randomBytes(16).toString("hex")}`
-            console.log(topicId2)
                 db.query('INSERT INTO forum_topic (`topic_id2`, `topic_categorie`, `topic_titre`, `topic_createur`, `topic_vu`, `topic_time`, `topic_genre`, `topic_last_post`, `topic_first_post`, `topic_post`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',[topicId2, categorie, title, author, 0, postTime, 'normal', 0, 0, 0],(err, result) =>{
                     if(err) return reject(err.stack)
                    // else resolve(result)

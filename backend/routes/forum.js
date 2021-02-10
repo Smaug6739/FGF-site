@@ -9,12 +9,13 @@ ForumRouter.get('/getCategorie/:categorieId/:page', forumCtrl.getCategorie)
 ForumRouter.get('/getTopic/:topicId/:page', forumCtrl.getTopic)
 ForumRouter.get('/voirForum/:forum', forumCtrl.voirForum)
 
-ForumRouter.post('/message',forumCtrl.postMessage)
-ForumRouter.post('/topic',forumCtrl.postTopic)
+ForumRouter.post('/message/:userId', auth, forumCtrl.postMessage)
+ForumRouter.post('/topic/:userId', auth, forumCtrl.postTopic)
 
 ForumRouter.put('/message/:messageId/:userId', auth, forumCtrl.updateMessage)
 
 ForumRouter.delete('/message/:messageId/:userId', auth, forumCtrl.deleteMessage)
+ForumRouter.delete('/topic/:topicId/:userId', auth, forumCtrl.deleteTopic)
 
 /*ForumRouter.get('/:userId/all/:page', auth, forumCtrl.getAllArticles);
 
