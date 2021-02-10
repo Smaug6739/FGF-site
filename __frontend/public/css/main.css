@@ -10,32 +10,17 @@ body{
     background-color: #004f75;
 }
 /* NAV */
-.nav-li{
-    margin-top: 10px;
-}
-#menu-compte{
-    margin-right: 10px;
-}
-#img-article{
-    max-width: 90%;
-}
+.nav-li{margin-top: 10px;}
+.navigation-bar{background-color:#002f46}
+#menu-compte{margin-right: 10px;}
 
 
+#img-article{max-width: 90%;}
 
-a{
-    color : black
-}
+#avatar{width: 64px;border-radius: 32px;}
+#text-center{text-align: center;}
 
-
-#avatar{
-    width: 64px;
-    border-radius: 32px;
-
-}
-#text-center{
-    text-align: center;
-}
-
+a{color : black}
 
 fieldset.form-group {
     border: 1px groove black !important;
@@ -53,4 +38,12 @@ legend {
     width:auto!important;
     padding:0 10px;
     border-bottom:none;
+}
+
+@media screen and (max-width:700px){
+    #avatar{
+        position: absolute;
+        right:5%;
+        top : 5%
+        }
 }

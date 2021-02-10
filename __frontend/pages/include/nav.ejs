@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">-->
 <!--navbar fixed-top-->
-<nav id="menu"class="navbar navbar-expand-md navbar-dark" style="background-color:#002f46">
+<nav id="menu"class="navbar navbar-expand-md navbar-dark navigation-bar">
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -26,9 +26,7 @@
             <% if(userConnected.auth === true){ %>
             <li id="menu-compte"class="nav-li">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        <span class="caret">Mon compte</span>
-                    </button>
+                    <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" role="button" >MON COMPTE</a>                    
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/member/account">Profil</a></li>
                         <li><a class="dropdown-item" href="/member/edit">Paramètres</a></li>
