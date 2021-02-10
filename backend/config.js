@@ -1,4 +1,4 @@
-module.exports = {
+/*module.exports = {
     rootAPI : "/api/v1/",
     port    : 8080,
     secret  : "Jkps75z9*d/se32~",
@@ -14,16 +14,16 @@ module.exports = {
             userPermissions: 1,
         }
     }
-}
+}*/
 
-/*module.exports = {
+module.exports = {
     rootAPI : "/api/v1/",
     port    : 8080,
     secret  : "Jkps75z9*s/se32~",
     database: {
         host      : 'localhost',
         user      : 'root',
-        password  : 'Io73uh96/&*',
+        password  : 'fgf954_zisj7zsqs53sq6531qs5q',
         name      : 'fgf_site'
     },
     defaultSettings:{
@@ -32,4 +32,4 @@ module.exports = {
             userPermissions: 1,
         }
     }
-}*/
+}

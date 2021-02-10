@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 module.exports =  {
 
   init: () => {
-    const mongooseDB = "mongodb://localhost:27017/espacemembresfrontend"
+    const mongooseDB = "mongodb://localhost:27017/fgfsitefrontend"
     const mongOptions = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
