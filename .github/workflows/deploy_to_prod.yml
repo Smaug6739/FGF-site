@@ -10,3 +10,7 @@ jobs:
       run: |
         cd /home/fgf/fgf-site/prod
         git pull origin master
+        cd /__frontend
+        npm install
+        cd ../backend
+        npm install
