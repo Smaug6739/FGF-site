@@ -9,5 +9,4 @@ jobs:
     - name: pull
       run: |
         cd /home/fgf/fgf-site/prod
-        git stash
         git pull origin master
