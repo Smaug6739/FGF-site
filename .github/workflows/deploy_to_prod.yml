@@ -11,4 +11,3 @@ jobs:
         cd /home/fgf/fgf-site/prod
         git stash
         git pull origin master
-        npm install 
