@@ -101,12 +101,12 @@ exports.reportTopic = (req, res) => {
   WebhookReport.send(`<@&807597601348255785> un message vient d'etre signalé : http://localhost:8081/forum/topic/${req.params.topicId}/${req.params.page}/#${req.params.postId}`)
 }
 exports.postTopic = (req, res) => {
-    axios.post(`http://localhost:8080/api/v1/forum/topic`,{
+    axios.post(`http://localhost:8080/api/v1/forum/topic/${req.session.user.id}`,{
         categorie: req.params.categorieId,
         author: req.session.user.id,
         title: req.body.title,
         content: req.body.content
-    })
+    },{ headers : { 'Authorization' : `token ${req.session.user.token}`}})
     .then((responce) => {
         if(responce.data.status === 'success') res.redirect(`/forum/categorie/${req.params.categorieId}/1`)
         else{
@@ -125,13 +125,13 @@ exports.postTopic = (req, res) => {
     });
 }
 exports.postMessage = (req, res) => {
-    axios.post(`http://localhost:8080/api/v1/forum/message`,{
+    axios.post(`http://localhost:8080/api/v1/forum/message/${req.session.user.id}`,{
         author: req.session.user.id,
         content: req.body.content,
         topicId : req.params.topicId
-    })
+    },{ headers : { 'Authorization' : `token ${req.session.user.token}`}})
     .then((responce) => {
-        if(responce.data.status === 'success') res.redirect(`/forum/topic/${responce.data.result.topicId}`)
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
         else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : statusUser(req.session),
@@ -149,7 +149,7 @@ exports.postMessage = (req, res) => {
 }
 
 exports.updateMessage = (req, res) => {
-    axios.put(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.userID}`,{
+    axios.put(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.id}`,{
         content: req.body.contentEdit
     },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
@@ -174,12 +174,34 @@ exports.updateMessage = (req, res) => {
 
 
 exports.deleteMessage = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.userID}`,{
+    axios.delete(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.id}`,{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then((responce) => {
         if(responce.data.status === 'success') res.redirect(req.get('referer'));
 
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+exports.deleteTopic = (req, res) => {
+    axios.delete(`http://localhost:8080/api/v1/forum/topic/${req.params.topicId}/${req.session.user.id}`,{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then((responce) => {
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
         else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : statusUser(req.session),

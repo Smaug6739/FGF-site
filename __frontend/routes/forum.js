@@ -8,8 +8,8 @@ ForumRouter.get('/',  forumCtrl.getIndex)
 ForumRouter.get('/report/topic/:topicId/:page/:postId',  forumCtrl.reportTopic)
 ForumRouter.get('/categories',  forumCtrl.getCategories)
 ForumRouter.get('/categorie/:categorieId/:page',  forumCtrl.getCategorie)
+ForumRouter.get('/topic/delete/:topicId/', auth, forumCtrl.deleteTopic)
 ForumRouter.get('/topic/:topicId/:page',  forumCtrl.getTopic)
-
 ForumRouter.get('/message/delete/:messageId', auth, forumCtrl.deleteMessage)
 
 ForumRouter.post('/topic/:categorieId/', auth, forumCtrl.postTopic)

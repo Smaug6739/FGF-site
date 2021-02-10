@@ -36,10 +36,12 @@ th {  border: 1px solid black; }
     color: #a5303a;
 }
 #center{text-align: center;}
+.img-delete{width: 25px;}
 @media screen and (max-width: 900px ){
     #container{
         width: 100%;
     }
+    .modo-column{width: 0.5px;}
 }
 
 @media screen and (max-width: 450px ){

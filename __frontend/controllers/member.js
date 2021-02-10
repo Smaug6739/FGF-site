@@ -276,8 +276,7 @@ exports.postArticle = (req, res) => {
             intro: req.body.intro,
             content: htmlContent,
             authorId: req.session.user.id
-    },{headers : { 'Authorization' : `token ${req.session.user.token}`}}
-    )
+    },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
     .then((responce) => {
         if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{
