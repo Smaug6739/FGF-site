@@ -5,3 +5,13 @@ function viewEdit(id, texte){
                                                           <button type="submit" class="btn btn-success" id="send">Mettre a jour</button>
                                                           </form>`
     }
+
+window.onload = function(){
+    const tabURL = window.location.href.split('/').reverse()
+    const page = window.location.href.split('/').reverse()[1]
+    const channel = window.location.href.split('/').reverse()[0]
+    const pageSuivante = parseInt(page) + 1
+    const pagePrecedente = parseInt(page) - 1
+    document.getElementById("suivant").setAttribute("href", `/member/messages-prives/channel/page/${pageSuivante}/${channel}`)
+    document.getElementById("precedent").setAttribute("href", `/member/messages-prives/channel/page/${pagePrecedente}/${channel}`)
+}

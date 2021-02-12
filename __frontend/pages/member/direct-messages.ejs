@@ -12,23 +12,34 @@
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
-
+ 
     <div id="container">
-    <table id="table-msgs">
-      <th>Expéditeur</th>
-      <th>Titre</th>
-      <th>Date</th>
-      <th>Action</th>
-      
-      <% dms.forEach(element => { %>
-        <tr>
-          <td><%=element.dm_user1%></td>
-          <td><a href="/member/messages-prives/channel/page/1/<%=element.dm_id%>"><%=element.dm_title%></a></td>
-          <td>12/02/2021</td>
-          <td><a href="/member/messages-prives/delete/channel/<%=element.dm_id%>">Supprimer</a></td>
-        </tr>
-      <% }); %>
-    </table>
+      <h3 class="title-dm">Messages privés :</h3>
+
+      <table id="table-msgs">
+        <th class="col-expediteur">Expéditeur</th>
+        <th>Titre</th>
+        <th>Date</th>
+        <th class="col-action">Action</th>
+        
+        <% dms.forEach((element,index) => { %>
+          <%  const date_insert = new Date(parseInt(element.dm_last_update)) %>
+          <%  const months = ['1','2','3','4','5','6','7','8','9','10','11','12'];  %>
+          <%  const year = date_insert.getFullYear() %>
+          <%  const month = months[date_insert.getMonth()] %>
+          <%  const date = date_insert.getDate() %>
+          <%  const hour = date_insert.getHours() %>
+          <%  const minute = date_insert.getMinutes() %>
+          <tr>
+            <td class="col-expediteur"><%=element.dm_user1%></td>
+            <td>
+              <a href="/member/messages-prives/channel/page/1/<%=element.dm_id%> "><%=element.dm_title%></a>
+            </td>
+            <td><%=`${date}/${month}/${year} à ${hour}h${minute} `%></td>
+            <td><a href="/member/messages-prives/delete/channel/<%=element.dm_id%>"><img src="/static/images/btn_delete.svg" class="btn-control"></a></td>
+          </tr>
+        <% }); %>
+      </table>
       <form action="/member/messages-prives/new/" method="post">
         <fieldset class="form-group">
           <div class="wrapper">
@@ -45,6 +56,10 @@
           <button type="submit" class="btn btn-success" id="send">Envoyer</button>
         </fieldset>
       </form>
+      <div id="btn-pages">
+        <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+        <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+      </div>
   </div>
 
 

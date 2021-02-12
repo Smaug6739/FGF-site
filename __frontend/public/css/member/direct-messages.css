@@ -13,8 +13,12 @@
     width: 80%;
     margin: auto;
   }
-
-
+#btn-pages{text-align: center;padding: 10px;}
+.title-dm{
+  margin-left: 10%;
+  font-weight: 1000;
+  color: #a5303a;
+}
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 
@@ -92,4 +96,27 @@ line-height: 55px;
 font-size: 20px;
 color: #644bff;
 cursor: pointer;
+}
+
+.btn-control{
+  width: 20%;
+  float: right;
+}
+.col-action{
+  width: 20%;
+}
+@media screen and (max-width: 900px ){
+  #container{
+      width: 98%;
+      margin-left: 1%;
+  }
+  .btn-control{
+    width: 30%;
+  }
+
+}
+
+@media screen and (max-width: 450px ){
+  .col-expediteur{display: none;}
+  #table-msgs{width: 95%;}
 }

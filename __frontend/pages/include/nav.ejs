@@ -57,7 +57,7 @@
                 <%  if(userConnected.auth === true && userConnected.nbMsgs != undefined){ %>
                     <div class="item">
                         <a href="/member/messages-prives/page/1">
-                            <%if(userConnected.nbMsgs !== 0){ %> <span class="notify-badge">NEW</span> <%}%>
+                            <%if(userConnected.nbMsgs){ %> <span class="notify-badge">NEW</span> <%}%>
                             <img id="envelope" src="/static/images/icons/envelope.png"  alt="" />
                       </a>
                   </div>

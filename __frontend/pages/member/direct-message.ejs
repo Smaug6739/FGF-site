@@ -15,10 +15,12 @@
 
   <div id="container">
     <div id="container-dm">
-      <% if(dm[0]){ %>    
-        <% dm.forEach(element => { %>
+      <% if(dm[0]){ %>
+        <% const dmSize = dm.length %>
+        <% dm.forEach((element,index) => { %>
           <div id="element">
-            <div class="container-message" id="">
+            <%console.log(index)%>
+            <div class="container-message" <%if(index === (dmSize -1)){%> id="lastMessage" <%}%>>
               <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
               <%=element.member_pseudo%> 
                 <% if(element.member_id === userConnected.id){ %>
@@ -46,12 +48,18 @@
                 <button type="submit" class="btn btn-success">Poster</button>
               </form>
             </fieldset>
+            <div id="btn-pages">
+              <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+              <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+            </div>
           </div>
         </div>
         <%}else{%>
           <h3 style="text-align:center;">Aucun message</h3>
         <% } %>
+        
     </div>
+    
   </div>
 
 
