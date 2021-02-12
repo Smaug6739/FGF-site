@@ -18,6 +18,29 @@ body{
 #img-article{max-width: 90%;}
 
 #avatar{width: 64px;border-radius: 32px;}
+#envelope{width: 40px; margin-left:15px;margin-right:15px;}
+.item {
+    position:relative;
+    padding-top:10px;
+    display:inline-block;
+}
+.notify-badge{
+    margin-right:10px;
+    position: absolute;
+    right:-10px;
+    top:5px;
+    background:red;
+    text-align: center;
+    border-radius: 30px 30px 30px 30px;
+    color:white;
+    padding:2px 5px;
+    font-size:10px;
+}
+#nb-msgs{
+    border-radius: 50%;
+    margin-left:2px;
+    background-image: "/static/images/icons/envelope.png";
+}
 #text-center{text-align: center;}
 
 a{color : black}
@@ -46,4 +69,6 @@ legend {
         right:5%;
         top : 5%
         }
+        #envelope{margin-left:0px}
+
 }

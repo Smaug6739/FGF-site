@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
         if(!req.headers || req.headers && !req.headers.authorization) throw 'Missing authorization header.'
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, config.secret);
-        const userId = decodedToken.id;
+        const userId = decodedToken.userId;
         const userPermissions = decodedToken.userPermissions
         req.user = {userPermissions : userPermissions}
         if(req.params.userId){

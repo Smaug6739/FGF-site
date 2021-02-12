@@ -22,11 +22,11 @@ var showdown  = require('showdown'),
 converter  = new showdown.Converter({extensions: [demo]});
 
 
-exports.getRegister = (req, res) => {
+exports.getRegister = async (req, res) => {
     if (req.session && req.session.user) return res.redirect('/member/account')
     else {
         res.render(path.join(__dirname, `${dirMemberPages}/register.ejs`), {
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
         })
     }
 }
@@ -42,41 +42,38 @@ exports.postRegister = (req, res) => {
         email: req.body.email,
         phoneNumber: req.body.phoneNumber
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'success') res.redirect('/member/login');
         else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message
             })
         } 
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error
 
         })
     })
 }
 
-exports.getLogin = (req, res) => {
+exports.getLogin = async (req, res) => {
     if (req.session && req.session.user) return res.redirect('/member/account')
     else {
         res.render(path.join(__dirname, `${dirMemberPages}/login.ejs`), {
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
         })
     }
 }
 
 exports.postLogin = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/members/login`,{
-    params:{
-        pseudo : req.body.pseudo,
-        password : req.body.pass
-    }
+    params:{pseudo : req.body.pseudo,password : req.body.pass}
     })
-    .then(responce =>{
+    .then(async responce =>{
         if(responce.data.status === "success"){
             req.session.user = {
                 id : responce.data.result.id,
@@ -88,9 +85,9 @@ exports.postLogin = (req, res) => {
               res.redirect('/member/account')
         }else res.redirect('/member/login')
     })
-    .catch(error =>{
+    .catch(async error =>{
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error
         })
     })
@@ -106,22 +103,22 @@ exports.getAccount = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, `${dirMemberPages}/account.ejs`),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 member : responce.data.result,
             })
         } else {
             res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message
             })
         }    
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'), {
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error,
         })
     })
@@ -131,22 +128,22 @@ exports.getEditAccount = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, `${dirMemberPages}/edit.ejs`),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 member : responce.data.result,
             })
         } else {
             res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message
             })
         }    
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'), {
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error,
         })
     })
@@ -166,10 +163,10 @@ exports.updateMember = (req, res) => {
     },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
         }else if(responce.data.status === 'success'){
@@ -177,9 +174,9 @@ exports.updateMember = (req, res) => {
             res.redirect('/member/account')
         };
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error
         })
     })
@@ -192,17 +189,17 @@ exports.updatePassword = (req, res) => {
     },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
         }else if(responce.data.status === 'success') res.redirect('/member/account');
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error
         })
     })
@@ -212,17 +209,17 @@ exports.deleteMember = (req, res) => {
     axios.delete(`http://localhost:8080/api/v1/members/${req.session.user.id}/${req.body.password}`,{
         headers : { 'Authorization' : `token ${req.session.user.token}`} 
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
         }else if(responce.data.status === 'success') res.redirect('/member/disconnection');
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error,
         })
     })
@@ -232,38 +229,38 @@ exports.getArticlesOfMember = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, `${dirMemberPages}/articles.ejs`),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 articles : responce.data.result,
             })
         } else {
             res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message
             })
         }    
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'), {
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error,
         })
     })
 }
-exports.getPostArticle = (req, res) => {
+exports.getPostArticle = async (req, res) => {
     res.render(path.join(__dirname, `${dirMemberPages}/postarticle.ejs`), {
-        userConnected : statusUser(req.session),
+        userConnected : await statusUser(req.session),
     })
 }
 
-exports.postArticle = (req, res) => {
+exports.postArticle = async (req, res) => {
     let file = "";
     if(req.file && req.file.filename) file = req.file.filename;
     else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
         })
     }
@@ -277,10 +274,10 @@ exports.postArticle = (req, res) => {
             content: htmlContent,
             authorId: req.session.user.id
     },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message
             })
         }else if(responce.data.status === 'success') {
@@ -288,9 +285,9 @@ exports.postArticle = (req, res) => {
             res.redirect('/member/account')
         };
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error
         })
     })
@@ -301,23 +298,23 @@ exports.getUpdateArticle = (req,res) => {
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/member/articleupdate.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 article : responce.data.result,
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
         }
 
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error,
         })
     });
@@ -338,17 +335,17 @@ exports.postUpdateArticle = (req, res) => {
     },{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'error'){
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
         }else if(responce.data.status === 'success') res.redirect('/member/account')
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error
         })
     })
@@ -359,7 +356,7 @@ exports.postDeleteArticle = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
-    .then(result => {
+    .then(async result => {
         if(result.data.status === 'success'){
             fs.unlink(path.join(__dirname, `../uploads/articles/${result.data.result.lien_miniature}`), (err) => {
                 if (err) console.log(err);
@@ -367,31 +364,182 @@ exports.postDeleteArticle = (req, res) => {
               axios.delete(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`,{
                 headers : { 'Authorization' : `token ${req.session.user.token}`},
                 })
-                .then((responce) => {
+                .then(async(responce) => {
                     if(responce.data.status === 'error'){
                         res.render(path.join(__dirname, '../pages/error.ejs'),{
-                            userConnected : statusUser(req.session),
+                            userConnected : await statusUser(req.session),
                             error : responce.data.message,
                         })
                     }else if(responce.data.status === 'success') res.redirect('/member/account')
                 })
-                .catch((error) => {
+                .catch(async(error) => {
                     res.render(path.join(__dirname, '../pages/error.ejs'),{
-                        userConnected : statusUser(req.session),
+                        userConnected : await statusUser(req.session),
                         error : error
                     })
                 })
         }
 
     })
-    .catch(error => {
+    .catch(async error => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error,
         })
     })
 }
 
+
+
+exports.getDirectMessages = (req, res) => {
+    axios.get(`http://localhost:8080/api/v1/dm/all/${req.session.user.id}/${req.params.page}`,{ headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/member/direct-messages.ejs'),{
+                userConnected : await statusUser(req.session),
+                dms : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+exports.getDirectMessage = (req, res) => {
+    axios.get(`http://localhost:8080/api/v1/dm/${req.params.channelId}/${req.params.page}/${req.session.user.id}`,{ headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/member/direct-message.ejs'),{
+                userConnected : await statusUser(req.session),
+                dm : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+exports.postDirectMessage = (req, res) => {
+    axios.post(`http://localhost:8080/api/v1/dm/message/${req.session.user.id}`,{ 
+    message: req.body.message,
+    author: req.params.expediteurId,
+    client: req.params.clientId,
+    dmId: req.params.channelId
+    },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.updateMessage = (req, res) => {
+    axios.put(`http://localhost:8080/api/v1/dm/message/${req.params.messageId}/${req.session.user.id}`,{ 
+    message: req.body.contentEdit,
+    },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+exports.postNewChannel = (req, res) => {
+    axios.post(`http://localhost:8080/api/v1/dm/new/channel/${req.session.user.id}`,{ 
+        message: req.body.content,
+        title: req.body.title,
+        author:  req.session.user.id,
+        client: req.body.client,
+    },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.deleteChannel = (req, res) => {
+    axios.delete(`http://localhost:8080/api/v1/dm/channel/${req.session.user.id}/${req.params.channelId}`,{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.deleteMessage = (req, res) => {
+    axios.delete(`http://localhost:8080/api/v1/dm/message/${req.session.user.id}/${req.params.messageId}`,{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'success') res.redirect(req.get('referer'));
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
 /*function apiCall(url, method, data, headers, session, res, next) {
     fetch({
         method : method,

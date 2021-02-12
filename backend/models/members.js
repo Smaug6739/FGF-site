@@ -1,5 +1,17 @@
 const db = require('./db')
 
+
+exports.search = (pseudo) => {
+    return new Promise((resolve, reject) =>{
+        db.query('SELECT member_pseudo FROM members WHERE member_pseudo LIKE ? LIMIT 5',[pseudo+'%'], (err, result) =>{
+            if(err) return reject(err.message)
+            else{
+                resolve(result)
+            }
+        }) 
+    })
+}
+
 exports.getAllMembers = (skip) => {
     return new Promise((resolve, reject) =>{
         if(skip < 0) return reject('Skip ne peux pas etre inferieur a 0.')

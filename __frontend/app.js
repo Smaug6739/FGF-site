@@ -39,9 +39,9 @@ app.use(session({
     app.use('/admin',routerAdmin)
     app.use('/articles',routerArticles)
     app.use('/static', express.static(path.join(__dirname, 'public')));
-    app.get('/', (req, res) => {
+    app.get('/', async(req, res) => {
         res.render(`${__dirname}/pages/index.ejs`,{
-            userConnected : statusUser(req.session)
+            userConnected : await statusUser(req.session)
         })
     });
     
@@ -52,8 +52,8 @@ app.use(session({
         res.status(200).sendFile(path.join(__dirname, 'pages/error.ejs'));
     });
 
-    app.get('/test', (req, res) => {
-    res.render(path.join(__dirname, 'pages/test.ejs'), {userConnected : statusUser(req.session)});
+    app.get('/test', async(req, res) => {
+    res.render(path.join(__dirname, 'pages/test.ejs'), {userConnected : await statusUser(req.session)});
     });
 
     app.use(function(err, req, res, next) {

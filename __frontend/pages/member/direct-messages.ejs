@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link  rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/member/direct-messages.css">
+    <title>API Members</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+
+    <div id="container">
+    <table id="table-msgs">
+      <th>Expéditeur</th>
+      <th>Titre</th>
+      <th>Date</th>
+      <th>Action</th>
+      
+      <% dms.forEach(element => { %>
+        <tr>
+          <td><%=element.dm_user1%></td>
+          <td><a href="/member/messages-prives/channel/page/1/<%=element.dm_id%>"><%=element.dm_title%></a></td>
+          <td>12/02/2021</td>
+          <td><a href="/member/messages-prives/delete/channel/<%=element.dm_id%>">Supprimer</a></td>
+        </tr>
+      <% }); %>
+    </table>
+      <form action="/member/messages-prives/new/" method="post">
+        <fieldset class="form-group">
+          <div class="wrapper">
+            <div class="search-input">
+              <a href="" target="_blank" hidden></a>
+              <input type="text" id="search" placeholder="Rechercher un membre.." autocomplete="off" name="client">
+              <div class="autocom-box">
+              </div>
+            </div>
+          </div>
+          <legend class="reply-legent">Envoyer un message</legend>
+          <input type="text" placeholder="Titre" autocomplete="off" name="title" class="form-control" ><br>
+          <textarea id = "content" class="form-control" placeholder="Votre message"cols="30" rows="4" name="content"></textarea>
+          <button type="submit" class="btn btn-success" id="send">Envoyer</button>
+        </fieldset>
+      </form>
+  </div>
+
+
+
+
+
+    <%- include('../include/footer.ejs') %>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script  src="/static/js/member/direct-messages.js"></script>
+
+  </body>
+</html>
+
+

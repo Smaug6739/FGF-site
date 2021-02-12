@@ -1,0 +1,50 @@
+#container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+#container-dm{
+    width: 60%;
+    background-color: #ffffff;
+}
+#element{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 2px black solid;
+}
+.container-message{
+    margin-top: 4px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.author-avatar{
+    width: 6%;
+    border-radius: 50%;
+}
+.header-author{
+    font-size: 125%;
+    font-weight: 900;
+}
+.btn-control{
+    width: 2.5%;
+}
+.right{
+    float: right;
+}
+
+
+
+/*REPLY*/
+#container-reply{
+    background-color: #e9ecef;
+    margin: auto;
+    width : 100%;
+    padding: 1px;
+}
+#container-form-reply{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width : 50%;
+}

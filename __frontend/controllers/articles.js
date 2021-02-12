@@ -8,23 +8,23 @@ const axios = require('axios')
 
 exports.getArticle = (req,res) => {
     axios.get(`http://localhost:8080/api/v1/articles/view/${req.params.articleId}`)
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/articles/view.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 article : responce.data.result,
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
         }
 
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error,
         })
     });
@@ -33,22 +33,22 @@ exports.getArticle = (req,res) => {
 
 exports.getArticles = (req,res) => {
     axios.get(`http://localhost:8080/api/v1/articles/all/${req.params.page}`)
-    .then((responce) => {
+    .then(async(responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/articles/lasts.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 articles : responce.data.result,
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
-                userConnected : statusUser(req.session),
+                userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
         }
     })
-    .catch((error) => {
+    .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : statusUser(req.session),
+            userConnected : await statusUser(req.session),
             error : error,
         })
     });

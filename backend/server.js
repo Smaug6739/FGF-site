@@ -14,15 +14,19 @@ const {checkAndChange} = require('./util/functions');
 const apiRouterV1Members = require('./routes/member')
 const apiRouterV1Articles = require('./routes/articles')
 const apiRouterV1Forum = require('./routes/forum')
+const apiRouterV1DirectMessage = require('./routes/dm')
 
     if(!config.prod) app.use(morgan)
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
 
+    
+
     //ROUTES
     app.use("/api/v1/members", apiRouterV1Members);
     app.use("/api/v1/articles", apiRouterV1Articles);
     app.use("/api/v1/forum", apiRouterV1Forum);
+    app.use("/api/v1/dm", apiRouterV1DirectMessage);
 
     app.all('*', (req, res)=>{
         res.status(404)

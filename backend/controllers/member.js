@@ -25,6 +25,12 @@ exports.getAllMembers = (req, res)=>{
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.searchMember = (req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    Members.search(req.body.search)
+        .then(result => res.json(checkAndChange(result)))
+        .catch(error => res.json(checkAndChange(new Error(error))))
+}
 
 exports.authMember = async (req, res)=>{
     Members.getAuthUser(req.query.pseudo, req.query.password)

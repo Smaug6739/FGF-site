@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link  rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/member/direct-message.css">
+    <title>API Members</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+
+  <div id="container">
+    <div id="container-dm">
+      <% if(dm[0]){ %>    
+        <% dm.forEach(element => { %>
+          <div id="element">
+            <div class="container-message" id="">
+              <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
+              <%=element.member_pseudo%> 
+                <% if(element.member_id === userConnected.id){ %>
+                <a href="/member/messages-prives/delete/message/<%=element.dm_post_id%>"><img class="btn-control right" src ="/static/images/btn_delete.svg"></a>
+                <%} if(element.member_id === userConnected.id){ %>
+                <a onclick="viewEdit(`<%=element.dm_post_id%>`, `<%=element.dm_post_message%>`)" href="#"><img class="btn-control right" src ="/static/images/btn_edit.svg"></a>
+                <div id="edit-<%=element.dm_post_id%>"></div>
+                <% } %>
+                </p>
+                <p><a href="#" class="link-msg"><%= ``%></a></p>
+                <hr>
+                <p><%= element.dm_post_message %></p>
+            </div>          
+          </div>
+        <% }); %>
+
+
+        <% const client = dm[0].dm_post_client !== userConnected.id ? dm[0].dm_post_client : dm[0].dm_post_author %>
+        <div id="container-reply">
+          <div id="container-form-reply">
+            <fieldset class="form-group">
+              <legend>Répondre</legend>
+              <form action="/member/messages-prives/<%=userConnected.id%>/<%= client %>/<%=dm[0].dm_post_dmId%>" method="POST">
+                <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="message"></textarea>
+                <button type="submit" class="btn btn-success">Poster</button>
+              </form>
+            </fieldset>
+          </div>
+        </div>
+        <%}else{%>
+          <h3 style="text-align:center;">Aucun message</h3>
+        <% } %>
+    </div>
+  </div>
+
+
+      
+
+
+
+    <%- include('../include/footer.ejs') %>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+      <script src="/static/js/member/direct-message.js"></script>
+  </body>
+</html>
+
+

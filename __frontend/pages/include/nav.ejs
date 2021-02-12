@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">-->
 <!--navbar fixed-top-->
+<script src="https://kit.fontawesome.com/372ff54e8f.js" crossorigin="anonymous"></script>
 <nav id="menu"class="navbar navbar-expand-md navbar-dark navigation-bar">
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +49,19 @@
             </li>
             <% } %>
             <li>
-            <%  if(userConnected.auth === true && userConnected.userAvatar){ %>
-                <img id="avatar" src="/uploads/avatars/<%= userConnected.userAvatar %>">
-            <% } %>
+                <%  if(userConnected.auth === true && userConnected.userAvatar){ %>
+                    <img id="avatar" src="/uploads/avatars/<%= userConnected.userAvatar %>">
+                <% } %>
+            </li>
+            <li>
+                <%  if(userConnected.auth === true && userConnected.nbMsgs != undefined){ %>
+                    <div class="item">
+                        <a href="/member/messages-prives/page/1">
+                            <%if(userConnected.nbMsgs !== 0){ %> <span class="notify-badge">NEW</span> <%}%>
+                            <img id="envelope" src="/static/images/icons/envelope.png"  alt="" />
+                      </a>
+                  </div>
+                <% } %>
             </li>
         </ul>
     </div>

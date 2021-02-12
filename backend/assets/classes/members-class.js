@@ -4,6 +4,17 @@ const crypto = require("crypto");
 
 
 let Members = class Members{
+
+    static search(pseudo) {
+        return new Promise((next, reject) => {
+            dbFunctions.search(pseudo)
+            .then((result) => {
+                if (result) next(result)
+                else reject(new Error("Wrong ID"))
+            })
+            .catch(error => reject(new Error(error)))
+        })
+    }
     static getByID(id) {
         return new Promise((next, reject) => {
             dbFunctions.getUserById(id)
