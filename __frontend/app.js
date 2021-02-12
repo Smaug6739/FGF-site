@@ -51,8 +51,8 @@ app.use(session({
     app.get('/error', (req, res) => {
         res.status(200).sendFile(path.join(__dirname, 'pages/error.ejs'));
     });
-    app.get('/config-api.js', (req, res) => {
-        res.status(200).sendFile(path.join(__dirname, 'config-api.js'));
+    app.get('/config-api', (req, res) => {
+        res.status(200).send({api:config.urlAPI})
     });
 
     app.get('/test', async(req, res) => {

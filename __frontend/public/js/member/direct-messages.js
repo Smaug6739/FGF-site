@@ -1,7 +1,41 @@
-import {urlAPI} from '../../../config-api.js';
 
+async function fetchApi(){
+    const req = await fetch('/config-api')
+
+    req.json().then(result => {
+        urlAPI = result.api
+        console.log(urlAPI)
+        inputBox.onkeyup = (e)=>{
+            let userData = e.target.value;
+            let emptyArray = [];
+            if(userData){
+              $.post(`${urlAPI}members/search`, {
+                    search:userData
+                }, function(data) {
+                if(data) {
+                      emptyArray = data.result.filter((data)=>{
+                      return data.member_pseudo.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase()); 
+                  });
+                      emptyArray = emptyArray.map((data)=>{
+                      return data = '<li>'+ data.member_pseudo +'</li>';
+                  });
+                    searchWrapper.classList.add("active"); //show autocomplete box
+                    showSuggestions(emptyArray);
+                    let allList = suggBox.querySelectorAll("li");
+                    for (let i = 0; i < allList.length; i++) {
+                        allList[i].setAttribute("onclick", "select(this)");
+                    }
+                  }
+                }, "json")
+                
+            }else{
+                searchWrapper.classList.remove("active"); //hide autocomplete box
+            }
+        }
+    })
+}
+fetchApi()
 const search_bar = document.getElementById('search')
-
 
 // getting all required elements
 const searchWrapper = document.querySelector(".search-input");
@@ -16,33 +50,7 @@ let webLink;
 
 
 
-inputBox.onkeyup = (e)=>{
-    let userData = e.target.value;
-    let emptyArray = [];
-    if(userData){
-      $.post(`${urlAPI}members/search`, {
-            search:userData
-        }, function(data) {
-        if(data) {
-              emptyArray = data.result.filter((data)=>{
-              return data.member_pseudo.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase()); 
-          });
-              emptyArray = emptyArray.map((data)=>{
-              return data = '<li>'+ data.member_pseudo +'</li>';
-          });
-            searchWrapper.classList.add("active"); //show autocomplete box
-            showSuggestions(emptyArray);
-            let allList = suggBox.querySelectorAll("li");
-            for (let i = 0; i < allList.length; i++) {
-                allList[i].setAttribute("onclick", "select(this)");
-            }
-          }
-        }, "json")
-        
-    }else{
-        searchWrapper.classList.remove("active"); //hide autocomplete box
-    }
-}
+
 
 function select(element){
     let selectData = element.textContent;
