@@ -1,3 +1,5 @@
+import {urlAPI} from '../../../config-api.js';
+
 const search_bar = document.getElementById('search')
 
 
@@ -18,7 +20,7 @@ inputBox.onkeyup = (e)=>{
     let userData = e.target.value;
     let emptyArray = [];
     if(userData){
-      $.post("http://localhost:8080/api/v1/members/search", {
+      $.post(`${urlAPI}members/search`, {
             search:userData
         }, function(data) {
         if(data) {
