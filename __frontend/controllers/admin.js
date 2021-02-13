@@ -1,6 +1,7 @@
 const axios = require('axios')
 const path = require('path');
 const {statusUser} = require('../functions');
+const fs = require('fs')
 
 
 exports.getIndex = async (req,res) => {
@@ -214,6 +215,102 @@ exports.updateArticle = (req, res) => {
                 error : responce.data.message,
             })
         }else if(responce.data.status === 'success') res.redirect('/admin')
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error
+        })
+    })
+}
+
+exports.getAlbum = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/update/album.ejs'),{
+                userConnected : await statusUser(req.session),
+                album : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+exports.getAlbums = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/album/${req.session.user.id}/all/${req.params.page}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/albums.ejs'),{
+                userConnected : await statusUser(req.session),
+                albums : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+
+exports.updateAlbum = (req, res) => {
+    axios.put(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`,{
+            statut : req.body.statut,
+            title: req.body.title,
+    },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }else if(responce.data.status === 'success') res.redirect('/admin')
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error
+        })
+    })
+}
+
+
+exports.deleteAlbum = (req, res) => {
+    axios.delete(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`,{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }else if(responce.data.status === 'success'){
+            fs.unlink(path.join(__dirname, `../uploads/album/${req.body.file}`), (err) => {
+                if (err) console.log(err);
+              });
+            res.redirect('/admin')
+        } 
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{

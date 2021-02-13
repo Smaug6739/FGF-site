@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link  rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/album/album.css">
+    <script  src="/static/js/album/album.js"></script>
+    <title>API Members</title>
+  </head>
+  <body>
+
+    <%- include ('../include/nav.ejs'); -%>
+    <%console.log(images)%>
+
+    <div id="container">
+      <% images.forEach(element => { %>
+        <div class="element">
+        <div class="hvrbox">
+          <img width="480px" height="268" src="/uploads/album/<%=element.album_image%>" class="hvrbox-layer_bottom image">
+              <div class="hvrbox-layer_top hvrbox-layer_slideup">
+              <div class="hvrbox-text"><%=element.member_pseudo%></div>
+          </div>
+      </div>
+      <p><%=element.album_title%></p>
+    </div>
+      <%});%>
+    </div>
+    <div id="btns-page">
+      <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+      <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    </div>
+
+
+
+    <%- include('../include/footer.ejs') %>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>

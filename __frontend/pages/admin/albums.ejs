@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/admin/albums.css">
+
+    <title>FGF Album</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+
+        <table class="table table-striped" id="table-albums">
+            <thead>
+              <tr>
+                <th scope="col">Avatar</th>
+                <th scope="col">Pseudos</th>
+                <th scope="col">Date d'inscription</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+        
+              <%  albums.forEach(element => { %>
+              <%  const albumDate = new Date(parseInt(element.album_date)) %>
+              <%  var months = ['1','2','3','4','5','6','7','8','9','10','11','12'];  %>
+              <%  const year = albumDate.getFullYear() %>
+              <%  const month = months[albumDate.getMonth()] %>
+              <%  const date = albumDate.getDate() %>
+                    <tr>
+                    <td> <img src="/uploads/album/<%=element.album_image%>" class="image"></td>
+                    <td> <%= element.album_title  %> </td>
+                    <td> <%= `${date}/${month}/${year}`  %> </td>
+                    <td> <a class="btn btn-primary mt-3"href="/admin/albums/update/<%=element.album_id%>">Modiffier </a></td>
+                    </tr>
+              <% }) %>
+            </tbody>
+          </table>
+  <div id="center">
+    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+  </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>

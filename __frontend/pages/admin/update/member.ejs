@@ -16,7 +16,7 @@
     <%- include ('../../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Modification d'un membre</h1>
 
-    <form id ="form1" action='/admin/update/member/<%= member.member_id %>' method="post">
+    <form id ="form1" action='/admin/members/update/member/<%= member.member_id %>' method="post">
         <div class="form-group">
             <label for="pseudo">Pseudo</label>
             <input type="text" class="form-control" id="pseudo" name="pseudo" value="<%= member.member_pseudo %>" >
@@ -39,7 +39,7 @@
   <div class="popup_block">
       <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="btn_close" src="/static/images/close_pop.png"></a>
       <h2>Changez votre mot de passe</h2>
-      <form action="/admin/update/member/password/<%= member.member_id %>" method="post" class="mt-5">
+      <form action="/admin/members/update/member/password/<%= member.member_id %>" method="post" class="mt-5">
         <div class="form-group">
           <div id="conteneur-field-start">
             <label for="password1">Nouveau mot de passe :</label>
@@ -58,7 +58,7 @@
   <div class="popup_block">
       <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="btn_close" src="/static/images/close_pop.png"></a>
       <h2>Supprimer ce compte</h2>
-      <form action="/admin/delete/member/<%= member.member_id %>" method="post" class="mt-5" >
+      <form action="/admin/members/delete/member/<%= member.member_id %>" method="post" class="mt-5" >
         <input type="hidden" name="id" value="{{member.id}}">
         <button type="submit" class="btn btn-danger">Supprimer</button>
     </form>

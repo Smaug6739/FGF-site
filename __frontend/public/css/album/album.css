@@ -1,0 +1,94 @@
+
+#container{
+    background-color: #ffffff;
+    width: 98%;
+    margin-left: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+.image{
+    box-shadow: 0px 3px 10px black;
+
+}
+
+.hvrbox,
+.hvrbox * {
+    padding: 3px;
+    box-sizing: border-box;
+}
+.hvrbox {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+}
+.hvrbox img {
+    max-width: 100%;
+}
+.hvrbox_background {
+    width: 400px;
+    height: 100px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.hvrbox .hvrbox-layer_bottom {
+    display: block;
+}
+.hvrbox .hvrbox-layer_top {
+    opacity: 0;
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 15px;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -ms-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+}
+.hvrbox:hover .hvrbox-layer_top,
+.hvrbox.active .hvrbox-layer_top {
+    opacity: 1;
+}
+
+
+.hvrbox.active .hvrbox-text_mobile {
+    display: block;
+}
+.hvrbox .hvrbox-layer_image {
+    padding: 0;
+    background: none;
+}
+.hvrbox .hvrbox-layer_slideup {
+    -moz-transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+}
+.hvrbox:hover .hvrbox-layer_slideup,
+.hvrbox.active .hvrbox-layer_slideup {
+    -moz-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+
+#btns-page{
+    text-align: center;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    width : 98%;
+    margin-left: 1%;
+    padding: 15px;
+}

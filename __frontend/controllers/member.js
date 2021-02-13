@@ -9,6 +9,7 @@ const fetch = axios.create({
     baseURL: 'http://localhost:8080/api/v1'
 });
 const Webhook = new WebhookClient(`807328987360657428`, `CfuF2mNaIPjMztP2_TBfHueT2daKqWU-Fu4r85lx-IEMJ66C283BNn4jx9Vbwaa3UAsl`);
+const WebhookAlbum = new WebhookClient(`806511987155927050`, `myeEkGU5YO4RtJyFShn7_4LaDRMSmYnGx-IZfHSt6Urdxo7o-AFpSpQYI-GU8YhhJlF4`);
 var demo = function(converter) {
     return [
         {
@@ -540,6 +541,103 @@ exports.deleteMessage = (req, res) => {
         })
     });
 }
+
+
+
+
+exports.getPostAlbum = async (req, res) => {
+    res.render(path.join(__dirname, `${dirMemberPages}/post.album.ejs`), {
+        userConnected : await statusUser(req.session),
+    })
+}
+
+exports.postAlbum = async (req, res) => {
+    let file = "";
+    if(req.file && req.file.filename) file = req.file.filename;
+    else {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
+        })
+    }
+    axios.post(`http://localhost:8080/api/v1/album/${req.session.user.id}`, {
+            title: req.body.title,
+            image: file,
+            authorId: req.session.user.id
+    },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message
+            })
+        }else if(responce.data.status === 'success') {
+            WebhookAlbum.send("<@&807597601348255785> une nouvelle image vient d'etre poster. http://localhost:8081/admin/album/1")
+            res.redirect('/member/account')
+        };
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error
+        })
+    })
+}
+
+
+
+exports.getAlbums = async (req, res) => {
+    axios.get(`http://localhost:8080/api/v1/album/member/${req.session.user.id}/${req.params.page}`,{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message
+            })
+        }else if(responce.data.status === 'success') {
+            res.render(path.join(__dirname, `${dirMemberPages}/albums.ejs`),{
+                userConnected : await statusUser(req.session),
+                albums : responce.data.result,
+            })
+        };
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error
+        })
+    })
+}
+
+
+exports.deleteAlbum = async (req, res) => {
+    axios.delete(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`,{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message
+            })
+        }else if(responce.data.status === 'success') res.redirect('/member/account')
+
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error
+        })
+    })
+}
+
+
+
+
+
+
+
+
+
+
 /*function apiCall(url, method, data, headers, session, res, next) {
     fetch({
         method : method,

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link  rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/member/albums.css">
+    <script src="/static/js/member/albums.js"></script>
+    <title>FGF - Albums</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+    <h1 class="mb-5 text-center">Vos albums :</h1>
+
+    <div id="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Titre</th>
+          <th scope="col" class="col-date">Date</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+  
+        <%  albums.forEach(album => { %>
+        <%  const date_insert = new Date(parseInt(album.album_date)) %>
+        <%  var months = ['1','2','3','4','5','6','7','8','9','10','11','12'];  %>
+        <%  const year = date_insert.getFullYear() %>
+        <%  const month = months[date_insert.getMonth()] %>
+        <%  const date = date_insert.getDate() %>
+              <tr>
+              <td> <img src="/uploads/album/<%=album.album_image%>" width="100px"height="50px"></td>
+              <td> <%= album.album_title  %> </td>
+              <td class="col-date"> <%= `${date}/${month}/${year}`  %> </td>
+              <% if(album.album_statut === 0){ %>
+              <td>  En attente  </td>
+             <% } else { %>
+                <td>  Validé  </td>
+             <% } %>
+              <td> <a class="btn btn-danger mt-3"href="/member/album/delete/<%=album.album_id%>">Supprimer </a></td>
+              </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <a href="/member/album/post" class="btn btn-outline-success">Poster une nouvelle image</a>
+    <div id="btns-page">
+      <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+      <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    </div>
+    </div>
+
+
+  
+
+    <%- include('../include/footer.ejs') %>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>
