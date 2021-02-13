@@ -9,14 +9,64 @@
     <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
-    <link rel="stylesheet" href="/static/css/admin/members.css">
+    <link rel="stylesheet" href="/static/css/admin/index.css">
 
     <title>API Members</title>
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
-    <%- include ('../include/admin/header.ejs'); -%>
-    <h1 class="mb-5 text-center">Accueil</h1>
+    <div id="container">
+
+      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_member.svg" alt="icon" class="icon">&nbsp; Members</h3>
+        <hr>
+        <p class="cat-description">Gestion des membres du site.<br>-Ajouter un membre<br>-Modifier un membre<br>-Bannir un membre<br>-Supprimer un membre</p>
+        <a href="/admin/members/1" class="btn btn-danger btn-view-forum">Gérer</a>
+      </div>
+
+      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_article.svg" alt="icon" class="icon">&nbsp; Articles</h3>
+        <hr>
+        <p class="cat-description">Gestion des articles du site.<br>-Ajouter un article<br>-Aprouver un article<br>-Modifier un article<br>-Supprimer un article</p>
+        <a href="/admin/articles/1" class="btn btn-danger btn-view-forum">Gérer</a>
+      </div>
+      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_album.svg" alt="icon" class="icon">&nbsp;Album</h3>
+        <hr>
+        <p class="cat-description">Gestion de l'album photo du site.<br>-Ajouter une photo<br>-Aprouver une photo<br>-Supprimer une photo<br></p>
+        <a href="#" class="btn btn-danger btn-view-forum">Gérer</a>
+      </div>
+
+
+
+    </div>
+
+
+    <div id="container">
+
+      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_request.svg" alt="icon" class="icon">&nbsp;Demandes</h3>
+        <hr>
+        <p class="cat-description">Voir les demandes de la page « contact » du site.<br>-Voir les demandes<br>-Traiter une demande<br>-Supprimer une demande</p>
+        <a href="#" class="btn btn-danger btn-view-forum">Gérer</a>
+      </div>
+
+      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_modo.svg" alt="icon" class="icon">&nbsp;Modos</h3>
+        <hr>
+        <p class="cat-description">Voir les demandes de la page « modo » du site.<br>-Voir les demandes<br>-Traiter une demande<br>-Supprimer une demande</p>
+        <a href="#" class="btn btn-danger btn-view-forum">Gérer</a>
+      </div>
+      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_partner.svg" alt="icon" class="icon">&nbsp;Partenaire</h3>
+        <hr>
+        <p class="cat-description">Voir les demandes de la page « partenaire » du site.<br>-Voir les demandes<br>-Traiter une demande<br>-Supprimer une demande</p>
+        <a href="#" class="btn btn-danger btn-view-forum">Gérer</a>
+      </div>
+
+
+
+    </div>
 
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
