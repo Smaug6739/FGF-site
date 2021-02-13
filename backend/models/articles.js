@@ -21,6 +21,16 @@ exports.getAllArticles = (skip) => {
         }) 
     })
 }
+exports.searchArticles = (search) => {
+    return new Promise((resolve, reject) =>{
+        db.query('SELECT * FROM articles WHERE title LIKE ? ORDER BY date_insert DESC LIMIT 10',['%'+search+'%'], (err, result) =>{
+            if(err) return reject(err.message)
+            else{
+                resolve(result)
+            }
+        }) 
+    })
+}
 
 exports.getAllByMemberId = (id) => {
     return new Promise((resolve, reject) =>{

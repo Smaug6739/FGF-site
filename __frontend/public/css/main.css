@@ -5,10 +5,11 @@
 body{
     background-color: #dbdbdb;
 }
-/* Headers */
-#adminHeader{
-    background-color: #004f75;
+::selection{
+    color: #fff;
+    background: black;
 }
+
 /* NAV */
 .nav-li{margin-top: 10px;}
 .navigation-bar{background-color:#002f46}

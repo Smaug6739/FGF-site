@@ -56,6 +56,14 @@ let Articles = class Articles{
             .catch((err) => reject(err))
         })
     }
+    static searchArticles(search) {
+        return new Promise((resolve, reject) => {
+            if(!search) return reject(new Error('Merci de spécifier une recherche valide'))
+            dbFunctions.searchArticles(search)
+            .then((result) => resolve(result))
+            .catch((err) => reject(err))
+        })
+    }
 
     static add(categorie, title, miniature, intro, content, authorId) {
         return new Promise(async(next, reject) => {

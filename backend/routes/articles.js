@@ -13,8 +13,9 @@ ArticlesRouter.get('/:userId/:articleId', auth, articlesCtrl.getArticleByMember)
 ArticlesRouter.get('/:userId/all/:page', auth, articlesCtrl.getAllArticles);//For admin
 
 
-
+ArticlesRouter.post('/search', articlesCtrl.searchArticles);
 ArticlesRouter.post('/:userId', auth, articlesCtrl.createArticle);//Create article
+
 ArticlesRouter.put('/:userId/:articleId', auth, articlesCtrl.putArticle);//OK
 ArticlesRouter.delete('/:userId/:articleId', auth, articlesCtrl.deleteArticle);//OK
 

@@ -14,8 +14,20 @@
   <body>
 
     <%- include ('../include/nav.ejs'); -%>
-    <%console.log(articles)%>
+  <%if(articles.length){%>
+    <div class="wrapper">
+      <div class="search-input">
+        <a href="" target="_blank" hidden></a>
+        <form action="/articles/search" method="GET">
+        <input type="text" placeholder="Rechercher un article.." name="search">
+        </form>
+        <div class="autocom-box">
+        </div>
+        <div class="icon"><i class="fas fa-search"></i></div>
+      </div>
+    </div>
     <div id="container-articles">
+      
       <% articles.forEach(article => { %>
         <div class="article col-lg-3 pt-3 pb-3" style="margin:auto;margin-left:15px;margin-top:10px;">
           <img src="/uploads/articles/<%=article.lien_miniature%>" class="card-img-top">
@@ -25,7 +37,9 @@
               <a href="/articles/view/<%=article.id%>" class="btn btn-danger align-self-end mt-auto">Lire l'article</a>
         </div>
       <% }); %>
-
+  <%}else{%>
+    <h2 class="text-center">Aucun article trouvé...</h2>
+    <%}%>
   </div>
     <div id="btns-page">
       <a href="#" class="btn btn-info" id="precedent">< Précédent</a>

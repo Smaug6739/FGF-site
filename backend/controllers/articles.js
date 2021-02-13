@@ -70,6 +70,11 @@ exports.getAllArticles = (req, res) => {
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.searchArticles = (req, res) => {
+    Articles.searchArticles(req.body.search)
+        .then(result => res.json(checkAndChange(result)))
+        .catch(error => res.json(checkAndChange(new Error(error))))
+}
 
 exports.getLastedArticles = (req, res) => {
     Articles.getLastsArticles(6)

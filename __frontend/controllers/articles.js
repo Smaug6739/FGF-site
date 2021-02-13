@@ -53,3 +53,25 @@ exports.getArticles = (req,res) => {
         })
     });
 }
+exports.searchArticle = (req,res) => {
+    axios.post(`http://localhost:8080/api/v1/articles/search`,{search:req.query.search})
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/articles/lasts.ejs'),{
+                userConnected : await statusUser(req.session),
+                articles : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
