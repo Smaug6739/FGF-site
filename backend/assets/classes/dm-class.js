@@ -8,7 +8,7 @@ let DirectMessages = class DirectMessages{
         return new Promise(async(resolve, reject) => {
             db.query('SELECT * from dm_post WHERE dm_post_client = ? AND dm_post_lu = 0',[userId], (err, result) => {
                 if(err) reject(new Error(err))
-                else resolve(result.length)
+                else resolve(result)
             })
         })
     }
@@ -16,7 +16,7 @@ let DirectMessages = class DirectMessages{
     static getChannels(userId,page) {
         return new Promise(async(resolve, reject) => {
             const skip = (page * 20) - 20
-            db.query('SELECT * from dm_channels WHERE dm_user1 = ? OR dm_user2 = ?  ORDER BY dm_last_update DESC LIMIT 20 OFFSET ?',[userId, userId,skip], (err, result) => {
+            db.query('SELECT * from dm_channels LEFT JOIN members ON members.member_id = dm_channels.dm_user2 WHERE dm_user1 = ? OR dm_user2 = ?  ORDER BY dm_last_update DESC LIMIT 20 OFFSET ?',[userId, userId,skip], (err, result) => {
                 if(err) reject(new Error(err.message))
                 else resolve(result)
             })

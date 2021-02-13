@@ -21,7 +21,6 @@
         <th>Titre</th>
         <th>Date</th>
         <th class="col-action">Action</th>
-        
         <% dms.forEach((element,index) => { %>
           <%  const date_insert = new Date(parseInt(element.dm_last_update)) %>
           <%  const months = ['1','2','3','4','5','6','7','8','9','10','11','12'];  %>
@@ -30,10 +29,11 @@
           <%  const date = date_insert.getDate() %>
           <%  const hour = date_insert.getHours() %>
           <%  const minute = date_insert.getMinutes() %>
+          <%  const newMsgs = userConnected.nbMsgs.find(msgs => msgs.dm_post_dmId === element.dm_id) %>
           <tr>
-            <td class="col-expediteur"><%=element.dm_user1%></td>
+            <td class="col-expediteur"> <img src="/uploads/avatars/<%=element.member_avatar%>" class="avatar"> <%=element.member_pseudo%></td>
             <td>
-              <a href="/member/messages-prives/channel/page/1/<%=element.dm_id%> "><%=element.dm_title%></a>
+              <a href="/member/messages-prives/channel/page/1/<%=element.dm_id%> "><%if(newMsgs != undefined){%> <strong> <%=element.dm_title%></strong><%}else{%><%=element.dm_title%><%}%></a>
             </td>
             <td><%=`${date}/${month}/${year} à ${hour}h${minute} `%></td>
             <td><a href="/member/messages-prives/delete/channel/<%=element.dm_id%>"><img src="/static/images/btn_delete.svg" class="btn-control"></a></td>
