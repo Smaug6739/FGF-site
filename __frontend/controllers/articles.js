@@ -38,6 +38,7 @@ exports.getArticles = (req,res) => {
             res.render(path.join(__dirname, '../pages/articles/lasts.ejs'),{
                 userConnected : await statusUser(req.session),
                 articles : responce.data.result,
+                search : ''
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -60,6 +61,7 @@ exports.searchArticle = (req,res) => {
             res.render(path.join(__dirname, '../pages/articles/lasts.ejs'),{
                 userConnected : await statusUser(req.session),
                 articles : responce.data.result,
+                search : req.query.search
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{

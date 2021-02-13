@@ -19,7 +19,7 @@
       <div class="search-input">
         <a href="" target="_blank" hidden></a>
         <form action="/articles/search" method="GET">
-        <input type="text" placeholder="Rechercher un article.." name="search">
+        <input type="text" placeholder="Rechercher un article.." name="search" <%if(search){%>value="<%=search%>"<%}%>>
         </form>
         <div class="autocom-box">
         </div>
@@ -40,12 +40,13 @@
   <%}else{%>
     <h2 class="text-center">Aucun article trouvé...</h2>
     <%}%>
+  <% if(search === ''){%>
   </div>
     <div id="btns-page">
       <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
       <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
     </div>
-
+  <%}%>
     <%- include('../include/footer.ejs') %>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 

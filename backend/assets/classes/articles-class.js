@@ -27,8 +27,9 @@ let Articles = class Articles{
         return new Promise((next, reject) => {
             if(!page) return reject(new Error('Merci de spécifier une page valide'))
             const skip = (page * 6) - 6;
+            if(skip === 'NaN') reject(new Error("La page n'est pas un nombre"))
             db.query('SELECT * FROM articles WHERE status = 1 LIMIT 6 OFFSET ?',[skip], (err, result) => {
-                if(err) reject(new Error(err.stack))
+                if(err) reject(new Error(err.message))
                 else next(result)
             })
             
