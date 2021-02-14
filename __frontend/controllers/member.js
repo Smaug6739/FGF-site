@@ -34,7 +34,7 @@ exports.getRegister = async (req, res) => {
 
 exports.postRegister = async (req, res) => {
     if(req.body['g-recaptcha-response']){
-        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recapchat.secret_key}&response=${req.body['g-recaptcha-response']}`)
+        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.reCAPTCHA.secret_key}&response=${req.body['g-recaptcha-response']}`)
         .then(async google_response => {
             if(google_response.data.success){
                 axios.post('http://localhost:8080/api/v1/members', {
@@ -73,13 +73,13 @@ exports.postRegister = async (req, res) => {
         .catch(async err => {
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : await statusUser(req.session),
-                error : "Erreur de capchat."
+                error : "Erreur de captcha."
             })
         })
     } else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
-            error : "Le capchat n'a pas été envoyé."
+            error : "Le captcha n'a pas été envoyé."
         })
     }
     
@@ -99,7 +99,7 @@ exports.getLogin = async (req, res) => {
 
 exports.postLogin = async (req, res) => {
     if(req.body['g-recaptcha-response']){
-        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recapchat.secret_key}&response=${req.body['g-recaptcha-response']}`)
+        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.reCAPTCHA.secret_key}&response=${req.body['g-recaptcha-response']}`)
         .then(async google_response => {
             if(google_response.data.success){
                 axios.get(`http://localhost:8080/api/v1/members/login`,{
@@ -133,13 +133,13 @@ exports.postLogin = async (req, res) => {
         .catch(async err => {
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : await statusUser(req.session),
-                error : "Erreur de capchat."
+                error : "Erreur de captcha."
             })
         })
     } else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
-            error : "Le capchat n'a pas été envoyé."
+            error : "Le captcha n'a pas été envoyé."
         })
     }
 }
@@ -308,7 +308,7 @@ exports.getPostArticle = async (req, res) => {
 
 exports.postArticle = async (req, res) => {
     if(req.body['g-recaptcha-response']){
-        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recapchat.secret_key}&response=${req.body['g-recaptcha-response']}`)
+        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.reCAPTCHA.secret_key}&response=${req.body['g-recaptcha-response']}`)
         .then(async google_response => {
             if(google_response.data.success){
                 let file = "";
@@ -356,13 +356,13 @@ exports.postArticle = async (req, res) => {
         .catch(async err => {
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : await statusUser(req.session),
-                error : "Erreur de capchat."
+                error : "Erreur de captcha."
             })
         })
     } else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
-            error : "Le capchat n'a pas été envoyé."
+            error : "Le captcha n'a pas été envoyé."
         })
     }
 }
@@ -626,7 +626,7 @@ exports.getPostAlbum = async (req, res) => {
 
 exports.postAlbum = async (req, res) => {
     if(req.body['g-recaptcha-response']){
-        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recapchat.secret_key}&response=${req.body['g-recaptcha-response']}`)
+        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.reCAPTCHA.secret_key}&response=${req.body['g-recaptcha-response']}`)
         .then(async google_response => {
             if(google_response.data.success){
                 let file = "";
@@ -669,13 +669,13 @@ exports.postAlbum = async (req, res) => {
         .catch(async err => {
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : await statusUser(req.session),
-                error : "Erreur de capchat."
+                error : "Erreur de captcha."
             })
         })
     } else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
-            error : "Le capchat n'a pas été envoyé."
+            error : "Le captcha n'a pas été envoyé."
         })
     }
     
