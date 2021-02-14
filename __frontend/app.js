@@ -16,7 +16,6 @@ const routerArticles = require('./routes/articles')
 const routerAlbum = require('./routes/album')
 
 
-
 db = require("./util/mongoose");
 db.init();
 app.set('trust proxy', 1) // trust first proxy
