@@ -9,6 +9,7 @@ body{
     color: #fff;
     background: black;
 }
+.grecaptcha-badge { z-index : 10 ; }
 
 /* NAV */
 .nav-li{margin-top: 10px;}

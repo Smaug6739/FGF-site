@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Rasp-Home</title>
+        <title>French Gaming Family - Login</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
         <link href="https://fonts.googleapis.com/css?family=Anton|Dancing+Script|Exo|Lobster|Macondo+Swash+Caps|Pacifico|Shadows+Into+Light&display=swap" rel="stylesheet">
         <link  rel="stylesheet" href="/static/css/main.css">
         <link  rel="stylesheet" href="/static/css/footer.css">
-
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script>
+        function onSubmit(token) {
+            document.getElementById("form_login").submit();
+        }
+        </script>
     </head>
 
     <body>
@@ -20,13 +25,14 @@
 
         <section class="col-xl-12 text-center">
 
-            <form action="/member/login" method="post" class="text-center pt-4 col-sm-4 mx-auto mt-5 d-flex flex-column justify-content-around align-items-center">
+            <form action="/member/login" method="post" class="text-center pt-4 col-sm-4 mx-auto mt-5 d-flex flex-column justify-content-around align-items-center" id="form_login">
                 <h1 class="h3 mb-3 font-weight-normal">Login</h1>
                 <label for="in_login" class="sr-only">Login</label>
                 <input type="text" id="in_login" class="form-control mb-3" placeholder="Pseudo" required="" autofocus="" name="pseudo">
                 <label for="in_pass" class="sr-only">Pass</label>
                 <input type="password" id="in_pass" class="form-control mb-3" placeholder="Password" required="" name="pass">
-                <button class="btn btn-lg btn-success btn-block" type="submit" name="submit">Login</button>
+                <button id="btn_submit" type="submit" class="btn btn-lg btn-success btn-block g-recaptcha" data-sitekey="6LcgLPIUAAAAAE3WY-fLlh4HjVM6yiY7NNa0mETn" data-callback='onSubmit' data-action='submit'>Se connecter</button>
+
             </form>
 
         </section><!-- /.container -->

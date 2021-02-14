@@ -2,9 +2,9 @@ const path = require('path');
 const fs = require('fs')
 const {WebhookClient} = require('discord.js')
 const axios = require('axios');
-const { config } = require('process');
 const {statusUser} = require('../functions');
 const dirMemberPages = '../pages/member';
+const config = require('../config.js')
 const fetch = axios.create({
     baseURL: 'http://localhost:8080/api/v1'
 });
@@ -32,34 +32,61 @@ exports.getRegister = async (req, res) => {
     }
 }
 
-exports.postRegister = (req, res) => {
-    axios.post('http://localhost:8080/api/v1/members', {
-        pseudo : req.body.pseudo,
-        password1 :req.body.password1,
-        password2 :req.body.password2,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        age: req.body.age,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber
-    })
-    .then(async(responce) => {
-        if(responce.data.status === 'success') res.redirect('/member/login');
-        else{
+exports.postRegister = async (req, res) => {
+    if(req.body['g-recaptcha-response']){
+        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recapchat.secret_key}&response=${req.body['g-recaptcha-response']}`)
+        .then(async google_response => {
+            if(google_response.data.success){
+                axios.post('http://localhost:8080/api/v1/members', {
+                    pseudo : req.body.pseudo,
+                    password1 :req.body.password1,
+                    password2 :req.body.password2,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    age: req.body.age,
+                    email: req.body.email,
+                    phoneNumber: req.body.phoneNumber
+                })
+                .then(async(responce) => {
+                    if(responce.data.status === 'success') res.redirect('/member/login');
+                    else{
+                        res.render(path.join(__dirname, '../pages/error.ejs'),{
+                            userConnected : await statusUser(req.session),
+                            error : responce.data.message
+                        })
+                    } 
+                })
+                .catch(async(error) => {
+                    res.render(path.join(__dirname, '../pages/error.ejs'),{
+                        userConnected : await statusUser(req.session),
+                        error : error
+
+                    })
+                })
+            } else {
+                res.render(path.join(__dirname, '../pages/error.ejs'),{
+                    userConnected : await statusUser(req.session),
+                    error : "Vous evez été détecté comme spam."
+                })
+            }
+        })
+        .catch(async err => {
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : await statusUser(req.session),
-                error : responce.data.message
+                error : "Erreur de capchat."
             })
-        } 
-    })
-    .catch(async(error) => {
+        })
+    } else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
-            error : error
-
+            error : "Le capchat n'a pas été envoyé."
         })
-    })
+    }
+    
+    
 }
+    
+
 
 exports.getLogin = async (req, res) => {
     if (req.session && req.session.user) return res.redirect('/member/account')
@@ -70,28 +97,51 @@ exports.getLogin = async (req, res) => {
     }
 }
 
-exports.postLogin = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/members/login`,{
-    params:{pseudo : req.body.pseudo,password : req.body.pass}
-    })
-    .then(async responce =>{
-        if(responce.data.status === "success"){
-            req.session.user = {
-                id : responce.data.result.id,
-                userID: responce.data.result.userID,
-                userPermissions: responce.data.result.userPermissions,
-                token : responce.data.result.token,
-                userAvatar : responce.data.result.userAvatar
+exports.postLogin = async (req, res) => {
+    if(req.body['g-recaptcha-response']){
+        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recapchat.secret_key}&response=${req.body['g-recaptcha-response']}`)
+        .then(async google_response => {
+            if(google_response.data.success){
+                axios.get(`http://localhost:8080/api/v1/members/login`,{
+                    params:{pseudo : req.body.pseudo,password : req.body.pass}
+                    })
+                    .then(async responce =>{
+                        if(responce.data.status === "success"){
+                            req.session.user = {
+                                id : responce.data.result.id,
+                                userID: responce.data.result.userID,
+                                userPermissions: responce.data.result.userPermissions,
+                                token : responce.data.result.token,
+                                userAvatar : responce.data.result.userAvatar
+                            }
+                              res.redirect('/member/account')
+                        }else res.redirect('/member/login')
+                    })
+                    .catch(async error =>{
+                        res.render(path.join(__dirname, '../pages/error.ejs'),{
+                            userConnected : await statusUser(req.session),
+                            error : error
+                        })
+                    })
+            } else {
+                res.render(path.join(__dirname, '../pages/error.ejs'),{
+                    userConnected : await statusUser(req.session),
+                    error : "Vous evez été détecté comme spam."
+                })
             }
-              res.redirect('/member/account')
-        }else res.redirect('/member/login')
-    })
-    .catch(async error =>{
+        })
+        .catch(async err => {
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : "Erreur de capchat."
+            })
+        })
+    } else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
-            error : error
+            error : "Le capchat n'a pas été envoyé."
         })
-    })
+    }
 }
 
 exports.disconnection = (req, res) => { 
@@ -257,41 +307,64 @@ exports.getPostArticle = async (req, res) => {
 }
 
 exports.postArticle = async (req, res) => {
-    let file = "";
-    if(req.file && req.file.filename) file = req.file.filename;
-    else {
-        res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : await statusUser(req.session),
-            error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
+    if(req.body['g-recaptcha-response']){
+        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recapchat.secret_key}&response=${req.body['g-recaptcha-response']}`)
+        .then(async google_response => {
+            if(google_response.data.success){
+                let file = "";
+                if(req.file && req.file.filename) file = req.file.filename;
+                else {
+                    res.render(path.join(__dirname, '../pages/error.ejs'),{
+                        userConnected : await statusUser(req.session),
+                        error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
+                    })
+                }
+                let htmlContent = "";
+                htmlContent = converter.makeHtml(req.body.contenu)
+                axios.post(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
+                        categorie: req.body.categorie,
+                        title: req.body.title,
+                        miniature: file,
+                        intro: req.body.intro,
+                        content: htmlContent,
+                        authorId: req.session.user.id
+                },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+                .then(async(responce) => {
+                    if(responce.data.status === 'error'){
+                        res.render(path.join(__dirname, '../pages/error.ejs'),{
+                            userConnected : await statusUser(req.session),
+                            error : responce.data.message
+                        })
+                    }else if(responce.data.status === 'success') {
+                        Webhook.send("<@&807597601348255785> un nouvel article vient d'etre poster. http://localhost:8081/admin/articles/1")
+                        res.redirect('/member/account')
+                    };
+                })
+                .catch(async(error) => {
+                    res.render(path.join(__dirname, '../pages/error.ejs'),{
+                        userConnected : await statusUser(req.session),
+                        error : error
+                    })
+                })
+            } else {
+                res.render(path.join(__dirname, '../pages/error.ejs'),{
+                    userConnected : await statusUser(req.session),
+                    error : "Vous evez été détecté comme spam."
+                })
+            }
         })
-    }
-    let htmlContent = "";
-    htmlContent = converter.makeHtml(req.body.contenu)
-    axios.post(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
-            categorie: req.body.categorie,
-            title: req.body.title,
-            miniature: file,
-            intro: req.body.intro,
-            content: htmlContent,
-            authorId: req.session.user.id
-    },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
-    .then(async(responce) => {
-        if(responce.data.status === 'error'){
+        .catch(async err => {
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : await statusUser(req.session),
-                error : responce.data.message
+                error : "Erreur de capchat."
             })
-        }else if(responce.data.status === 'success') {
-            Webhook.send("<@&807597601348255785> un nouvel article vient d'etre poster. http://localhost:8081/admin/articles/1")
-            res.redirect('/member/account')
-        };
-    })
-    .catch(async(error) => {
+        })
+    } else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
-            error : error
+            error : "Le capchat n'a pas été envoyé."
         })
-    })
+    }
 }
 
 
@@ -552,36 +625,61 @@ exports.getPostAlbum = async (req, res) => {
 }
 
 exports.postAlbum = async (req, res) => {
-    let file = "";
-    if(req.file && req.file.filename) file = req.file.filename;
-    else {
-        res.render(path.join(__dirname, '../pages/error.ejs'),{
-            userConnected : await statusUser(req.session),
-            error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
+    if(req.body['g-recaptcha-response']){
+        axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recapchat.secret_key}&response=${req.body['g-recaptcha-response']}`)
+        .then(async google_response => {
+            if(google_response.data.success){
+                let file = "";
+                if(req.file && req.file.filename) file = req.file.filename;
+                else {
+                    res.render(path.join(__dirname, '../pages/error.ejs'),{
+                        userConnected : await statusUser(req.session),
+                        error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
+                    })
+                }
+                axios.post(`http://localhost:8080/api/v1/album/${req.session.user.id}`, {
+                        title: req.body.title,
+                        image: file,
+                        authorId: req.session.user.id
+                },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
+                .then(async(responce) => {
+                    if(responce.data.status === 'error'){
+                        res.render(path.join(__dirname, '../pages/error.ejs'),{
+                            userConnected : await statusUser(req.session),
+                            error : responce.data.message
+                        })
+                    }else if(responce.data.status === 'success') {
+                        WebhookAlbum.send("<@&807597601348255785> une nouvelle image vient d'etre poster. http://localhost:8081/admin/album/1")
+                        res.redirect('/member/account')
+                    };
+                })
+                .catch(async(error) => {
+                    res.render(path.join(__dirname, '../pages/error.ejs'),{
+                        userConnected : await statusUser(req.session),
+                        error : error
+                    })
+                })
+            } else {
+                res.render(path.join(__dirname, '../pages/error.ejs'),{
+                    userConnected : await statusUser(req.session),
+                    error : "Vous evez été détecté comme spam."
+                })
+            }
         })
-    }
-    axios.post(`http://localhost:8080/api/v1/album/${req.session.user.id}`, {
-            title: req.body.title,
-            image: file,
-            authorId: req.session.user.id
-    },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
-    .then(async(responce) => {
-        if(responce.data.status === 'error'){
+        .catch(async err => {
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : await statusUser(req.session),
-                error : responce.data.message
+                error : "Erreur de capchat."
             })
-        }else if(responce.data.status === 'success') {
-            WebhookAlbum.send("<@&807597601348255785> une nouvelle image vient d'etre poster. http://localhost:8081/admin/album/1")
-            res.redirect('/member/account')
-        };
-    })
-    .catch(async(error) => {
+        })
+    } else {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
-            error : error
+            error : "Le capchat n'a pas été envoyé."
         })
-    })
+    }
+    
+    
 }
 
 
