@@ -7,5 +7,3 @@ prod.config.js
 
 config-api.js
 prod.config-api.js
-
-process.json
