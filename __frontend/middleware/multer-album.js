@@ -1,7 +1,6 @@
 const path = require('path');
 const multer = require('multer');
 
-
 let name;
 let extension;
 let fullName;
