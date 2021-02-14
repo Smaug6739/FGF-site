@@ -88,17 +88,17 @@ let Members = class Members{
             const user = {
                 userID: userID,
                 userPermissions: config.defaultSettings.members.userPermissions,
-                avatar: avatar,
+                avatar: avatar || 'default.png',
                 accountDate : Date.now(),
-                pseudo: pseudo,
+                pseudo: pseudo || 'non renseigné',
                 password: passwordHash,
-                firstName : firstName,
-                lastName : lastName,
-                age: age,
-                email: email,
-                phoneNumber : phoneNumber,
-                status: status,
-                site: site
+                firstName : firstName || 'non renseigné',
+                lastName : lastName || 'non renseigné',
+                age: age || 'non renseigné',
+                email: email || 'non renseigné',
+                phoneNumber : phoneNumber || 'non renseigné',
+                status: status || 'non renseigné',
+                site: site || 'non renseigné'
             }
             dbFunctions.addMember(user)
             .then(result =>  next(user))
@@ -163,15 +163,15 @@ let Members = class Members{
                     }
                     if(!avatar) avatar = user.member_avatar
                     const newUser = {
-                        avatar : avatar,
-                        pseudo: pseudo,
-                        firstName: firstName,
-                        lastName: lastName,
-                        age: age,
-                        email: email,
-                        phoneNumber: phoneNumber,
-                        status: user.status,
-                        site: user.site
+                        avatar : avatar || 'default.png',
+                        pseudo: pseudo || 'non renseigné',
+                        firstName: firstName || 'non renseigné',
+                        lastName: lastName || 'non renseigné',
+                        age: age || 'non renseigné',
+                        email: email || 'non renseigné',
+                        phoneNumber: phoneNumber || 'non renseigné',
+                        status: user.status || 'non renseigné',
+                        site: user.site || 'non renseigné'
                     }
                     dbFunctions.updateUser(user.member_id, newUser)
                     .then(() => next(newUser))
