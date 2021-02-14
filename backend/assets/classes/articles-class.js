@@ -111,7 +111,6 @@ let Articles = class Articles{
     }
 
     static put(userPermissions, articleId, categorie, title, miniature, intro, content, status){
-        console.log('User permissions for put article :' + userPermissions)
         return new Promise(async(next, reject) => {
             if(!articleId) return reject(new Error("Wrong ID"))
             if (!categorie || categorie && categorie.trim() == '') return reject(new Error("Merci de renseigner une catégorie valide"))

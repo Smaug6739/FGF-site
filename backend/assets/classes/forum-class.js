@@ -1,6 +1,7 @@
 const  dbFunctions  = require("../../models/forum");
 const  db  = require("../../models/db");
 const crypto = require('crypto')
+const errors = require('../forum-errors')
 
 let Forum = class Forum{
 
@@ -20,8 +21,8 @@ let Forum = class Forum{
     }
     static getCategorie(categorieId,page) {
         return new Promise(async(next, reject) => {
-            if(!categorieId) return reject(new Error('Merci de spécifier une catégorie valide.'))
-            if(!page) return reject(new Error('Merci de spécifier une page valide'))
+            if(!categorieId) reject(errors.missing.categorieId)
+            if(!page) reject(errors.missing.page)
             const skip = (page * 20) -20
             dbFunctions.getCategorie(categorieId,skip)
             .then(result =>  next(result))
@@ -30,7 +31,8 @@ let Forum = class Forum{
     }
     static getTopic(topicId, page) {
         return new Promise(async(next, reject) => {
-            if(!page) return reject(new Error('Merci de spécifier une page valide'))
+            if(!page) return reject(errors.missing.page)
+            if(!topicId) return reject(errors.missing.topicId)
                 const skip = (page * 5) -5
                 dbFunctions.getTopic(topicId, skip)
                 .then(result =>  next(result))
@@ -39,12 +41,11 @@ let Forum = class Forum{
     }
     static postMessage(author, content, topicId) {
         return new Promise(async(resolve, reject) => {
-            if(!author) return reject(new Error("Missing author id"))
-            if(!content || content && content.trim() == '') return reject(new Error("Missing message"))
-            if(!topicId) return reject(new Error("Missing topic id"))
-            if(content.length > 5000) reject(new Error("Le message est trop long. (5000)"))
+            if(!author) return reject(errors.missing.authorId)
+            if(!content || content && content.trim() == '') reject(errors.missing.message)
+            if(!topicId) return reject(errors.missing.topicId)
+            if(content.length > 5000) reject(errors.size.tooLong.message)
             const postTime = Date.now()
-            console.log(postTime)
                 db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, ?)',[author, content, postTime, topicId],(err, result) =>{
                     if(err) return reject(err.message)
                     else resolve(result)
@@ -53,9 +54,9 @@ let Forum = class Forum{
     }
     static deleteMessage(message, author, userPermissions) {
         return new Promise(async(resolve, reject) => {
-            if(!message) reject(new Error('Missing message'))
-            if(!author) reject(new Error('Missing author'))
-            if(!userPermissions) reject(new Error('Missing user permissions'))
+            if(!message) reject(errors.missing.message)
+            if(!author) reject(errors.missing.authorId)
+            if(!userPermissions) reject(errors.missing.userPermissions)
             db.query('SELECT * FROM forum_post WHERE post_id = ?',[message], (err, result) =>{
                 if(err) reject(new Error(err))
                 else if(result[0].post_createur === parseInt(author) || userPermissions >= 2){
@@ -63,30 +64,30 @@ let Forum = class Forum{
                         if(err) reject(new Error(err))
                         else resolve(true)
                     })
-                } else reject(new Error('Bad permissions'))
+                } else reject(errors.badPermissions)
             })
 
         })
     }
     static deleteTopic(topicId, userId, userPermissions) {
         return new Promise(async(resolve, reject) => {
-            if(!topicId) reject(new Error('Missing topicId'))
-            if(!userId) reject(new Error('Missing userId'))
-            if(!userPermissions) reject(new Error('Missing user permissions'))
+            if(!topicId) reject(errors.missing.topicId)
+            if(!userId) reject(errors.missing.userId)
+            if(!userPermissions) reject(errors.missing.userPermissions)
             if(userPermissions >= 2){
                 db.query('DELETE FROM forum_topic WHERE topic_id = ?',[topicId], (err, result) =>{
                     if(err) reject(new Error(err))
                     else resolve(true)
                 })
-            } else reject(new Error("Bad permissions"))
+            } else reject(errors.badPermissions)
         })
     }
     static updateMessage(postId, author, content) {
         return new Promise(async(resolve, reject) => {
-            if(!postId) reject(new Error('Missing postId'))
-            if(!author) reject(new Error('Missing author'))
-            if(!content) reject(new Error('Missing message'))
-            if(content.length > 5000) reject(new Error("Le message est trop long. (5000)"))
+            if(!postId) reject(errors.missing.postId)
+            if(!author) reject(errors.missing.authorId)
+            if(!content) reject(errors.missing.message)
+            if(content.length > 5000) reject(errors.size.tooLong.message)
             db.query('SELECT * FROM forum_post WHERE post_id = ?',[postId], (err, result) =>{
                 if(err) reject(new Error(err))
                 else if(result[0].post_createur === parseInt(author)){
@@ -94,7 +95,7 @@ let Forum = class Forum{
                         if(err) reject(new Error(err))
                         else resolve(true)
                     })
-                } else reject(new Error('Bad permissions'))
+                } else reject(errors.badPermissions)
             })
 
         })
@@ -112,7 +113,6 @@ let Forum = class Forum{
             const topicId2 =  `${author}${Date.now()}${crypto.randomBytes(16).toString("hex")}`
                 db.query('INSERT INTO forum_topic (`topic_id2`, `topic_categorie`, `topic_titre`, `topic_createur`, `topic_vu`, `topic_time`, `topic_genre`, `topic_last_post`, `topic_first_post`, `topic_post`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',[topicId2, categorie, title, author, 0, postTime, 'normal', 0, 0, 0],(err, result) =>{
                     if(err) return reject(err.stack)
-                   // else resolve(result)
                    else{
                     db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, (SELECT topic_id FROM forum_topic WHERE forum_topic.topic_id2 = ?))',[author, content, postTime, topicId2],(err, result) =>{
                         if(err) return reject(err.message)

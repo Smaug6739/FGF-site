@@ -63,7 +63,6 @@ let DirectMessages = class DirectMessages{
         return new Promise(async(resolve, reject) => {
             if(!user) reject(new Error('Missing message'))
             if(!channelId) reject(new Error('Missing message'))
-            console.log(channelId)
             db.query('SELECT * FROM dm_channels WHERE dm_user1 = ? OR dm_user2 = ?',[user,user], (err, result) => {
                 if(err) reject(new Error(err.message))
                 else {
