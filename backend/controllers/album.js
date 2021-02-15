@@ -1,7 +1,7 @@
 let Album = require('../assets/classes/album-class')
 const {checkAndChange} = require('../util/functions')
 
-exports.getAlbums = (req, res) =>{
+exports.getAllAlbums = (req, res) =>{
     Album.getAll(req.params.page,req.user.userPermissions)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
@@ -26,6 +26,7 @@ exports.createAlbum = (req, res) =>{
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+
 exports.updateAlbum = (req, res) =>{
     Album.put(req.params.albumId,req.body.title,req.body.statut,req.user.userPermissions)
     .then(result => res.json(checkAndChange(result)))

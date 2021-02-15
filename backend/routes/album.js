@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 
 AlbumRouter.get('/valides/:page', albumCtrl.getPublicAlbums)
 AlbumRouter.get('/member/:userId/:page', auth, albumCtrl.getAlbumsOfMember)
-AlbumRouter.get('/:userId/all/:page', auth, albumCtrl.getAlbums)
+AlbumRouter.get('/:userId/all/:page', auth, albumCtrl.getAllAlbums)
 AlbumRouter.get('/:userId/:albumId', auth, albumCtrl.getAlbum)
 
 AlbumRouter.post('/:userId', auth, albumCtrl.createAlbum);//Create article

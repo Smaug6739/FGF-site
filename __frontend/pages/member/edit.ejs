@@ -34,7 +34,7 @@
 
 
   <div class="account-infos">
-          <h2 id="center-text">Paramètres généraux</h2>
+          <h2 id="center-text">Paramètres du compte</h2>
           <form id ="form1" action="/member/<%= member.member_userID %>/update" method="post" enctype="multipart/form-data">
               <div class="form-group">
                   <label for="firstName">Nom d'utilisateur :</label>
@@ -42,9 +42,9 @@
                   <input  type="text" class="form-field" id="lastName" name="lastName" placeholder="Nom" value="<%= member.member_last_name %>" >
               <div>
                     <label for="avatar">Photo de profil :</label>
-                    <img id="avatar-form" src="/uploads/avatars/<%= userConnected.userAvatar %>">
-                    <label class="custom-file-upload" for="avatar-upload">
-                      <input class="invisible" id="avatar-upload" type="file" onchange="preview_image(event,'avatar-form')" name="avatar-upload"/>
+                    <label class="custom-file-upload avatar-field" for="avatar-upload">
+                      <input class="form-field invisible"  id="avatar-upload" type="file" onchange="preview_image(event,'avatar-form')" name="avatar-upload"/>
+                      <img id="avatar-form" src="/uploads/avatars/<%= userConnected.userAvatar %>">
                       Choisir un fichier
                     </label>
                 </div>

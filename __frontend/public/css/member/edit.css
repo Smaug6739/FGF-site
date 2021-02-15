@@ -36,6 +36,9 @@ label {
     border-radius: 7px;
     border-color: grey;
 }
+.avatar-field{
+    margin-left: 5%;
+}
 #change-password{margin-left: 10px;}
 #delete-account{margin-left: 10px;}
 .btn-send{margin-left : 5px;margin-bottom: 5px;}

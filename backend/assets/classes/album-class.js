@@ -74,13 +74,13 @@ let Album = class Album{
     }
     static put(albumId, title, statut, userPermissions) {
         return new Promise(async(resolve, reject) => {
-            if (!albumId || albumId && albumId.trim() == '') reject(errors.missing.albumId)
-            if (!title || title && title.trim() == '') reject(errors.missing.title)
-            if (!statut) reject(errors.missing.statut)
-            if (!userPermissions) reject(errors.badPermissions)
+            if (!albumId || albumId && albumId.trim() == '') reject(errors.missing.albumId);
+            if (!title || title && title.trim() == '') reject(errors.missing.title);
+            if (!statut) reject(errors.missing.statut);
+            if (!userPermissions) reject(errors.badPermissions);
             
-            if(title && title.length > 150) reject(errors.size.title)
-            if(userPermissions < 2) reject(errors.badPermissions)
+            if(title && title.length > 150) reject(errors.size.title);
+            if(userPermissions < 2) reject(errors.badPermissions);
             db.query('UPDATE album SET album_title = ?, album_statut = ? WHERE album_id = ?',[title,statut,albumId],(err, result) => {
                 if(err) reject(err.message);
                 else resolve(true);
