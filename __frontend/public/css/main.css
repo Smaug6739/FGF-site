@@ -13,7 +13,8 @@ body{
 
 /* NAV */
 .nav-li{margin-top: 10px;}
-.navigation-bar{background-color:#002f46}
+.navigation-bar{background-color:#236281}
+.ban{width:400px;margin-top : -20px}
 #menu-compte{margin-right: 10px;}
 
 
@@ -67,10 +68,10 @@ legend {
 
 @media screen and (max-width:700px){
     #avatar{
-        position: absolute;
-        right:5%;
-        top : 5%
-        }
-        #envelope{margin-left:0px}
+        position: absolute; right:5%;top : 18%;}
+    #envelope{margin-left:0px}
+    .ban{
+        width:255px
+    }
 
 }
