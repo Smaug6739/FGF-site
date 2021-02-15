@@ -119,6 +119,6 @@ cursor: pointer;
 }
 
 @media screen and (max-width: 450px ){
-  .col-expediteur{display: none;}
+  .col-title{display: none;}
   #table-msgs{width: 95%;}
 }

@@ -17,8 +17,8 @@
       <h3 class="title-dm">Messages privés :</h3>
 
       <table id="table-msgs">
-        <th class="col-expediteur">Expéditeur</th>
-        <th>Titre</th>
+        <th class="col-reveveur">Receveur</th>
+        <th class="col-title">Titre</th>
         <th>Date</th>
         <th class="col-action">Action</th>
         <% dms.forEach((element,index) => { %>
@@ -31,8 +31,8 @@
           <%  const minute = date_insert.getMinutes() %>
           <%  const newMsgs = userConnected.nbMsgs.find(msgs => msgs.dm_post_dmId === element.dm_id) %>
           <tr>
-            <td class="col-expediteur"> <img src="/uploads/avatars/<%=element.member_avatar%>" class="avatar"> <%=element.member_pseudo%></td>
-            <td>
+            <td class="col-reveveur"> <img src="/uploads/avatars/<%=element.member_avatar%>" class="avatar"> <%if(newMsgs != undefined){%> <strong> <%=element.member_pseudo%></strong><%}else{%><%=element.member_pseudo%><%}%></td>
+            <td class="col-title">
               <a href="/member/messages-prives/channel/page/1/<%=element.dm_id%> "><%if(newMsgs != undefined){%> <strong> <%=element.dm_title%></strong><%}else{%><%=element.dm_title%><%}%></a>
             </td>
             <td><%=`${date}/${month}/${year} à ${hour}h${minute} `%></td>

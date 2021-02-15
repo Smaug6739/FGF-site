@@ -39,9 +39,9 @@
               <td> <%= album.album_title  %> </td>
               <td class="col-date"> <%= `${date}/${month}/${year}`  %> </td>
               <% if(album.album_statut === 0){ %>
-              <td>  En attente  </td>
+              <td>  <div class="badge badge-secondary"> En attente</div>  </td>
              <% } else { %>
-                <td>  Validé  </td>
+                <td> <div class="badge badge-success"> Validé </div>  </td>
              <% } %>
               <td> <a class="btn btn-danger mt-3"href="/member/album/delete/<%=album.album_id%>">Supprimer </a></td>
               </tr>

@@ -38,9 +38,9 @@
               <td> <%= article.title  %> </td>
               <td> <%= `${date}/${month}/${year}`  %> </td>
               <% if(article.status === 0){ %>
-              <td>  En attente  </td>
+              <td> <div class="badge badge-secondary">  En attente </div> </td>
              <% } else { %>
-                <td>  Validé  </td>
+                <td> <div class="badge badge-success"> Validé </div> </td>
              <% } %>
               <td> <a class="btn btn-primary mt-3"href="/member/articles/update/<%=article.id%>">Modiffier </a></td>
               </tr>

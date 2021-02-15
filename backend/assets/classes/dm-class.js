@@ -64,18 +64,17 @@ let DirectMessages = class DirectMessages{
             if(title.length > 100) reject(errors.size.tooLong.title)
             if(message.length > 4000) reject(errors.size.tooLong.message)
             const authorNumber = parseInt(author)
-            const clientNumber = parseInt(client)
             if(typeof authorNumber !== 'number')  reject(errors.badTypeof.authorNumber)
-            if(typeof clientNumber !== 'number')  reject(errors.badTypeof.clientNumber)
             const id2 =  `${author}${Date.now()}${crypto.randomBytes(16).toString("hex")}`
             const time = Date.now()
-            db.query('INSERT INTO `dm_channels`(`dm_id2`, `dm_user1`, `dm_user2`, `dm_title`,`dm_time`,`dm_last_update`) VALUES (?,?,(SELECT members.member_id FROM members WHERE members.member_pseudo = ?),?,?,?)',[id2,authorNumber,clientNumber,title,time,time],(err,result) => {
+            console.log(id2,authorNumber,client,title,time,time)
+            db.query('INSERT INTO `dm_channels`(`dm_id2`, `dm_user1`, `dm_user2`, `dm_title`,`dm_time`,`dm_last_update`) VALUES (?,?,(SELECT members.member_id FROM members WHERE members.member_pseudo = ? LIMIT 1),?,?,?)',[id2,authorNumber,client,title,time,time],(err,result) => {
                 if(err) {
                     if(err.message.match(`ER_BAD_NULL_ERROR: Column 'dm_user2' cannot be null`)) reject(new Error('Ce pseudo n\'existe pas'))
                     else reject(new Error(err.message))
                 }
                 else{
-                    db.query('INSERT INTO `dm_post`(`dm_post_author`, `dm_post_client`, `dm_post_dmId`, `dm_post_message`, `dm_post_time`, `dm_post_lu`) VALUES (?,(SELECT members.member_id FROM members WHERE members.member_pseudo = ?), (SELECT dm_channels.dm_id FROM dm_channels WHERE dm_channels.dm_id2 = ?), ?, ?, ?)',[author,client,id2,message,time,0],(err,result) => {
+                    db.query('INSERT INTO `dm_post`(`dm_post_author`, `dm_post_client`, `dm_post_dmId`, `dm_post_message`, `dm_post_time`, `dm_post_lu`) VALUES (?,(SELECT members.member_id FROM members WHERE members.member_pseudo = ? LIMIT 1), (SELECT dm_channels.dm_id FROM dm_channels WHERE dm_channels.dm_id2 = ?), ?, ?, ?)',[author,client,id2,message,time,0],(err,result) => {
                         if(err) reject (new Error(err.message))
                         else resolve(true)
                     })
