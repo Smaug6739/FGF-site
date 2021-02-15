@@ -20,8 +20,7 @@ exports.createMember = (req, res) =>{
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getAllMembers = (req, res)=>{
-    if(req.user.userPermissions < 3) return res.json(checkAndChange(new Error("Permissions denied")))
-    Members.getAll(req.params.page)
+    Members.getAll(req.params.page,req.user.userPermissions)
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
@@ -80,8 +79,7 @@ exports.updateMemberPassword = async(req, res) =>{
         req.body.oldPassword,
         req.body.password1,
         req.body.password2,
-        req.user.userPermissions
-        )
+        req.user.userPermissions)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
@@ -92,9 +90,27 @@ exports.deleteMember = async(req,res) =>{
     .catch(error =>  res.json(checkAndChange(new Error(error))))
 }
 
-    /*MembersRouter.route('/:id/update')
-        .post(async(req, res) => {
-            let updateMember = await Members.put(
+/*MembersRouter.route('/:id/update')
+    .post(async(req, res) => {
+        let updateMember = await Members.put(
+        req.params.id, 
+        req.body.pseudo,
+        req.body.password,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.age,
+        req.body.email,
+        req.body.phoneNumber
+        )
+        .then((result) =>{ 
+            res.json(checkAndChange(result))
+        })
+        .catch((err) => { 
+            res.json(checkAndChange(new Error(err)))
+        })
+    })
+    .put(async(req, res) =>{
+        let updateMember = await Members.put(
             req.params.id, 
             req.body.pseudo,
             req.body.password,
@@ -104,38 +120,20 @@ exports.deleteMember = async(req,res) =>{
             req.body.email,
             req.body.phoneNumber
             )
-            .then((result) =>{ 
-                res.json(checkAndChange(result))
-            })
-            .catch((err) => { 
-                res.json(checkAndChange(new Error(err)))
-            })
-        })
-        .put(async(req, res) =>{
-           let updateMember = await Members.put(
-               req.params.id, 
-               req.body.pseudo,
-               req.body.password,
-               req.body.firstName,
-               req.body.lastName,
-               req.body.age,
-               req.body.email,
-               req.body.phoneNumber
-               )
-           res.json(checkAndChange(updateMember))
-        })*/
+        res.json(checkAndChange(updateMember))
+    })*/
 
-    /*MembersRouter.route('/:id/delete')
-        .post(async(req,res) =>{
-            let deleteMember = await Members.delete(req.params.id)
-            res.json(checkAndChange(deleteMember))          
-        })
-        .get(async(req,res) =>{
-            Members.delete(req.params.id)
-            res.redirect('/admin')
+/*MembersRouter.route('/:id/delete')
+    .post(async(req,res) =>{
+        let deleteMember = await Members.delete(req.params.id)
+        res.json(checkAndChange(deleteMember))          
+    })
+    .get(async(req,res) =>{
+        Members.delete(req.params.id)
+        res.redirect('/admin')
 
-        })
-        .delete(async(req,res, next) =>{
-            let deleteMember = await Members.delete(req.params.id)
-            res.json(checkAndChange(deleteMember))
-        })*/
+    })
+    .delete(async(req,res, next) =>{
+        let deleteMember = await Members.delete(req.params.id)
+        res.json(checkAndChange(deleteMember))
+    })*/

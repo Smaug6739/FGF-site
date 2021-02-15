@@ -37,4 +37,6 @@ module.exports = {
     pseudoAlreadyTaken : new Error("Ce pseudo est déja utiliser. Merci d'en choisir un autre."),
     wrongPseudo : new Error("Mauvais pseudo"),
     wrongId : new Error("Mauvais identifiant"),
+    badPermissions: new Error("Mauvaises permissions.")
+
 }

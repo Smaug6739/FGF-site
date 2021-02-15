@@ -10,16 +10,12 @@ exports.createArticle = (req, res) =>{
             req.body.content,
             req.body.authorId
         )
-    .then((result) =>{
-        res.json(checkAndChange(result));
-    })
+    .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getMemberArticles = (req, res) =>{
     Articles.getAllByMemberId(req.params.userId)
-    .then((result) =>{
-        res.json(checkAndChange(result));
-    })
+    .then((result) =>res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.putArticle = (req, res) =>{
@@ -33,13 +29,11 @@ exports.putArticle = (req, res) =>{
         req.body.content,
         req.body.status,
         )
-    .then((result) =>{
-        res.json(checkAndChange(result));
-    })
+    .then((result) => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.deleteArticle = (req, res) =>{
-    Articles.delete(req.params.articleId)
+    Articles.delete(req.params.articleId,req.params.userId,req.user.userPermissions)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
@@ -65,8 +59,7 @@ exports.getArticle = (req, res) =>{
 
 
 exports.getAllArticles = (req, res) => {
-    if(req.user.userPermissions < 3) return res.json(checkAndChange(new Error("Permissions denied")))
-    Articles.getAll(req.params.page)
+    Articles.getAll(req.params.page, req.user.userPermissions)
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }

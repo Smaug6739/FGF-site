@@ -102,19 +102,23 @@ let Forum = class Forum{
     }
     static postTopic(categorie, title, content, author) {
         return new Promise(async(resolve, reject) => {
-            if(!categorie) return reject(new Error("Missing categorie id"))
-            if(!author) return reject(new Error("Missing author id"))
-            if(!title || title && title.trim() == '') return reject(new Error("Missing message title"))
-            if(!content || content && content.trim() == '') return reject(new Error("Missing message"))
+            if(!categorie) reject(errors.missing.categorieId)
+            if(!author) reject(errors.missing.authorId)
+            if(!title || title && title.trim() == '') reject(errors.missing.title)
+            if(!content || content && content.trim() == '') reject(errors.missing.message)
 
-            if(title.length > 250) reject(new Error("Le titre est trop long. (250)"))
-            if(content.length > 5000) reject(new Error("Le message est trop long. (5000)"))
+            if(title.length > 250) reject(errors.size.tooLong.title)
+            if(content.length > 5000) reject(errors.size.tooLong.message)
             const postTime = Date.now()
             const topicId2 =  `${author}${Date.now()}${crypto.randomBytes(16).toString("hex")}`
-                db.query('INSERT INTO forum_topic (`topic_id2`, `topic_categorie`, `topic_titre`, `topic_createur`, `topic_vu`, `topic_time`, `topic_genre`, `topic_last_post`, `topic_first_post`, `topic_post`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',[topicId2, categorie, title, author, 0, postTime, 'normal', 0, 0, 0],(err, result) =>{
+            const numberCategorie = parseInt(categorie)
+            const numberAuthor = parseInt(author)
+            if(typeof numberCategorie !== 'number') reject(errors.badTypeof.categorieNumber)
+            if(typeof numberAuthor !== 'number') reject(errors.badTypeof.authorNumber)
+                db.query('INSERT INTO forum_topic (`topic_id2`, `topic_categorie`, `topic_titre`, `topic_createur`, `topic_vu`, `topic_time`, `topic_genre`, `topic_last_post`, `topic_first_post`, `topic_post`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',[topicId2, numberCategorie, title, numberAuthor, 0, postTime, 'normal', 0, 0, 0],(err, result) =>{
                     if(err) return reject(err.stack)
                    else{
-                    db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, (SELECT topic_id FROM forum_topic WHERE forum_topic.topic_id2 = ?))',[author, content, postTime, topicId2],(err, result) =>{
+                    db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, (SELECT topic_id FROM forum_topic WHERE forum_topic.topic_id2 = ?))',[numberAuthor, content, postTime, topicId2],(err, result) =>{
                         if(err) return reject(err.message)
                         else resolve(result)
                     })

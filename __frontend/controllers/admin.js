@@ -79,9 +79,7 @@ exports.postUpdateMember = (req, res) => {
         phoneNumber: req.body.phoneNumber
     },
     {
-        //headers : { 'x-access-token' : req.session.user.token}
         headers : { 'Authorization' : `token ${req.session.user.token}`},
-
     })
     .then(async(responce) => {
         if(responce.data.status === 'error'){
