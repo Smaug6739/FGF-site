@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/admin/members.css">
+    <script src="/static/js/admin/members.js"></script>
+
+    <title>API Members</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+    <h1 class="mb-5 text-center">Demandes :</h1>
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Utilisateur</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Date d'envoi</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+    
+          <%  demandes.forEach(element => { %>
+          <%  const account_date = new Date(parseInt(element.date_insert)) %>
+          <%  var months = ['1','2','3','4','5','6','7','8','9','10','11','12'];  %>
+          <%  const year = account_date.getFullYear() %>
+          <%  const month = months[account_date.getMonth()] %>
+          <%  const date = account_date.getDate() %>
+                <tr>
+                <td> <%=element.pseudo%></td>
+                <td> <%= element.statut  %> </td>
+                <td> <%= `${date}/${month}/${year}`  %> </td>
+                <td> <a class="btn btn-primary mt-3"href="/admin/members/update/<%=element.member_id%>">Modiffier </a> <a class="btn btn-danger mt-3"href="/admin/members/update/<%=element.member_id%>">Supprimer </a></td>
+                </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+  <div id="center">
+    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+  </div>
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>

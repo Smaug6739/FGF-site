@@ -317,3 +317,79 @@ exports.deleteAlbum = (req, res) => {
         })
     })
 }
+
+
+
+exports.getDemandes = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/request/general/all/${req.session.user.id}/${req.params.page}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/demandes.ejs'),{
+                userConnected : await statusUser(req.session),
+                demandes : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+        
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.getJobs = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/request/jobs/all/${req.session.user.id}/${req.params.page}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/jobs.ejs'),{
+                userConnected : await statusUser(req.session),
+                demandes : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.getPartners = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/request/partners/all/${req.session.user.id}/${req.params.page}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/partners.ejs'),{
+                userConnected : await statusUser(req.session),
+                demandes : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}

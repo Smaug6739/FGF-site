@@ -14,6 +14,7 @@ const routerAdmin = require('./routes/admin')
 const routerForum = require('./routes/forum')
 const routerArticles = require('./routes/articles')
 const routerAlbum = require('./routes/album')
+const routerRequests = require('./routes/requests')
 
 
 db = require("./util/mongoose");
@@ -39,6 +40,7 @@ app.use(session({
     app.use('/admin',routerAdmin)
     app.use('/articles',routerArticles)
     app.use('/album',routerAlbum)
+    app.use('/request',routerRequests)
     app.use('/static', express.static(path.join(__dirname, 'public')));
     app.get('/', async(req, res) => {
         res.render(`${__dirname}/pages/index.ejs`,{
@@ -54,10 +56,6 @@ app.use(session({
     });
     app.get('/config-api', (req, res) => {
         res.status(200).send({api:config.urlAPI})
-    });
-
-    app.get('/test', async(req, res) => {
-    res.render(path.join(__dirname, 'pages/test.ejs'), {userConnected : await statusUser(req.session)});
     });
 
     app.use(function(err, req, res, next) {

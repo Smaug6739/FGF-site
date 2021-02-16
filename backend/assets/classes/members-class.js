@@ -48,7 +48,7 @@ let Members = class Members{
         return new Promise((resolve, reject) => {
             if(!page) reject(errors.missing.page)
             if(!userPermissions) reject(errors.badPermissions)
-            if(req.user.userPermissions < 3) reject(errors.badPermissions)
+            if(userPermissions < 3) reject(errors.badPermissions)
             const numberPage = parseInt(page)
             if(typeof numberPage !== 'number') reject(errors.badTypeof.pageNumber)
             const skip = (page * 5) -5
