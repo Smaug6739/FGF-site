@@ -39,11 +39,12 @@
                 <td> <%=element.pseudo%></td>
                 <td> <%= element.statut  %> </td>
                 <td> <%= `${date}/${month}/${year}`  %> </td>
-                <td> <a class="btn btn-primary mt-3"href="/admin/members/update/<%=element.member_id%>">Modiffier </a> <a class="btn btn-danger mt-3"href="/admin/members/update/<%=element.member_id%>">Supprimer </a></td>
+                <td> <a class="btn btn-primary mt-3"href="/admin/partners/view/<%=element.id%>">Voir </a></td>
                 </tr>
           <% }) %>
         </tbody>
       </table>
+      
   <div id="center">
     <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
     <a href="#" class="btn btn-info" id="suivant">Suivant ></a>

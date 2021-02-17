@@ -174,6 +174,30 @@ exports.getAccount = (req, res) => {
         })
     })
 }
+exports.getRequests = (req, res) => {
+    axios.get(`http://localhost:8080/api/v1/request/${req.session.user.id}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, `${dirMemberPages}/requests.ejs`),{
+                userConnected : await statusUser(req.session),
+                requests : responce.data.result,
+            })
+        } else {
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message
+            })
+        }    
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    })
+}
 
 exports.getEditAccount = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}`, {

@@ -31,14 +31,16 @@ MembersRouter.get('/album/delete/:albumId', auth, memberCtrl.deleteAlbum)
 
 MembersRouter.post('/album', multerMidAlbum, memberCtrl.postAlbum)//Create article (post)
 
+MembersRouter.get('/demandes', memberCtrl.getRequests)
 
 MembersRouter.get('/login', memberCtrl.getLogin)
 MembersRouter.get('/register', memberCtrl.getRegister)
-MembersRouter.post('/register', memberCtrl.postRegister)
-MembersRouter.post('/login', memberCtrl.postLogin)
 MembersRouter.get('/disconnection', memberCtrl.disconnection)
 MembersRouter.get('/account', auth, memberCtrl.getAccount)
 MembersRouter.get('/edit', auth, memberCtrl.getEditAccount)
+
+MembersRouter.post('/login', memberCtrl.postLogin)
+MembersRouter.post('/register', memberCtrl.postRegister)
 MembersRouter.post('/:id/update',multerMidAvatar, memberCtrl.updateMember)
 MembersRouter.post('/updatepassword/:id', memberCtrl.updatePassword)
 MembersRouter.post('/:id/delete', memberCtrl.deleteMember)

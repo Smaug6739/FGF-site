@@ -8,6 +8,7 @@ module.exports = {
         passwordString : new Error("Le mot de passe doit etre une chaine de caractères"),
     },
     missing:{
+        userId     : new Error("Merci de renseigner un userId valide"),
         page       : new Error("Merci de spécifier une page valide."),
         pseudo     : new Error("Merci d'entrer un pseudo valide."),
         email      : new Error("Merci d'entrer un email valide."),

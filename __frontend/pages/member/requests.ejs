@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link  rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/member/requests.css">
+    <title>API Members</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+    <h2 class="mb-5 text-center">Vos demandes de postes :</h2>
+      <table class="table-requests">
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Date d'envoi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%  requests.jobs.forEach(element => { %>
+          <%  const date_insert = new Date(parseInt(element.date_insert)) %>
+          <%  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
+          <%  const year = date_insert.getFullYear() %>
+          <%  const month = months[date_insert.getMonth()] %>
+          <%  const date = date_insert.getDate() %>
+                <tr>
+                <td> Poste </td>
+                <% if(element.statut === 1){ %>
+                  <td> <div class="badge badge-success">  Validé </div> </td>
+                 <% } else if(element.statut === 2){ %>
+                    <td> <div class="badge badge-danger"> Refuser </div> </td>
+                 <% }else{%>
+                    <td> <div class="badge badge-secondary"> En attente </div> </td>
+                 <% } %>
+                <td> <%= `${date}/${month}/${year}`  %> </td>
+                </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <h2 class="mb-5 text-center">Vos demandes de partenaiats :</h2>
+      <table class="table-requests">
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Date d'envoi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%  requests.partners.forEach(element => { %>
+          <%  const date_insert = new Date(parseInt(element.date_insert)) %>
+          <%  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
+          <%  const year = date_insert.getFullYear() %>
+          <%  const month = months[date_insert.getMonth()] %>
+          <%  const date = date_insert.getDate() %>
+                <tr>
+                <td> Poste </td>
+                <% if(element.statut === 1){ %>
+                  <td> <div class="badge badge-success">  Validé </div> </td>
+                 <% } else if(element.statut === 2){ %>
+                    <td> <div class="badge badge-danger"> Refuser </div> </td>
+                 <% }else{%>
+                    <td> <div class="badge badge-secondary"> En attente </div> </td>
+                 <% } %>
+                <td> <%= `${date}/${month}/${year}`  %> </td>
+                </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+    <%- include('../include/footer.ejs') %>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>

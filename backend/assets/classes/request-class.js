@@ -3,7 +3,21 @@ const errors = require('../requests-errors')
 
 let Request = class Request{
 
-    static getGeneral(userPermissions,page){
+    static getMemberRequests(userId){
+        return new Promise((resolve,reject) => {
+            if(!userId) reject(errors.missing.userId)
+            db.query("SELECT * FROM staff WHERE user_id = ?",[userId],(err,resultStaff) =>{
+                if(err) reject(new Error(err.message))
+                else {
+                    db.query("SELECT * FROM partenaires WHERE user_id = ?",[userId],(err,resultPartner) =>{
+                        if(err) reject(new Error(err.message))
+                        else resolve({jobs : resultStaff, partners : resultPartner})
+                    })
+                }
+            })
+        })
+    }
+    static getGenerals(userPermissions,page){
         return new Promise((resolve,reject) => {
             if(!userPermissions) reject(errors.badPermissions)
             if(!page) reject(errors.missing.page)
@@ -34,6 +48,39 @@ let Request = class Request{
             if(userPermissions < 3) reject(errors.badPermissions)
             const skip = (page * 10) -10;
             db.query("SELECT * FROM partenaires LIMIT 10 OFFSET ?",[skip],(err,result) =>{
+                if(err) reject(new Error(err.message))
+                else resolve(result)
+            })
+        })
+    }
+    static getGeneral(userPermissions,requestId){
+        return new Promise((resolve,reject) => {
+            if(!userPermissions) reject(errors.badPermissions)
+            if(!requestId) reject(errors.missing.authorId)
+            if(userPermissions < 3) reject(errors.badPermissions)
+            db.query("SELECT * FROM demandes WHERE id = ?",[requestId],(err,result) =>{
+                if(err) reject(new Error(err.message))
+                else resolve(result)
+            })
+        })
+    }
+    static getJob(userPermissions,requestId){
+        return new Promise((resolve,reject) => {
+            if(!userPermissions) reject(errors.badPermissions)
+            if(!requestId) reject(errors.missing.requestId)
+            if(userPermissions < 3) reject(errors.badPermissions)
+            db.query("SELECT * FROM staff WHERE id = ?",[requestId],(err,result) =>{
+                if(err) reject(new Error(err.message))
+                else resolve(result)
+            })
+        })
+    }
+    static getPartner(userPermissions,requestId){
+        return new Promise((resolve,reject) => {
+            if(!userPermissions) reject(errors.badPermissions)
+            if(!requestId) reject(errors.missing.requestId)
+            if(userPermissions < 3) reject(errors.badPermissions)
+            db.query("SELECT * FROM partenaires WHERE id = ?",[requestId],(err,result) =>{
                 if(err) reject(new Error(err.message))
                 else resolve(result)
             })
@@ -87,6 +134,39 @@ let Request = class Request{
             })
         })
 
+    }
+    static updateGeneral(userPermissions,requestId,statut){
+        return new Promise((resolve,reject) => {
+            if(!userPermissions) reject(errors.badPermissions)
+            if(!requestId) reject(errors.missing.authorId)
+            if(userPermissions < 3) reject(errors.badPermissions)
+            db.query("UPDATE demandes SET statut = ? WHERE id = ?",[statut,requestId],(err,result) =>{
+                if(err) reject(new Error(err.message))
+                else resolve(result)
+            })
+        })
+    }
+    static updateJob(userPermissions,requestId,statut){
+        return new Promise((resolve,reject) => {
+            if(!userPermissions) reject(errors.badPermissions)
+            if(!requestId) reject(errors.missing.authorId)
+            if(userPermissions < 3) reject(errors.badPermissions)
+            db.query("UPDATE staff SET statut = ? WHERE id = ?",[statut,requestId],(err,result) =>{
+                if(err) reject(new Error(err.message))
+                else resolve(result)
+            })
+        })
+    }
+    static updatePartner(userPermissions,requestId,statut){
+        return new Promise((resolve,reject) => {
+            if(!userPermissions) reject(errors.badPermissions)
+            if(!requestId) reject(errors.missing.authorId)
+            if(userPermissions < 3) reject(errors.badPermissions)
+            db.query("UPDATE partenaires SET statut = ? WHERE id = ?",[statut,requestId],(err,result) =>{
+                if(err) reject(new Error(err.message))
+                else resolve(result)
+            })
+        })
     }
 
 }

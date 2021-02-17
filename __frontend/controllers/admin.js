@@ -393,3 +393,158 @@ exports.getPartners = (req,res) => {
         })
     });
 }
+
+
+exports.getRequest = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/request/general/${req.session.user.id}/${req.params.requestId}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/view.request.ejs'),{
+                userConnected : await statusUser(req.session),
+                request : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.getJob = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/request/jobs/${req.session.user.id}/${req.params.requestId}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/view.job.ejs'),{
+                userConnected : await statusUser(req.session),
+                request : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.getPartner = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/request/partners/${req.session.user.id}/${req.params.requestId}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/view.partner.ejs'),{
+                userConnected : await statusUser(req.session),
+                request : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+
+exports.updateRequest = (req,res) => {
+    axios.put(`http://localhost:8080/api/v1/request/general/${req.session.user.id}/${req.params.requestId}`, {
+        statut : req.body.statut
+    },{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/index.ejs'),{
+                userConnected : await statusUser(req.session),
+                request : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.updateJob = (req,res) => {
+    axios.put(`http://localhost:8080/api/v1/request/jobs/${req.session.user.id}/${req.params.requestId}`, {
+        statut : req.body.statut
+    },{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/index.ejs'),{
+                userConnected : await statusUser(req.session),
+                request : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.updatePartner = (req,res) => {
+    console.log("update partenaire")
+    axios.put(`http://localhost:8080/api/v1/request/partners/${req.session.user.id}/${req.params.requestId}`, {
+        statut : req.body.statut
+    },{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/index.ejs'),{
+                userConnected : await statusUser(req.session),
+                request : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}

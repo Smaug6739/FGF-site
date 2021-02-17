@@ -8,10 +8,16 @@ const multerMidMiniature = require('../middleware/multer-article')
 AdminRouter.get('/', adminMid, adminCtrl.getIndex)
 AdminRouter.get('/infos', adminMid, adminCtrl.getInfos)
 
+AdminRouter.post('/demandes/update/:requestId', adminMid, adminCtrl.updateRequest)
+AdminRouter.get('/demandes/view/:requestId', adminMid, adminCtrl.getRequest)
 AdminRouter.get('/demandes/:page', adminMid, adminCtrl.getDemandes)
 
+AdminRouter.post('/jobs/update/:requestId', adminMid, adminCtrl.updateJob)
+AdminRouter.get('/jobs/view/:requestId', adminMid, adminCtrl.getJob)
 AdminRouter.get('/jobs/:page', adminMid, adminCtrl.getJobs)
 
+AdminRouter.post('/partners/update/:requestId', adminMid, adminCtrl.updatePartner)
+AdminRouter.get('/partners/view/:requestId', adminMid, adminCtrl.getPartner)
 AdminRouter.get('/partners/:page', adminMid, adminCtrl.getPartners)
 
 

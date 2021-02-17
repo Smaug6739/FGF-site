@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/admin/members.css">
+    <script src="/static/js/admin/members.js"></script>
+
+    <title>FGF - Admin - Demande</title>
+  </head>
+
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+    <div id="container-demande">
+      <%  const date_insert = new Date(parseInt(request[0].date_insert)) %>
+      <%  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
+      <%  const year = date_insert.getFullYear() %>
+      <%  const month = months[date_insert.getMonth()] %>
+      <%  const date = date_insert.getDate() %>
+      <%  const hour = date_insert.getHours() %>
+      <%  const minutes = date_insert.getMinutes() %>
+      <h6>Demande de : <%= request[0].pseudo %></h6>
+      <h6>Le <%= `${date}/${month}/${year} à ${hour}h${minutes}` %></h6>
+      <h6>Message :</h6>
+      <p><%=request[0].demande%></p>
+      <form action="/admin/demandes/update/<%=request[0].id%>" method="POST">
+        <select name="statut" id="statut">
+          <option value="0">En attente</option>
+          <option value="1">Traitée</option>
+        </select>
+        <button type="submit" class="btn btn-warning">Mettre a jour la demande</button>
+      </form>
+    </div>
+
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>
+
+<style>
+  #container-demande{
+    width: 70%;
+    margin-left: 15%;
+    background-color: #ffffff;
+  }
+</style>
