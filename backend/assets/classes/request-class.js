@@ -47,7 +47,7 @@ let Request = class Request{
             if(!page) reject(errors.missing.page)
             if(userPermissions < 3) reject(errors.badPermissions)
             const skip = (page * 10) -10;
-            db.query("SELECT * FROM partenaires LIMIT 10 OFFSET ?",[skip],(err,result) =>{
+            db.query("SELECT * FROM partenaires LEFT JOIN members ON partenaires.user_id = members.member_id LIMIT 10 OFFSET ?",[skip],(err,result) =>{
                 if(err) reject(new Error(err.message))
                 else resolve(result)
             })
