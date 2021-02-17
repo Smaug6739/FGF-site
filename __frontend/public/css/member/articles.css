@@ -21,7 +21,8 @@ thead,tfoot {
     table{
         zoom:0.65;
     }
-    #table-articles{
+    #container{
         max-width: 95%;
+        margin-left:0.75%;
     }
 }

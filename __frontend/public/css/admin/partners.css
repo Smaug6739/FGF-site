@@ -12,3 +12,14 @@ thead,tfoot {
     width: var(--width);
     margin-left: var(--margin-left);
 }
+
+
+@media screen and (max-width: 550px){
+    table{
+        zoom:0.9;
+    }
+    #container{
+        width: 95%;
+        margin-left:2.5%;
+    }
+}

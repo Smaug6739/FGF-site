@@ -1,0 +1,33 @@
+#container{
+    background: url("https://french-gaming-family.fr/old/public/img/accueil-pc.jpg") center no-repeat;
+    background-position: center;
+    background-size: cover;
+    height:95vh;
+    opacity: 0.65;
+}
+
+.title1{
+    padding: 1% 0px 15px 5%;
+    font-size: 200px;
+}
+.text{
+    padding: 1% 0px 15px 5%;
+    font-size: 50px;
+}
+
+@media screen and (max-width:950px){
+    .title1{
+        font-size: 100px;
+    }
+    .text{
+        font-size: 35px;
+    }
+}
+@media screen and (max-width:500px){
+    .title1{
+        font-size: 50px;
+    }
+    .text{
+        font-size: 15px;
+    }
+}

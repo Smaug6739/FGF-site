@@ -9,8 +9,8 @@ RequestRouter.get('/partners', requestCtrl.getPartners)
 RequestRouter.get('/jobs', requestCtrl.getJobs)
 
 RequestRouter.post('/general', requestCtrl.postRequest)
-RequestRouter.post('/partners', requestCtrl.postPartners)
-RequestRouter.post('/jobs', requestCtrl.postJobs)
+RequestRouter.post('/partners', auth, requestCtrl.postPartners)
+RequestRouter.post('/jobs', auth, requestCtrl.postJobs)
 
 
 

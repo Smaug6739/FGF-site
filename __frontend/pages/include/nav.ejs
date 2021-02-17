@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">-->
 <!--navbar fixed-top-->
 <nav id="menu"class="navbar navbar-expand-md navbar-dark navigation-bar">
-       <a href="/" class="navbar-brand d-flex flex-row align-items-center" href="#"><img class="ban"src="/static/images/elements_site/img_nav.svg"  /></a>
+       <a href="/" class="navbar-brand" href="#"><img class="ban"src="/static/images/elements_site/img_nav.svg"  /></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -53,15 +53,15 @@
                 <a class="nav-link text-white" href="/member/register">INSCRIPTION</a>
             </li>
             <% } %>
-            <li>
+            <li class="nav-item">
                 <%  if(userConnected.auth === true && userConnected.userAvatar){ %>
                     <img id="avatar" src="/uploads/avatars/<%= userConnected.userAvatar %>">
                 <% } %>
             </li>
-            <li>
+            <li class="nav-item">
                 <%  if(userConnected.auth === true && userConnected.nbMsgs != undefined){ %>
                     <div class="item">
-                        <a href="/member/messages-prives/page/1">
+                        <a href="/member/messages-prives/page/1" class="navbar-brand">
                             <%if(userConnected.nbMsgs.length){ %> <span class="notify-badge">NEW</span> <%}%>
                             <img id="envelope" src="/static/images/icons/envelope.png"  alt="" />
                       </a>

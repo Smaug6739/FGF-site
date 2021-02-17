@@ -8,6 +8,7 @@ footer{
     width: 100%;
     background: #dbdbdb;
     color: #333;
+    font-weight: 600;
 }
 .contenu-footer{
     width: 1280px;

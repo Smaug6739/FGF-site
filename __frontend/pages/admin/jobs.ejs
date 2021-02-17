@@ -32,8 +32,14 @@
           <%  const date = request_date.getDate() %>
                 <tr>
                 <td> <%=element.user_id%></td>
-                <td> <%= element.statut  %> </td>
-                <td> <%= `${date}/${month}/${year}`  %> </td>
+                <% if(element.statut === 1){ %>
+                  <td> <div class="badge badge-success"> Traiter </div> </td>
+                 <% } else if(element.statut === 2){ %>
+                    <td> <div class="badge badge-danger"> Refuser </div> </td>
+                 <% }else{%>
+                  <td> <div class="badge badge-secondary"> En attente </div> </td>
+                 <% } %>                
+                 <td> <%= `${date}/${month}/${year}`  %> </td>
                 <td> <a class="btn btn-primary mt-3"href="/admin/jobs/view/<%=element.id%>">Voir </a></td>
                 </tr>
           <% }) %>

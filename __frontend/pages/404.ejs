@@ -8,21 +8,18 @@
     <%- include ('include/bootstrap/bootstrap.css.ejs'); -%>
     <!-- CSS FILES -->
     <link  rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/404.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
     <title>API Members</title>
   </head>
   <body>
-    
     <%- include ('include/nav.ejs'); -%>
 
-<div class="main">
-  <h1 class="mb-5 text-center">French Gaming Family Accueil</h1>
-  <% if(userConnected.auth){ %>
-      <div id="$USER-CONNECTED">
-        <h1>Bienvenue !</h1>
-      </div>
-    <% } %>
-</div>
+    
+    <div id="contenu">
+        <h1 class="title1">Oups !</h1>
+        <p class="text">J'ai cherché dans tous les recoins mais... <br> La page que vous cherchez semble introuvable...</p>
+    </div>
 
 
     <%- include ('include/footer.ejs'); -%>

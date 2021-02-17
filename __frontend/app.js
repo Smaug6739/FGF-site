@@ -57,17 +57,36 @@ app.use(session({
     app.get('/config-api', (req, res) => {
         res.status(200).send({api:config.urlAPI})
     });
+    
 
-    app.use(function(err, req, res, next) {
+    app.use(async function(err, req, res, next) {
         if(err){
             if(err.message.match('File too large')){
                 res.render(path.join(__dirname, '/pages/error.ejs'),{
-                    userConnected : statusUser(req.session),
+                    userConnected : await statusUser(req.session),
                     error : "Le fichier est trop gros."
                 })
             }
         }
       });
+      app.get('/terms', async (req, res)=>{
+        res.status(404)
+        res.render(path.join(__dirname, '/pages/terms.ejs'),{
+            userConnected : await statusUser(req.session),
+        })
+    })
+    app.get('/privacy', async (req, res)=>{
+        res.status(404)
+        res.render(path.join(__dirname, '/pages/privacy.ejs'),{
+            userConnected : await statusUser(req.session),
+        })
+    })
+      app.all('*', async (req, res)=>{
+        res.status(404)
+        res.render(path.join(__dirname, '/pages/404.ejs'),{
+            userConnected : await statusUser(req.session),
+        })
+    })
 
     /*app.get('/admin',(req,res) => {
         if(req.session.user){

@@ -1,3 +1,5 @@
+@import "../theme-variable.css";
+
 #container{
     width: 70%;
     margin: auto;
@@ -6,20 +8,15 @@
     margin-bottom: 15px;
 }
 
+table,td,th {
+    border: var(--border-size) var(--border-type) var(--border-color);
+}
+thead,tfoot {
+    background-color: var(--background-color);
+    color: var(--color);
+}
 
 
-.ico {width:2%}
-.titre { width:61%; }
-.nombremessages { width:2%; }
-.nombrevu { width:4%; }
-.nombresujets { width:2%; }
-.auteur { width:7%; }
-.derniermessage { width:18%; }
-.categorie { width:92%; background-color : rgb(244,238,250); }
-
-td { border: 1px solid black; }
-table {  border: 1px solid black; }
-th {  border: 1px solid black; }
 
 #table-forums{
     width: 80%;
@@ -35,7 +32,6 @@ th {  border: 1px solid black; }
     font-weight: 1000;
     color: #a5303a;
 }
-#center{text-align: center;}
 .img-delete{width: 25px;}
 @media screen and (max-width: 900px ){
     #container{
