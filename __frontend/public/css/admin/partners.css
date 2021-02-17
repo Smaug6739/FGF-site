@@ -1,4 +1,5 @@
 @import "../theme-variable.css";
+
 table,td {
     border: var(--border-size) var(--border-type) var(--border-color);
 }
@@ -10,14 +11,4 @@ thead,tfoot {
 #container{
     width: var(--width);
     margin-left: var(--margin-left);
-}
-
-@media screen and (max-width: 550px){
-    table{
-        zoom:0.65;
-    }
-    #container{
-        margin: auto;
-        max-width: 95%;
-    }
 }

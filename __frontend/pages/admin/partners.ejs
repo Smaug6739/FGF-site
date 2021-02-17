@@ -9,15 +9,16 @@
     <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
-    <link rel="stylesheet" href="/static/css/admin/members.css">
-    <script src="/static/js/admin/members.js"></script>
+    <link rel="stylesheet" href="/static/css/admin/partners.css">
+    <script src="/static/js/admin/partners.js"></script>
 
     <title>API Members</title>
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
+    <div id="container">
     <h1 class="mb-5 text-center">Demandes :</h1>
-    <%console.log(demandes)%>
+
     <table class="table table-striped">
         <thead>
           <tr>
@@ -44,8 +45,8 @@
           <% }) %>
         </tbody>
       </table>
-      
-  <div id="center">
+    </div>
+  <div id="center-text">
     <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
     <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
   </div>

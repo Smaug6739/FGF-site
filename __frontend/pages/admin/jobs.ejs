@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
     <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
-    <link rel="stylesheet" href="/static/css/admin/members.css">
-    <script src="/static/js/admin/members.js"></script>
-
+    <link rel="stylesheet" href="/static/css/admin/jobs.css">
+    <script src="/static/js/admin/jobs.js"></script>
     <title>API Members</title>
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">Demandes :</h1>
-
-    <table class="table table-striped">
+    <h2 class="mb-5 text-center">Demandes de posts à la modération :</h2>
+    <div id="container">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">Utilisateur</th>
@@ -30,7 +26,7 @@
         <tbody>
           <%  demandes.forEach(element => { %>
           <%  const request_date = new Date(parseInt(element.date_insert)) %>
-          <%  var months = ['1','2','3','4','5','6','7','8','9','10','11','12'];  %>
+          <%  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
           <%  const year = request_date.getFullYear() %>
           <%  const month = months[request_date.getMonth()] %>
           <%  const date = request_date.getDate() %>
@@ -43,8 +39,9 @@
           <% }) %>
         </tbody>
       </table>
-
-  <div id="center">
+    </div>
+  
+  <div id="center-text">
     <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
     <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
   </div>

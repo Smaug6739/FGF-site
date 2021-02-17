@@ -6,3 +6,17 @@
     --title-size : 28px;
     --title-color: #a5303a;
 }
+table,td{
+    --border-size : 1px;
+    --border-color : #333;
+    --border-type : solid;
+}
+thead,tfoot{
+    --background-color : #333;
+    --color : #ffffff;
+}
+
+#container{
+    --width : 80%;
+    --margin-left : 10%
+}

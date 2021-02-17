@@ -11,6 +11,9 @@ body{
 }
 .grecaptcha-badge { z-index : 10 ; }
 
+#center-text{
+    text-align:center;
+}
 /* NAV */
 .nav-li{margin-top: 10px;}
 .navigation-bar{background-color:#236281}
