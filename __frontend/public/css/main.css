@@ -1,3 +1,4 @@
+@import "./theme-variable.css";
 * {
     margin: 0;
     padding: 0;
@@ -33,8 +34,8 @@ body{
 .notify-badge{
     margin-right:10px;
     position: absolute;
-    right:-10px;
-    top:5px;
+    right:0px;
+    top:10px;
     background:red;
     text-align: center;
     border-radius: 30px 30px 30px 30px;
@@ -58,6 +59,10 @@ fieldset.form-group {
     margin: 0 0 1.5em 0 !important;
     -webkit-box-shadow:  0px 0px 0px 0px #000;
             box-shadow:  0px 0px 0px 0px #000;
+}
+.title{
+    color : var(--dark-red);
+    font-weight: 625;
 }
 fieldset.form-group label {
     /*font-size: 1.5em;*/

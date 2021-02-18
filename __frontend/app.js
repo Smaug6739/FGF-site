@@ -17,6 +17,7 @@ const routerAlbum = require('./routes/album')
 const routerRequests = require('./routes/requests')
 
 
+
 db = require("./util/mongoose");
 db.init();
 app.set('trust proxy', 1) // trust first proxy
@@ -33,8 +34,22 @@ app.use(session({
     if(!config.prod) app.use(morgan)
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
-    app.listen(config.port, () => console.log('Started on port '+ config.port));
-      
+    const server = app.listen(config.port, () => console.log('Started on port '+ config.port));
+    /*const io = require('socket.io')(server);  
+   
+    io.sockets.on("connection", function (socket) {
+    // Everytime a client logs in, display a connected message
+    console.log("Server-Client Connected!");
+   
+    socket.join("_room" + socket.handshake.query.room_id);
+   
+    socket.on('connected', function (data) {
+   
+      });
+   });*/
+   
+   //const socketIoObject = io;
+   //module.exports.ioObject = socketIoObject;
     app.use('/member',routerMembers)
     app.use('/forum',routerForum)
     app.use('/admin',routerAdmin)
@@ -88,6 +103,9 @@ app.use(session({
         })
     })
 
+    io.on('connection', () =>{
+        console.log('A user is connected')
+    })
     /*app.get('/admin',(req,res) => {
         if(req.session.user){
             if(req.session.user.userAdmin){

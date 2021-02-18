@@ -1,3 +1,4 @@
+@import "./theme-variable.css";
 footer{
     position:relative;
     margin-top: 30px;
@@ -67,7 +68,13 @@ footer{
 #footer-img{
     width: 20px;
 }
-
+.footer-subtitle{
+    font-weight: 600;
+    color : var(--dark-red)
+}
+.fgf-footer{
+    color: var(--dark-red)
+}
 @media screen and (max-width: 1200px ){
     .contenu-footer{
         width: 600px;
@@ -87,6 +94,11 @@ footer{
 
 @media screen and (max-width: 700px){
     .contenu-footer{
+        width: 320px;
+        float: left;
+        margin-left: 25px;
+    }
+    .footer-bottom{
         width: 320px;
         float: left;
         margin-left: 25px;

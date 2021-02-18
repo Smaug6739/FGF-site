@@ -16,8 +16,16 @@
     margin-top: 2%;
 }
 
-.title{
-    font-weight: 1000;
+.article-title{
+    font-weight: 630;
+    color : var(--dark-red)
+}
+.btn-article{
+    background-color: var(--dark-red);
+    width : 200px;
+    height: 175%;
+    border : 1.5px black solid;
+    border-radius: 5%;
 }
 .content{
     text-align: justify;
@@ -133,4 +141,11 @@ cursor: pointer;
 }
 .col-action{
   width: 20%;
+}
+
+@media screen and (max-width:500px){
+    .wrapper{
+        max-width: 300px;
+        margin: 20px auto;
+        }
 }

@@ -8,6 +8,8 @@
     <link  rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
     <link  rel="stylesheet" href="/static/css/member/direct-message.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script> <!-- || ./socket -->
     <title>API Members</title>
   </head>
   <body>
@@ -19,7 +21,6 @@
         <% const dmSize = dm.length %>
         <% dm.forEach((element,index) => { %>
           <div id="element">
-            <%console.log(index)%>
             <div class="container-message" <%if(index === (dmSize -1)){%> id="lastMessage" <%}%>>
               <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
               <%=element.member_pseudo%> 
@@ -36,17 +37,15 @@
             </div>          
           </div>
         <% }); %>
-
-
         <% const client = dm[0].dm_post_client !== userConnected.id ? dm[0].dm_post_client : dm[0].dm_post_author %>
         <div id="container-reply">
           <div id="container-form-reply">
             <fieldset class="form-group">
               <legend>Répondre</legend>
-              <form action="/member/messages-prives/<%=userConnected.id%>/<%= client %>/<%=dm[0].dm_post_dmId%>" method="POST">
+              <form action="/member/messages-prives/<%=userConnected.id%>/<%=client%>/<%=dm[0].dm_post_dmId%>" method="POST">
                 <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="message"></textarea>
-                <button type="submit" class="btn btn-success">Poster</button>
-              </form>
+                <button type="submit" class="btn btn-success" id="send">Poster</button>
+              <!--</form>-->
             </fieldset>
             <div id="btn-pages">
               <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
@@ -57,11 +56,8 @@
         <%}else{%>
           <h3 style="text-align:center;">Aucun message</h3>
         <% } %>
-        
     </div>
-    
   </div>
-
 
       
 

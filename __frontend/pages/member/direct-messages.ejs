@@ -17,7 +17,7 @@
       <h3 class="title-dm">Messages privés :</h3>
 
       <table id="table-msgs">
-        <th class="col-reveveur">Receveur</th>
+        <th class="col-reveveur">Membre</th>
         <th class="col-title">Titre</th>
         <th>Date</th>
         <th class="col-action">Action</th>
@@ -30,10 +30,15 @@
           <%  const hour = date_insert.getHours() %>
           <%  const minute = date_insert.getMinutes() %>
           <%  const newMsgs = userConnected.nbMsgs.find(msgs => msgs.dm_post_dmId === element.dm_id) %>
+          
           <tr>
-            <td class="col-reveveur"> <img src="/uploads/avatars/<%=element.member_avatar%>" class="avatar"> <%if(newMsgs != undefined){%> <strong> <%=element.member_pseudo%></strong><%}else{%><%=element.member_pseudo%><%}%></td>
+            <td class="col-reveveur">
+              <a href="/member/messages-prives/channel/page/1/<%=element.dm_id%>#lastMessage">
+                <img src="/uploads/avatars/<%=element.member_avatar%>" class="avatar"> <%if(newMsgs != undefined){%> <strong> <%=element.member_pseudo%></strong><%}else{%><%=element.member_pseudo%><%}%>
+              </a>
+            </td>
             <td class="col-title">
-              <a href="/member/messages-prives/channel/page/1/<%=element.dm_id%> "><%if(newMsgs != undefined){%> <strong> <%=element.dm_title%></strong><%}else{%><%=element.dm_title%><%}%></a>
+              <a href="/member/messages-prives/channel/page/1/<%=element.dm_id%>#lastMessage"><%if(newMsgs != undefined){%> <strong> <%=element.dm_title%></strong><%}else{%><%=element.dm_title%><%}%></a>
             </td>
             <td><%=`${date}/${month}/${year} à ${hour}h${minute} `%></td>
             <td><a href="/member/messages-prives/delete/channel/<%=element.dm_id%>"><img src="/static/images/btn_delete.svg" class="btn-control"></a></td>

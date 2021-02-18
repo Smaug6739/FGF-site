@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs')
 const {WebhookClient} = require('discord.js')
 const axios = require('axios');
+//const socket = require('../app')
 const {statusUser} = require('../functions');
 const dirMemberPages = '../pages/member';
 const config = require('../config.js')
@@ -511,7 +512,36 @@ exports.getDirectMessages = (req, res) => {
         })
     });
 }
-
+exports.test = (req, res) => {
+    axios.get(`http://localhost:8080/api/v1/dm/${req.params.channelId}/${req.params.page}/${req.session.user.id}`,{ headers : { 'Authorization' : `token ${req.session.user.token}`}})
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            const resArray = [];
+            responce.data.result.forEach(element => {
+                 resArray.push({
+                    member_id      : element.member_id,
+                     member_pseudo : element.member_pseudo,
+                     member_avatar : element.member_avatar,
+                     dm_post_id    : element.dm_post_id,
+                     dm_post_message : element.dm_post_message
+                 })
+            });
+            res.send(resArray)
+            
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
 exports.getDirectMessage = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/dm/${req.params.channelId}/${req.params.page}/${req.session.user.id}`,{ headers : { 'Authorization' : `token ${req.session.user.token}`}})
     .then(async(responce) => {
@@ -536,6 +566,7 @@ exports.getDirectMessage = (req, res) => {
 }
 
 exports.postDirectMessage = (req, res) => {
+    console.log("Post")
     axios.post(`http://localhost:8080/api/v1/dm/message/${req.session.user.id}`,{ 
     message: req.body.message,
     author: req.params.expediteurId,
@@ -543,7 +574,11 @@ exports.postDirectMessage = (req, res) => {
     dmId: req.params.channelId
     },{headers : { 'Authorization' : `token ${req.session.user.token}`}})
     .then(async(responce) => {
-        if(responce.data.status === 'success') res.redirect(req.get('referer'));
+        if(responce.data.status === 'success'){
+            /*socket.ioObject.emit(`message`, {dm_post_message:'test'}); 
+            res.end();*/
+            res.redirect(req.get('referer') + "#lastMessage"); 
+        }  
         else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
                 userConnected : await statusUser(req.session),

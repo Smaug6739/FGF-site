@@ -25,7 +25,7 @@ let DirectMessages = class DirectMessages{
             if(typeof pageNumber !== 'number')  reject(errors.badTypeof.pageNumber)
             if(typeof userIdNumber !== 'number')  reject(errors.badTypeof.userIdNumber)
             const skip = (pageNumber * 20) - 20
-            db.query('SELECT * from dm_channels LEFT JOIN members ON members.member_id = dm_channels.dm_user2 WHERE dm_user1 = ? OR dm_user2 = ?  ORDER BY dm_last_update DESC LIMIT 20 OFFSET ?',[userIdNumber, userIdNumber,skip], (err, result) => {
+            db.query('SELECT * from dm_channels LEFT JOIN members ON members.member_id = (CASE WHEN dm_channels.dm_user1 = ? THEN dm_user2 ELSE dm_user1 END) WHERE dm_user1 = ? OR dm_user2 = ?  ORDER BY dm_last_update DESC LIMIT 20 OFFSET ?',[userIdNumber,userIdNumber, userIdNumber,skip], (err, result) => {
                 if(err) reject(new Error(err.message))
                 else resolve(result)
             })
