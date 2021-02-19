@@ -17,6 +17,7 @@ const apiRouterV1Album = require('./routes/album')
 const apiRouterV1Forum = require('./routes/forum')
 const apiRouterV1DirectMessage = require('./routes/dm')
 const apiRouterV1Request = require('./routes/requests')
+const apiRouterV1Announcements = require('./routes/announcements')
 
     if(!config.prod) app.use(morgan)
     app.use(bodyParser.json());
@@ -31,6 +32,7 @@ const apiRouterV1Request = require('./routes/requests')
     app.use("/api/v1/forum", apiRouterV1Forum);
     app.use("/api/v1/dm", apiRouterV1DirectMessage);
     app.use("/api/v1/request", apiRouterV1Request);
+    app.use("/api/v1/announcements", apiRouterV1Announcements);
 
     app.all('*', (req, res)=>{
         res.status(404)

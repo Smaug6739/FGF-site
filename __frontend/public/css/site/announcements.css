@@ -1,0 +1,17 @@
+@import "../theme-variable.css";
+
+#container-announcements{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.author{color:var(--color-grey)}
+.author-avatar{width: 12%;}
+
+.announcement{
+    background-color: var(--light);
+    border-radius: 1%;
+    margin-top :  2%;
+    margin-right: 2%;
+    margin-left: 2%;
+}

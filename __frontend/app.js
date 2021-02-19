@@ -12,6 +12,7 @@ const {statusUser} = require('./functions')
 const routerMembers = require('./routes/members')
 const routerAdmin = require('./routes/admin')
 const routerForum = require('./routes/forum')
+const routerSite = require('./routes/site')
 const routerArticles = require('./routes/articles')
 const routerAlbum = require('./routes/album')
 const routerRequests = require('./routes/requests')
@@ -52,6 +53,7 @@ app.use(session({
    //module.exports.ioObject = socketIoObject;
     app.use('/member',routerMembers)
     app.use('/forum',routerForum)
+    app.use('/site',routerSite)
     app.use('/admin',routerAdmin)
     app.use('/articles',routerArticles)
     app.use('/album',routerAlbum)
@@ -84,7 +86,7 @@ app.use(session({
             }
         }
       });
-      app.get('/terms', async (req, res)=>{
+    app.get('/terms', async (req, res)=>{
         res.status(404)
         res.render(path.join(__dirname, '/pages/terms.ejs'),{
             userConnected : await statusUser(req.session),
@@ -103,9 +105,9 @@ app.use(session({
         })
     })
 
-    io.on('connection', () =>{
+    /*io.on('connection', () =>{
         console.log('A user is connected')
-    })
+    })*/
     /*app.get('/admin',(req,res) => {
         if(req.session.user){
             if(req.session.user.userAdmin){

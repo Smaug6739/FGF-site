@@ -17,51 +17,70 @@
     <%- include ('../include/nav.ejs'); -%>
     <div id="container">
 
-      <div id="element" class="article col-lg-3 pt-3 pb-3" >
-        <h3 class="cat-title"><img src="/static/images/icons/icon_member.svg" alt="icon" class="icon">&nbsp; Members</h3>
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_information.svg" alt="icon" class="icon">&nbsp; Informations</h3>
         <hr>
-        <p class="cat-description">Gestion des membres du site.<br>-Ajouter un membre<br>-Modifier un membre<br>-Bannir un membre<br>-Supprimer un membre</p>
-        <a href="/admin/members/1" class="btn btn-danger btn-view-forum">Gérer</a>
+        <p class="cat-description">Donne des informations sur le fonctionnement des 9 modules d'administration du site.</p>
+        <a href="/admin/infos" class="btn btn-danger btn-view">Gérer</a>
       </div>
 
-      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_resources.svg" alt="icon" class="icon">&nbsp; Resources</h3>
+        <hr>
+        <p class="cat-description">Recap des procédures pour la gestion du site + documents associés au fonctionnement du site.</p>
+        <a href="/admin/infos" class="btn btn-danger btn-view">Gérer</a>
+      </div>
+
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_member.svg" alt="icon" class="icon">&nbsp; Membres</h3>
+        <hr>
+        <p class="cat-description">Gestion des membres du site.<br>-Ajouter un membre<br>-Modifier un membre<br>-Bannir un membre<br>-Supprimer un membre</p>
+        <a href="/admin/members/1" class="btn btn-danger btn-view">Gérer</a>
+      </div>
+
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_announcement.svg" alt="icon" class="icon">&nbsp; Annonces</h3>
+        <hr>
+        <p class="cat-description">Gestion des annonces du site.<br>-Ajouter une annonce<br>-Modifier une annonce<br>-Supprimer une annonce</p>
+        <a href="/admin/announcements/1" class="btn btn-danger btn-view">Gérer</a>
+      </div>
+
+      
+
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
         <h3 class="cat-title"><img src="/static/images/icons/icon_article.svg" alt="icon" class="icon">&nbsp; Articles</h3>
         <hr>
         <p class="cat-description">Gestion des articles du site.<br>-Ajouter un article<br>-Approuver un article<br>-Modifier un article<br>-Supprimer un article</p>
-        <a href="/admin/articles/1" class="btn btn-danger btn-view-forum">Gérer</a>
+        <a href="/admin/articles/1" class="btn btn-danger btn-view">Gérer</a>
       </div>
-      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
         <h3 class="cat-title"><img src="/static/images/icons/icon_album.svg" alt="icon" class="icon">&nbsp;Album</h3>
         <hr>
         <p class="cat-description">Gestion de l'album photo du site.<br>-Ajouter une photo<br>-Approuver une photo<br>-Supprimer une photo<br></p>
-        <a href="/admin/albums/1" class="btn btn-danger btn-view-forum">Gérer</a>
+        <a href="/admin/albums/1" class="btn btn-danger btn-view">Gérer</a>
       </div>
 
 
 
-    </div>
 
-
-    <div id="container">
-
-      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
         <h3 class="cat-title"><img src="/static/images/icons/icon_request.svg" alt="icon" class="icon">&nbsp;Demandes</h3>
         <hr>
         <p class="cat-description">Voir les demandes de la page « contact » du site.<br>-Voir les demandes<br>-Traiter une demande<br>-Supprimer une demande</p>
-        <a href="/admin/demandes/1" class="btn btn-danger btn-view-forum">Gérer</a>
+        <a href="/admin/demandes/1" class="btn btn-danger btn-view">Gérer</a>
       </div>
 
-      <div id="element" class="article col-lg-3 pt-3 pb-3" >
-        <h3 class="cat-title"><img src="/static/images/icons/icon_modo.svg" alt="icon" class="icon">&nbsp;Modos</h3>
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
+        <h3 class="cat-title"><img src="/static/images/icons/icon_modo.svg" alt="icon" class="icon">&nbsp;Modérateurs</h3>
         <hr>
         <p class="cat-description">Voir les demandes de la page « modo » du site.<br>-Voir les demandes<br>-Traiter une demande<br>-Supprimer une demande</p>
-        <a href="/admin/jobs/1" class="btn btn-danger btn-view-forum">Gérer</a>
+        <a href="/admin/jobs/1" class="btn btn-danger btn-view">Gérer</a>
       </div>
-      <div id="element" class="article col-lg-3 pt-3 pb-3" >
+      <div  class="staff-section article col-lg-3 pt-3 pb-3" >
         <h3 class="cat-title"><img src="/static/images/icons/icon_partner.svg" alt="icon" class="icon">&nbsp;Partenaire</h3>
         <hr>
         <p class="cat-description">Voir les demandes de la page « partenaire » du site.<br>-Voir les demandes<br>-Traiter une demande<br>-Supprimer une demande</p>
-        <a href="/admin/partners/1" class="btn btn-danger btn-view-forum">Gérer</a>
+        <a href="/admin/partners/1" class="btn btn-danger btn-view">Gérer</a>
       </div>
 
 

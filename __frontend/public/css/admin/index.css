@@ -2,15 +2,13 @@
     display: flex;
     justify-content: space-around;
     margin-top: 2%;
-    margin-left: 2%;
-    margin-right: 2%;
     flex-wrap: wrap;
 }
 
-#element{
-    margin-top: 10px;
-    height: 300px;
-    min-width: 40px;
+.staff-section{
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
     max-width: 80%;
     border: 1px black solid ;
 }
@@ -20,4 +18,4 @@
     border: 1px black solid;
 }
 
-.btn-view-forum{position: absolute;bottom:2%;right:2%;}
+.btn-view{position: absolute;bottom:2%;right:2%;}
