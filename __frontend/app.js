@@ -19,8 +19,22 @@ const routerRequests = require('./routes/requests')
 
 
 
-db = require("./util/mongoose");
-db.init();
+/*db = require("./util/mongoose");
+db.init();*/
+
+const mongooseDB = "mongodb://localhost:27017/fgfsitefrontend"
+const mongOptions = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    autoIndex: false, // Don't build indexes
+    poolSize: 10, // Maintain up to 10 socket connections
+    serverSelectionTimeoutMS: 10000, // Keep trying to send operations for 5 seconds //5000
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity  //45000
+    family: 4 // Use IPv4, skip trying IPv6
+}
+mongoose.connect(mongooseDB,mongOptions)
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     secret: "A5H2G2V",
@@ -28,7 +42,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    expires: new Date(Date.now() + (1 * 60 * 1000)/*(30 * 86400 * 1000)*/),
+    expires: new Date(Date.now() + (6 * 60 * 1000)/*(30 * 86400 * 1000)*/),
     cookie: {}
 }));
     
