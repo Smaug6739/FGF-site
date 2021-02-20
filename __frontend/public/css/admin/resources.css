@@ -1,0 +1,35 @@
+@import "../theme-variable.css";
+
+table,td {
+    border: var(--border-size) var(--border-type) var(--border-color);
+}
+thead,tfoot {
+    background-color: var(--background-color);
+    color: var(--color);
+}
+
+#container{
+    width: var(--width);
+    margin-left: var(--margin-left);
+}
+.table-icons{
+    width: 100%;
+}
+.element{
+    padding: 5px;;
+}
+.icon{
+    width: 5%;
+}
+@media screen and (max-width: 550px){
+    table{
+        zoom:0.9;
+    }
+    #container{
+        width: 95%;
+        margin-left:2.5%;
+    }
+    .icon{
+        width: 15%;
+    }
+}

@@ -72,3 +72,22 @@ exports.voirForum = (req, res) =>{
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 
+
+exports.postModo = (req, res) =>{
+    Forum.postModo(req.body.pseudo,req.body.categorie,req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+exports.getModos = (req, res) =>{
+    Forum.getModos(req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+
+
+exports.deleteModo = (req, res) =>{
+    Forum.deleteModo(req.params.modoId,req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+

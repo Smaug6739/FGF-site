@@ -18,6 +18,13 @@ ForumRouter.delete('/message/:messageId/:categorieId/:userId', auth, forumCtrl.d
 ForumRouter.delete('/topic/:topicId/:userId', auth, forumCtrl.deleteTopic)
 
 
+ForumRouter.get('/modos/:userId', auth, forumCtrl.getModos)
+
+ForumRouter.post('/modos/:userId', auth, forumCtrl.postModo)
+
+ForumRouter.delete('/modos/:modoId/:userId', auth, forumCtrl.deleteModo)
+
+
 ForumRouter.get('/categories/:categorieId', forumCtrl.getCategorieAdmin)
 
 ForumRouter.post('/categories/:userId', auth, forumCtrl.postCategorie)

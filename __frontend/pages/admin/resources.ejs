@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/admin/resources.css">
+
+    <title>API Members</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+    <section id="container">
+        <h2 style="text-align:center">Images</h2>
+        <table class="table-icons">
+            <thead>
+                <tr>
+                  <th scope="col">Nom de l'icon</th>
+                  <th scope="col">Icon</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%icons.forEach(element =>{ %>
+                    <tr>
+                        <td  class="element"> <img src="/static/images/icons/<%=element%>" class="icon"></td>
+                        <td  class="element"> <%= element %></td>
+                    </tr>
+                <% }) %>
+                
+              </tbody>
+        </table>
+    </section>
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>

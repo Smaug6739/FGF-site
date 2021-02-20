@@ -108,7 +108,8 @@ let Members = class Members{
                         email: email || 'non renseigné',
                         phoneNumber : phoneNumber || 'non renseigné',
                         status: status || 'non renseigné',
-                        site: site || 'non renseigné'
+                        site: site || 'non renseigné',
+                        ban : 0
                     }
                     dbFunctions.addMember(user)
                     .then(result =>  next(user))
@@ -145,8 +146,9 @@ let Members = class Members{
         })
     }
 
-    static put(id, avatar, pseudo, firstName, lastName, age, email, phoneNumber, status, site) {
+    static put(userPermissions, id, avatar, pseudo, firstName, lastName, age, email, phoneNumber, status, site, ban) {
         return new Promise(async(next, reject) => {
+            if(!userPermissions) return reject(errors.badPermissions)
             if(!id) return reject(errors.missing.userId)
             if (!pseudo || pseudo && pseudo.trim() == '') return reject(errors.missing.password)
             if (!age || age && age.trim() == '') return reject(errors.missing.age)
@@ -169,31 +171,33 @@ let Members = class Members{
             if(!site) site = ""
             dbFunctions.getUserById(id).then(user =>{
                 if (user) {
-                    if(pseudo != user.member_pseudo) {
-                        dbFunctions.isUniquePseudo(pseudo)
-                        .then(result => {
-                            if(!result) return reject(errors.pseudoAlreadyTaken)
-                            else {
-                                if(!avatar) avatar = user.member_avatar
-                                const newUser = {
-                                    avatar : avatar || 'default.png',
-                                    pseudo: pseudo || 'non renseigné',
-                                    firstName: firstName || 'non renseigné',
-                                    lastName: lastName || 'non renseigné',
-                                    age: age || 'non renseigné',
-                                    email: email || 'non renseigné',
-                                    phoneNumber: phoneNumber || 'non renseigné',
-                                    status: user.status || 'non renseigné',
-                                    site: user.site || 'non renseigné'
-                                }
-                                dbFunctions.updateUser(user.member_id, newUser)
-                                .then(() => next(newUser))
-                                .catch(error => {return reject(new Error(error))})
+                    if(ban && userPermissions >= 3) ban = ban
+                    else ban = user.member_ban
+                    dbFunctions.isUniquePseudo(pseudo)
+                    .then(result => {
+                        if(!result && pseudo !== user.member_pseudo) return reject(errors.pseudoAlreadyTaken)
+                        else {
+                            if(!avatar) avatar = user.member_avatar
+                            console.log(ban)
+                            const newUser = {
+                                avatar : avatar || 'default.png',
+                                pseudo: pseudo || 'non renseigné',
+                                firstName: firstName || 'non renseigné',
+                                lastName: lastName || 'non renseigné',
+                                age: age || 'non renseigné',
+                                email: email || 'non renseigné',
+                                phoneNumber: phoneNumber || 'non renseigné',
+                                status: user.status || 'non renseigné',
+                                site: user.site || 'non renseigné',
+                                ban : ban
                             }
-                        })
-                        .catch(error =>  {return reject(new Error(error))})
-                    } 
-                } else return reject(errors.wrongId);
+                            dbFunctions.updateUser(user.member_id, newUser)
+                            .then(() => next(newUser))
+                            .catch(error => {return reject(new Error(error))})
+                        }
+                    })
+                    .catch(error =>  {return reject(new Error(error))})
+                } else return reject(errors.wrongId)
             })
         })
     }

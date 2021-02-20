@@ -66,7 +66,7 @@ exports.addMember = (user) => {
     return new Promise((resolve, reject) =>{
         if(!user) return reject('Aucun paramètres')
         else{
-            db.query('INSERT INTO members(`member_userID`, `member_user_permissions`, `member_avatar`, `member_account_date`, `member_pseudo`, `member_password`, `member_first_name`, `member_last_name`, `member_age`, `member_email`, `member_phone_number`, `member_status`, `member_site`) value(?,?,?,?,?,?,?,?,?,?,?,?,?)', [user.userID, user.userPermissions, user.avatar, user.accountDate, user.pseudo, user.password, user.firstName, user.lastName, user.age, user.email, user.phoneNumber, user.status, user.site], (err, result)=>{
+            db.query('INSERT INTO members(`member_userID`, `member_user_permissions`, `member_avatar`, `member_account_date`, `member_pseudo`, `member_password`, `member_first_name`, `member_last_name`, `member_age`, `member_email`, `member_phone_number`, `member_status`, `member_site`,`member_ban`) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [user.userID, user.userPermissions, user.avatar, user.accountDate, user.pseudo, user.password, user.firstName, user.lastName, user.age, user.email, user.phoneNumber, user.status, user.site,user.ban], (err, result)=>{
                 if(err) return reject(err.message)
                 else resolve(result)
             })
@@ -78,7 +78,7 @@ exports.updateUser = (userID, newParams) => {
     return new Promise((resolve, reject) =>{
         if(!userID) return reject('Missing user id');
         if(!newParams) return reject('Missing new params');
-        db.query('UPDATE members SET member_avatar=?, member_pseudo=?, member_first_name=?, member_last_name=?, member_age=?, member_email=?, member_phone_number=?, member_status=?, member_site=? WHERE member_id = ?',[newParams.avatar, newParams.pseudo, newParams.firstName, newParams.lastName, newParams.age, newParams.email, newParams.phoneNumber, newParams.status, newParams.site, userID], (err, result) =>{
+        db.query('UPDATE members SET member_avatar=?, member_pseudo=?, member_first_name=?, member_last_name=?, member_age=?, member_email=?, member_phone_number=?, member_status=?, member_site=?, member_ban = ? WHERE member_id = ?',[newParams.avatar, newParams.pseudo, newParams.firstName, newParams.lastName, newParams.age, newParams.email, newParams.phoneNumber, newParams.status, newParams.site, newParams.ban, userID], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)

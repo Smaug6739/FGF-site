@@ -15,22 +15,28 @@
 
     <%- include ('../../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Modification d'un membre</h1>
-
+    <%  const account_date = new Date(parseInt(member.member_ban)) %>
+    <%  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
+    <%  const year = account_date.getFullYear() %>
+    <%  const month = months[account_date.getMonth()] %>
+    <%  const date = account_date.getDate() %>
     <form id ="form1" action='/admin/members/update/member/<%= member.member_id %>' method="post">
         <div class="form-group">
             <label for="pseudo">Pseudo</label>
             <input type="text" class="form-control" id="pseudo" name="pseudo" value="<%= member.member_pseudo %>" >
 
-            <label for="pseudo">Nom</label>
+            <label for="lastName">Nom</label>
             <input type="text" class="form-control" id="lastName" name="lastName" value="<%= member.member_last_name %>" >
-            <label for="pseudo">Prénom</label>
+            <label for="firstName">Prénom</label>
             <input type="text" class="form-control" id="firstName" name="firstName" value="<%= member.member_first_name %>" >
-            <label for="pseudo">Age</label>
+            <label for="age">Age</label>
             <input type="text" class="form-control" id="age" name="age" value="<%= member.member_age %>" >
-            <label for="pseudo">Adresse mail</label>
+            <label for="email">Adresse mail</label>
             <input type="text" class="form-control" id="email" name="email" value="<%= member.member_email %>" >
-            <label for="pseudo">Téléphone</label>
+            <label for="phoneNumber">Téléphone</label>
             <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<%= member.member_phone_number  %>" >
+            <label for="ban">Ban</label>
+            <input type="date" class="form-control" id="ban" name="ban" value="<%=`${year}-${month}-${date}`%>">
         </div>
 
   <button type="submit" class="btn btn-primary">Modifier</button>

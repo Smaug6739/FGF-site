@@ -116,7 +116,10 @@ exports.postLogin = async (req, res) => {
                                 userAvatar : responce.data.result.userAvatar
                             }
                               res.redirect('/member/account')
-                        }else res.redirect('/member/login')
+                        }else{
+                            if(responce.data.message === 'banned') res.redirect('/member/login?error=banned')
+                            else res.redirect('/member/login')
+                        } 
                     })
                     .catch(async error =>{
                         res.render(path.join(__dirname, '../pages/error.ejs'),{

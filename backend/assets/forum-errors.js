@@ -7,6 +7,7 @@ module.exports = {
         page           : new Error("Merci de spécifier une page valide."),
         icon           : new Error("Merci de spécifier une icon valide."),
         categorieId    : new Error("Merci de spécifier une catégorie valide."),
+        pseudo         : new Error("Merci de spécifier un pseudo valide."),
         topicId        : new Error("Merci de spécifier un topic valide."),
         postId         : new Error("Merci de spécifier un post valide."),
         authorId       : new Error("Merci de spécifier un auteur valide."),

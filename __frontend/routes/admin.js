@@ -7,9 +7,15 @@ const multerMidMiniature = require('../middleware/multer-article')
 
 AdminRouter.get('/', adminMid, adminCtrl.getIndex)
 AdminRouter.get('/infos', adminMid, adminCtrl.getInfos)
+AdminRouter.get('/resources', adminMid, adminCtrl.getResources)
+AdminRouter.get('/procedures', adminMid, adminCtrl.getProcedures)
 
 AdminRouter.get('/forum', adminMid, adminCtrl.getForum)
+AdminRouter.get('/forum/modos', adminMid, adminCtrl.getModos)
+AdminRouter.get('/forum/modos/delete/:modoId', adminMid, adminCtrl.deleteModo)
 AdminRouter.get('/forum/:categorieId', adminMid, adminCtrl.getCategorie)
+
+AdminRouter.post('/forum/modos', adminMid, adminCtrl.postModo)
 
 AdminRouter.post('/forum', adminMid, adminCtrl.createForumCategorie)
 AdminRouter.post('/forum/:categorieId', adminMid, adminCtrl.updateCategorie)

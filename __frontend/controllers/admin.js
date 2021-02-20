@@ -9,6 +9,18 @@ exports.getIndex = async (req,res) => {
         userConnected : await statusUser(req.session),
     })
 }
+exports.getResources = async (req,res) => {
+    const icons = fs.readdirSync('./public/images/icons')
+    res.render(path.join(__dirname, '../pages/admin/resources.ejs'),{
+        userConnected : await statusUser(req.session),
+        icons : icons
+    })
+}
+exports.getProcedures = async (req,res) => {
+    res.render(path.join(__dirname, '../pages/admin/procedures.ejs'),{
+        userConnected : await statusUser(req.session),
+    })
+}
 exports.getInfos = async (req,res) => {
     res.render(path.join(__dirname, '../pages/admin/infos.ejs'),{
         userConnected : await statusUser(req.session),
@@ -247,6 +259,74 @@ exports.deleteCategorie = (req, res) => {
         })
     })
 }
+exports.getModos = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/forum/modos/${req.session.user.id}`,{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/forum.modos.ejs'),{
+                userConnected : await statusUser(req.session),
+                modos : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.postModo = (req,res) => {
+    axios.post(`http://localhost:8080/api/v1/forum/modos/${req.session.user.id}`,{
+        pseudo : req.body.pseudo,
+        categorie : req.body.categorie
+    },{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success') res.redirect('/admin')
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.deleteModo = (req,res) => {
+    axios.delete(`http://localhost:8080/api/v1/forum/modos/${req.params.modoId}/${req.session.user.id}`,{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success') res.redirect('/admin')
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+        
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
 exports.getMembers = (req,res) => {
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}/all/${req.params.page}`, {
         //headers : { 'x-access-token' : req.session.user.token}
@@ -309,7 +389,8 @@ exports.postUpdateMember = (req, res) => {
         lastName: req.body.lastName,
         age: req.body.age,
         email: req.body.email,
-        phoneNumber: req.body.phoneNumber
+        phoneNumber: req.body.phoneNumber,
+        ban : Date.parse(req.body.ban)
     },
     {
         headers : { 'Authorization' : `token ${req.session.user.token}`},

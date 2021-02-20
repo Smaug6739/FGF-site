@@ -34,6 +34,7 @@ exports.searchMember = (req, res)=>{
 exports.authMember = async (req, res)=>{
     Members.getAuthUser(req.query.pseudo, req.query.password)
     .then(result =>{
+        if(result.member_ban > Date.now()) return res.json(checkAndChange(new Error("banned")))
         const token = jwt.sign({
             exp: Math.floor(Math . floor ( Date . now ( ) / 1000 ) + (6 * 60 * 60 )),
             expiresIn: 20000,//86400 // expires in 24 hours
@@ -59,6 +60,7 @@ exports.getMember = (req, res)=>{
 
 exports.updateMember = async(req, res) =>{
     Members.put(
+        req.user.userPermissions,
         req.params.userId, 
         req.body.avatar,
         req.body.pseudo,
@@ -68,7 +70,8 @@ exports.updateMember = async(req, res) =>{
         req.body.email,
         req.body.phoneNumber,
         req.body.status,
-        req.body.site
+        req.body.site,
+        req.body.ban
         )
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))

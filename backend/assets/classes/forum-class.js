@@ -1,7 +1,8 @@
 const  dbFunctions  = require("../../models/forum");
 const  db  = require("../../models/db");
 const crypto = require('crypto')
-const errors = require('../forum-errors')
+const errors = require('../forum-errors');
+const { userInfo } = require("os");
 
 let Forum = class Forum{
 
@@ -191,6 +192,44 @@ let Forum = class Forum{
                 dbFunctions.voirForum(forumId)
                 .then(result =>  next(result))
                 .catch(error => {return reject(new Error(error))})
+            })
+    }
+    static postModo(pseudoName,categorieName,userPermissions) {
+        return new Promise(async(resolve, reject) => {
+                if(!userPermissions) return reject(errors.badPermissions)
+                if(userPermissions < 3) return reject(errors.badPermissions)
+                if(!pseudoName) return reject(errors.missing.pseudo)
+                if(!categorieName) return reject(errors.missing.categorieId)
+                const time = Date.now()
+                db.query('INSERT INTO forum_modo (`modo_user_id`, `modo_categorie`, `modo_date_insert`) VALUES ((SELECT member_id FROM members WHERE member_pseudo = ? LIMIT 1),(SELECT cat_id FROM forum_categorie WHERE cat_nom = ?),?)',[pseudoName,categorieName,time],(err, result) =>{
+                    if(err){
+                        if(err.message.match("Column 'modo_user_id' cannot be null")) return reject(new Error("Ce pseudo n'existe pas"))
+                        if(err.message.match("Column 'modo_categorie' cannot be null")) return reject(new Error("Cette catégorie n'existe pas"))
+                        return reject(new Error(err.message))
+                    } 
+                    else resolve(true)
+                })
+            })
+    }
+    static getModos(userPermissions) {
+        return new Promise(async(resolve, reject) => {
+                if(!userPermissions) return reject(errors.badPermissions)
+                if(userPermissions < 3) return reject(errors.badPermissions)
+                db.query('SELECT modo_id,modo_user_id,modo_categorie,modo_date_insert, member_pseudo, cat_nom FROM forum_modo LEFT JOIN members ON members.member_id = forum_modo.modo_user_id INNER JOIN forum_categorie ON forum_categorie.cat_id = forum_modo.modo_categorie',(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(result)
+                })
+            })
+    }
+    static deleteModo(modoId,userPermissions) {
+        return new Promise(async(resolve, reject) => {
+            if(!userPermissions) return reject(errors.badPermissions)
+            if(userPermissions < 3) return reject(errors.badPermissions)
+            if(!modoId) return reject(errors.missing.userId)
+            db.query('DELETE FROM forum_modo WHERE modo_user_id = ?',[modoId],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(true)
+                })
             })
     }
 
