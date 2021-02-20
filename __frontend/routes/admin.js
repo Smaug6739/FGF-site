@@ -12,7 +12,7 @@ AdminRouter.get('/procedures', adminMid, adminCtrl.getProcedures)
 
 AdminRouter.get('/forum', adminMid, adminCtrl.getForum)
 AdminRouter.get('/forum/modos', adminMid, adminCtrl.getModos)
-AdminRouter.get('/forum/modos/delete/:modoId', adminMid, adminCtrl.deleteModo)
+AdminRouter.get('/forum/modos/delete/:modoId/:categorieId', adminMid, adminCtrl.deleteModo)
 AdminRouter.get('/forum/:categorieId', adminMid, adminCtrl.getCategorie)
 
 AdminRouter.post('/forum/modos', adminMid, adminCtrl.postModo)
@@ -44,6 +44,7 @@ AdminRouter.get('/partners/view/:requestId', adminMid, adminCtrl.getPartner)
 AdminRouter.get('/partners/:page', adminMid, adminCtrl.getPartners)
 
 
+AdminRouter.get('/members/search', adminMid, adminCtrl.searchMember)
 AdminRouter.get('/members/:page', adminMid, adminCtrl.getMembers)
 AdminRouter.get('/members/update/:id', adminMid, adminCtrl.getUpdatePage)
 

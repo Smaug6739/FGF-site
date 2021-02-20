@@ -22,7 +22,7 @@ ForumRouter.get('/modos/:userId', auth, forumCtrl.getModos)
 
 ForumRouter.post('/modos/:userId', auth, forumCtrl.postModo)
 
-ForumRouter.delete('/modos/:modoId/:userId', auth, forumCtrl.deleteModo)
+ForumRouter.delete('/modos/:modoId/:categorieId/:userId', auth, forumCtrl.deleteModo)
 
 
 ForumRouter.get('/categories/:categorieId', forumCtrl.getCategorieAdmin)

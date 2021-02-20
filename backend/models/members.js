@@ -3,7 +3,7 @@ const db = require('./db')
 
 exports.search = (pseudo) => {
     return new Promise((resolve, reject) =>{
-        db.query('SELECT member_pseudo FROM members WHERE member_pseudo LIKE ? LIMIT 5',[pseudo+'%'], (err, result) =>{
+        db.query('SELECT member_id,member_pseudo,member_avatar,member_account_date FROM members WHERE member_pseudo LIKE ? LIMIT 5',[pseudo+'%'], (err, result) =>{
             if(err) return reject(err.message)
             else{
                 resolve(result)

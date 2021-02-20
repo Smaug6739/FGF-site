@@ -15,6 +15,7 @@ module.exports = {
         userPermissions: new Error("Merci de spécifier les permissions de l'auteur."),
         message        : new Error("Merci de spécifier un message valide."),
         title          : new Error("Merci de spécifier un titre valide."),
+        modoId         : new Error("Merci de renseigner un modérateur valide")
     },
     size:{
         tooLong:{

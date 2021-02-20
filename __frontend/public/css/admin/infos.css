@@ -1,5 +1,17 @@
-#article{
-    background-color: #FFFFFF;
-    margin: auto;
-    max-width: 60%;
+@import "../theme-variable.css";
+
+
+
+#container{
+    width: var(--width);
+    margin-left: var(--margin-left);
+    background-color: var(--light);
+}
+
+@media screen and (max-width: 550px){
+    #container{
+        width: 95%;
+        margin-left:2.5%;
+    }
+
 }

@@ -221,12 +221,14 @@ let Forum = class Forum{
                 })
             })
     }
-    static deleteModo(modoId,userPermissions) {
+    static deleteModo(modoId,categorieId,userPermissions) {
         return new Promise(async(resolve, reject) => {
+            if(!modoId) return reject(errors.missing.modoId)
+            if(!categorieId) return reject(errors.missing.categorieId)
             if(!userPermissions) return reject(errors.badPermissions)
             if(userPermissions < 3) return reject(errors.badPermissions)
             if(!modoId) return reject(errors.missing.userId)
-            db.query('DELETE FROM forum_modo WHERE modo_user_id = ?',[modoId],(err, result) =>{
+            db.query('DELETE FROM forum_modo WHERE modo_user_id = ? AND modo_categorie = ?',[modoId,categorieId],(err, result) =>{
                     if(err) return reject(new Error(err.message))
                     else resolve(true)
                 })

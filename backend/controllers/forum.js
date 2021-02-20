@@ -86,7 +86,7 @@ exports.getModos = (req, res) =>{
 
 
 exports.deleteModo = (req, res) =>{
-    Forum.deleteModo(req.params.modoId,req.user.userPermissions)
+    Forum.deleteModo(req.params.modoId,req.params.categorieId,req.user.userPermissions)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }

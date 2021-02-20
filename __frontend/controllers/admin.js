@@ -307,12 +307,42 @@ exports.postModo = (req,res) => {
     });
 }
 exports.deleteModo = (req,res) => {
-    axios.delete(`http://localhost:8080/api/v1/forum/modos/${req.params.modoId}/${req.session.user.id}`,{
+    axios.delete(`http://localhost:8080/api/v1/forum/modos/${req.params.modoId}/${req.params.categorieId}/${req.session.user.id}`,{
         headers : { 'Authorization' : `token ${req.session.user.token}`}
     })
     .then(async(responce) => {
         if(responce.data.status === 'success') res.redirect('/admin')
         else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+        
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+exports.searchMember = (req,res) => {
+    axios.post(`http://localhost:8080/api/v1/members/search`, {
+        search : req.query.search
+    },{
+        //headers : { 'x-access-token' : req.session.user.token}
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        console.log(responce.data)
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/members.ejs'),{
+                userConnected : await statusUser(req.session),
+                members : responce.data.result,
+                search : req.query.search
+            })
+        }else{
             res.render(path.join(__dirname, '../pages/error.ejs'), {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
@@ -337,6 +367,7 @@ exports.getMembers = (req,res) => {
             res.render(path.join(__dirname, '../pages/admin/members.ejs'),{
                 userConnected : await statusUser(req.session),
                 members : responce.data.result,
+                search : ""
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'), {

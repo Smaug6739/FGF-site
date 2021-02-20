@@ -39,7 +39,7 @@
                     <td> <%= element.member_pseudo%></td>
                     <td> <%= element.cat_nom %></td>
                     <td> <%= `${date}/${month}/${year}` %></td>
-                    <td> <a href="/admin/forum/modos/delete/<%=element.modo_user_id%>" class="btn btn-danger">Supprimer</a> </td>
+                    <td> <a href="/admin/forum/modos/delete/<%=element.modo_user_id%>/<%=element.modo_categorie%>" class="btn btn-danger">Supprimer</a> </td>
                     </tr>
               <% }) %>
             </tbody>

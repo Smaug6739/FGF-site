@@ -17,6 +17,17 @@
   <body>
     <%- include ('../include/nav.ejs'); -%>
     <h1 class="mb-5 text-center">Tous les membres</h1>
+    <div class="wrapper">
+      <div class="search-input">
+        <a href="" target="_blank" hidden></a>
+        <form action="/admin/members/search" method="GET">
+        <input type="text" placeholder="Rechercher un membre.." name="search" <%if(search){%>value="<%=search%>"<%}%>>
+        </form>
+        <div class="autocom-box">
+        </div>
+        <div class="icon"><i class="fas fa-search"></i></div>
+      </div>
+    </div>
 <div id="table-members">
   <table class="table table-striped">
     <thead>
