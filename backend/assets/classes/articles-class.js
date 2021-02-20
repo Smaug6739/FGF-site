@@ -2,7 +2,6 @@ const  dbFunctions  = require("../../models/articles");
 const db = require('../../models/db')
 const xss = require('xss')
 const errors = require('../articles-errors');
-const { noArticleFound } = require("../articles-errors");
 let Articles = class Articles{
 
     static getAllByMemberId(id){
@@ -118,9 +117,10 @@ let Articles = class Articles{
         })
     }
 
-    static put(userPermissions, articleId, categorie, title, miniature, intro, content, status){
+    static put(userPermissions, userId, articleId, categorie, title, miniature, intro, content, status){
         return new Promise(async(next, reject) => {
             if(!articleId) return reject(errors.missing.articleId)
+            if(!userId) return reject(errors.missing.userId)
             if (!categorie || categorie && categorie.trim() == '') return reject(errors.missing.categorie)
             if (!title || title && title.trim() == '') return reject(errors.missing.title)
             if (!content || content && content.trim() == '') return reject(errors.missing.content)
@@ -147,6 +147,7 @@ let Articles = class Articles{
                     else if(status) status = status
                     else status = article.status
                     if(!miniature) miniature = article.lien_miniature
+                    if(article.author_id !== userId && userPermissions < 3) return reject(errors.badPermissions)
                     const newArticle = {
                         categorie : categorie,
                         title: title,
@@ -168,7 +169,7 @@ let Articles = class Articles{
             if(!id) return reject(errors.missing.articleId);
             if(!userId) return reject(errors.missing.userId);
             if(!userPermissions) return reject(errors.badPermissions);
-            if(userPermissions >= 2){
+            if(userPermissions >= 3){
                 dbFunctions.deleteArticleByModo(id)
                 .then(() => next(true))
                 .catch((err) => {return reject(new Error(err))})

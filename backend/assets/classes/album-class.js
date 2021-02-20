@@ -7,7 +7,7 @@ let Album = class Album{
         return new Promise(async(resolve, reject) => {
             if (!page || page && page.trim() == '') return reject(errors.missing.page)
             if (!userPermissions) return reject(errors.badPermissions)
-            if(userPermissions < 2) return reject(errors.badPermissions)
+            if(userPermissions < 3) return reject(errors.badPermissions)
             const skip = (page * 15) - 15
             db.query('SELECT * FROM album LIMIT 15 OFFSET ?',[skip],(err, result) => {
                 if(err) return reject(new Error(err.message))
@@ -45,7 +45,7 @@ let Album = class Album{
         return new Promise((resolve, reject) => {
             if(!albumId) return reject(new Error("Missing albumId"))
             if(!userPermissions) return reject(new Error("Missing user permissions"))
-            if(userPermissions < 2) return reject(new Error("Bad permissions"))
+            if(userPermissions < 3) return reject(new Error("Bad permissions"))
             db.query('SELECT * FROM album WHERE album_id = ?',[albumId],(err, result) => {
                 if(err) return reject(new Error(err.message))
                 else resolve(result)
@@ -80,7 +80,7 @@ let Album = class Album{
             if (!userPermissions) return reject(errors.badPermissions);
             
             if(title && title.length > 150) return reject(errors.size.title);
-            if(userPermissions < 2) return reject(errors.badPermissions);
+            if(userPermissions < 3) return reject(errors.badPermissions);
             db.query('UPDATE album SET album_title = ?, album_statut = ? WHERE album_id = ?',[title,statut,albumId],(err, result) => {
                 if(err) return reject(err.message);
                 else resolve(true);
@@ -93,7 +93,7 @@ let Album = class Album{
             if (!albumId || albumId && albumId.trim() == '') return reject(errors.missing.albumId)
             if (!userPermissions) return reject(errors.badPermissions)
             
-            if(userPermissions >= 2){
+            if(userPermissions >= 3){
                 db.query('DELETE FROM album WHERE album_id = ?',[albumId],(err, result) => {
                     if(err) return reject(err.message)
                     else resolve(true)

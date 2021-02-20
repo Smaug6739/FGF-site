@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/admin/announcements.css">
+    <title>FGF Album</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+
+       
+    <%console.log(forums)%>
+    <section id="announcements">
+        <table class="table table-striped" id="table-announcements">
+            <thead>
+              <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Description</th>
+                <th scope="col">Icon</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+        
+              <%  forums.forEach(element => { %>
+              <%  const account_date = new Date(parseInt(element.announcement_date_insert)) %>
+              <%  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
+              <%  const year = account_date.getFullYear() %>
+              <%  const month = months[account_date.getMonth()] %>
+              <%  const date = account_date.getDate() %>
+                    <tr>
+                    <td> <%=element.cat_nom%></td>
+                    <td> <%= element.cat_description  %> </td>
+                    <td> <%= element.cat_icon%></td>
+                    <td> <a href="/admin/forum/<%=element.cat_id%>" class="btn btn-primary">Modifier</a> </td>
+                    </tr>
+              <% }) %>
+            </tbody>
+          </table>
+    </section>
+    <section id="form">
+        <fieldset class="form-group">
+            <legend>Nouvelle catégorie</legend>
+            <form action="/admin/forum" method="POST">
+                <div class="form-group d-flex flex-column">
+                    <label style="font-size:20px;" for="title">Titre de la catégorie :</label>
+                    <input type="text" class="title form-control" name="title" id="title">
+                    <label style="font-size:20px;" for="content">Description de la catégorie (max 255 caractères) :</label>
+                    <textarea type="hidden" name="content" id="content"></textarea>
+                    <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
+                    <input type="text" class="icon form-control" name="icon" id="icon">
+                    <button type="submit" class="btn btn-success">Poster</button>
+                </div>
+            </form>
+        </fieldset>
+    </section>
+
+  <div id="center-text">
+    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+  </div>
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>
+
+<style>
+    #form{
+        width: 70%;
+        margin-left: 15%;
+    }
+</style>

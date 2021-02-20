@@ -47,26 +47,86 @@ let Forum = class Forum{
             if(content.length > 5000) return reject(errors.size.tooLong.message)
             const postTime = Date.now()
                 db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, ?)',[author, content, postTime, topicId],(err, result) =>{
-                    if(err) return reject(err.message)
+                    if(err) return reject(new Error(err.message))
                     else resolve(result)
                 })
             })
     }
-    static deleteMessage(message, author, userPermissions) {
+    static getOneCategorie(categorieId) {
+        return new Promise(async(resolve, reject) => {
+            if(!categorieId) return reject(errors.missing.categorieId)
+                db.query('SELECT * FROM forum_categorie WHERE cat_id = ?',[categorieId],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(result)
+                })
+            })
+    }
+    static postCategorie(title, content, icon, userPermissions) {
+        return new Promise(async(resolve, reject) => {
+            if(!title) return reject(errors.missing.title)
+            if(!content) return reject(errors.missing.message)
+            if(!icon) return reject(errors.missing.icon)
+            if(content.length > 255) return reject(errors.size.tooLong.message)
+            if(!userPermissions) return reject(errors.badPermissions.badPermissions)
+            if(userPermissions < 3) return reject(errors.badPermissions)
+                db.query('INSERT INTO forum_categorie (`cat_nom`, `cat_description`, `cat_ordre`, `cat_icon`) VALUES (?,?,?,?)',[title,content,0,icon],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(result)
+                })
+            })
+    }
+    static updateCategorie(categorieId, title, content, icon, userPermissions) {
+        return new Promise(async(resolve, reject) => {
+            if(!categorieId) return reject(errors.missing.categorieId)
+            if(!title) return reject(errors.missing.title)
+            if(!content) return reject(errors.missing.message)
+            if(!icon) return reject(errors.missing.icon)
+            if(content.length > 255) return reject(errors.size.tooLong.message)
+            if(!userPermissions) return reject(errors.badPermissions.badPermissions)
+            if(userPermissions < 3) return reject(errors.badPermissions)
+                db.query('UPDATE forum_categorie SET cat_nom = ?, cat_description = ?, cat_icon = ? WHERE cat_id = ?',[title,content,icon,categorieId],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(result)
+                })
+            })
+    }
+    static deleteCategorie(categorieId,userPermissions) {
+        return new Promise(async(resolve, reject) => {
+            if(!categorieId) return reject(errors.missing.categorieId)
+            if(!userPermissions) return reject(errors.badPermissions.badPermissions)
+            if(userPermissions < 3) return reject(errors.badPermissions)
+                db.query('DELETE FROM forum_categorie WHERE cat_id = ?',[categorieId],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(result)
+                })
+            })
+    }
+    static deleteMessage(message, categorieId, author, userPermissions) {
         return new Promise(async(resolve, reject) => {
             if(!message) return reject(errors.missing.message)
+            if(!categorieId) return reject(errors.missing.categorieId)
             if(!author) return reject(errors.missing.authorId)
             if(!userPermissions) return reject(errors.missing.userPermissions)
             db.query('SELECT * FROM forum_post WHERE post_id = ?',[message], (err, result) =>{
                 if(err) return reject(new Error(err))
-                else if(result[0].post_createur === parseInt(author) || userPermissions >= 2){
+                else if(result[0].post_createur === parseInt(author)){
                     db.query('DELETE FROM forum_post WHERE post_id = ?',[message], (err, result) =>{
                         if(err) return reject(new Error(err))
                         else resolve(true)
                     })
-                } else return reject(errors.badPermissions)
+                } else{
+                    db.query('SELECT * FROM forum_modo WHERE modo_user_id = ? AND modo_categorie = ?',[author,categorieId], (err, result) =>{
+                        if(err) return reject(new Error(err.message))
+                        else if(result.length){
+                            db.query('DELETE FROM forum_post WHERE post_id = ?',[message], (err, result) =>{
+                                if(err) return reject(new Error(err))
+                                else resolve(true)
+                            })
+                        }
+                        else return reject(errors.badPermissions)
+                    })
+                }
             })
-
         })
     }
     static deleteTopic(topicId, userId, userPermissions) {
@@ -74,7 +134,7 @@ let Forum = class Forum{
             if(!topicId) return reject(errors.missing.topicId)
             if(!userId) return reject(errors.missing.userId)
             if(!userPermissions) return reject(errors.missing.userPermissions)
-            if(userPermissions >= 2){
+            if(userPermissions >= 3){
                 db.query('DELETE FROM forum_topic WHERE topic_id = ?',[topicId], (err, result) =>{
                     if(err) return reject(new Error(err))
                     else resolve(true)
@@ -119,7 +179,7 @@ let Forum = class Forum{
                     if(err) return reject(err.stack)
                    else{
                     db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, (SELECT topic_id FROM forum_topic WHERE forum_topic.topic_id2 = ?))',[numberAuthor, content, postTime, topicId2],(err, result) =>{
-                        if(err) return reject(err.message)
+                        if(err) return reject(new Error(err.message))
                         else resolve(result)
                     })
                    }

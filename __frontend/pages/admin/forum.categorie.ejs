@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/admin/announcements.css">
+    <title>FGF Album</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+
+       
+    <%console.log(categorie)%>
+    <section id="form">
+        <fieldset class="form-group">
+            <legend>Mettre à jour la catégorie</legend>
+            <form action="/admin/forum/<%=categorie[0].cat_id%>" method="POST">
+                <div class="form-group d-flex flex-column">
+                    <label style="font-size:20px;" for="title">Titre de la catégorie :</label>
+                    <input type="text" class="title form-control" name="title" id="title" value="<%=categorie[0].cat_nom%>">
+                    <label style="font-size:20px;" for="content">Description de la catégorie (max 255 caractères) :</label>
+                    <textarea type="hidden" name="content" id="content"><%=categorie[0].cat_description%></textarea>
+                    <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
+                    <input type="text" class="icon form-control" name="icon" id="icon" value="<%=categorie[0].cat_icon%>">
+                    <button type="submit" class="btn btn-success">Poster</button>
+                </div>
+            </form>
+        </fieldset>
+        <fieldset class="form-group">
+            <legend>Supprimer la catégorie</legend>
+            <form action="/admin/forum/categorie/delete/<%=categorie[0].cat_id%>" method="POST">
+                <div class="form-group d-flex flex-column">
+                    <p>
+                        Etes vous sur de supprimer une catégorie ?
+                        <input type="checkbox" required>
+                    </p>
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                </div>
+            </form>
+        </fieldset>
+    </section>
+    
+
+  <div id="center-text">
+    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
+    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+  </div>
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>
+
+<style>
+    #form{
+        width: 70%;
+        margin-left: 15%;
+    }
+</style>

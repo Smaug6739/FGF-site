@@ -31,13 +31,33 @@ exports.postTopic = (req, res) => {
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.getCategorieAdmin = (req, res) => {
+    Forum.getOneCategorie(req.params.categorieId)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+exports.postCategorie = (req, res) => {
+    Forum.postCategorie(req.body.title, req.body.content, req.body.icon, req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+exports.updateCategorie = (req, res) => {
+    Forum.updateCategorie(req.params.categorieId, req.body.title, req.body.content, req.body.icon, req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+exports.deleteCategorie = (req, res) => {
+    Forum.deleteCategorie(req.params.categorieId, req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 exports.updateMessage = (req, res) => {
     Forum.updateMessage(req.params.messageId, req.params.userId, req.body.content)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.deleteMessage = (req, res) => {
-    Forum.deleteMessage(req.params.messageId, req.params.userId, req.user.userPermissions)
+    Forum.deleteMessage(req.params.messageId,req.params.categorieId, req.params.userId, req.user.userPermissions)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }

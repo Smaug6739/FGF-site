@@ -5,6 +5,7 @@ module.exports = {
     },
     missing:{
         page           : new Error("Merci de spécifier une page valide."),
+        icon           : new Error("Merci de spécifier une icon valide."),
         categorieId    : new Error("Merci de spécifier une catégorie valide."),
         topicId        : new Error("Merci de spécifier un topic valide."),
         postId         : new Error("Merci de spécifier un post valide."),

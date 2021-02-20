@@ -14,8 +14,18 @@ ForumRouter.post('/topic/:userId', auth, forumCtrl.postTopic)
 
 ForumRouter.put('/message/:messageId/:userId', auth, forumCtrl.updateMessage)
 
-ForumRouter.delete('/message/:messageId/:userId', auth, forumCtrl.deleteMessage)
+ForumRouter.delete('/message/:messageId/:categorieId/:userId', auth, forumCtrl.deleteMessage)
 ForumRouter.delete('/topic/:topicId/:userId', auth, forumCtrl.deleteTopic)
+
+
+ForumRouter.get('/categories/:categorieId', forumCtrl.getCategorieAdmin)
+
+ForumRouter.post('/categories/:userId', auth, forumCtrl.postCategorie)
+
+ForumRouter.put('/categories/:categorieId/:userId', auth, forumCtrl.updateCategorie)
+
+ForumRouter.delete('/categories/:categorieId/:userId', auth, forumCtrl.deleteCategorie)
+
 
 /*ForumRouter.get('/:userId/all/:page', auth, forumCtrl.getAllArticles);
 

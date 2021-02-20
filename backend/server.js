@@ -22,9 +22,7 @@ const apiRouterV1Announcements = require('./routes/announcements')
     if(!config.prod) app.use(morgan)
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
-
-    
-
+      
     //ROUTES
     app.use("/api/v1/members", apiRouterV1Members);
     app.use("/api/v1/articles", apiRouterV1Articles);

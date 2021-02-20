@@ -85,7 +85,7 @@ app.use(session({
                 })
             }
         }
-      });
+    });
     app.get('/terms', async (req, res)=>{
         res.status(404)
         res.render(path.join(__dirname, '/pages/terms.ejs'),{

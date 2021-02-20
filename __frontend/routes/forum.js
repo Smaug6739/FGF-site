@@ -10,7 +10,7 @@ ForumRouter.get('/categories',  forumCtrl.getCategories)
 ForumRouter.get('/categorie/:categorieId/:page',  forumCtrl.getCategorie)
 ForumRouter.get('/topic/delete/:topicId/', auth, forumCtrl.deleteTopic)
 ForumRouter.get('/topic/:topicId/:page',  forumCtrl.getTopic)
-ForumRouter.get('/message/delete/:messageId', auth, forumCtrl.deleteMessage)
+ForumRouter.get('/message/delete/:messageId/:categorieId', auth, forumCtrl.deleteMessage)
 
 ForumRouter.post('/topic/:categorieId/', auth, forumCtrl.postTopic)
 ForumRouter.post('/message/:topicId', auth, forumCtrl.postMessage)

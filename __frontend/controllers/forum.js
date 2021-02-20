@@ -170,7 +170,7 @@ exports.updateMessage = (req, res) => {
 
 
 exports.deleteMessage = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.id}`,{
+    axios.delete(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.params.categorieId}/${req.session.user.id}`,{
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })
     .then(async(responce) => {
