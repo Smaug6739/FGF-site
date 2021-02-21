@@ -26,6 +26,31 @@ let Articles = class Articles{
             .catch(error => {return reject(new Error(error))})
         })
     }
+    static getRandom(userId, userPermissions){
+        return new Promise((resolve, reject) => {
+            if(!userPermissions) return reject(errors.badPermissions)
+            if(userPermissions && userPermissions < 3) return reject(errors.badPermissions)
+            db.query('SELECT * FROM members WHERE (member_youtube != "" OR member_twitch != "") AND member_media_title != "" AND member_media_desc != "" AND member_media_image != "" ORDER BY RAND() LIMIT 1',(err, result) =>{
+                if(err) return reject(new Error(err))
+                else {
+                    if(result.length){
+                        const authorId = result[0].member_id
+                        const title = result[0].member_media_title
+                        const categorie = 7
+                        const intro = `Cette semaine, nous avons décider de vous parler des réseaux sociaux de ${result[0].member_pseudo}. Chaque semaine un créateur est tirée au sort pour etre mis en avant dans un article du site.`
+                        const content = result[0].member_media_desc
+                        const miniature = result[0].member_media_image
+                        const statut = 0
+                        const time = Date.now()
+                       db.query("INSERT INTO articles (`author_id`, `title`, `categorie`, `intro`, `content`, `lien_miniature`, `status`, `date_insert`) VALUES (?,?,?,?,?,?,?,?)",[authorId,title,categorie,intro,content,miniature,statut,time], (err, result) =>{
+                           if(err) return reject(new Error(err))
+                           else resolve(true)
+                       })
+                    } else return reject(new Error('no result found'))
+                }
+            })
+        })
+    }
     static getArticles(page) {
         return new Promise((next, reject) => {
             if(!page) return reject(errors.missing.page)
@@ -33,7 +58,7 @@ let Articles = class Articles{
             if(typeof pageNumber !== 'number') return reject(errors.missing)
             const skip = (pageNumber * 6) - 6;
             if(skip === 'NaN') return reject(errors.badTypeof.pageNumber)
-            db.query('SELECT * FROM articles WHERE status = 1 LIMIT 6 OFFSET ?',[skip], (err, result) => {
+            db.query('SELECT * FROM articles WHERE status = 1 ORDER BY date_insert DESC LIMIT 6 OFFSET ?',[skip], (err, result) => {
                 if(err) return reject(new Error(err.message))
                 else next(result)
             })

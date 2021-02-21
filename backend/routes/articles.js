@@ -7,6 +7,7 @@ const auth = require('../middleware/auth');
 ArticlesRouter.get('/:userId', auth, articlesCtrl.getMemberArticles); //ArticlesOfMember
 
 ArticlesRouter.get('/all/:page', articlesCtrl.getArticles);
+ArticlesRouter.get('/admin/random/:userId', auth, articlesCtrl.getRandomArticle);
 ArticlesRouter.get('/view/:articleId', articlesCtrl.getArticle);
 
 ArticlesRouter.get('/:userId/:articleId', auth, articlesCtrl.getArticleByMember);

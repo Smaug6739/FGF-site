@@ -512,6 +512,21 @@ exports.getArticles = (req,res) => {
         })
     });
 }
+exports.getRandom = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/articles/admin/random/${req.session.user.id}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success') res.redirect('/admin/articles/1?success=random')
+        else res.redirect('/admin/articles/1?error=random')
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
 
 exports.getUpdateArticlePage = (req,res) => {
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {

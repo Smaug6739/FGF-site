@@ -12,6 +12,8 @@ label {
 }
 
 .account-infos{
+    margin-top: 1%;
+    margin-bottom: 1%;
     width: 98%;
     margin-left : 1%;
     background-color: white;
@@ -19,7 +21,7 @@ label {
     border-radius: 5px;
     
 }
-
+.editor{max-width: 70%;margin-left: 15%;}
 .form-field{
     width: 30%;
     margin-left: 5%;
@@ -82,5 +84,6 @@ img.button_close {float: right;margin: -55px -55px 0 0;}
     .container-champ{flex-direction: column;}
     .form-field{width: 90%;margin-left: 2px;margin-top:2px;}
     .popup_block{width: 98%;}
+    .editor{max-width: 90%;margin-left: 5%;}
 }
 

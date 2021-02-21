@@ -15,17 +15,21 @@
 
     <%- include ('../include/nav.ejs'); -%>
     <div id="container">
+    <%if(images.length){%>
       <% images.forEach(element => { %>
         <div class="element">
-        <div class="hvrbox">
-          <img width="480px" height="268" src="/uploads/album/<%=element.album_image%>" class="hvrbox-layer_bottom image">
-              <div class="hvrbox-layer_top hvrbox-layer_slideup">
-              <div class="hvrbox-text"><%=element.member_pseudo%></div>
+          <div class="hvrbox">
+            <img width="480px" height="268" src="/uploads/album/<%=element.album_image%>" class="hvrbox-layer_bottom image">
+                <div class="hvrbox-layer_top hvrbox-layer_slideup">
+                <div class="hvrbox-text"><%=element.member_pseudo%></div>
+            </div>
           </div>
-      </div>
-      <p class="title"><%=element.album_title%></p>
-    </div>
+          <p class="title"><%=element.album_title%></p>
+        </div>
       <%});%>
+    <%}else{%>
+      <h2>Aucune image sur cette page</h2>
+    <%}%>
     </div>
     <div id="buttons-page">
       <a href="#" class="button button-info" id="precedent">< Précédent</a>

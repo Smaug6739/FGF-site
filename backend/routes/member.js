@@ -10,6 +10,7 @@ MembersRouter.get('/:userId', auth, memberCtrl.getMember);
 MembersRouter.post('/', memberCtrl.createMember);
 MembersRouter.post('/search', memberCtrl.searchMember);
 
+MembersRouter.put('/medias/:userId', auth, memberCtrl.updateMedias);
 MembersRouter.put('/:userId', auth, memberCtrl.updateMember);
 MembersRouter.put('/:userId/password', auth, memberCtrl.updateMemberPassword);
 

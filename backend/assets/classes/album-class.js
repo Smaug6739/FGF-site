@@ -9,7 +9,7 @@ let Album = class Album{
             if (!userPermissions) return reject(errors.badPermissions)
             if(userPermissions < 3) return reject(errors.badPermissions)
             const skip = (page * 15) - 15
-            db.query('SELECT * FROM album LIMIT 15 OFFSET ?',[skip],(err, result) => {
+            db.query('SELECT * FROM album ORDER BY album_date DESC LIMIT 15 OFFSET ?',[skip],(err, result) => {
                 if(err) return reject(new Error(err.message))
                 else resolve(result)
             })
@@ -21,7 +21,7 @@ let Album = class Album{
             if (!page || page && page.trim() == '') return reject(new Error("Missing page."))
             const skip = (page * 30) - 30
             if(skip < 0) return reject(errors.skip)
-            db.query('SELECT * FROM album LEFT JOIN members ON album.album_author = members.member_id WHERE album_statut = 1 LIMIT 30 OFFSET ?',[skip],(err, result) => {
+            db.query('SELECT * FROM album LEFT JOIN members ON album.album_author = members.member_id WHERE album_statut = 1 ORDER BY album_date DESC LIMIT 30 OFFSET ?',[skip],(err, result) => {
                 if(err) return reject(new Error(err.message))
                 else resolve(result)
             })

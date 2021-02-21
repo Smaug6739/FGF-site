@@ -3,6 +3,7 @@ let MembersRouter = express.Router()
 const multerMidAvatar = require('../middleware/multer-avatar')
 const multerMidMiniature = require('../middleware/multer-article')
 const multerMidAlbum = require('../middleware/multer-album')
+const multerMidMedias = require('../middleware/multer-medias')
 const auth = require('../middleware/auth')
 const memberCtrl = require('../controllers/member');
 
@@ -41,6 +42,7 @@ MembersRouter.get('/edit', auth, memberCtrl.getEditAccount)
 
 MembersRouter.post('/login', memberCtrl.postLogin)
 MembersRouter.post('/register', memberCtrl.postRegister)
+MembersRouter.post('/account/update/medias/:userId',multerMidMedias, memberCtrl.updateMemberMedia)
 MembersRouter.post('/:id/update',multerMidAvatar, memberCtrl.updateMember)
 MembersRouter.post('/updatepassword/:id', memberCtrl.updatePassword)
 MembersRouter.post('/:id/delete', memberCtrl.deleteMember)

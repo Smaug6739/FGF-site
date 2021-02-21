@@ -48,9 +48,11 @@ app.use(session({
         })
     });
     
-    app.get('/uploads/:dir/:image', (req, res) => {
+    /*app.get('/uploads/:dir/:image', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, `uploads/${req.params.dir}/${req.params.image}`));
-    });
+    });*/
+    app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
     app.get('/config-api', (req, res) => {
         res.status(200).send({api:config.urlAPI})
     });
@@ -66,13 +68,12 @@ app.use(session({
         }
     });
     app.get('/terms', async (req, res)=>{
-        res.status(404)
         res.render(path.join(__dirname, '/pages/terms.ejs'),{
             userConnected : await statusUser(req.session),
         })
     })
     app.get('/privacy', async (req, res)=>{
-        res.status(404)
+        console.log(req.session)
         res.render(path.join(__dirname, '/pages/privacy.ejs'),{
             userConnected : await statusUser(req.session),
         })

@@ -260,6 +260,37 @@ exports.updateMember = (req, res) => {
         })
     })
 }
+exports.updateMemberMedia = (req, res) => {
+    let file = "";
+    if(req.file && req.file.filename) file = req.file.filename
+    const htmlContent = converter.makeHtml(req.body.desc_desc)
+    axios.put(`http://localhost:8080/api/v1/members/medias/${req.session.user.id}`,{
+        site : req.body.site || "",
+        youtube : req.body.youtube,
+        twitch: req.body.twitch || "",
+        desc_title: req.body.desc_title || "",
+        desc_desc: htmlContent || "",
+        desc_image: file || "",
+    },{
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }else if(responce.data.status === 'success'){
+            res.redirect('/member/account')
+        };
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error
+        })
+    })
+}
 exports.updatePassword = (req, res) => {
     axios.put(`http://localhost:8080/api/v1/members/${req.session.user.id}/password`,{
         oldPassword : req.body.oldPassword,

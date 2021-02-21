@@ -76,6 +76,19 @@ exports.updateMember = async(req, res) =>{
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.updateMedias = async(req, res) =>{
+    Members.updateUserMedias(
+        req.params.userId, 
+        req.body.site,
+        req.body.youtube,
+        req.body.twitch,
+        req.body.desc_title,
+        req.body.desc_desc,
+        req.body.desc_image,
+        )
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 exports.updateMemberPassword = async(req, res) =>{
     Members.updatePassword(
         req.params.userId, 

@@ -2,7 +2,7 @@ const  dbFunctions  = require("../../models/members");
 const config        = require("../../config")
 const errors        = require("../member-error")
 const crypto = require("crypto");
-
+const xss = require('xss')
 
 let Members = class Members{
 
@@ -109,7 +109,12 @@ let Members = class Members{
                         phoneNumber : phoneNumber || 'non renseigné',
                         status: status || 'non renseigné',
                         site: site || 'non renseigné',
-                        ban : 0
+                        member_youtube : "",
+                        member_twitch : "",
+                        member_media_title : "",
+                        member_media_desc : "",
+                        member_media_image : "",
+                        ban : 0,
                     }
                     dbFunctions.addMember(user)
                     .then(result =>  next(user))
@@ -197,6 +202,45 @@ let Members = class Members{
                         }
                     })
                     .catch(error =>  {return reject(new Error(error))})
+                } else return reject(errors.wrongId)
+            })
+        })
+    }
+
+    static updateUserMedias(id, site, youtube, twitch, desc_title, desc_desc, desc_image) {
+        return new Promise(async(next, reject) => {
+            if(!id) return reject(errors.missing.userId)
+
+            if(!youtube) youtube = ""
+            if(!site) site = ""
+            if(!twitch)  twitch = ""
+            if(!desc_title) desc_title = ""
+            if(!desc_desc) desc_desc = ""
+            if(!desc_image) desc_image = ""
+            if(site && site.length > 200) return reject(errors.size.tooLong.site)
+            if(youtube && youtube.length > 200) return reject(errors.size.tooLong.site)
+            if(twitch && twitch.length > 200) return reject(errors.size.tooLong.site)
+            desc_desc = xss(desc_desc, {
+                onIgnoreTagAttr: function(tag, name, value, isWhiteAttr) {
+                  if (name +'='+ value === "id=img-article") {
+                    // escape its value using built-in escapeAttrValue function
+                    return name.substring(0) + '="' + xss.escapeAttrValue(value) + '"';
+                  }
+                }
+            })
+            dbFunctions.getUserById(id).then(user =>{
+                if (user) {
+                    const newUser = {
+                        youtube : youtube,
+                        twitch : twitch,
+                        site : site,
+                        desc_title : desc_title,
+                        desc_desc : desc_desc,
+                        desc_image : desc_image || user.member_media_image
+                    }
+                    dbFunctions.updateUserMedia(user.member_id, newUser)
+                    .then(() => next(newUser))
+                    .catch(error => {return reject(new Error(error))})
                 } else return reject(errors.wrongId)
             })
         })

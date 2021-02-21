@@ -1,10 +1,7 @@
 window.onload = function(){
-    const editMde = new SimpleMDE({
-        element: document.getElementById('contenu'),
-        initialValue: '',
-        hideIcons: ['guide', 'fullscreen', 'side-by-side'],
-        // guide implmentation is open to you
-        // fullscreen and sxs muss up layout
-        //toolbar : ["table","preview"]
-      })
+    let page = window.location.href.split('/').reverse()[0]
+    const pageSuivante = parseInt(page) + 1
+    const pagePrecedente = parseInt(page) - 1
+    document.getElementById("suivant").setAttribute("href", `/admin/announcements/${pageSuivante}`)
+    document.getElementById("precedent").setAttribute("href", `/admin/announcements/${pagePrecedente}`)
 }

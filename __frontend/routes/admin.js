@@ -53,6 +53,7 @@ AdminRouter.post('/members/update/member/password/:id', adminMid, adminCtrl.post
 AdminRouter.post('/members/delete/member/:id', adminMid, adminCtrl.postDeleteMember)
     
 
+AdminRouter.get('/articles/random/createur', adminMid, adminCtrl.getRandom)
 AdminRouter.get('/articles/:page', adminMid, adminCtrl.getArticles)
 AdminRouter.get('/articles/update/:articleId', adminMid, adminCtrl.getUpdateArticlePage)
 

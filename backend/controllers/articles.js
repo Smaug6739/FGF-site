@@ -18,6 +18,11 @@ exports.getMemberArticles = (req, res) =>{
     .then((result) =>res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.getRandomArticle = (req, res) =>{
+    Articles.getRandom(req.params.userId,req.user.userPermissions)
+    .then((result) =>res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 exports.putArticle = (req, res) =>{
     Articles.put(
         req.user.userPermissions,

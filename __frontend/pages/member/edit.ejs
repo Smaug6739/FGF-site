@@ -9,6 +9,10 @@
     <link  rel="stylesheet" href="/static/css/footer.css">
     <link  rel="stylesheet" href="/static/css/member/edit.css">
     <script src="/static/js/img-preview.js"></script>
+    <link  rel="stylesheet" href="/static/markdown/css/simplemde.css">
+    <script src="/static/markdown/js/simplemde.js"></script>
+    <script src="/static/markdown/js/simplemde2.js"></script>
+    <script src="/static/js/member/edit.js"></script>
     <title>French Gaming Family - Espace Membre</title>
   </head>
   <body>
@@ -73,6 +77,7 @@
       </div>
   </div>
 <br>
+
 <div class="account-infos">
   <h2 id="center-text">Changer votre mot de passe</h2>
   <form action="/member/updatepassword/<%= member.member_id %>" method="post" class="mt-5">
@@ -93,6 +98,44 @@
     <button type="submit" class="button button-primary button-send">Modifier</button>
   </form>
 </div>
+
+
+
+<div class="account-infos">
+    <h2 id="center-text">Médias - Créateurs</h2>
+    <form action="/member/account/update/medias/<%= member.member_id %>" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+      <div class="container-champ">
+        <label for="site">Site internet</label>
+        <input type="text" class="form-field" id="site" name="site" placeholder="Site internet" value="<%=member.member_site%>">
+      </div>
+      <div class="container-champ">
+        <label for="youtube">Chaine youtube</label>
+        <input type="text" class="form-field" id="youtube" name="youtube" placeholder="Chaine youtube" value="<%=member.member_youtube%>">
+      </div>
+      <div class="container-champ">
+        <label for="twitch">Chaine twitch</label>
+        <input type="text" class="form-field" id="twitch" name="twitch" placeholder="Chaine twitch" value="<%=member.member_twitch%>" >
+      </div>
+      <div class="container-champ">
+        <label for="desc_title">Titre description</label>
+        <input type="text" class="form-field" id="desc_title" name="desc_title" placeholder="Titre de l'article" value="<%=member.member_media_title%>" >
+      </div>
+      <div class="container-champ">
+        <label for="desc_image">Image</label>
+        <input type="file" class="form-field" id="desc_image" name="desc_image">
+      </div>
+      <div class="editor">
+        <label for="desc_desc">Description </label>
+        <!--<input type="text" class="form-field" id="desc_desc" name="desc_desc" placeholder="Description (contenu de l'article)" value="<%=//member.member_media_desc%>">-->
+        <textarea type="hidden" name="desc_desc" id="desc_desc"><%=member.member_media_desc%></textarea>
+      </div>
+
+      <button type="submit" class="button button-primary button-send">Modifier</button>
+    </form>
+</div>
+
+
 
   <%- include('../include/footer.ejs') %>
   <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
