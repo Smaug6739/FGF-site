@@ -3,14 +3,17 @@
     justify-content: space-around;
     margin-top: 2%;
     flex-wrap: wrap;
+    
 }
 
-.staff-section{
+.staff-module{
     margin-top: 2%;
     margin-left: 2%;
     margin-right: 2%;
-    max-width: 80%;
+    width : 25%;
+    padding: 1%;
     border: 1px black solid ;
+    position: relative;
 }
 
 .icon{
@@ -18,4 +21,11 @@
     border: 1px black solid;
 }
 
-.btn-view{position: absolute;bottom:2%;right:2%;}
+.button-view{position: absolute;bottom:2%;right:2%;}
+
+
+@media screen and (max-width:1200px){
+    .staff-module{
+        min-width: 350px;
+    }
+}

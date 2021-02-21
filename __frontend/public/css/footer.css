@@ -19,8 +19,8 @@ footer{
     align-items: flex-start;
     font-size: 20px;
     padding: 50px 0 100px;
-}
-.bloc{
+} 
+.footer-bloc{
     width: 25%;
     margin: 0 30px;
 }
@@ -36,6 +36,8 @@ footer{
 .liste-connexion,
 .liste-medias{
     list-style-type: none;
+    margin:0;
+    padding:0;
 }
 .liste-services a{
     text-decoration: none;
@@ -80,7 +82,7 @@ footer{
         width: 600px;
         flex-wrap: wrap;
     }
-    .bloc{
+    .footer-bloc{
         width: 40%;
         margin: 0 0;
     }
@@ -103,7 +105,7 @@ footer{
         float: left;
         margin-left: 25px;
     }
-    .bloc{
+    .footer-bloc{
         width: 300px;
         margin: 30px 30px;
     }

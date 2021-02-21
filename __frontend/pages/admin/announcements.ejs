@@ -36,7 +36,7 @@
                     <tr>
                     <td> <%=element.announcement_title%></td>
                     <td> <%= `${date}/${month}/${year}`  %> </td>
-                    <td> <a class="btn btn-primary mt-3"href="/admin/announcement/update/<%=element.announcement_id%>">Modiffier </a> <a class="btn btn-danger mt-3"href="/admin/announcement/delete/<%=element.announcement_id%>">Supprimer </a></td>
+                    <td> <a class="button button-primary mt-3"href="/admin/announcement/update/<%=element.announcement_id%>">Modiffier </a> <a class="button button-danger mt-3"href="/admin/announcement/delete/<%=element.announcement_id%>">Supprimer </a></td>
                     </tr>
               <% }) %>
             </tbody>
@@ -56,15 +56,15 @@
                       <input type="checkbox" name="staff">
                       <span class="slider round"></span>
                     </label>
-                    <button type="submit" class="btn btn-success">Poster</button>
+                    <button type="submit" class="button button-success">Poster</button>
                 </div>
             </form>
         </fieldset>
     </section>
 
   <div id="center-text">
-    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
-    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    <a href="#" class="button button-info" id="precedent">< Précédent</a>
+    <a href="#" class="button button-info" id="suivant">Suivant ></a>
   </div>
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>

@@ -40,7 +40,7 @@
                   <td> <div class="badge badge-secondary"> En attente </div> </td>
                  <% } %>                
                  <td> <%= `${date}/${month}/${year}`  %> </td>
-                <td> <a class="btn btn-primary mt-3"href="/admin/jobs/view/<%=element.id%>">Voir </a></td>
+                <td> <a class="button button-primary mt-3"href="/admin/jobs/view/<%=element.id%>">Voir </a></td>
                 </tr>
           <% }) %>
         </tbody>
@@ -48,8 +48,8 @@
     </div>
   
   <div id="center-text">
-    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
-    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    <a href="#" class="button button-info" id="precedent">< Précédent</a>
+    <a href="#" class="button button-info" id="suivant">Suivant ></a>
   </div>
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>

@@ -27,11 +27,11 @@
               <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
               <%=element.member_pseudo%> 
                 <% if(element.member_id === userConnected.id || modo){ %>
-                <a href="/forum/message/delete/<%=element.post_id%>/<%=element.topic_categorie%>"><img class="btn-control right" src ="/static/images/btn_delete.svg"></a>
+                <a href="/forum/message/delete/<%=element.post_id%>/<%=element.topic_categorie%>"><img class="button-control right" src ="/static/images/btn_delete.svg"></a>
                 <%} if(element.member_id === userConnected.id){ %>
-                <a onclick="viewEdit(<%=element.post_id%>, `<%=element.post_texte%>`)" href="#"><img class="btn-control right" src ="/static/images/btn_edit.svg"></a>
+                <a onclick="viewEdit(<%=element.post_id%>, `<%=element.post_texte%>`)" href="#"><img class="button-control right" src ="/static/images/btn_edit.svg"></a>
                 <% } %>
-                <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img class="btn-control right" src ="/static/images/btn_report.svg"></a>
+                <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img class="button-control right" src ="/static/images/btn_report.svg"></a>
                 </p>
                 <p><a href="#<%=element.post_id%>" class="link-msg"><%= `${date}/${month}/${year}`%></a></p>
                 <div id='<%=element.post_id%>'></div>
@@ -47,7 +47,7 @@
                   <fieldset class="form-group">
                     <legend class="reply-legent">Poster un message</legend>
                     <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="content"></textarea>
-                    <button type="submit" class="btn btn-success" id="send">Poster</button>
+                    <button type="submit" class="button button-success" id="send">Poster</button>
                   </fieldset>
                 </form>
             </div>
@@ -57,9 +57,9 @@
         <% } %>
       </div>
     </div>
-    <div id="btn-pages">
-      <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
-      <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    <div id="button-pages">
+      <a href="#" class="button button-info" id="precedent">< Précédent</a>
+      <a href="#" class="button button-info" id="suivant">Suivant ></a>
     </div>
 
 

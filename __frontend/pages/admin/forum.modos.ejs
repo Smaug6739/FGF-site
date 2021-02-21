@@ -39,7 +39,7 @@
                     <td> <%= element.member_pseudo%></td>
                     <td> <%= element.cat_nom %></td>
                     <td> <%= `${date}/${month}/${year}` %></td>
-                    <td> <a href="/admin/forum/modos/delete/<%=element.modo_user_id%>/<%=element.modo_categorie%>" class="btn btn-danger">Supprimer</a> </td>
+                    <td> <a href="/admin/forum/modos/delete/<%=element.modo_user_id%>/<%=element.modo_categorie%>" class="button button-danger">Supprimer</a> </td>
                     </tr>
               <% }) %>
             </tbody>
@@ -54,15 +54,15 @@
                     <input type="text" class="pseudo form-control" name="pseudo" id="pseudo">
                     <label style="font-size:20px;" for="categorie">Catégorie</label>
                     <input type="text" class="categorie form-control" name="categorie" id="categorie">
-                    <button type="submit" class="btn btn-success">Ajouter</button>
+                    <button type="submit" class="button button-success">Ajouter</button>
                 </div>
             </form>
         </fieldset>
     </section>
 
   <div id="center-text">
-    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
-    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    <a href="#" class="button button-info" id="precedent">< Précédent</a>
+    <a href="#" class="button button-info" id="suivant">Suivant ></a>
   </div>
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>

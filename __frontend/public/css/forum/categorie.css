@@ -45,4 +45,5 @@ thead,tfoot {
         display: none;
     }
     #table-forums{width: 95%;}
+    #container-form-message{width: 95%;}
 }

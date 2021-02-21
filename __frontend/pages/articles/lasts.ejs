@@ -29,12 +29,14 @@
     <div id="container-articles">
       
       <% articles.forEach(article => { %>
-        <div class="article col-lg-3 pt-3 pb-3">
+        <div class="article">
           <img src="/uploads/articles/<%=article.lien_miniature%>" class="card-img-top">
           <hr>
             <h5 class="card-title mt-3 article-title"><%=article.title%></h5>
-            <div class="card-intro mt-3"><%=article.intro%></div>
-              <a href="/articles/view/<%=article.id%>" class="btn btn-danger align-self-end mt-auto">Lire l'article</a>
+            <div class="card-intro mt-3"><%=article.intro%> </div>  
+            <div class="button-margin">
+              <a href="/articles/view/<%=article.id%>" class="button button-danger button-article">Lire l'article</a>
+            </div>
         </div>
       <% }); %>
   <%}else{%>
@@ -42,9 +44,9 @@
     <%}%>
   <% if(search === ''){%>
   </div>
-    <div id="btns-page">
-      <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
-      <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    <div id="buttons-page">
+      <a href="#" class="button button-info" id="precedent">< Précédent</a>
+      <a href="#" class="button button-info" id="suivant">Suivant ></a>
     </div>
   <%}%>
     <%- include('../include/footer.ejs') %>

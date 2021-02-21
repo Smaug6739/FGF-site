@@ -30,14 +30,14 @@
             <label for="title">Titre de l'image</label>
             <input type="text" name="title" value="<%=album[0].album_title%>">
             <br>
-            <button type="submit" class="btn btn-primary" id="btn-send">Envoyer</button>
+            <button type="submit" class="button button-primary" id="button-send">Envoyer</button>
           </form>
         </fieldset>
         <fieldset class="form-group" id="form-container">
           <legend>Supprimer</legend>
           <form action="/admin/albums/delete/<%=album[0].album_id%>" method="POST" id="form-update">
             <input type="hidden" value ="<%=album[0].album_image%>" name="file">
-            <button type="submit" class="btn btn-danger" id="btn-send">Supprimer cette image</button>
+            <button type="submit" class="button button-danger" id="button-send">Supprimer cette image</button>
           </form>
         </fieldset>
       </div>

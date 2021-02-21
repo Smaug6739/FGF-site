@@ -26,15 +26,15 @@
                     <input type="text" class="title form-control" name="title" id="title" value="<%=announcement.announcement_title%>">
                     <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre annonce :</label>
                     <textarea type="hidden" name="contenu" id="contenu"><%=announcement.announcement_text%></textarea>
-                    <button type="submit" class="btn btn-success">Modifier</button>
+                    <button type="submit" class="button button-success">Modifier</button>
                 </div>
             </form>
         </fieldset>
     </section>
 
   <div id="center-text">
-    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
-    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    <a href="#" class="button button-info" id="precedent">< Précédent</a>
+    <a href="#" class="button button-info" id="suivant">Suivant ></a>
   </div>
     <%- include ('../../include/footer.ejs'); -%>
     <%- include ('../../include/bootstrap/bootstrap.js.ejs'); -%>

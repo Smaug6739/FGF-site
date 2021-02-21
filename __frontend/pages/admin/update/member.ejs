@@ -39,11 +39,11 @@
             <input type="date" class="form-control" id="ban" name="ban" value="<%=`${year}-${month}-${date}`%>">
         </div>
 
-  <button type="submit" class="btn btn-primary">Modifier</button>
+  <button type="submit" class="button button-primary">Modifier</button>
 </form>
 <div id="overlay1">
   <div class="popup_block">
-      <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="btn_close" src="/static/images/close_pop.png"></a>
+      <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="button_close" src="/static/images/close_pop.png"></a>
       <h2>Changez votre mot de passe</h2>
       <form action="/admin/members/update/member/password/<%= member.member_id %>" method="post" class="mt-5">
         <div class="form-group">
@@ -56,27 +56,27 @@
             <input type="text" class="form-field" id="password2" name="password2" >
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Modifier</button>
+        <button type="submit" class="button button-primary">Modifier</button>
       </form>
   </div>
 </div>
 <div id="overlay2">
   <div class="popup_block">
-      <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="btn_close" src="/static/images/close_pop.png"></a>
+      <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="button_close" src="/static/images/close_pop.png"></a>
       <h2>Supprimer ce compte</h2>
       <form action="/admin/members/delete/member/<%= member.member_id %>" method="post" class="mt-5" >
         <input type="hidden" name="id" value="{{member.id}}">
-        <button type="submit" class="btn btn-danger">Supprimer</button>
+        <button type="submit" class="button button-danger">Supprimer</button>
     </form>
   </div>
 </div>
 <div id="conteneur-field-start">
   <label for="change-password">Mot de passe :</label>
-  <p><a href="#overlay1" id="change-password" class="btn btn-warning">Changer le password</a></p>
+  <p><a href="#overlay1" id="change-password" class="button button-warning">Changer le password</a></p>
 </div>
 <div id="conteneur-field-start">
   <label for="change-password">Etat du compte :</label>
-  <p><a href="#overlay2" class="btn btn-danger">Supprimer le compte</a></p>
+  <p><a href="#overlay2" class="button button-danger">Supprimer le compte</a></p>
 </div>
 
 

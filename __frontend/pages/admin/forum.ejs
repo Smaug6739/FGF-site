@@ -34,7 +34,7 @@
                     <td> <%=element.cat_nom%></td>
                     <td> <%= element.cat_description  %> </td>
                     <td> <%= element.cat_icon%></td>
-                    <td> <a href="/admin/forum/<%=element.cat_id%>" class="btn btn-primary">Modifier</a> </td>
+                    <td> <a href="/admin/forum/<%=element.cat_id%>" class="button button-primary">Modifier</a> </td>
                     </tr>
               <% }) %>
             </tbody>
@@ -51,15 +51,15 @@
                     <textarea type="hidden" name="content" id="content"></textarea>
                     <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
                     <input type="text" class="icon form-control" name="icon" id="icon">
-                    <button type="submit" class="btn btn-success">Poster</button>
+                    <button type="submit" class="button button-success">Poster</button>
                 </div>
             </form>
         </fieldset>
     </section>
 
   <div id="center-text">
-    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
-    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    <a href="#" class="button button-info" id="precedent">< Précédent</a>
+    <a href="#" class="button button-info" id="suivant">Suivant ></a>
   </div>
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>

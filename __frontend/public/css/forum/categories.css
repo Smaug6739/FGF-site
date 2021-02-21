@@ -7,12 +7,14 @@
     flex-wrap: wrap;
 }
 
-#element{
+.categorie{
     margin-top: 10px;
     height: 300px;
-    min-width: 40px;
-    max-width: 80%;
     border: 1px black solid ;
+    width: 25%;
+    min-width: 320px;
+    padding: 5px;
+    position: relative
 }
 
 .icon{
@@ -20,4 +22,8 @@
     border: 1px black solid;
 }
 
-.btn-view-forum{position: absolute;bottom:2%;right:2%;}
+.button-view-forum{
+    position: absolute;
+    bottom:2%;
+    right:2%;
+}

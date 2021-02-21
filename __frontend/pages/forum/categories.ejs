@@ -20,11 +20,11 @@
     <div id="container">
 
       <% categories.forEach(element => { %>
-        <div id="element" class="article col-lg-3 pt-3 pb-3" >
+        <div class="categorie" >
           <h3 class="cat-title"><img src="/static/images/icons/<%=element.cat_icon%>" alt="icon" class="icon">&nbsp;<a href="/forum/categorie/<%=element.cat_id%>/1"><%=element.cat_nom%></a></h3>
           <hr>
           <p class="cat-description"><%=element.cat_description%></p>
-          <a href="/forum/categorie/<%=element.cat_id%>/1" class="btn btn-danger btn-view-forum">Voir le forum</a>
+          <a href="/forum/categorie/<%=element.cat_id%>/1" class="button button-danger button-view-forum">Voir le forum</a>
         </div>
 
 

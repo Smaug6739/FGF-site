@@ -28,7 +28,7 @@
                     <textarea type="hidden" name="content" id="content"><%=categorie[0].cat_description%></textarea>
                     <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
                     <input type="text" class="icon form-control" name="icon" id="icon" value="<%=categorie[0].cat_icon%>">
-                    <button type="submit" class="btn btn-success">Poster</button>
+                    <button type="submit" class="button button-success">Poster</button>
                 </div>
             </form>
         </fieldset>
@@ -40,7 +40,7 @@
                         Etes vous sur de supprimer une catégorie ?
                         <input type="checkbox" required>
                     </p>
-                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                    <button type="submit" class="button button-danger">Supprimer</button>
                 </div>
             </form>
         </fieldset>
@@ -48,8 +48,8 @@
     
 
   <div id="center-text">
-    <a href="#" class="btn btn-info" id="precedent">< Précédent</a>
-    <a href="#" class="btn btn-info" id="suivant">Suivant ></a>
+    <a href="#" class="button button-info" id="precedent">< Précédent</a>
+    <a href="#" class="button button-info" id="suivant">Suivant ></a>
   </div>
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>

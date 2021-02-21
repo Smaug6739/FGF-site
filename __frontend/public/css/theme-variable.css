@@ -17,14 +17,30 @@
     --white:#fff;
     --gray:#6c757d;
     --gray-dark:#343a40;
-    --primary:#007bff;
-    --secondary:#6c757d;
-    --success:#28a745;
+    --primary:#0b5ed7;
+    --primary-hover:#094db3;
+    --secondary:#5c636a;
+    --secondary-hover:#4d5358;
+    --success : #198754;
+    --success-hover : #157347;
     --info:#17a2b8;
+    --info-hover : #138496;
     --warning:#ffc107;
-    --danger:#dc3545;
+    --warning-hover:#e0a903;
+    --danger:#d62433;
+    --danger-hover:#b82433;
     --light:#f8f9fa;
     --dark:#343a40;
+
+    /*
+    --success:#28a745;
+    --primary:#007bff;
+    --secondary:#6c757d;
+    --danger:#dc3545;
+
+
+    */
+
 }
 .title{
     --title-size : 28px;

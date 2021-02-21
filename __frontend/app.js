@@ -2,8 +2,8 @@ require('babel-register');
 const express = require('express');
 const session = require('express-session');
 const path = require("path")//NODE
-const MongoStore = require('connect-mongo')(session);
-const mongoose = require('mongoose')
+//const MongoStore = require('connect-mongo')(session);
+//const mongoose = require('mongoose')
 const app = express();
 const  morgan = require('morgan')('dev');
 const bodyParser = require('body-parser');
@@ -16,33 +16,16 @@ const routerSite = require('./routes/site')
 const routerArticles = require('./routes/articles')
 const routerAlbum = require('./routes/album')
 const routerRequests = require('./routes/requests')
+var MySQLStore = require('express-mysql-session')(session);
 
-
-
-/*db = require("./util/mongoose");
-db.init();*/
-
-const mongooseDB = "mongodb://localhost:27017/fgfsitefrontend"
-const mongOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    autoIndex: false, // Don't build indexes
-    poolSize: 10, // Maintain up to 10 socket connections
-    serverSelectionTimeoutMS: 10000, // Keep trying to send operations for 5 seconds //5000
-    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity  //45000
-    family: 4 // Use IPv4, skip trying IPv6
-}
-mongoose.connect(mongooseDB,mongOptions)
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     secret: "A5H2G2V",
     name: 'member-space',
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    expires: new Date(Date.now() + (6 * 60 * 1000)/*(30 * 86400 * 1000)*/),
+    store: new MySQLStore(options),
+    expires: new Date(Date.now() + (6 * 60 * 1000)),
     cookie: {}
 }));
     
@@ -50,21 +33,7 @@ app.use(session({
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
     const server = app.listen(config.port, () => console.log('Started on port '+ config.port));
-    /*const io = require('socket.io')(server);  
-   
-    io.sockets.on("connection", function (socket) {
-    // Everytime a client logs in, display a connected message
-    console.log("Server-Client Connected!");
-   
-    socket.join("_room" + socket.handshake.query.room_id);
-   
-    socket.on('connected', function (data) {
-   
-      });
-   });*/
-   
-   //const socketIoObject = io;
-   //module.exports.ioObject = socketIoObject;
+
     app.use('/member',routerMembers)
     app.use('/forum',routerForum)
     app.use('/site',routerSite)
@@ -82,14 +51,10 @@ app.use(session({
     app.get('/uploads/:dir/:image', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, `uploads/${req.params.dir}/${req.params.image}`));
     });
-    app.get('/error', (req, res) => {
-        res.status(200).sendFile(path.join(__dirname, 'pages/error.ejs'));
-    });
     app.get('/config-api', (req, res) => {
         res.status(200).send({api:config.urlAPI})
     });
     
-
     app.use(async function(err, req, res, next) {
         if(err){
             if(err.message.match('File too large')){
@@ -119,9 +84,7 @@ app.use(session({
         })
     })
 
-    /*io.on('connection', () =>{
-        console.log('A user is connected')
-    })*/
+
     /*app.get('/admin',(req,res) => {
         if(req.session.user){
             if(req.session.user.userAdmin){

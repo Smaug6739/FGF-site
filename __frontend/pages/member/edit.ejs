@@ -17,7 +17,7 @@
 
   <div id="overlay1">
     <div class="popup_block">
-        <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="btn_close" src="/static/images/close_pop.png"></a>
+        <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="button_close" src="/static/images/close_pop.png"></a>
         <h2>Supprimer votre compte</h2>
         <form action="/member/<%= member.member_id %>/delete" method="post" class="mt-5">
           <div class="form-group">
@@ -27,7 +27,7 @@
             </div>
           </div>
           <p>Attention, la supression de votre compte est définitive et iréverssible. Vous perdrez toutes les données qui y sont associés.</p>
-          <button type="submit" class="btn btn-danger btn-send">Supprimer</button>
+          <button type="submit" class="button button-danger button-send">Supprimer</button>
         </form>
     </div>
 </div>
@@ -65,11 +65,11 @@
                   <input type="text" class="form-field" id="phoneNumber" name="phoneNumber" placeholder="Numéro de téléphone" value="<%= member.member_phone_number %>" >
                 </div>
               </div>
-              <button  type="submit" class="btn btn-primary btn-send">Modifier</button>
+              <button  type="submit" class="button button-primary button-send">Modifier</button>
       </form>
       <div class="container-champ">
         <label for="change-password">Compte :</label>
-        <p><a href="#overlay1" id="delete-account" class="btn btn-danger">Supprimer votre compte</a></p>
+        <p><a href="#overlay1" id="delete-account" class="button button-danger">Supprimer votre compte</a></p>
       </div>
   </div>
 <br>
@@ -90,7 +90,7 @@
         <input type="text" class="form-field" id="password2" name="password2" placeholder="Confirmer le mot de passe" >
       </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-send">Modifier</button>
+    <button type="submit" class="button button-primary button-send">Modifier</button>
   </form>
 </div>
 

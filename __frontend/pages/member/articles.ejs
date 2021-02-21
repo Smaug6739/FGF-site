@@ -42,13 +42,14 @@
              <% } else { %>
                 <td> <div class="badge badge-success"> Validé </div> </td>
              <% } %>
-              <td> <a class="btn btn-primary mt-3"href="/member/articles/update/<%=article.id%>">Modiffier </a></td>
+              <td> <a class="button button-primary mt-3"href="/member/articles/update/<%=article.id%>">Modiffier </a></td>
               </tr>
         <% }) %>
       </tbody>
     </table>
+    <a class="button button-outline-success button-block" href="/member/articles/post" id="button-new">Écrire un nouvel article</a>
+
     </div>
-    <a class="btn btn-outline-success btn-block" href="/member/articles/post" id="btn-new">Écrire un nouvel article</a>
 
 
   
