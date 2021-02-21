@@ -24,7 +24,7 @@ app.use(session({
     name: 'member-space',
     resave: false,
     saveUninitialized: true,
-    store: new MySQLStore(options),
+    store: new MySQLStore(config.db),
     expires: new Date(Date.now() + (6 * 60 * 1000)),
     cookie: {}
 }));
