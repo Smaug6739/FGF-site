@@ -123,7 +123,11 @@
       </div>
       <div class="container-champ">
         <label for="desc_image">Image</label>
-        <input type="file" class="form-field" id="desc_image" name="desc_image">
+        <input type="file" class="form-field" id="desc_image" name="desc_image" onchange="preview_image(event,'image-media')">
+      </div>
+      <div class="container-champ">
+        <label>Rendu :</label>
+        <img class="form-field" id="image-media" src="/uploads/articles/<%=member.member_media_image%>">
       </div>
       <div class="editor">
         <label for="desc_desc">Description </label>
