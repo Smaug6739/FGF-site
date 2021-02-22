@@ -14,3 +14,5 @@ jobs:
         npm install
         cd ../backend
         npm install
+        cd ..
+        pm2 reload ecosystem.config.js --env production
