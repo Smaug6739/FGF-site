@@ -183,7 +183,6 @@ let Members = class Members{
                         if(!result && pseudo !== user.member_pseudo) return reject(errors.pseudoAlreadyTaken)
                         else {
                             if(!avatar) avatar = user.member_avatar
-                            console.log(ban)
                             const newUser = {
                                 avatar : avatar || 'default.png',
                                 pseudo: pseudo || 'non renseigné',

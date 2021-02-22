@@ -492,7 +492,7 @@ exports.postDeleteArticle = (req, res) => {
     .then(async result => {
         if(result.data.status === 'success'){
             fs.unlink(path.join(__dirname, `../uploads/articles/${result.data.result.lien_miniature}`), (err) => {
-                if (err) console.log(err);
+                //if (err) console.log(err);
               });
               axios.delete(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`,{
                 headers : { 'Authorization' : `token ${req.session.user.token}`},
@@ -600,7 +600,6 @@ exports.getDirectMessage = (req, res) => {
 }
 
 exports.postDirectMessage = (req, res) => {
-    console.log("Post")
     axios.post(`http://localhost:8080/api/v1/dm/message/${req.session.user.id}`,{ 
     message: req.body.message,
     author: req.params.expediteurId,

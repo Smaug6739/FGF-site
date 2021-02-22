@@ -10,29 +10,11 @@
     <link rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
     <link  rel="stylesheet" href="/static/css/forum/categories.css">
+    <%- include ('../include/meta'); -%>
     <title>FGF Forum</title>
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
-
-
-
-    <!--<div id="container">
-
-      <% //categories.forEach(element => { %>
-        <div class="categorie" >
-          <h3 class="cat-title"><img src="/static/images/icons/<%=//element.cat_icon%>" alt="icon" class="icon">&nbsp;<a href="/forum/categorie/<%=//element.cat_id%>/1"><%=//element.cat_nom%></a></h3>
-          <hr>
-          <p class="cat-description"><%=//element.cat_description%></p>
-          <a href="/forum/categorie/<%=//element.cat_id%>/1" class="button button-danger button-view-forum">Voir le forum</a>
-        </div>
-
-
-      <%//}); %>
-
-    </div>-->
-      <% console.log(groupes) %>
-
       <section id="container">
         <h2 class="title">Liste des forums :</h2>
         <br>
@@ -51,12 +33,6 @@
           <% }); %>
         
       </section>
-
-
-
-
-
-
     <%- include ('../include/footer.ejs'); -%>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
   </body>

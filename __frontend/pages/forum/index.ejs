@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
     <link  rel="stylesheet" href="/static/css/forum/main.css">
+    <%- include ('../include/meta'); -%>
     <title>FGF Forum</title>
   </head>
   <body>
@@ -20,20 +21,9 @@
 
     <% let totaldesmessages = 0 %>
     <% let categorie %>
-    <% console.log(forum)%>
-
  <table>
-    
 
-
-       
-      
-  
-<%    forum.forEach(element => {%>
-
-
-
-
+  <%forum.forEach(element => {%>
     <tr>
     <th></th>
     <th class="titre"><strong><%=element.cat_nom%></strong></th>             
@@ -41,18 +31,13 @@
     <th class="nombresujets"><strong>Messages</strong></th>       
     <th class="derniermessage"><strong>Dernier message</strong></th>   
     </tr>
-
-
-    <tr><td><img src="./images/message.gif" alt="message" /></td>
-    <td class="titre"><strong>
-    <a href="./voirforum.php?f=<%element.forum_id%>"><%=element.forum_name%></a></strong>
-    <br /><%=element.forum_desc%></td>
-    <td class="nombresujets"><%=element.forum_topic%></td>
-    <td class="nombremessages"><%=element.forum_post%></td>
-   
-
-
-
+    <tr>
+      <td><img src="./images/message.gif" alt="message" /></td>
+      <td class="titre"><strong>
+        <a href="./voirforum.php?f=<%element.forum_id%>"><%=element.forum_name%></a></strong>
+      <br/><%=element.forum_desc%></td>
+      <td class="nombresujets"><%=element.forum_topic%></td>
+      <td class="nombremessages"><%=element.forum_post%></td>
     <%if(element.forum_post){%>
         <% let nombreDeMessagesParPage = 15;%>
         <% let nbr_post = element.topic_post +1;%>

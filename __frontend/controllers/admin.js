@@ -425,7 +425,6 @@ exports.searchMember = (req,res) => {
         headers : { 'Authorization' : `token ${req.session.user.token}`}
     })
     .then(async(responce) => {
-        console.log(responce.data)
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/admin/members.ejs'),{
                 userConnected : await statusUser(req.session),
@@ -494,7 +493,6 @@ exports.getUpdatePage = (req,res) => {
         
     })
     .catch(async(error) => {
-        console.log(error)
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
             error : error,
@@ -755,7 +753,7 @@ exports.deleteAlbum = (req, res) => {
             })
         }else if(responce.data.status === 'success'){
             fs.unlink(path.join(__dirname, `../uploads/album/${req.body.file}`), (err) => {
-                if (err) console.log(err);
+               // if (err) console.log(err);
               });
             res.redirect('/admin')
         } 
@@ -972,7 +970,6 @@ exports.updateJob = (req,res) => {
     });
 }
 exports.updatePartner = (req,res) => {
-    console.log("update partenaire")
     axios.put(`http://localhost:8080/api/v1/request/partners/${req.session.user.id}/${req.params.requestId}`, {
         statut : req.body.statut
     },{

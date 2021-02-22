@@ -67,7 +67,6 @@ let DirectMessages = class DirectMessages{
             if(typeof authorNumber !== 'number')  return reject(errors.badTypeof.authorNumber)
             const id2 =  `${author}${Date.now()}${crypto.randomBytes(16).toString("hex")}`
             const time = Date.now()
-            console.log(id2,authorNumber,client,title,time,time)
             db.query('INSERT INTO `dm_channels`(`dm_id2`, `dm_user1`, `dm_user2`, `dm_title`,`dm_time`,`dm_last_update`) VALUES (?,?,(SELECT members.member_id FROM members WHERE members.member_pseudo = ? LIMIT 1),?,?,?)',[id2,authorNumber,client,title,time,time],(err,result) => {
                 if(err) {
                     if(err.message.match(`ER_BAD_NULL_ERROR: Column 'dm_user2' cannot be null`)) return reject(new Error('Ce pseudo n\'existe pas'))

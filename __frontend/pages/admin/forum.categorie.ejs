@@ -10,14 +10,11 @@
     <link rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="/static/css/admin/announcements.css">
-    <title>FGF Album</title>
+    <title>FGF Admin</title>
   </head>
   <body>
     <%- include ('../include/nav.ejs'); -%>
-
-       
-    <%console.log(categorie)%>
-    <section id="form">
+      <section id="form">
         <fieldset class="form-group">
             <legend>Mettre à jour la catégorie</legend>
             <form action="/admin/forum/<%=categorie[0].cat_id%>" method="POST">

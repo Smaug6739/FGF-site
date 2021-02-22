@@ -73,7 +73,6 @@ app.use(session({
         })
     })
     app.get('/privacy', async (req, res)=>{
-        console.log(req.session)
         res.render(path.join(__dirname, '/pages/privacy.ejs'),{
             userConnected : await statusUser(req.session),
         })

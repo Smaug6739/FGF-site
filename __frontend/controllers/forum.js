@@ -20,7 +20,6 @@ exports.getIndex = (req, res) => {
         }
     })
     .catch(async(error) => {
-        console.log(error)
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
             error : error,
@@ -44,7 +43,6 @@ exports.getCategories = (req, res) => {
         }
     })
     .catch(async(error) => {
-        console.log(error)
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
             error : error,
@@ -161,7 +159,6 @@ exports.updateMessage = (req, res) => {
         }
     })
     .catch(async(error) => {
-        console.log(error)
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
             error : error,
@@ -185,7 +182,6 @@ exports.deleteMessage = (req, res) => {
         }
     })
     .catch(async(error) => {
-        console.log(error)
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
             error : error,
@@ -207,7 +203,6 @@ exports.deleteTopic = (req, res) => {
         }
     })
     .catch(async(error) => {
-        console.log(error)
         res.render(path.join(__dirname, '../pages/error.ejs'),{
             userConnected : await statusUser(req.session),
             error : error,
