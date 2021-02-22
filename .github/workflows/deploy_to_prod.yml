@@ -11,8 +11,10 @@ jobs:
         cd /home/fgf/fgf-site/prod
         git pull origin master
         cd ./__frontend
-        npm install
+        npm prune --production
+        npm install --production
         cd ../backend
-        npm install
+        npm prune --production
+        npm install --production
         cd ..
         pm2 reload ecosystem.config.js --env production

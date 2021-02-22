@@ -1,25 +1,27 @@
-require('babel-register');
 const express = require('express');
 const app = express();
 //const swaggerUi = require('swagger-ui-express');
 //const swaggerDocument = require('./assets/swagger.json');
 //const expressOasGenerator = require('express-oas-generator');
 //expressOasGenerator.init(app, {}); // to overwrite generated specification's values use second argument.
-const  morgan = require('morgan')('dev');
 const bodyParser = require('body-parser');
 const config = require('./config.js');
 
 const {checkAndChange} = require('./util/functions');
 
-const apiRouterV1Members = require('./routes/member')
-const apiRouterV1Articles = require('./routes/articles')
-const apiRouterV1Album = require('./routes/album')
-const apiRouterV1Forum = require('./routes/forum')
-const apiRouterV1DirectMessage = require('./routes/dm')
-const apiRouterV1Request = require('./routes/requests')
-const apiRouterV1Announcements = require('./routes/announcements')
+const apiRouterV1Members = require('./routes/member');
+const apiRouterV1Articles = require('./routes/articles');
+const apiRouterV1Album = require('./routes/album');
+const apiRouterV1Forum = require('./routes/forum');
+const apiRouterV1DirectMessage = require('./routes/dm');
+const apiRouterV1Request = require('./routes/requests');
+const apiRouterV1Announcements = require('./routes/announcements');
 
-    if(!config.prod) app.use(morgan)
+    if(!config.prod){
+        const  morgan = require('morgan')('dev');
+        app.use(morgan);
+    }
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
       
