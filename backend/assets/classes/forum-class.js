@@ -20,6 +20,13 @@ let Forum = class Forum{
                 .catch(error => {return reject(new Error(error))})
             })
     }
+    static getAdmin() {
+        return new Promise(async(next, reject) => {
+                dbFunctions.getAdmin()
+                .then(result =>  next(result))
+                .catch(error => {return reject(new Error(error))})
+            })
+    }
     static getCategorie(categorieId,page) {
         return new Promise(async(next, reject) => {
             if(!categorieId) return reject(errors.missing.categorieId)
@@ -62,30 +69,32 @@ let Forum = class Forum{
                 })
             })
     }
-    static postCategorie(title, content, icon, userPermissions) {
+    static postCategorie(title, content, icon, groupe, userPermissions) {
         return new Promise(async(resolve, reject) => {
             if(!title) return reject(errors.missing.title)
             if(!content) return reject(errors.missing.message)
+            if(!groupe) return reject(errors.missing.categorieId)
             if(!icon) return reject(errors.missing.icon)
             if(content.length > 255) return reject(errors.size.tooLong.message)
             if(!userPermissions) return reject(errors.badPermissions.badPermissions)
             if(userPermissions < 3) return reject(errors.badPermissions)
-                db.query('INSERT INTO forum_categorie (`cat_nom`, `cat_description`, `cat_ordre`, `cat_icon`) VALUES (?,?,?,?)',[title,content,0,icon],(err, result) =>{
+                db.query('INSERT INTO forum_categorie (`cat_nom`, `cat_description`, `cat_ordre`, `cat_icon`, `cat_container`) VALUES (?,?,?,?,?)',[title,content,0,icon,groupe],(err, result) =>{
                     if(err) return reject(new Error(err.message))
                     else resolve(result)
                 })
             })
     }
-    static updateCategorie(categorieId, title, content, icon, userPermissions) {
+    static updateCategorie(categorieId, title, content, icon, groupe, userPermissions) {
         return new Promise(async(resolve, reject) => {
             if(!categorieId) return reject(errors.missing.categorieId)
             if(!title) return reject(errors.missing.title)
             if(!content) return reject(errors.missing.message)
             if(!icon) return reject(errors.missing.icon)
+            if(!groupe) return reject(errors.missing.categorieId)
             if(content.length > 255) return reject(errors.size.tooLong.message)
             if(!userPermissions) return reject(errors.badPermissions.badPermissions)
             if(userPermissions < 3) return reject(errors.badPermissions)
-                db.query('UPDATE forum_categorie SET cat_nom = ?, cat_description = ?, cat_icon = ? WHERE cat_id = ?',[title,content,icon,categorieId],(err, result) =>{
+                db.query('UPDATE forum_categorie SET cat_nom = ?, cat_description = ?, cat_icon = ?, cat_container = ? WHERE cat_id = ?',[title,content,icon,groupe,categorieId,],(err, result) =>{
                     if(err) return reject(new Error(err.message))
                     else resolve(result)
                 })
@@ -231,6 +240,50 @@ let Forum = class Forum{
             db.query('DELETE FROM forum_modo WHERE modo_user_id = ? AND modo_categorie = ?',[modoId,categorieId],(err, result) =>{
                     if(err) return reject(new Error(err.message))
                     else resolve(true)
+                })
+            })
+    }
+    static postContainer(title, userPermissions) {
+        return new Promise(async(resolve, reject) => {
+            if(!title) return reject(errors.missing.title)
+            if(!userPermissions) return reject(errors.badPermissions.badPermissions)
+            if(userPermissions < 3) return reject(errors.badPermissions)
+            const time = Date.now()
+                db.query('INSERT INTO forum_cat_container (`cat_container_name`, `cat_container_time`) VALUES (?,?)',[title,time],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(true)
+                })
+            })
+    }
+    static getOneContainer(containerId) {
+        return new Promise(async(resolve, reject) => {
+            if(!containerId) return reject(errors.missing.categorieId)
+                db.query('SELECT * FROM forum_cat_container WHERE cat_container_id = ?',[containerId],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(result)
+                })
+            })
+    }
+    static updateContainer(containerId, title, userPermissions) {
+        return new Promise(async(resolve, reject) => {
+            if(!containerId) return reject(errors.missing.categorieId)
+            if(!title) return reject(errors.missing.title)
+            if(!userPermissions) return reject(errors.badPermissions.badPermissions)
+            if(userPermissions < 3) return reject(errors.badPermissions)
+                db.query('UPDATE forum_cat_container SET cat_container_name = ? WHERE cat_container_id = ?',[title,containerId],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(result)
+                })
+            })
+    }
+    static deleteContainer(containerId,userPermissions) {
+        return new Promise(async(resolve, reject) => {
+            if(!containerId) return reject(errors.missing.categorieId)
+            if(!userPermissions) return reject(errors.badPermissions.badPermissions)
+            if(userPermissions < 3) return reject(errors.badPermissions)
+                db.query('DELETE FROM forum_cat_container WHERE cat_container_id = ?',[containerId],(err, result) =>{
+                    if(err) return reject(new Error(err.message))
+                    else resolve(result)
                 })
             })
     }

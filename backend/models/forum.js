@@ -19,6 +19,20 @@ exports.getCategories = () => {
         })
     })
 }
+exports.getAdmin = () => {
+    return new Promise((resolve, reject) =>{
+        db.query('SELECT * from forum_categorie', (err, result1)=>{
+            if(err) reject(err.message)
+            else {
+                db.query('SELECT * FROM forum_cat_container',(err, result2) =>{
+                    console.log(result2)
+                    if(err) reject(err.message)
+                    else resolve({categories: result1, containers: result2})
+                })
+            }
+        })
+    })
+}
 exports.getCategorie = (categorieId, skip) => {
     return new Promise((resolve, reject) =>{
         db.query('SELECT * from forum_topic LEFT JOIN forum_categorie ON forum_topic.topic_categorie = forum_categorie.cat_id LEFT JOIN members ON forum_topic.topic_createur = members.member_id WHERE topic_categorie = ? ORDER BY topic_time DESC LIMIT 20 OFFSET ?',[categorieId, skip], (err, result)=>{

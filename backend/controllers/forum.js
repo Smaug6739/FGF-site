@@ -6,6 +6,11 @@ exports.getForums = (req, res) =>{
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.getAdmin = (req, res) =>{
+    Forum.getAdmin()
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 exports.getCategories = (req, res) =>{
     Forum.getCategories()
     .then(result => res.json(checkAndChange(result)))
@@ -36,13 +41,18 @@ exports.getCategorieAdmin = (req, res) => {
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
+exports.getContainer = (req, res) => {
+    Forum.getOneContainer(req.params.containerId)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
 exports.postCategorie = (req, res) => {
-    Forum.postCategorie(req.body.title, req.body.content, req.body.icon, req.user.userPermissions)
+    Forum.postCategorie(req.body.title, req.body.content, req.body.icon, req.body.groupe, req.user.userPermissions)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.updateCategorie = (req, res) => {
-    Forum.updateCategorie(req.params.categorieId, req.body.title, req.body.content, req.body.icon, req.user.userPermissions)
+    Forum.updateCategorie(req.params.categorieId, req.body.title, req.body.content, req.body.icon, req.body.groupe, req.user.userPermissions)
     .then(result => res.json(checkAndChange(result)))
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
@@ -91,3 +101,18 @@ exports.deleteModo = (req, res) =>{
     .catch(error => res.json(checkAndChange(new Error(error))))
 }
 
+exports.postContainer = (req, res) => {
+    Forum.postContainer(req.body.title,req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+exports.updateContainer = (req, res) => {
+    Forum.updateContainer(req.params.containerId, req.body.title,req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}
+exports.deleteContainer = (req, res) => {
+    Forum.deleteContainer(req.params.containerId, req.user.userPermissions)
+    .then(result => res.json(checkAndChange(result)))
+    .catch(error => res.json(checkAndChange(new Error(error))))
+}

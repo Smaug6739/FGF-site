@@ -145,12 +145,13 @@ exports.deleteAnnouncement = (req,res) => {
     });
 }
 exports.getForum = (req,res) => {
-    axios.get(`http://localhost:8080/api/v1/forum/getCategories`)
+    axios.get(`http://localhost:8080/api/v1/forum/admin`)
     .then(async(responce) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/admin/forum.ejs'),{
                 userConnected : await statusUser(req.session),
-                forums : responce.data.result,
+                forums : responce.data.result.categories,
+                containers : responce.data.result.containers
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'), {
@@ -190,12 +191,58 @@ exports.getCategorie = (req,res) => {
         })
     });
 }
+exports.getContainer = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/forum/container/${req.params.containerId}`)
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/forum.container.ejs'),{
+                userConnected : await statusUser(req.session),
+                container : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+        
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
 
 exports.createForumCategorie = (req, res) => {
     axios.post(`http://localhost:8080/api/v1/forum/categories/${req.session.user.id}`, {
         title: req.body.title,
         content: req.body.content,
-        icon : req.body.icon
+        icon : req.body.icon,
+        groupe: req.body.groupe
+    },
+    {
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }else if(responce.data.status === 'success') res.redirect('/admin');
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    })
+}
+exports.createForumContainer = (req, res) => {
+    axios.post(`http://localhost:8080/api/v1/forum/container/${req.session.user.id}`, {
+        title: req.body.title,
     },
     {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
@@ -219,7 +266,30 @@ exports.updateCategorie = (req, res) => {
     axios.put(`http://localhost:8080/api/v1/forum/categories/${req.params.categorieId}/${req.session.user.id}`, {
         title: req.body.title,
         content: req.body.content,
-        icon : req.body.icon
+        icon : req.body.icon,
+        groupe: req.body.groupe
+    },
+    {
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }else if(responce.data.status === 'success') res.redirect('/admin');
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    })
+}
+exports.updateContainer = (req, res) => {
+    axios.put(`http://localhost:8080/api/v1/forum/container/${req.params.containerId}/${req.session.user.id}`, {
+        title: req.body.title,
     },
     {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
@@ -241,6 +311,26 @@ exports.updateCategorie = (req, res) => {
 }
 exports.deleteCategorie = (req, res) => {
     axios.delete(`http://localhost:8080/api/v1/forum/categories/${req.params.categorieId}/${req.session.user.id}`,
+    {
+        headers : { 'Authorization' : `token ${req.session.user.token}`},
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'error'){
+            res.render(path.join(__dirname, '../pages/error.ejs'),{
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }else if(responce.data.status === 'success') res.redirect('/admin');
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'),{
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    })
+}
+exports.deleteContainer = (req, res) => {
+    axios.delete(`http://localhost:8080/api/v1/forum/container/${req.params.containerId}/${req.session.user.id}`,
     {
         headers : { 'Authorization' : `token ${req.session.user.token}`},
     })

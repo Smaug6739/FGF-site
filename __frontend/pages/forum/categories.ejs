@@ -17,21 +17,38 @@
 
 
 
-    <div id="container">
+    <!--<div id="container">
 
-      <% categories.forEach(element => { %>
+      <% //categories.forEach(element => { %>
         <div class="categorie" >
-          <h3 class="cat-title"><img src="/static/images/icons/<%=element.cat_icon%>" alt="icon" class="icon">&nbsp;<a href="/forum/categorie/<%=element.cat_id%>/1"><%=element.cat_nom%></a></h3>
+          <h3 class="cat-title"><img src="/static/images/icons/<%=//element.cat_icon%>" alt="icon" class="icon">&nbsp;<a href="/forum/categorie/<%=//element.cat_id%>/1"><%=//element.cat_nom%></a></h3>
           <hr>
-          <p class="cat-description"><%=element.cat_description%></p>
-          <a href="/forum/categorie/<%=element.cat_id%>/1" class="button button-danger button-view-forum">Voir le forum</a>
+          <p class="cat-description"><%=//element.cat_description%></p>
+          <a href="/forum/categorie/<%=//element.cat_id%>/1" class="button button-danger button-view-forum">Voir le forum</a>
         </div>
 
 
-      <%}); %>
+      <%//}); %>
 
-    </div>
+    </div>-->
 
+      <section id="container">
+        <h2 class="title">Liste des forums :</h2>
+        <br>
+        <h3 class="sub-title">Jeux vidéos :</h3>
+        <div class="cat_container">
+          <% categories.forEach(element => { %>
+            <% console.log(element) %>
+            <% if(element.cat_container){ %>
+                <div class="categorie">
+                    <h4><img src="/static/images/icons/<%=element.cat_icon%>" alt="icon" class="icon">&nbsp;<a href="/forum/categorie/<%=element.cat_id%>/1"><%=element.cat_nom%></a></h4>
+  
+                </div>
+            <% } %>
+          <% }); %>
+        </div>
+        
+      </section>
 
 
 

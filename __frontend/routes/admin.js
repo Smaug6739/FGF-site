@@ -13,13 +13,17 @@ AdminRouter.get('/procedures', adminMid, adminCtrl.getProcedures)
 AdminRouter.get('/forum', adminMid, adminCtrl.getForum)
 AdminRouter.get('/forum/modos', adminMid, adminCtrl.getModos)
 AdminRouter.get('/forum/modos/delete/:modoId/:categorieId', adminMid, adminCtrl.deleteModo)
+AdminRouter.get('/forum/container/:containerId', adminMid, adminCtrl.getContainer)
 AdminRouter.get('/forum/:categorieId', adminMid, adminCtrl.getCategorie)
 
 AdminRouter.post('/forum/modos', adminMid, adminCtrl.postModo)
 
-AdminRouter.post('/forum', adminMid, adminCtrl.createForumCategorie)
+AdminRouter.post('/forum/categorie', adminMid, adminCtrl.createForumCategorie)
+AdminRouter.post('/forum/container', adminMid, adminCtrl.createForumContainer)
+AdminRouter.post('/forum/container/:containerId', adminMid, adminCtrl.updateContainer)
 AdminRouter.post('/forum/:categorieId', adminMid, adminCtrl.updateCategorie)
 AdminRouter.post('/forum/categorie/delete/:categorieId', adminMid, adminCtrl.deleteCategorie)
+AdminRouter.post('/forum/container/delete/:containerId', adminMid, adminCtrl.deleteContainer)
 
 
 AdminRouter.get('/announcement/delete/:announcementId', adminMid, adminCtrl.deleteAnnouncement)

@@ -4,6 +4,7 @@ const forumCtrl = require('../controllers/forum');
 const auth = require('../middleware/auth');
 
 //ForumRouter.get('/getForums', forumCtrl.getForums)
+ForumRouter.get('/admin', forumCtrl.getAdmin)
 ForumRouter.get('/getCategories', forumCtrl.getCategories)
 ForumRouter.get('/getCategorie/:categorieId/:page', forumCtrl.getCategorie)
 ForumRouter.get('/getTopic/:topicId/:page', forumCtrl.getTopic)
@@ -26,12 +27,14 @@ ForumRouter.delete('/modos/:modoId/:categorieId/:userId', auth, forumCtrl.delete
 
 
 ForumRouter.get('/categories/:categorieId', forumCtrl.getCategorieAdmin)
-
 ForumRouter.post('/categories/:userId', auth, forumCtrl.postCategorie)
-
 ForumRouter.put('/categories/:categorieId/:userId', auth, forumCtrl.updateCategorie)
-
 ForumRouter.delete('/categories/:categorieId/:userId', auth, forumCtrl.deleteCategorie)
+
+ForumRouter.get('/container/:containerId', forumCtrl.getContainer)
+ForumRouter.post('/container/:userId', auth, forumCtrl.postContainer)
+ForumRouter.put('/container/:containerId/:userId', auth, forumCtrl.updateContainer)
+ForumRouter.delete('/container/:containerId/:userId', auth, forumCtrl.deleteContainer)
 
 
 /*ForumRouter.get('/:userId/all/:page', auth, forumCtrl.getAllArticles);
