@@ -13,9 +13,14 @@ exports.getForums = () => {
 
 exports.getCategories = () => {
     return new Promise((resolve, reject) =>{
-        db.query('SELECT * from forum_categorie', (err, result)=>{
+        db.query('SELECT * from forum_categorie ORDER BY cat_nom', (err, resultCategories)=>{
             if(err) reject(err.message)
-            else resolve(result)
+            else {
+                db.query('SELECT * FROM forum_cat_container ORDER BY cat_container_name', (err, resultContainers) =>{
+                    if(err) reject(err.message)
+                    else resolve({categories: resultCategories, groupes: resultContainers})
+                })
+            }
         })
     })
 }

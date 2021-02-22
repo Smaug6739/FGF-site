@@ -231,7 +231,7 @@ exports.createForumCategorie = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin/forum')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -253,7 +253,7 @@ exports.createForumContainer = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin/forum')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -278,7 +278,7 @@ exports.updateCategorie = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin/forum')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -300,7 +300,7 @@ exports.updateContainer = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin/forum')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -320,7 +320,7 @@ exports.deleteCategorie = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin/forum')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -340,7 +340,7 @@ exports.deleteContainer = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -522,7 +522,7 @@ exports.postUpdateMember = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -545,7 +545,7 @@ exports.postUpdateMemberPassword = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{
@@ -566,7 +566,7 @@ exports.postDeleteMember = (req, res) => {
                 userConnected : await statusUser(req.session),
                 error : responce.data.message,
             })
-        }else if(responce.data.status === 'success') res.redirect('/admin');
+        }else if(responce.data.status === 'success') res.redirect('/admin')
     })
     .catch(async(error) => {
         res.render(path.join(__dirname, '../pages/error.ejs'),{

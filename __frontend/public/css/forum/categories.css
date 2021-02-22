@@ -9,6 +9,7 @@
 .cat_container{
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     margin-left: 15px;
     margin-right: 15px;
 }
@@ -16,16 +17,20 @@
     font-weight: 900;
 }
 .sub-title{
+    margin-left: 3.5%;
     color : var(--dark-red)
 }
 .categorie{
     margin-top: 10px;
-    height: 100%;
     border: 1px black solid ;
     width: 25%;
     min-width: 320px;
     padding: 5px;
-    position: relative
+    position: relative;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-right:auto
+
 }
 
 .icon{
@@ -37,4 +42,10 @@
     position: absolute;
     bottom:2%;
     right:2%;
+}
+
+@media screen and (max-width: 400px){
+    .categorie{
+        min-width: 100%;
+    }
 }

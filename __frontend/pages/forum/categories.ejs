@@ -31,22 +31,24 @@
       <%//}); %>
 
     </div>-->
+      <% console.log(groupes) %>
 
       <section id="container">
         <h2 class="title">Liste des forums :</h2>
         <br>
-        <h3 class="sub-title">Jeux vidéos :</h3>
-        <div class="cat_container">
-          <% categories.forEach(element => { %>
-            <% console.log(element) %>
-            <% if(element.cat_container){ %>
-                <div class="categorie">
-                    <h4><img src="/static/images/icons/<%=element.cat_icon%>" alt="icon" class="icon">&nbsp;<a href="/forum/categorie/<%=element.cat_id%>/1"><%=element.cat_nom%></a></h4>
-  
-                </div>
-            <% } %>
+          <% groupes.forEach(element => { %>
+            <h3 class="sub-title"><%=element.cat_container_name%> :</h3>
+            <div class="cat_container">
+              <% categories.forEach(categorie => { %>
+                <% if(element.cat_container_id === categorie.cat_container){ %>
+                    <div class="categorie">
+                        <h4><img src="/static/images/icons/<%=categorie.cat_icon%>" alt="icon" class="icon">&nbsp;<a href="/forum/categorie/<%=categorie.cat_id%>/1"><%=categorie.cat_nom%></a></h4>
+                        <p><%=categorie.cat_description%></p>
+                    </div>
+                <% } %>
+              <% }); %>
+            </div>
           <% }); %>
-        </div>
         
       </section>
 

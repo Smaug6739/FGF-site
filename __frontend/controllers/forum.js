@@ -33,7 +33,8 @@ exports.getCategories = (req, res) => {
         if(responce.data.status === 'success'){
             res.render(path.join(__dirname, '../pages/forum/categories.ejs'),{
                 userConnected : await statusUser(req.session),
-                categories : responce.data.result,
+                categories : responce.data.result.categories,
+                groupes : responce.data.result.groupes,
             })
         }else{
             res.render(path.join(__dirname, '../pages/error.ejs'),{
