@@ -54,7 +54,7 @@ exports.getCategorie = (categorieId, skip) => {
 
 exports.getTopic = (topicId, skip) => {
     return new Promise((resolve, reject) =>{
-        db.query('SELECT * from forum_post LEFT JOIN members ON members.member_id = forum_post.post_createur LEFT JOIN forum_topic ON forum_topic.topic_id = ?  WHERE forum_post.topic_id = ? LIMIT 5 OFFSET ?',[topicId,topicId, skip], (err, result)=>{
+        db.query('SELECT * from forum_post LEFT JOIN (SELECT GROUP_CONCAT(badges.badge_name  SEPARATOR ", ")AS badges, badge_user  FROM badges) AS badges ON forum_post.post_createur = badges.badge_user LEFT JOIN members ON members.member_id = forum_post.post_createur LEFT JOIN forum_topic ON forum_topic.topic_id = ?  WHERE forum_post.topic_id = ? LIMIT 5 OFFSET ?',[topicId,topicId, skip], (err, result)=>{
             if(err) reject(err.message)
             else{
                 if(result[0]){

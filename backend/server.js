@@ -16,6 +16,7 @@ const apiRouterV1Forum = require('./routes/forum');
 const apiRouterV1DirectMessage = require('./routes/dm');
 const apiRouterV1Request = require('./routes/requests');
 const apiRouterV1Announcements = require('./routes/announcements');
+const apiRouterV1Badges = require('./routes/badges');
 
     if(!config.prod){
         const  morgan = require('morgan')('dev');
@@ -33,6 +34,7 @@ const apiRouterV1Announcements = require('./routes/announcements');
     app.use("/api/v1/dm", apiRouterV1DirectMessage);
     app.use("/api/v1/request", apiRouterV1Request);
     app.use("/api/v1/announcements", apiRouterV1Announcements);
+    app.use("/api/v1/badges", apiRouterV1Badges);
 
     app.all('*', (req, res)=>{
         res.status(404)
