@@ -33,9 +33,11 @@
               <% console.log(colorBadge) %>
                 <% if(colorBadge[1]){%>
                   <% const badgeName = colorBadge[0] %>
-                  <span class="badge bg-<%=colorBadge[1]%> rounded-pill" ><%=badgeName%></span>
+                  <!--<span class="badge bg-<%=//colorBadge[1]%> rounded-pill" ><%=//badgeName%></span>-->
+                  <span class="badge bg-<%=colorBadge[1]%>" ><%=badgeName%></span>
                 <% }else{ %>
-                  <span class="badge bg-secondary rounded-pill" ><%=badge%></span>
+                  <!--<span class="badge bg-secondary rounded-pill" ><%=//badge%></span>-->
+                  <span class="badge bg-secondary" ><%=badge%></span>
                 <% } %>
               <% }); %>
                 <% if(element.member_id === userConnected.id || modo){ %>
