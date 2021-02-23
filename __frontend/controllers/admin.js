@@ -995,3 +995,78 @@ exports.updatePartner = (req,res) => {
         })
     });
 }
+
+
+
+
+exports.getBadges = (req,res) => {
+    axios.get(`http://localhost:8080/api/v1/badges/${req.params.page}`, {
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success'){
+            res.render(path.join(__dirname, '../pages/admin/badges.ejs'),{
+                userConnected : await statusUser(req.session),
+                badges : responce.data.result,
+            })
+        }else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+
+exports.addBadge = (req,res) => {
+    axios.post(`http://localhost:8080/api/v1/badges/${req.session.user.id}`, {
+        name : req.body.name,
+        color : req.body.color,
+        user : req.body.user
+    },{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success')res.redirect('/admin/badges/1')
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}
+
+exports.deleteBadge = (req,res) => {
+    axios.delete(`http://localhost:8080/api/v1/badges/${req.session.user.id}/${req.params.badgeId}`,{
+        headers : { 'Authorization' : `token ${req.session.user.token}`}
+    })
+    .then(async(responce) => {
+        if(responce.data.status === 'success')res.redirect('/admin/badges/1')
+        else{
+            res.render(path.join(__dirname, '../pages/error.ejs'), {
+                userConnected : await statusUser(req.session),
+                error : responce.data.message,
+            })
+        }
+    })
+    .catch(async(error) => {
+        res.render(path.join(__dirname, '../pages/error.ejs'), {
+            userConnected : await statusUser(req.session),
+            error : error,
+        })
+    });
+}

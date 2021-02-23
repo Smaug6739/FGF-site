@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+    <!-- Bootstrap CSS -->
+    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/admin/announcements.css">
+    <title>FGF Admin</title>
+  </head>
+  <body>
+    <%- include ('../include/nav.ejs'); -%>
+      <% console.log(badges) %>
+
+      <table class="table table-striped" id="table-announcements">
+    
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Couleur</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%  badges.forEach(element => { %>
+                <tr>
+                  <td> <%=element.badge_id%></td>
+                  <td> <%=element.badge_name%></td>
+                  <td> <%=element.badge_color%></td>
+                  <td> <a href="/admin/badges/delete/<%=element.badge_id%>" class="button button-danger">Supprimer</a> </td>
+                </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <section id="form">
+        <fieldset class="form-group">
+            <legend>Nouveau badge</legend>
+            <form action="/admin/badges/insert" method="POST">
+                <div class="form-group d-flex flex-column">
+                    <label style="font-size:20px;" for="name">Nom :</label>
+                    <input type="text" class="name form-control" name="name" id="name">
+                    <label style="font-size:20px;" for="color">Color :</label>
+                    <input type="text" class="color form-control" name="color" id="color">
+                    <label style="font-size:20px;" for="user">Utilisateur :</label>
+                    <input type="text" class="user form-control" name="user" id="user">
+                    <button type="submit" class="button button-success">Ajouter</button>
+                </div>
+            </form>
+        </fieldset>
+    </section>
+    
+
+  <div id="center-text">
+    <a href="#" class="button button-info" id="precedent">< Précédent</a>
+    <a href="#" class="button button-info" id="suivant">Suivant ></a>
+  </div>
+    <%- include ('../include/footer.ejs'); -%>
+    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+  </body>
+</html>
+
+<style>
+    #form{
+        width: 70%;
+        margin-left: 15%;
+    }
+</style>

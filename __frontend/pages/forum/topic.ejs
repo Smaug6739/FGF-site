@@ -23,10 +23,21 @@
         <%  const year = post_date.getFullYear() %>
         <%  const month = months[post_date.getMonth()] %>
         <%  const date = post_date.getDate() %>
+        <%  const arrayBadges = element.badges.split(', ') %>
           <div id="element">
             <div class="container-message" id="<%=element.post_id%>">
               <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
               <%=element.member_pseudo%> 
+              <% arrayBadges.forEach(badge => { %>
+              <%  const colorBadge = badge.split('-') %>
+              <% console.log(colorBadge) %>
+                <% if(colorBadge[1]){%>
+                  <% const badgeName = colorBadge[0] %>
+                  <span class="badge bg-<%=colorBadge[1]%> rounded-pill" ><%=badgeName%></span>
+                <% }else{ %>
+                  <span class="badge bg-secondary rounded-pill" ><%=badge%></span>
+                <% } %>
+              <% }); %>
                 <% if(element.member_id === userConnected.id || modo){ %>
                 <a href="/forum/message/delete/<%=element.post_id%>/<%=element.topic_categorie%>"><img class="button-control right" src ="/static/images/btn_delete.svg"></a>
                 <%} if(element.member_id === userConnected.id){ %>

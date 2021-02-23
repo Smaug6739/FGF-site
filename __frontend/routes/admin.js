@@ -69,5 +69,9 @@ AdminRouter.get('/albums/update/:albumId', adminMid, adminCtrl.getAlbum)
 AdminRouter.post('/albums/update/:albumId', adminMid, adminCtrl.updateAlbum)
 AdminRouter.post('/albums/delete/:albumId', adminMid, adminCtrl.deleteAlbum)
 
+AdminRouter.get('/badges/:page', adminMid, adminCtrl.getBadges)
+AdminRouter.post('/badges/insert', adminMid, adminCtrl.addBadge)
+AdminRouter.get('/badges/delete/:badgeId', adminMid, adminCtrl.deleteBadge)
+
 
 module.exports = AdminRouter;
