@@ -10,7 +10,7 @@ exports.getIndex = async (req,res) => {
     })
 }
 exports.getResources = async (req,res) => {
-    const icons = fs.readdirSync('../public/images/icons')
+    const icons = fs.readdirSync(path.join(__dirname, '../public/images/icons'))
     res.render(path.join(__dirname, '../pages/admin/resources.ejs'),{
         userConnected : await statusUser(req.session),
         icons : icons
