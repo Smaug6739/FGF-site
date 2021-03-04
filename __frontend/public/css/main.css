@@ -24,7 +24,7 @@ body{
 
 #img-article{max-width: 90%;}
 
-#avatar{width: 64px;border-radius: 32px;}
+#avatar{width: 64px;border-radius: 25%;}
 #envelope{width: 40px; margin-left:15px;margin-right:15px;}
 .item {
     position:relative;
