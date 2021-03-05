@@ -18,6 +18,8 @@
   <body>
     <%- include ('include/nav.ejs'); -%>
   <div id="home-img"></div>
+  <p class="separation">Dernières photos :</p>
+  <hr>
   <div id="images">
     <% if(albums.length){ %>
         <% albums.forEach((photo, index) => { %>
@@ -38,10 +40,11 @@
   <!-- The dots/circles -->
   <div style="text-align:center">
     <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(Math.floor(<%=albums.length  / 2%>))"></span>
     <span class="dot" onclick="currentSlide(<%=albums.length%>)"></span>
   </div>
-  <div class="separation">Dernières annonces :</div>
+  <hr>
+  <p class="separation">Dernières annonces :</p>
   <hr>
   <div id="annonces">
     <%if(annonces.length){%>
