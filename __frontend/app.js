@@ -32,7 +32,7 @@ app.use(session({
     if(!config.prod) app.use(morgan)
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended : true}))
-    const server = app.listen(config.port, () => console.log('Started on port '+ config.port));
+    app.listen(config.port, () => console.log('Started on port '+ config.port));
 
     app.use('/member',routerMembers)
     app.use('/forum',routerForum)
@@ -42,20 +42,9 @@ app.use(session({
     app.use('/album',routerAlbum)
     app.use('/request',routerRequests)
     app.use('/static', express.static(path.join(__dirname, 'public')));
-    app.get('/', async(req, res) => {
-        res.render(`${__dirname}/pages/index.ejs`,{
-            userConnected : await statusUser(req.session)
-        })
-    });
-    
-    /*app.get('/uploads/:dir/:image', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, `uploads/${req.params.dir}/${req.params.image}`));
-    });*/
     app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+    app.use('/',routerSite)
 
-    app.get('/config-api', (req, res) => {
-        res.status(200).send({api:config.urlAPI})
-    });
     
     app.use(async function(err, req, res, next) {
         if(err){
@@ -67,17 +56,9 @@ app.use(session({
             }
         }
     });
-    app.get('/terms', async (req, res)=>{
-        res.render(path.join(__dirname, '/pages/terms.ejs'),{
-            userConnected : await statusUser(req.session),
-        })
-    })
-    app.get('/privacy', async (req, res)=>{
-        res.render(path.join(__dirname, '/pages/privacy.ejs'),{
-            userConnected : await statusUser(req.session),
-        })
-    })
-      app.all('*', async (req, res)=>{
+
+
+    app.all('*', async (req, res)=>{
         res.status(404)
         res.render(path.join(__dirname, '/pages/404.ejs'),{
             userConnected : await statusUser(req.session),

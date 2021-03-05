@@ -9,22 +9,61 @@
     <!-- CSS FILES -->
     <link  rel="stylesheet" href="/static/css/main.css">
     <link  rel="stylesheet" href="/static/css/footer.css">
+    <link  rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <%- include ('include/meta'); -%>
 
     <title>French Gaming Family</title>
   </head>
   <body>
-    
     <%- include ('include/nav.ejs'); -%>
-
-<div class="main">
-  <h1 class="mb-5 text-center">French Gaming Family Accueil</h1>
-  <% if(userConnected.auth){ %>
-      <div id="$USER-CONNECTED">
-        <h1>Bienvenue !</h1>
+  <div id="home-img"></div>
+  <div class="separation">Dernières annonces :</div>
+  <div id="annonces">
+    <%if(annonces.length){%>
+    <% annoncesToWatch = annonces.slice(0,3); %>
+    <% annoncesToWatch.forEach(annonceUnique => { %>
+      <%  const date_insert = new Date(parseInt(annonceUnique.announcement_date_insert)) %>
+      <%  var months = ['janvier','février','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','décembre'];  %>
+      <%  const year = date_insert.getFullYear() %>
+      <%  const month = months[date_insert.getMonth()] %>
+      <%  const date = date_insert.getDate() %>
+      <div class="annonce">
+        <h5 class="title"><%=annonceUnique.announcement_title%></h5>
+        <p><%= annonceUnique.announcement_text.substring(0,300);%></p>
+        <span class="date"><i class="far fa-clock"> </i> <%=date%> <%=month%> <%=year%></span> <br> <br>
+        <a href="/announcements" class="button button-danger">Lire l'annonce</a>
       </div>
-    <% } %>
-</div>
+    <% }) %>
+    <%}else{%>
+      <h2 class="text-center">Aucune annonce trouvée...</h2>
+    <%}%>
+  </div>  
+  <hr>
+  <div class="separation">Derniers articles :</div>
+  <hr>
+  <div id="container-articles">
+  <%if(articles.length){%>
+    <% articles.forEach(article => { %>
+      <%  const date_insert = new Date(parseInt(article.date_insert)) %>
+      <%  var months = ['janvier','février','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','décembre'];  %>
+      <%  const year = date_insert.getFullYear() %>
+      <%  const month = months[date_insert.getMonth()] %>
+      <%  const date = date_insert.getDate() %>
+      <div class="article">
+        <img src="/uploads/articles/<%=article.lien_miniature%>" class="card-img-top">
+        <span class="date"><i class="far fa-clock"> </i> <%=date%> <%=month%> <%=year%></span>
+
+        <h6 class="card-title mt-3 article-title"><a href="/articles/view/<%=article.id%>"><%=article.title%></a></h6>
+          <div class="card-intro mt-3"><%=article.intro.substring(0,90)%>... </div>  
+      </div>
+    <% }); %>
+<%}else{%>
+  <h2 class="text-center">Aucun article trouvé...</h2>
+  <%}%>
+  </div>
+  <hr>
+
 
 
     <%- include ('include/footer.ejs'); -%>

@@ -1,0 +1,81 @@
+@import "./theme-variable.css";
+#home-img {
+    background: url(../images/elements_site/accueil-pc.jpg) 0 0 no-repeat;
+    background-position: center;
+    background-size: cover;
+    height:95vh;
+    opacity: 0.85;
+}
+
+.separation{
+    font-size: xx-large;
+    font-weight: 800;
+    color : var(--dark-red);
+    margin-left:1%;
+}
+a{text-decoration: none;color:var(--dark-red)}
+a:hover{color:var(--red)}
+
+#annonces{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+.annonce{
+    background-color: #ffffff;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1.5%;
+    width: 25%;
+    position: relative;
+    padding: 0.5%;
+}
+#container-articles{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+.date{
+    font-size: smaller;
+    font-weight: 430;
+} 
+.article{
+    background-color: #ffffff;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1.5%;
+    width: 25%;
+    position: relative;
+    padding: 0.5%;
+}
+
+.article-title{
+    font-weight: 630;
+    color : var(--dark-red)
+}
+
+.content{
+    text-align: justify;
+}
+
+.card-img-top{
+    width: 100%;
+    max-height: 220px;
+}
+.card-intro {
+    overflow: hidden;
+}
+
+#buttons-page{
+    margin-top: 15px;
+    text-align: center;
+}
+@media screen and (max-width: 900px ){
+    .article{
+        min-width: 300px;
+        padding : 3%;
+    }
+}
+

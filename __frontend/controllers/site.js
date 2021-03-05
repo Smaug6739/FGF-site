@@ -1,6 +1,7 @@
 const path = require('path');
 const {statusUser} = require('../functions');
 const axios = require('axios')
+const config = require('../config.js')
 
 exports.getAnnouncements = (req,res) => {
     axios.get(`http://localhost:8080/api/v1/announcements/all/${req.params.page}`)
@@ -23,4 +24,30 @@ exports.getAnnouncements = (req,res) => {
             error : error,
         })
     });
+}
+
+exports.getHome = async (req, res) => {
+    const articles = await axios.get(`http://localhost:8080/api/v1/articles/all/1`)
+    const annonces = await axios.get(`http://localhost:8080/api/v1/announcements/all/1`)
+    res.render(path.join(__dirname, '../pages/index.ejs'),{
+        userConnected : await statusUser(req.session),
+        articles : articles.data.result,
+        annonces : annonces.data.result
+    })
+        
+}
+
+exports.getTerms = async (req, res) => {
+    res.render(path.join(__dirname, '/pages/terms.ejs'),{
+        userConnected : await statusUser(req.session),
+    })
+}
+
+exports.getPrivacy = async (req, res) => {
+    res.render(path.join(__dirname, '/pages/privacy.ejs'),{
+        userConnected : await statusUser(req.session),
+    })
+}
+exports.getAPI = async (req, res) => {
+    res.status(200).send({api:config.urlAPI})
 }
