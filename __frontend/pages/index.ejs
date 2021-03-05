@@ -22,7 +22,7 @@
     <% if(albums.length){ %>
         <% albums.forEach((photo, index) => { %>
             <div class="mySlides transitionFade">
-              <div class="numbertext"><%=index%> / <%=albums.length%></div>
+              <div class="numbertext"><%=(index+1)%> / <%=albums.length%></div>
               <img src="/uploads/album/<%=photo.album_image%>" class="image-album">
               <div class="text title"><%=photo.album_title%></div>
             </div>
@@ -39,7 +39,7 @@
   <div style="text-align:center">
     <span class="dot" onclick="currentSlide(1)"></span>
     <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(<%=albums.length%>)"></span>
   </div>
   <div class="separation">Dernières annonces :</div>
   <hr>
