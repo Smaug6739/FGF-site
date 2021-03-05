@@ -21,6 +21,10 @@ Le site French Gaming Family est accessible via le lien http://161.97.66.77:8081
 Suite a ces opérations si le site fonctionne correctement il est accessible a l'adresse : 
 http://127.0.0.1:8081 où http://localhost:8081
 
-## Permissions/contributions
+# Contribution 
+
+Si vous souhaitez contribuer au projet, rapporter des bugs ou proposer des améliorations vous devez lire <a href="./contributing.md"> le fichier de contribution </a>
+
+## Permissions
 Ce projet n'a pas de licence, cela signifie que vous ne pouvez pas l'utiliser pour votre propre usage, ni en faire des copies (privées ou publiques)
 . Cependant, vous êtes les bienvenus pour contribuer!
