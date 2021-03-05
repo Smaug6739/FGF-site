@@ -4,7 +4,7 @@ Le site French Gaming Family est accessible via le lien http://161.97.66.77:8081
 
 ## Comment l'installer en locale
 1. Clonner le repo.
-2. Installer les outils pour pouvoir le fire fonctionner : <br> 
+2. Installer les outils pour pouvoir le faire fonctionner : <br> 
 	Obligatoire : <br>
 	   -Nodejs : https://nodejs.org/en/ <br>
 	    -MySQL : https://www.mysql.com/fr/downloads/ <br>
