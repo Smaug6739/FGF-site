@@ -4,12 +4,12 @@ Le site French Gaming Family est accessible via le lien http://161.97.66.77:8081
 
 ## Comment l'installer en locale
 1. Clonner le repo.
-2. Installer les outils pour pouvoir le fire fonctionner :
-	Obligatoire :
-	   -Nodejs : https://nodejs.org/en/
-	    -MySQL : https://www.mysql.com/fr/downloads/
-	-Optionel : 
-	   MySQL workbench : https://www.mysql.com/fr/downloads/
+2. Installer les outils pour pouvoir le fire fonctionner : <br> 
+	Obligatoire : <br>
+	   -Nodejs : https://nodejs.org/en/ <br>
+	    -MySQL : https://www.mysql.com/fr/downloads/ <br>
+	-Optionel : <br>
+	   MySQL workbench : https://www.mysql.com/fr/downloads/ <br>
 
 3. Dans le dossier backend : installer les dépendences : `npm install`.
 4. Dans le dossier \_\_frontend : installer les dépencences : `npm install`.
