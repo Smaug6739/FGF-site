@@ -29,10 +29,12 @@ exports.getAnnouncements = (req,res) => {
 exports.getHome = async (req, res) => {
     const articles = await axios.get(`http://localhost:8080/api/v1/articles/all/1`)
     const annonces = await axios.get(`http://localhost:8080/api/v1/announcements/all/1`)
+    const album =    await axios.get(`http://localhost:8080/api/v1/album/valides/1`)
     res.render(path.join(__dirname, '../pages/index.ejs'),{
         userConnected : await statusUser(req.session),
         articles : articles.data.result,
-        annonces : annonces.data.result
+        annonces : annonces.data.result,
+        albums: album.data.result
     })
         
 }
