@@ -69,12 +69,16 @@
                   <input type="text" class="form-field" id="phoneNumber" name="phoneNumber" placeholder="Numéro de téléphone" value="<%= member.member_phone_number %>" >
                 </div>
               </div>
-              <button  type="submit" class="button button-primary button-send">Modifier</button>
+              <div class="container-champ">
+                <label for="delete-account">Compte :</label>
+                <a href="#overlay1" class="button button-danger element-margin">Supprimer votre compte</a>
+              </div>
+              <div class="container-champ">
+                <label for="phoneNumber">Sauvegarder :</label>
+                <button  type="submit" class="button button-primary button-success element-margin">Enregistrer vos modifications</button>
+              </div>
       </form>
-      <div class="container-champ">
-        <label for="change-password">Compte :</label>
-        <p><a href="#overlay1" id="delete-account" class="button button-danger">Supprimer votre compte</a></p>
-      </div>
+
   </div>
 <br>
 
@@ -83,7 +87,7 @@
   <form action="/member/updatepassword/<%= member.member_id %>" method="post" class="mt-5">
     <div class="form-group">
       <div class="container-champ">
-        <label for="oldPassword">Ancien mot de passe :</label>
+        <label for="oldPassword">Ancien mot de passe:</label>
         <input type="text" class="form-field" id="oldPassword" name="oldPassword" placeholder="Ancien mot de passe">
       </div>
       <div class="container-champ">
@@ -95,7 +99,10 @@
         <input type="text" class="form-field" id="password2" name="password2" placeholder="Confirmer le mot de passe" >
       </div>
     </div>
-    <button type="submit" class="button button-primary button-send">Modifier</button>
+    <div class="container-champ">
+      <label for="modifier-password">Sauvegarder :</label>
+      <button type="submit" id="modifier-password" class="button button-primary button-success element-margin">Modifier</button>
+    </div>
   </form>
 </div>
 

@@ -1,3 +1,4 @@
+@import '../theme-variable.css';
 legend {
     padding: 0px 3px;
     font-weight: bold;
@@ -5,7 +6,7 @@ legend {
   }
    
 label {
-    min-width: 150px;
+    min-width: 200px;
     display: inline-block;
     vertical-align: top;
     margin: 6px;
@@ -16,7 +17,7 @@ label {
     margin-bottom: 1%;
     width: 98%;
     margin-left : 1%;
-    background-color: white;
+    background-color: var(--light);
     border : 1px solid;
     border-radius: 5px;
     
@@ -31,20 +32,18 @@ label {
 }
 
 .container-champ{display: flex;justify-content: flex-start;margin-top: 10px;}
-.form-field{
-    width: 30%;
-    margin-left: 5%;
-    border : 1px solid;
-    border-radius: 7px;
-    border-color: grey;
-}
+
 .avatar-field{
     margin-left: 5%;
 }
 #change-password{margin-left: 10px;}
-#delete-account{margin-left: 10px;}
 .button-send{margin-left : 5px;margin-bottom: 5px;}
-
+.element-margin{
+    margin-left: 5%;
+}
+.element-margin-10{
+    margin-left: 10%;
+}
 
 
 /* Form avatar */
@@ -85,5 +84,6 @@ img.button_close {float: right;margin: -55px -55px 0 0;}
     .form-field{width: 90%;margin-left: 2px;margin-top:2px;}
     .popup_block{width: 98%;}
     .editor{max-width: 90%;margin-left: 5%;}
+    
 }
 
