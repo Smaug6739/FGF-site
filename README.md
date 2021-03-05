@@ -23,7 +23,7 @@ http://127.0.0.1:8081 où http://localhost:8081
 
 # Contribution 
 
-Si vous souhaitez contribuer au projet, rapporter des bugs ou proposer des améliorations vous devez lire <a href="./contributing.md"> le fichier de contribution </a>
+Si vous souhaitez contribuer au projet, rapporter des bugs ou proposer des améliorations vous devez lire <a href="./CONTRIBUTING.md"> le fichier de contribution </a>
 
 ## Permissions
 Ce projet n'a pas de licence, cela signifie que vous ne pouvez pas l'utiliser pour votre propre usage, ni en faire des copies (privées ou publiques)
