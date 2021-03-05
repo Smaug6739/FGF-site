@@ -2,7 +2,7 @@
 Le site French Gaming Family est accessible via le lien http://161.97.66.77:8081
 
 
-## Comment l'installer en local 
+## Comment l'installer en locale
 1. Clonner le repo.
 2. Installer les outils pour pouvoir le fire fonctionner :
 	Obligatoire :
@@ -26,5 +26,4 @@ http://127.0.0.1:8081 où http://localhost:8081
 Si vous souhaitez contribuer au projet, rapporter des bugs ou proposer des améliorations vous devez lire <a href="./CONTRIBUTING.md"> le fichier de contribution </a>
 
 ## Permissions
-Ce projet n'a pas de licence, cela signifie que vous ne pouvez pas l'utiliser pour votre propre usage, ni en faire des copies (privées ou publiques)
-. Cependant, vous êtes les bienvenus pour contribuer!
+Ce projet n'a pas de licence, cela signifie que vous ne pouvez pas l'utiliser pour votre propre usage, ni en faire des copies (privées ou publiques). Cependant, vous êtes les bienvenus pour contribuer!
