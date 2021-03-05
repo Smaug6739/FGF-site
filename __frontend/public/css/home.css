@@ -74,7 +74,17 @@ a:hover{color:var(--red)}
 }
 @media screen and (max-width: 900px ){
     .article{
-        min-width: 300px;
+        min-width: 320px;
+        padding : 3%;
+    }
+    #home-img {
+        background: url(../images/elements_site/accueil-mobile.jpg) center no-repeat;
+        background-position: center;
+        background-size: cover;
+        height:100vh;
+    }
+    .annonce{
+        min-width: 320px;
         padding : 3%;
     }
 }
