@@ -14,6 +14,9 @@ thead,tfoot {
     margin: auto;
     max-width: 70%;
 }
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
 .avatar{width: 60px;border-radius: 50%;}
 /*::selection{
 color: #fff;

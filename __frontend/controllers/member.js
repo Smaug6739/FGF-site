@@ -395,7 +395,7 @@ exports.postArticle = async (req, res) => {
                             error : responce.data.message
                         })
                     }else if(responce.data.status === 'success') {
-                        Webhook.send("<@&807597601348255785> un nouvel article vient d'etre poster. http://localhost:8081/admin/articles/1")
+                        Webhook.send(`<@&807597601348255785> un nouvel article vient d'etre poster. ${req.headers.origin}/admin/articles/1`)
                         res.redirect('/member/account')
                     };
                 })
@@ -726,7 +726,7 @@ exports.postAlbum = async (req, res) => {
                 else {
                     res.render(path.join(__dirname, '../pages/error.ejs'),{
                         userConnected : await statusUser(req.session),
-                        error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg)"
+                        error : "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg ou gif)."
                     })
                 }
                 axios.post(`http://localhost:8080/api/v1/album/${req.session.user.id}`, {
@@ -741,7 +741,7 @@ exports.postAlbum = async (req, res) => {
                             error : responce.data.message
                         })
                     }else if(responce.data.status === 'success') {
-                        WebhookAlbum.send("<@&807597601348255785> une nouvelle image vient d'etre poster. http://localhost:8081/admin/album/1")
+                        WebhookAlbum.send(`<@&807597601348255785> une nouvelle image vient d'etre poster. ${req.headers.origin}/admin/albums/1`)
                         res.redirect('/member/account')
                     };
                 })

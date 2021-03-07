@@ -8,7 +8,8 @@ const tailleMax = 1.4 * 1024 * 1024 // 1MB
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
-    'image/png': 'png'
+    'image/png': 'png',
+    'image/gif': 'gif'
 };
 const storage =  multer.diskStorage({
     destination: (req, file, callback) => {
@@ -29,7 +30,7 @@ module.exports =  multer({
         fileSize: tailleMax,
     },
     fileFilter: (req, file, cb) => {
-        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+        if (MIME_TYPES[file.mimetype]) {
           cb(null, true);
         } else {
           cb(null, false);

@@ -25,7 +25,6 @@
     <%if(images.length){%>
       <div class="row">
       <% images.forEach(element => { %>
-            <%console.log(element)%>
             <img class="image" src="/uploads/album/<%=element.album_image%>">
       <%});%>
       <div id="myModal" class="modal">

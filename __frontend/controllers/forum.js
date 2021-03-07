@@ -95,7 +95,7 @@ exports.getTopic = (req, res) => {
     });
 }
 exports.reportTopic = (req, res) => {
-  WebhookReport.send(`<@&807597601348255785> un message vient d'etre signalé : http://localhost:8081/forum/topic/${req.params.topicId}/${req.params.page}/#${req.params.postId}`)
+  WebhookReport.send(`<@&807597601348255785> un message vient d'etre signalé : ${req.headers.origin}/forum/topic/${req.params.topicId}/${req.params.page}/#${req.params.postId}`)
 }
 exports.postTopic = (req, res) => {
     axios.post(`http://localhost:8080/api/v1/forum/topic/${req.session.user.id}`,{
