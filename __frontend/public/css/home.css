@@ -4,7 +4,7 @@
     background-position: center;
     background-size: cover;
     height:95vh;
-    opacity: 0.85;
+    opacity: 1;
 }
 
 .separation{
@@ -13,8 +13,8 @@
     color : var(--dark-red);
     margin-left:1%;
 }
-a{text-decoration: none;color:var(--dark-red)}
-a:hover{color:var(--red)}
+
+/*  ANNONCES  */
 
 #annonces{
     display: flex;
@@ -31,16 +31,26 @@ a:hover{color:var(--red)}
     position: relative;
     padding: 0.5%;
 }
+.annonce:hover {
+  box-shadow: 1px 1px 12px #555;
+  transform: scale(1.02);
+  transition-property: all;
+  transition-duration: 0.1s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+
+
+/*  ARTICLES  */
+
+
 #container-articles{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     align-items: stretch;
 }
-.date{
-    font-size: smaller;
-    font-weight: 430;
-} 
+ 
 .article{
     background-color: #ffffff;
     margin-left: 1%;
@@ -50,30 +60,25 @@ a:hover{color:var(--red)}
     position: relative;
     padding: 0.5%;
 }
-
-.article-title{
-    font-weight: 630;
-    color : var(--dark-red)
+.article:hover {
+  box-shadow: 1px 1px 12px #555;
+  transform: scale(1.02);
+  transition-property: all;
+  transition-duration: 0.1s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
 }
+.date{font-size: smaller;font-weight: 430;}
+.article-title{font-weight: 630;color : var(--dark-red);}
+.content{text-align: justify;}
 
-.content{
-    text-align: justify;
-}
-
-.card-img-top{
-    width: 100%;
-    max-height: 220px;
-}
-.card-intro {
-    overflow: hidden;
-}
-#container-description{
-    padding: 1%;
-}
+.card-img-top{width: 100%;max-height: 220px;}
+.card-intro {overflow: hidden;}
 
 
 
-* {box-sizing: border-box}
+/*  ALBUM  */
+
 .mySlides1, .mySlides2 {display: none;}
 
 /* Slideshow container */
@@ -113,7 +118,6 @@ a:hover{color:var(--red)}
 
 
 
-* {box-sizing:border-box}
 
 /* Slideshow container */
 .slideshow-container {
@@ -208,8 +212,9 @@ a:hover{color:var(--red)}
 
 
 
-
-
+#container-description{
+  padding: 1%;
+}
 
 
 

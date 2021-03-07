@@ -16,8 +16,16 @@
     width: 25%;
     position: relative;
     border-radius: 0.5%;
+    padding: 1%;
 }
-
+.article:hover {
+    box-shadow: 1px 1px 12px #555;
+    transform: scale(1.02);
+    transition-property: all;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
 .article-title{
     font-weight: 630;
     color : var(--dark-red)

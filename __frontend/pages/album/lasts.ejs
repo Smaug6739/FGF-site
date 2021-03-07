@@ -10,24 +10,37 @@
     <link  rel="stylesheet" href="/static/css/album/album.css">
     <script  src="/static/js/album/album.js"></script>
     <%- include ('../include/meta'); -%>
-    <title>API Members</title>
+    <title>FGF - Album</title>
   </head>
   <body>
 
     <%- include ('../include/nav.ejs'); -%>
     <div id="container">
+      <% const tailleArray = images.length %>
+      <% const taille = Math.floor(tailleArray/4) %>
+      <% const array1 = images.slice(0,taille) %>
+      <% const array2 = images.length %>
+      <% const array3 = images.length %>
+      <% const array4 = images.length %>
     <%if(images.length){%>
+      <div class="row">
       <% images.forEach(element => { %>
-        <div class="element">
-          <div class="hvrbox">
-            <img width="480px" height="268" src="/uploads/album/<%=element.album_image%>" class="hvrbox-layer_bottom image">
-                <div class="hvrbox-layer_top hvrbox-layer_slideup">
-                <div class="hvrbox-text"><%=element.member_pseudo%></div>
-            </div>
-          </div>
-          <p class="title"><%=element.album_title%></p>
-        </div>
+            <%console.log(element)%>
+            <img class="image" src="/uploads/album/<%=element.album_image%>">
       <%});%>
+      <div id="myModal" class="modal">
+
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
+      
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+      
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+      </div>
+    </div>
+
     <%}else{%>
       <h2>Aucune image sur cette page</h2>
     <%}%>
@@ -37,10 +50,7 @@
       <a href="#" class="button button-info" id="suivant">Suivant ></a>
     </div>
 
-
-
     <%- include('../include/footer.ejs') %>
     <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
-
   </body>
 </html>
