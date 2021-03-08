@@ -18,6 +18,7 @@ const routerAlbum = require('./routes/album')
 const routerRequests = require('./routes/requests')
 var MySQLStore = require('express-mysql-session')(session);
 
+
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     secret: "A5H2G2V",
