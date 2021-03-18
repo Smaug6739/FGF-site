@@ -1,81 +1,92 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+  <!-- Bootstrap CSS -->
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="/static/css/admin/announcements.css">
     <script src="/static/js/admin/announcements.js"></script>
     <title>FGF Album</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
+</head>
 
-       
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+
+
     <section id="announcements">
-        <table class="table table-striped" id="table-announcements">
-            <thead>
-              <tr>
-                <th scope="col">Annonce</th>
-                <th scope="col">Date</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-        
-              <%  announcements.forEach(element => { %>
-              <%  const account_date = new Date(parseInt(element.announcement_date_insert)) %>
-              <%  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
-              <%  const year = account_date.getFullYear() %>
-              <%  const month = months[account_date.getMonth()] %>
-              <%  const date = account_date.getDate() %>
-                    <tr>
-                    <td> <%=element.announcement_title%></td>
-                    <td> <%= `${date}/${month}/${year}`  %> </td>
-                    <td> <a class="button button-primary mt-3"href="/admin/announcement/update/<%=element.announcement_id%>">Modiffier </a> <a class="button button-danger mt-3"href="/admin/announcement/delete/<%=element.announcement_id%>">Supprimer </a></td>
-                    </tr>
-              <% }) %>
-            </tbody>
-          </table>
+      <table class="table table-striped" id="table-announcements">
+        <thead>
+          <tr>
+            <th scope="col">Annonce</th>
+            <th scope="col">Date</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% announcements.forEach(element=> { %>
+            <% const account_date=new Date(parseInt(element.announcement_date_insert)) %>
+              <% var months=['01','02','03','04','05','06','07','08','09','10','11','12']; %>
+                <% const year=account_date.getFullYear() %>
+                  <% const month=months[account_date.getMonth()] %>
+                    <% const date=account_date.getDate() %>
+                      <tr>
+                        <td>
+                          <%=element.announcement_title%>
+                        </td>
+                        <td>
+                          <%= `${date}/${month}/${year}` %>
+                        </td>
+                        <td> <a class="button button-primary mt-3"
+                            href="/admin/announcement/update/<%=element.announcement_id%>">Modiffier </a> <a
+                            class="button button-danger mt-3"
+                            href="/admin/announcement/delete/<%=element.announcement_id%>">Supprimer </a></td>
+                      </tr>
+                      <% }) %>
+        </tbody>
+      </table>
     </section>
     <section id="form">
-        <fieldset class="form-group">
-            <legend>Nouvelle annonce</legend>
-            <form action="/admin/announcements" method="POST">
-                <div class="form-group d-flex flex-column">
-                    <label style="font-size:20px;" for="title">Titre de l'annonce :</label>
-                    <input type="text" class="title form-control" name="title" id="title">
-                    <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre annonce :</label>
-                    <textarea type="hidden" name="contenu" id="contenu"></textarea>
-                    <label style="font-size:20px;">Staff :</label>
-                    <label class="switch" id="switch">
-                      <input type="checkbox" name="staff">
-                      <span class="slider round"></span>
-                    </label>
-                    <button type="submit" class="button button-success">Poster</button>
-                </div>
-            </form>
-        </fieldset>
+      <fieldset class="form-group">
+        <legend>Nouvelle annonce</legend>
+        <form action="/admin/announcements" method="POST">
+          <div class="form-group d-flex flex-column">
+            <label style="font-size:20px;" for="title">Titre de l'annonce :</label>
+            <input type="text" class="title form-control" name="title" id="title">
+            <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre annonce :</label>
+            <textarea type="hidden" name="contenu" id="contenu"></textarea>
+            <label style="font-size:20px;">Staff :</label>
+            <label class="switch" id="switch">
+              <input type="checkbox" name="staff">
+              <span class="slider round"></span>
+            </label>
+            <button type="submit" class="button button-success">Poster</button>
+          </div>
+        </form>
+      </fieldset>
     </section>
 
-  <div id="center-text">
-    <a href="#" class="button button-info" id="precedent">< Précédent</a>
-    <a href="#" class="button button-info" id="suivant">Suivant ></a>
-  </div>
+    <div id="center-text">
+      <a href="#" class="button button-info" id="precedent">
+        < Précédent</a>
+          <a href="#" class="button button-info" id="suivant">Suivant ></a>
+    </div>
     <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+</body>
+
 </html>
 
 <style>
-    #form{
-        width: 70%;
-        margin-left: 15%;
-    }
+  #form {
+    width: 70%;
+    margin-left: 15%;
+  }
 </style>
