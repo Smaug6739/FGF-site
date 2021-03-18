@@ -23,4 +23,4 @@ http://127.0.0.1:8081 where http://localhost: 8081
 
 If you want to contribute to the project, report bugs or suggest improvements you should read <a href="./CONTRIBUTING.md"> the contribution file </a>
 ## Permissions
-This project has an <a href="./LICENCE"> MIT license </a>
+This project has an <a href="./LICENSE"> MIT license </a>
