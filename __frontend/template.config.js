@@ -1,6 +1,6 @@
-module.exports ={
-    rootAPI : "/api/v1/",
-    port : 8081,
+module.exports = {
+    rootAPI: "/api/v1/",
+    port: 8081,
     defaultAvatar: "",
     prod: false,
     urlAPI: "http://localhost:8080/api/v1/",
@@ -11,14 +11,28 @@ module.exports ={
         password: '<password>',
         database: '<database>'
     },
-    errors:{
-        wrongID : "wrong ID",
-        wrongMaxValue : "wrong max value",
-        nameAlreadyTaken : "name already taken",
-        noNameValue : "no name value",
-        sameName : "same name"
+    errors: {
+        wrongID: "wrong ID",
+        wrongMaxValue: "wrong max value",
+        nameAlreadyTaken: "name already taken",
+        noNameValue: "no name value",
+        sameName: "same name"
     },
-    reCAPTCHA:{
+    reCAPTCHA: {
         secret_key: "<secret>"
+    },
+    webhook: {
+        forumReport: {
+            id: '<id>',
+            token: '<token>'
+        },
+        articles: {
+            id: '<id>',
+            token: '<token>'
+        },
+        album: {
+            id: '<id>',
+            token: '<token>'
+        }
     }
 }
