@@ -1,25 +1,25 @@
 # Contribution
 
-Si vous souhaitez contribuer au projet FGF-Site vous etes le bienvenue : 
+If you wish to contribute to the FGF-Site project you are welcome:
 
 
-# Commencer :
+# To start :
 
-Les contributions sont apportées à ce repo via des issues et des Pull Requests (PRs). Quelques directives générales qui couvrent les deux:
+Contributions are made to this repo via issues and Pull Requests (PRs). Some general guidelines that cover both:
 
-* Pour les issues essayez de donner le plus de détail possible sur le problème. Donnez l'erreur et les pages concernées. 
-* Recherchez les issues et PR existants avant de créer les vôtres.
-* Ne modifiez pas les branches `master` et `dev` . Ouvrez des pull request vers la branche `dev` et elles seront controlées puis fusionées.
-## Pull Requests 
+* For the issues try to give as much detail as possible about the problem. Give the error and the pages concerned.
+* Research existing issues and PRs before creating your own.
+* Do not modify the `master` and` dev` branches. Open pull requests to the `dev` branch and they will be checked and then merged.
+## Pull Requests
 
-Vous pouvez ouvrir une pull request vers la branche `dev` en indiquant les changements effectués ainsi que la raison de ces changements.
-Les pull requests seront vérifiés par un autre développeur puis éventuellement modifier avant d'etre fusionées.
+You can open a pull request to the `dev` branch indicating the changes made and the reason for the changes.
+Pull requests will be checked by another developer and then possibly modified before being merged.
 
 ## Issues
 
-Lors de l'ouverture d'une issue soyez aussi précis que possible. N'hésitez pas à donner des détails et à bien mentionner une facon de reproduire le problème.
-Sans ces informations il sera très difficile de réparer ce bug
+When opening an exit, be as specific as possible. Please feel free to give details and mention one way to reproduce the problem.
+Without this information it will be very difficult to fix this bug
 
-# Besoin d'aide
+# Need help
 
-Rejoignez le serveur discord via <a href="https://discord.gg/RjhsJXd">ce lien</a> (https://discord.gg/RjhsJXd) et a contacter les membres ayant le role @FGF-Développeur ou @Smaug.
+Join the discord server via <a href="https://discord.gg/RjhsJXd"> this link </a> (https://discord.gg/RjhsJXd) and contact members with the role @FGF-Developpeur or @Smaug.
