@@ -6,9 +6,8 @@ const axios = require('axios');
 const { statusUser } = require('../functions');
 const dirMemberPages = '../pages/member';
 const config = require('../config.js')
-const fetch = axios.create({
-    baseURL: 'http://localhost:8080/api/v1'
-});
+
+var md = require('markdown-it')();
 const Webhook = new WebhookClient(config.webhook.articles.id, config.webhook.articles.token);
 const WebhookAlbum = new WebhookClient(config.webhook.album.id, config.webhook.album.token);
 var demo = function (converter) {
@@ -379,7 +378,7 @@ exports.postArticle = async (req, res) => {
                         })
                     }
                     let htmlContent = "";
-                    htmlContent = converter.makeHtml(req.body.contenu)
+                    htmlContent = md.render(req.body.contenu) //converter.makeHtml(req.body.contenu)
                     axios.post(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
                         categorie: req.body.categorie,
                         title: req.body.title,

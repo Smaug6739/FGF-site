@@ -11,7 +11,25 @@
 .content{text-align: justify;}
 .author{color:var(--color-grey)}
 .author-avatar{width: 5%;}
+table,td {
+    border: 1px solid rgb(143, 138, 138);
+}
+thead,tfoot {
+    background-color: rgb(143, 138, 138);
+    color: #fff;
+}
 
+#center{
+    display: block;
+    text-align: center;
+}
+#table-members{
+    margin: auto;
+    max-width: 70%;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
 @media screen and (max-width: 550px){
     #container-article{width: 98%;margin-left: 1%;}
     .author-avatar{width: 10%;}
