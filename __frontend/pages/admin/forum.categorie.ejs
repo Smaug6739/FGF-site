@@ -10,7 +10,7 @@
   <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/footer.css">
-    <link rel="stylesheet" href="/static/css/admin/announcements.css">
+    <link rel="stylesheet" href="/static/css/admin/form.categorie.css">
     <title>FGF Admin</title>
 </head>
 
@@ -26,7 +26,8 @@
               <label style="font-size:20px;" for="title">Titre de la catégorie :</label>
               <input type="text" class="title form-control" name="title" id="title" value="<%=categorie[0].cat_nom%>">
               <label style="font-size:20px;" for="content">Description de la catégorie (max 255 caractères) :</label>
-              <textarea type="hidden" name="content" id="content"><%=categorie[0].cat_description%></textarea>
+              <textarea class="form-control" type="hidden" name="content"
+                id="content"><%=categorie[0].cat_description%></textarea>
               <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
               <input type="text" class="icon form-control" name="icon" id="icon" value="<%=categorie[0].cat_icon%>">
               <label style="font-size:20px;" for="icon">Groupe de la catégorie :</label>

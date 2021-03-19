@@ -4,12 +4,15 @@ legend {
     font-weight: bold;
     font-variant: small-caps;
   }
-   
+
 label {
     min-width: 200px;
     display: inline-block;
     vertical-align: top;
     margin: 6px;
+}
+.form-control{
+    background: var(--container-color) ;
 }
 
 .account-infos{
@@ -17,7 +20,7 @@ label {
     margin-bottom: 1%;
     width: 98%;
     margin-left : 1%;
-    background-color: var(--light);
+    background-color: var(--container-color);
     border : 1px solid;
     border-radius: 5px;
     
@@ -29,6 +32,8 @@ label {
     border : 1px solid;
     border-radius: 7px;
     border-color: grey;
+    background: var(--container-color) ;
+
 }
 
 .container-champ{display: flex;justify-content: flex-start;margin-top: 10px;}

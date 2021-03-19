@@ -1,7 +1,7 @@
 :root{
     --color-grey : #666969;
-    --container-color : #e2f653;
-
+    --container-color : #1b1e3d;
+    --default-color: #1b1e3d;
 
     --blue:#007bff;
     --indigo:#6610f2;
@@ -48,12 +48,12 @@
 }
 table,td{
     --border-size : 1px;
-    --border-color : #333;
+    --border-color : whitesmoke;
     --border-type : solid;
 }
 thead,tfoot{
-    --background-color : #333;
-    --color : #f2f2f2;
+    --background-color : #1b1e3d;
+    --color : whitesmoke;
 }
 
 #container{

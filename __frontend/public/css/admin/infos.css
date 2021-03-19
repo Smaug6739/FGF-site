@@ -5,7 +5,7 @@
 #container{
     width: var(--width);
     margin-left: var(--margin-left);
-    background-color: var(--light);
+    background-color: var(--container-color);
 }
 
 @media screen and (max-width: 550px){

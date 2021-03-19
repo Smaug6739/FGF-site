@@ -1,6 +1,6 @@
 #container{
     max-width: 70%;
-    background-color: #ffffff;
+    background-color: var(--container-color);
     margin-left: 15%;
     padding: 10px;
 

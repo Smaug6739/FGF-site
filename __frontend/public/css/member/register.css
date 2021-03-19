@@ -1,0 +1,9 @@
+@import "../theme-variable.css";
+
+fieldset{
+  background-color: var(--container-color);
+}
+
+.form-control{
+  background: var(--container-color) ;
+}

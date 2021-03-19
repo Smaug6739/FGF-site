@@ -3,11 +3,10 @@
 #container{
     width: 70%;
     margin: auto;
-    background-color: #f2f2f2;
+    background-color: var(--container-color);;
     margin-top: 15px;
     margin-bottom: 15px;
 }
-
 table,td,th {
     border: var(--border-size) var(--border-type) var(--border-color);
 }
@@ -16,7 +15,9 @@ thead,tfoot {
     color: var(--color);
 }
 
-
+.form-control{
+    background: var(--container-color) ;
+}
 
 #table-forums{
     width: 80%;

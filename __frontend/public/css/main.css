@@ -2,7 +2,7 @@
 * {
     margin: 0;
     padding: 0;
-    color: whitesmoke
+    color: whitesmoke;
 }
 body{
     background-color: rgb(24, 0, 56);
@@ -10,6 +10,7 @@ body{
     height: 100vh;
     flex-direction: column;
 }
+
 main{
     flex: 1 0 auto;
 }
@@ -17,7 +18,6 @@ main{
     color: #fff;
     background: black;
 }
-a:hover{color:black}
 hr{color:white}
 .grecaptcha-badge { z-index : 10 ; }
 .margin-5-right{margin-right: 5px;}
@@ -27,7 +27,7 @@ hr{color:white}
 .navigation-bar{background-color:#013650}
 .ban{width:400px;margin-top : -20px}
 #menu-compte{margin-right: 10px;}
-
+.form-control{color:white;font-weight: 600;background: var(--container-color);}
 
 #img-article{max-width: 90%;}
 #avatar{border-radius: 50%;width: 64px;height:64px;border:1px solid black}
@@ -57,7 +57,9 @@ hr{color:white}
 }
 #text-center{text-align: center;}
 
-a{color : black}
+a{color : rgb(179, 179, 179)}
+a:hover{color:#333}
+
 
 fieldset.form-group {
     border: 1px groove black !important;
@@ -174,5 +176,7 @@ legend {
     .nav-li,.nav-item{
         margin-left: 10px;
     }
-
+    * {
+        zoom: 0.97;
+    }
 }

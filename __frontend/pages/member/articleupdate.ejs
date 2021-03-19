@@ -28,13 +28,15 @@
               <legend>Type d'article</legend>
               <div class="form-group d-flex flex-column">
                 <label for="categorie">Catégorie de votre article :</label>
-                <select id="categorie" name="categorie">
-                  <option value="1" <%if(article.categorie===1){%> selected <%}%>>Console</option>
-                  <option value="2" <%if(article.categorie===2){%> selected <%}%>>Jeux</option>
-                  <option value="3" <%if(article.categorie===3){%> selected <%}%>>Informatique</option>
-                  <option value="4" <%if(article.categorie===4){%> selected <%}%>>Musique</option>
-                  <option value="5" <%if(article.categorie===5){%> selected <%}%>>Partenaires</option>
-                  <option value="6" <%if(article.categorie===6){%> selected <%}%>>Divers</option>
+                <select id="categorie" name="categorie" class="form-control">
+                  <option class="form-control" value="1" <%if(article.categorie===1){%> selected <%}%>>Console</option>
+                  <option class="form-control" value="2" <%if(article.categorie===2){%> selected <%}%>>Jeux</option>
+                  <option class="form-control" value="3" <%if(article.categorie===3){%> selected <%}%>>Informatique
+                  </option>
+                  <option class="form-control" value="4" <%if(article.categorie===4){%> selected <%}%>>Musique</option>
+                  <option class="form-control" value="5" <%if(article.categorie===5){%> selected <%}%>>Partenaires
+                  </option>
+                  <option class="form-control" value="6" <%if(article.categorie===6){%> selected <%}%>>Divers</option>
                 </select>
               </div>
             </fieldset>
@@ -53,7 +55,7 @@
                   Choisir un fichier
                 </label>
                 <label style="font-size:20px;" for="intro">Ecrivez ci-dessous l'intro de l'article :</label>
-                <textarea type="hidden" name="intro" id="intro"><%=article.intro%></textarea>
+                <textarea class="form-control" type="hidden" name="intro" id="intro"><%=article.intro%></textarea>
                 <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
                 <textarea type="hidden" name="contenu" id="contenu"><%= article.content %></textarea>
                 <label style="font-size:20px;" for="button_submit">Poster votre article :</label>

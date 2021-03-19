@@ -40,30 +40,31 @@
                 <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img class="button-control right" src ="/static/images/btn_report.svg"></a>
                 </p>
                 <% arrayBadges.forEach(badge => { %>
-                  <%  const colorBadge = badge.split(' -') %>
-                            <% if(colorBadge[1]){%>
-                              <% const badgeName=colorBadge[0] %>
-                                <!--<span class="badge bg-<%=//colorBadge[1]%> rounded-pill" ><%=//badgeName%></span>-->
-                                <span class="badge bg-<%=colorBadge[1]%>">
-                                  <%=badgeName%>
-                                </span>
-                                <% }else{ %>
-                                  <!--<span class="badge bg-secondary rounded-pill" ><%=//badge%></span>-->
-                                  <span class="badge bg-secondary">
-                                    <%=badge%>
+                  <%  const colorBadge = badge.split(`-`) %>
+                              <% if(colorBadge[1]){%>
+                                <% const badgeName=colorBadge[0] %>
+                                  <!--<span class="badge bg-<%=//colorBadge[1]%> rounded-pill" ><%=//badgeName%></span>-->
+                                  <span class="badge bg-<%=colorBadge[1]%>">
+                                    <%=badgeName%>
                                   </span>
-                                  <% } %>
-                                    <% }); %>
-                                      <p><a href="#<%=element.post_id%>" class="link-msg">
-                                          <%= `${date}/${month}/${year}`%>
-                                        </a></p>
-                                      <div id='<%=element.post_id%>'></div>
-                                      <div id="edit-<%=element.post_id%>"></div>
-                                      <hr>
-                                      <p>
-                                        <%= element.post_texte %>
-                                      </p>
+                                  <% }else{ %>
+                                    <!--<span class="badge bg-secondary rounded-pill" ><%=//badge%></span>-->
+                                    <span class="badge bg-secondary">
+                                      <%=badge%>
+                                    </span>
+                                    <% } %>
+                                      <% }); %>
+                                        <p><a href="#<%=element.post_id%>" class="link-msg">
+                                            <%= `${date}/${month}/${year}`%>
+                                          </a></p>
+                                        <div id=' <%=element.post_id%>'>
         </div>
+        <div id="edit-<%=element.post_id%>"></div>
+        <hr>
+        <p>
+          <%= element.post_texte %>
+        </p>
+      </div>
       </div>
       <% }); %>
         <div id="container-reply">

@@ -1,0 +1,4 @@
+@import '../../theme-variable.css';
+.form-control{
+  background: var(--container-color);
+}

@@ -1,29 +1,26 @@
-@import "../theme-variable.css";
-table,td {
+table,td,th {
     border: var(--border-size) var(--border-type) var(--border-color);
-}
-thead,tfoot {
+  }
+  thead,tfoot {
     background-color: var(--background-color);
     color: var(--color);
-}
+  }
 
 #center{
     display: block;
     text-align: center;
 }
-#table-albums{
+#table-announcements{
     margin: auto;
-    max-width: 80%;
+    max-width: 70%;
 }
-.image{
-    width: 96px;
-    height: 53.6px;
-}
+.avatar{width: 60px;border-radius: 50%;}
+
 @media screen and (max-width: 550px){
     table{
         zoom:0.65;
     }
-    #table-albums{
+    #table-members{
         margin: auto;
         max-width: 95%;
     }

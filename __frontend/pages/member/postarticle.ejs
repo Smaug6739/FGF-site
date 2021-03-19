@@ -48,13 +48,13 @@
               <legend>Type d'article</legend>
               <div class="form-group d-flex flex-column">
                 <label for="categorie">Catégorie de votre article :</label>
-                <select id="categorie" name="categorie">
-                  <option value="1">Console</option>
-                  <option value="2">Jeux</option>
-                  <option value="3">Informatique</option>
-                  <option value="4">Musique</option>
-                  <option value="5">Partenaires</option>
-                  <option value="6">Divers</option>
+                <select class="form-control" id="categorie" name="categorie">
+                  <option class="form-control" value="1">Console</option>
+                  <option class="form-control" value="2">Jeux</option>
+                  <option class="form-control" value="3">Informatique</option>
+                  <option class="form-control" value="4">Musique</option>
+                  <option class="form-control" value="5">Partenaires</option>
+                  <option class="form-control" value="6">Divers</option>
                 </select>
               </div>
             </fieldset>
@@ -64,14 +64,15 @@
               <div class="form-group d-flex flex-column">
                 <label for="title">Le titre de votre article</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Titre">
+                <br>
                 <label class="custom-file-upload" for="miniature-upload">
-                  <input id="miniature-upload" type="file" onchange="preview_image(event,'miniature-form')"
-                    name="miniature-upload" />
+                  <input class="form-control" id="miniature-upload" type="file"
+                    onchange="preview_image(event,'miniature-form')" name="miniature-upload" />
                   Choisir un fichier
                 </label>
                 <img style="width:30%;height:30%;" id="miniature-form">
                 <label style="font-size:20px;" for="intro">Ecrivez ci-dessous l'intro de l'article :</label>
-                <textarea type="hidden" name="intro" id="intro"></textarea>
+                <textarea class="form-control" type="hidden" name="intro" id="intro"></textarea>
                 <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
                 <textarea type="hidden" name="contenu" id="contenu"></textarea>
                 <h6>Poster votre article :</h6>

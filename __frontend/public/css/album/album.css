@@ -1,6 +1,6 @@
-
+@import '../theme-variable.css';
 #container{
-    background-color: #ffffff;
+    background-color: var(--container-color);
     width: 98%;
     margin-left: 1%;
     display: flex;
@@ -85,7 +85,7 @@
 
 #buttons-page{
     text-align: center;
-    background-color: #ffffff;
+    background-color: var(--container-color); ;
     margin-bottom: 15px;
     width : 98%;
     margin-left: 1%;

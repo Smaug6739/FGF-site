@@ -9,7 +9,7 @@
     font-weight: 1000;
 } 
 .article{
-    background-color: #ffffff;
+    background-color: var(--container-color);
     margin-left: 1%;
     margin-right: 1%;
     margin-top: 2%;

@@ -12,6 +12,7 @@
                 rel="stylesheet">
             <link rel="stylesheet" href="/static/css/main.css">
             <link rel="stylesheet" href="/static/css/footer.css">
+            <link rel="stylesheet" href="/static/css/member/login.css">
             <script src="https://www.google.com/recaptcha/api.js"></script>
             <script src="/static/js/member/login.js"> </script>
 
@@ -25,32 +26,28 @@
 <body>
     <%- include ('../include/nav.ejs'); -%>
         <main role="main">
-
             <h1 class="mb-5 text-center">French Gaming Family</h1>
 
-            <section class="container-fluid pl-0 pr-0">
-
-                <section class="col-xl-12 text-center">
-
-                    <form action="/member/login" method="post" class="text-center  col-sm-4 mx-auto  d-flex flex-column"
-                        id="form_login">
-                        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            <form action="/member/login" method="post" id="form_login">
+                <div id="margin-container">
+                    <fieldset class="form-group">
+                        <h2>Connexion à votre compte</h2>
+                        <label for="in_login">Pseudo :</label>
                         <input type="text" id="in_login" class="form-control mb-3" placeholder="Pseudo" required=""
                             autofocus="" name="pseudo">
+                        <label for="in_pass">Mot de passe :</label>
                         <input type="password" id="in_pass" class="form-control mb-3" placeholder="Password" required=""
                             name="pass">
                         <div id="error"></div>
                         <button class="button button-success g-recaptcha"
                             data-sitekey="6LcgLPIUAAAAAE3WY-fLlh4HjVM6yiY7NNa0mETn" data-callback='onSubmit'
                             data-action='submit'>Se connecter</button>
-                    </form>
-                </section><!-- /.container -->
-            </section>
+                    </fieldset>
+                </div>
+            </form>
         </main>
         <%- include ('../include/footer.ejs'); -%>
             <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
-
-
 
 </body>
 

@@ -1,5 +1,5 @@
 #container-demande{
     width: 95%;
     margin-left: 2.5%;
-    background-color: #ffffff;
+    background-color: var(--container-color);
 }

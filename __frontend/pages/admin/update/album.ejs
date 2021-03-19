@@ -26,13 +26,14 @@
             <img src="/uploads/album/<%=album[0].album_image%>" alt="Image" id="image">
             <form action="/admin/albums/update/<%=album[0].album_id%>" method="POST" id="form-update">
               <label for="statut">Statut de l'image :</label>
-              <select id="statut" name="statut">
-                <option value="0" <%if(album[0].album_statut===0){%> selected <%}%>>En attente</option>
-                <option value="1" <%if(album[0].album_statut===1){%> selected <%}%>>Validé</option>
+              <select id="statut" name="statut" class="form-control">
+                <option class="form-control" value="0" <%if(album[0].album_statut===0){%> selected <%}%>>En attente
+                </option>
+                <option class="form-control" value="1" <%if(album[0].album_statut===1){%> selected <%}%>>Validé</option>
               </select>
               <br>
               <label for="title">Titre de l'image</label>
-              <input type="text" name="title" value="<%=album[0].album_title%>">
+              <input class="form-control" type="text" name="title" value="<%=album[0].album_title%>">
               <br>
               <button type="submit" class="button button-primary" id="button-send">Envoyer</button>
             </form>

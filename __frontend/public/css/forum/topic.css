@@ -1,3 +1,4 @@
+@import '../theme-variable.css';
 #container{
     margin-top: 10px;
     display: flex;
@@ -5,7 +6,10 @@
 }
 #container-topic{
     width: 60%;
-    background-color: #ffffff;
+    background-color: var(--container-color);
+}
+.form-control{
+    background: var(--container-color) ;
 }
 #element{
     margin-top: 15px;
@@ -36,7 +40,7 @@
 
 /*REPLY*/
 #container-reply{
-    background-color: #e9ecef;
+    background-color: var(--container-color);
     margin: auto;
     width : 100%;
     padding: 1px;
@@ -46,7 +50,7 @@
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
-    width : 50%;
+    width : 70%;
 }
 /*PAGES*/
 #button-pages{
@@ -58,7 +62,6 @@
 @media screen and (max-width: 1200px ){
     #container-topic{
         width: 80%;
-        background-color: #ffffff;
     }
     .reply-legent{
         font-size: 20px;
@@ -68,7 +71,6 @@
 @media screen and (max-width: 700px){
     #container-topic{
         width: 98%;
-        background-color: #ffffff;
     }
     .button-control{
         width: 5%;

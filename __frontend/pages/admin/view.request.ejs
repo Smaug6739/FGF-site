@@ -33,9 +33,9 @@
                         <%=request[0].demande%>
                       </p>
                       <form action="/admin/demandes/update/<%=request[0].id%>" method="POST">
-                        <select name="statut" id="statut">
-                          <option value="0">En attente</option>
-                          <option value="1">Traitée</option>
+                        <select name="statut" id="statut" class="form-control">
+                          <option class="form-control" value="0">En attente</option>
+                          <option class="form-control" value="1">Traitée</option>
                         </select>
                         <button type="submit" class="button button-warning">Mettre a jour la demande</button>
                       </form>

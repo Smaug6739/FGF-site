@@ -10,8 +10,7 @@
   <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/footer.css">
-    <link rel="stylesheet" href="/static/css/admin/members.css">
-    <script src="/static/js/admin/members.js"></script>
+    <link rel="stylesheet" href="/static/css/admin/view.partner.css">
 
     <title>French Gaming Family</title>
 </head>
@@ -57,10 +56,10 @@
                         <%=request[0].q6%>
                       </p>
                       <form action="/admin/partners/update/<%=request[0].id%>" method="POST">
-                        <select name="statut" id="statut">
-                          <option value="0">En attente</option>
-                          <option value="1">Accepté</option>
-                          <option value="2">Refuser</option>
+                        <select class="form-control" name="statut" id="statut">
+                          <option class="form-control" value="0">En attente</option>
+                          <option class="form-control" value="1">Accepté</option>
+                          <option class="form-control" value="2">Refusé</option>
                         </select>
                         <button type="submit" class="button button-warning">Mettre a jour la demande</button>
                       </form>
@@ -72,11 +71,3 @@
 </body>
 
 </html>
-
-<style>
-  #container-demande {
-    width: 70%;
-    margin-left: 15%;
-    background-color: #ffffff;
-  }
-</style>

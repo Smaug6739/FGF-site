@@ -1,0 +1,27 @@
+table,td,th {
+  border: var(--border-size) var(--border-type) var(--border-color);
+}
+thead,tfoot {
+  background-color: var(--background-color);
+  color: var(--color);
+}
+
+#center{
+  display: block;
+  text-align: center;
+}
+#table-announcements{
+  margin: auto;
+  max-width: 70%;
+}
+.avatar{width: 60px;border-radius: 50%;}
+
+@media screen and (max-width: 550px){
+  table{
+      zoom:0.65;
+  }
+  #table-members{
+      margin: auto;
+      max-width: 95%;
+  }
+}
