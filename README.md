@@ -1,9 +1,8 @@
 # FGF Site
 The French Gaming Family site is accessible via the link http://french-gaming-family.ga 
-![accueil](https://user-images.githubusercontent.com/59796136/111662473-3d0c4280-8810-11eb-86dc-d49f8562e903.JPG)
-![1](https://user-images.githubusercontent.com/59796136/111837027-8d120480-88f7-11eb-83aa-14180bb888d8.png)
-![2](https://user-images.githubusercontent.com/59796136/111836878-50460d80-88f7-11eb-8436-73473a991e81.png)
-![3](https://user-images.githubusercontent.com/59796136/111836933-66ec6480-88f7-11eb-8c73-caf5c93be851.JPG)
+
+![All](https://user-images.githubusercontent.com/59796136/111838133-2f7eb780-88f9-11eb-9386-3913e0ff04b4.png)
+
 
 
 ## Comment l'installer en locale
