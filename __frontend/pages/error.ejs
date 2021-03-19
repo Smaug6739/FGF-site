@@ -1,32 +1,37 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/error.js"></script>-->
 
-    <!-- Bootstrap CSS -->
-    <%- include ('include/bootstrap/bootstrap.css.ejs'); -%>
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<script type="text/javascript" src="/static/js/error.js"></script>-->
+
+  <!-- Bootstrap CSS -->
+  <%- include ('include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <%- include ('include/meta'); -%>
-    <title>API Members</title>
-  </head>
-  <body>
-    <%- include ('include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">API de membres erreur</h1>
-    
-    
+      <title>API Members</title>
+</head>
 
-    <h3 class="mb-5 text-center" id="error-message"><%= error %></h3>
+<body>
+  <%- include ('include/nav.ejs'); -%>
+    <main role="main">
+      <h1 class="mb-5 text-center">Erreur</h1>
 
-    <div id="text-center">
-      <a href=javascript:history.go(-1)>Retour à la page précédente</a>
-    </div>
 
+      <h3 class="mb-5 text-center" id="error-message">
+        <%= error %>
+      </h3>
+
+      <div id="text-center">
+        <a href=javascript:history.go(-1)>Retour à la page précédente</a>
+      </div>
+    </main>
     <%- include ('include/footer.ejs'); -%>
-    <%- include ('include/bootstrap/bootstrap.js.ejs'); -%>
+      <%- include ('include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+</body>
+
 </html>

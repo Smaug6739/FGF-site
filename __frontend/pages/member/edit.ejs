@@ -1,155 +1,180 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <link  rel="stylesheet" href="/static/css/member/edit.css">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/member/edit.css">
     <script src="/static/js/img-preview.js"></script>
-    <link  rel="stylesheet" href="/static/markdown/css/simplemde.css">
+    <link rel="stylesheet" href="/static/markdown/css/simplemde.css">
     <script src="/static/markdown/js/simplemde.js"></script>
     <script src="/static/markdown/js/simplemde2.js"></script>
     <script src="/static/js/member/edit.js"></script>
     <title>French Gaming Family - Espace Membre</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">Espace membre</h1>
+</head>
 
-  <div id="overlay1">
-    <div class="popup_block">
-        <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="button_close" src="/static/images/close_pop.png"></a>
-        <h2>Supprimer votre compte</h2>
-        <form action="/member/<%= member.member_id %>/delete" method="post" class="mt-5">
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+      <h1 class="mb-5 text-center">Espace membre</h1>
+
+      <div id="overlay1">
+        <div class="popup_block">
+          <a class="close" href="#noWhere"><img alt="Fermer" title="Fermer la fenêtre" class="button_close"
+              src="/static/images/close_pop.png"></a>
+          <h2>Supprimer votre compte</h2>
+          <form action="/member/<%= member.member_id %>/delete" method="post" class="mt-5">
+            <div class="form-group">
+              <div class="container-champ">
+                <label for="password">Mot de passe :</label>
+                <input type="text" class="form-field" id="password" name="password">
+              </div>
+            </div>
+            <p>Attention, la supression de votre compte est définitive et iréverssible. Vous perdrez toutes les données
+              qui y sont associés.</p>
+            <button type="submit" class="button button-danger button-send">Supprimer</button>
+          </form>
+        </div>
+      </div>
+
+
+      <div class="account-infos">
+        <h2 id="center-text">Paramètres du compte</h2>
+        <form id="form1" action="/member/<%= member.member_userID %>/update" method="post"
+          enctype="multipart/form-data">
           <div class="form-group">
+            <label for="firstName">Nom d'utilisateur :</label>
+            <input type="text" class="form-field" id="firstName" name="firstName" placeholder="Prénom"
+              value="<%= member.member_first_name %>">
+            <input type="text" class="form-field" id="lastName" name="lastName" placeholder="Nom"
+              value="<%= member.member_last_name %>">
+            <div>
+              <label for="avatar">Photo de profil :</label>
+              <label class="custom-file-upload avatar-field" for="avatar-upload">
+                <input class="form-field invisible" id="avatar-upload" type="file"
+                  onchange="preview_image(event,'avatar-form')" name="avatar-upload" />
+                <img id="avatar-form" src="/uploads/avatars/<%= userConnected.userAvatar %>">
+                Choisir un fichier
+              </label>
+            </div>
             <div class="container-champ">
-              <label for="password">Mot de passe :</label>
-              <input type="text" class="form-field" id="password" name="password" >
+              <label for="pseudo">Pseudo :</label>
+              <input type="text" class="form-field" id="pseudo" name="pseudo" placeholder="Pseudo"
+                value="<%= member.member_pseudo %>">
+            </div>
+            <div class="container-champ">
+              <label for="age">Age :</label>
+              <input type="text" class="form-field" id="age" name="age" placeholder="Age"
+                value="<%= member.member_age %>">
+            </div>
+            <div class="container-champ">
+              <label for="email">Adresse mail :</label>
+              <input type="text" class="form-field" id="email" name="email" placeholder="Adresse mail"
+                value="<%= member.member_email %>">
+            </div>
+            <div class="container-champ">
+              <label for="phoneNumber">Téléphone :</label>
+              <input type="text" class="form-field" id="phoneNumber" name="phoneNumber"
+                placeholder="Numéro de téléphone" value="<%= member.member_phone_number %>">
             </div>
           </div>
-          <p>Attention, la supression de votre compte est définitive et iréverssible. Vous perdrez toutes les données qui y sont associés.</p>
-          <button type="submit" class="button button-danger button-send">Supprimer</button>
+          <div class="container-champ">
+            <label for="delete-account">Compte :</label>
+            <a href="#overlay1" class="button button-danger element-margin">Supprimer votre compte</a>
+          </div>
+          <div class="container-champ">
+            <label for="phoneNumber">Sauvegarder :</label>
+            <button type="submit" class="button button-primary button-success element-margin">Enregistrer vos
+              modifications</button>
+          </div>
         </form>
-    </div>
-</div>
 
+      </div>
+      <br>
 
-  <div class="account-infos">
-          <h2 id="center-text">Paramètres du compte</h2>
-          <form id ="form1" action="/member/<%= member.member_userID %>/update" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-                  <label for="firstName">Nom d'utilisateur :</label>
-                  <input type="text" class="form-field" id="firstName" name="firstName" placeholder="Prénom" value="<%= member.member_first_name %>" >
-                  <input  type="text" class="form-field" id="lastName" name="lastName" placeholder="Nom" value="<%= member.member_last_name %>" >
-              <div>
-                    <label for="avatar">Photo de profil :</label>
-                    <label class="custom-file-upload avatar-field" for="avatar-upload">
-                      <input class="form-field invisible"  id="avatar-upload" type="file" onchange="preview_image(event,'avatar-form')" name="avatar-upload"/>
-                      <img id="avatar-form" src="/uploads/avatars/<%= userConnected.userAvatar %>">
-                      Choisir un fichier
-                    </label>
-                </div>
-                <div class="container-champ">
-                  <label for="pseudo">Pseudo :</label>
-                  <input  type="text" class="form-field" id="pseudo" name="pseudo" placeholder="Pseudo" value="<%= member.member_pseudo %>" >
-                </div>
-                <div class="container-champ">
-                  <label for="age">Age :</label>
-                  <input type="text" class="form-field" id="age" name="age" placeholder="Age" value="<%= member.member_age %>" >
-                </div>
-                <div class="container-champ">
-                  <label for="email">Adresse mail :</label>
-                  <input type="text" class="form-field" id="email" name="email" placeholder="Adresse mail" value="<%= member.member_email %>" >
-                </div>
-                <div class="container-champ">
-                  <label for="phoneNumber">Téléphone :</label>
-                  <input type="text" class="form-field" id="phoneNumber" name="phoneNumber" placeholder="Numéro de téléphone" value="<%= member.member_phone_number %>" >
-                </div>
-              </div>
-              <div class="container-champ">
-                <label for="delete-account">Compte :</label>
-                <a href="#overlay1" class="button button-danger element-margin">Supprimer votre compte</a>
-              </div>
-              <div class="container-champ">
-                <label for="phoneNumber">Sauvegarder :</label>
-                <button  type="submit" class="button button-primary button-success element-margin">Enregistrer vos modifications</button>
-              </div>
-      </form>
-
-  </div>
-<br>
-
-<div class="account-infos">
-  <h2 id="center-text">Changer votre mot de passe</h2>
-  <form action="/member/updatepassword/<%= member.member_id %>" method="post" class="mt-5">
-    <div class="form-group">
-      <div class="container-champ">
-        <label for="oldPassword">Ancien mot de passe:</label>
-        <input type="text" class="form-field" id="oldPassword" name="oldPassword" placeholder="Ancien mot de passe">
-      </div>
-      <div class="container-champ">
-        <label for="password1">Nouveau mot de passe :</label>
-        <input type="text" class="form-field" id="password1" name="password1" placeholder="Mot de passe" >
-      </div>
-      <div class="container-champ">
-        <label for="password2">Confirmez le mot de passe :</label>
-        <input type="text" class="form-field" id="password2" name="password2" placeholder="Confirmer le mot de passe" >
-      </div>
-    </div>
-    <div class="container-champ">
-      <label for="modifier-password">Sauvegarder :</label>
-      <button type="submit" id="modifier-password" class="button button-primary button-success element-margin">Modifier</button>
-    </div>
-  </form>
-</div>
-
-
-
-<div class="account-infos">
-    <h2 id="center-text">Médias - Créateurs</h2>
-    <form action="/member/account/update/medias/<%= member.member_id %>" method="post" enctype="multipart/form-data">
-      <div class="form-group">
-      <div class="container-champ">
-        <label for="site">Site internet</label>
-        <input type="text" class="form-field" id="site" name="site" placeholder="Site internet" value="<%=member.member_site%>">
-      </div>
-      <div class="container-champ">
-        <label for="youtube">Chaine youtube</label>
-        <input type="text" class="form-field" id="youtube" name="youtube" placeholder="Chaine youtube" value="<%=member.member_youtube%>">
-      </div>
-      <div class="container-champ">
-        <label for="twitch">Chaine twitch</label>
-        <input type="text" class="form-field" id="twitch" name="twitch" placeholder="Chaine twitch" value="<%=member.member_twitch%>" >
-      </div>
-      <div class="container-champ">
-        <label for="desc_title">Titre description</label>
-        <input type="text" class="form-field" id="desc_title" name="desc_title" placeholder="Titre de l'article" value="<%=member.member_media_title%>" >
-      </div>
-      <div class="container-champ">
-        <label for="desc_image">Image</label>
-        <input type="file" class="form-field" id="desc_image" name="desc_image" onchange="preview_image(event,'image-media')">
-      </div>
-      <div class="container-champ">
-        <label>Rendu :</label>
-        <img class="form-field" id="image-media" src="/uploads/articles/<%=member.member_media_image%>">
-      </div>
-      <div class="editor">
-        <label for="desc_desc">Description </label>
-        <!--<input type="text" class="form-field" id="desc_desc" name="desc_desc" placeholder="Description (contenu de l'article)" value="<%=//member.member_media_desc%>">-->
-        <textarea type="hidden" name="desc_desc" id="desc_desc"><%=member.member_media_desc%></textarea>
+      <div class="account-infos">
+        <h2 id="center-text">Changer votre mot de passe</h2>
+        <form action="/member/updatepassword/<%= member.member_id %>" method="post" class="mt-5">
+          <div class="form-group">
+            <div class="container-champ">
+              <label for="oldPassword">Ancien mot de passe:</label>
+              <input type="text" class="form-field" id="oldPassword" name="oldPassword"
+                placeholder="Ancien mot de passe">
+            </div>
+            <div class="container-champ">
+              <label for="password1">Nouveau mot de passe :</label>
+              <input type="text" class="form-field" id="password1" name="password1" placeholder="Mot de passe">
+            </div>
+            <div class="container-champ">
+              <label for="password2">Confirmez le mot de passe :</label>
+              <input type="text" class="form-field" id="password2" name="password2"
+                placeholder="Confirmer le mot de passe">
+            </div>
+          </div>
+          <div class="container-champ">
+            <label for="modifier-password">Sauvegarder :</label>
+            <button type="submit" id="modifier-password"
+              class="button button-primary button-success element-margin">Modifier</button>
+          </div>
+        </form>
       </div>
 
-      <button type="submit" class="button button-primary button-send">Modifier</button>
-    </form>
-</div>
 
 
+      <div class="account-infos">
+        <h2 id="center-text">Médias - Créateurs</h2>
+        <form action="/member/account/update/medias/<%= member.member_id %>" method="post"
+          enctype="multipart/form-data">
+          <div class="form-group">
+            <div class="container-champ">
+              <label for="site">Site internet</label>
+              <input type="text" class="form-field" id="site" name="site" placeholder="Site internet"
+                value="<%=member.member_site%>">
+            </div>
+            <div class="container-champ">
+              <label for="youtube">Chaine youtube</label>
+              <input type="text" class="form-field" id="youtube" name="youtube" placeholder="Chaine youtube"
+                value="<%=member.member_youtube%>">
+            </div>
+            <div class="container-champ">
+              <label for="twitch">Chaine twitch</label>
+              <input type="text" class="form-field" id="twitch" name="twitch" placeholder="Chaine twitch"
+                value="<%=member.member_twitch%>">
+            </div>
+            <div class="container-champ">
+              <label for="desc_title">Titre description</label>
+              <input type="text" class="form-field" id="desc_title" name="desc_title" placeholder="Titre de l'article"
+                value="<%=member.member_media_title%>">
+            </div>
+            <div class="container-champ">
+              <label for="desc_image">Image</label>
+              <input type="file" class="form-field" id="desc_image" name="desc_image"
+                onchange="preview_image(event,'image-media')">
+            </div>
+            <div class="container-champ">
+              <label>Rendu :</label>
+              <img class="form-field" id="image-media" src="/uploads/articles/<%=member.member_media_image%>">
+            </div>
+            <div class="editor">
+              <label for="desc_desc">Description </label>
+              <!--<input type="text" class="form-field" id="desc_desc" name="desc_desc" placeholder="Description (contenu de l'article)" value="<%=//member.member_media_desc%>">-->
+              <textarea type="hidden" name="desc_desc" id="desc_desc"><%=member.member_media_desc%></textarea>
+            </div>
 
-  <%- include('../include/footer.ejs') %>
-  <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+            <button type="submit" class="button button-primary button-send">Modifier</button>
+        </form>
+      </div>
 
-  </body>
+    </main>
+
+    <%- include('../include/footer.ejs') %>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+</body>
+
 </html>

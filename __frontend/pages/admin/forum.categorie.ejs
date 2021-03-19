@@ -1,64 +1,73 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+  <!-- Bootstrap CSS -->
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="/static/css/admin/announcements.css">
     <title>FGF Admin</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
+</head>
+
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
       <section id="form">
         <fieldset class="form-group">
-            <legend>Mettre à jour la catégorie</legend>
-            <form action="/admin/forum/<%=categorie[0].cat_id%>" method="POST">
-                <div class="form-group d-flex flex-column">
-                    <label style="font-size:20px;" for="title">Titre de la catégorie :</label>
-                    <input type="text" class="title form-control" name="title" id="title" value="<%=categorie[0].cat_nom%>">
-                    <label style="font-size:20px;" for="content">Description de la catégorie (max 255 caractères) :</label>
-                    <textarea type="hidden" name="content" id="content"><%=categorie[0].cat_description%></textarea>
-                    <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
-                    <input type="text" class="icon form-control" name="icon" id="icon" value="<%=categorie[0].cat_icon%>">
-                    <label style="font-size:20px;" for="icon">Groupe de la catégorie :</label>
-                    <input type="text" class="icon form-control" name="groupe" id="groupe" value="<%=categorie[0].cat_container%>">
-                    <button type="submit" class="button button-success">Poster</button>
-                </div>
-            </form>
+          <legend>Mettre à jour la catégorie</legend>
+          <form action="/admin/forum/<%=categorie[0].cat_id%>" method="POST">
+            <div class="form-group d-flex flex-column">
+              <label style="font-size:20px;" for="title">Titre de la catégorie :</label>
+              <input type="text" class="title form-control" name="title" id="title" value="<%=categorie[0].cat_nom%>">
+              <label style="font-size:20px;" for="content">Description de la catégorie (max 255 caractères) :</label>
+              <textarea type="hidden" name="content" id="content"><%=categorie[0].cat_description%></textarea>
+              <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
+              <input type="text" class="icon form-control" name="icon" id="icon" value="<%=categorie[0].cat_icon%>">
+              <label style="font-size:20px;" for="icon">Groupe de la catégorie :</label>
+              <input type="text" class="icon form-control" name="groupe" id="groupe"
+                value="<%=categorie[0].cat_container%>">
+              <button type="submit" class="button button-success">Poster</button>
+            </div>
+          </form>
         </fieldset>
         <fieldset class="form-group">
-            <legend>Supprimer la catégorie</legend>
-            <form action="/admin/forum/categorie/delete/<%=categorie[0].cat_id%>" method="POST">
-                <div class="form-group d-flex flex-column">
-                    <p>
-                        Etes vous sur de supprimer une catégorie ?
-                        <input type="checkbox" required>
-                    </p>
-                    <button type="submit" class="button button-danger">Supprimer</button>
-                </div>
-            </form>
+          <legend>Supprimer la catégorie</legend>
+          <form action="/admin/forum/categorie/delete/<%=categorie[0].cat_id%>" method="POST">
+            <div class="form-group d-flex flex-column">
+              <p>
+                Etes vous sur de supprimer une catégorie ?
+                <input type="checkbox" required>
+              </p>
+              <button type="submit" class="button button-danger">Supprimer</button>
+            </div>
+          </form>
         </fieldset>
-    </section>
-    
+      </section>
 
-  <div id="center-text">
-    <a href="#" class="button button-info" id="precedent">< Précédent</a>
-    <a href="#" class="button button-info" id="suivant">Suivant ></a>
-  </div>
-    <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+      <div id="center-text">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+      <main role="main">
+
+        <%- include ('../include/footer.ejs'); -%>
+          <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+</body>
+
 </html>
 
 <style>
-    #form{
-        width: 70%;
-        margin-left: 15%;
-    }
+  #form {
+    width: 70%;
+    margin-left: 15%;
+  }
 </style>

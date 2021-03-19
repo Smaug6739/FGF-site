@@ -1,61 +1,81 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+  <!-- Bootstrap CSS -->
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="/static/css/admin/partners.css">
     <script src="/static/js/admin/partners.js"></script>
 
     <title>API Members</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
-    <div id="container">
-    <h1 class="mb-5 text-center">Demandes :</h1>
+</head>
 
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Utilisateur</th>
-            <th scope="col">Statut</th>
-            <th scope="col">Date d'envoi</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%  demandes.forEach(element => { %>
-          <%  const account_date = new Date(parseInt(element.date_insert)) %>
-          <%  var months = ['1','2','3','4','5','6','7','8','9','10','11','12'];  %>
-          <%  const year = account_date.getFullYear() %>
-          <%  const month = months[account_date.getMonth()] %>
-          <%  const date = account_date.getDate() %>
-                <tr>
-                <td> <%=element.member_pseudo || "unknown"%></td>
-                <% if(element.statut === 1){ %>
-                  <td> <div class="badge badge-success"> Traiter </div> </td>
-                 <% } else if(element.statut === 2){ %>
-                    <td> <div class="badge badge-danger"> Refuser </div> </td>
-                 <% }else{%>
-                  <td> <div class="badge badge-secondary"> En attente </div> </td>
-                 <% } %>                   <td> <%= `${date}/${month}/${year}`  %> </td>
-                <td> <a class="button button-primary mt-3"href="/admin/partners/view/<%=element.id%>">Voir </a></td>
-                </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    </div>
-  <div id="center-text">
-    <a href="#" class="button button-info" id="precedent">< Précédent</a>
-    <a href="#" class="button button-info" id="suivant">Suivant ></a>
-  </div>
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+      <div id="container">
+        <h1 class="mb-5 text-center">Demandes :</h1>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Utilisateur</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Date d'envoi</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% demandes.forEach(element=> { %>
+              <% const account_date=new Date(parseInt(element.date_insert)) %>
+                <% var months=['1','2','3','4','5','6','7','8','9','10','11','12']; %>
+                  <% const year=account_date.getFullYear() %>
+                    <% const month=months[account_date.getMonth()] %>
+                      <% const date=account_date.getDate() %>
+                        <tr>
+                          <td>
+                            <%=element.member_pseudo || "unknown" %>
+                          </td>
+                          <% if(element.statut===1){ %>
+                            <td>
+                              <div class="badge badge-success"> Traiter </div>
+                            </td>
+                            <% } else if(element.statut===2){ %>
+                              <td>
+                                <div class="badge badge-danger"> Refuser </div>
+                              </td>
+                              <% }else{%>
+                                <td>
+                                  <div class="badge badge-secondary"> En attente </div>
+                                </td>
+                                <% } %>
+                                  <td>
+                                    <%= `${date}/${month}/${year}` %>
+                                  </td>
+                                  <td> <a class="button button-primary mt-3"
+                                      href="/admin/partners/view/<%=element.id%>">Voir </a></td>
+                        </tr>
+                        <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <div id="center-text">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+    </main>
+
     <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+</body>
+
 </html>

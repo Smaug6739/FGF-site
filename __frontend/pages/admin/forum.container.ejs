@@ -1,60 +1,68 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+  <!-- Bootstrap CSS -->
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="/static/css/admin/announcements.css">
     <title>FGF Album</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
+</head>
 
-       
-    <section id="form">
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+
+      <section id="form">
         <fieldset class="form-group">
-            <legend>Mettre à jour le groupe</legend>
-            <form action="/admin/forum/container/<%=container[0].cat_container_id%>" method="POST">
-                <div class="form-group d-flex flex-column">
-                    <label style="font-size:20px;" for="title">Nom du groupe :</label>
-                    <input type="text" class="title form-control" name="title" id="title" value="<%=container[0].cat_container_name%>">
-                    <button type="submit" class="button button-success">Poster</button>
-                </div>
-            </form>
+          <legend>Mettre à jour le groupe</legend>
+          <form action="/admin/forum/container/<%=container[0].cat_container_id%>" method="POST">
+            <div class="form-group d-flex flex-column">
+              <label style="font-size:20px;" for="title">Nom du groupe :</label>
+              <input type="text" class="title form-control" name="title" id="title"
+                value="<%=container[0].cat_container_name%>">
+              <button type="submit" class="button button-success">Poster</button>
+            </div>
+          </form>
         </fieldset>
         <fieldset class="form-group">
-            <legend>Supprimer le groupe</legend>
-            <form action="/admin/forum/container/delete/<%=container[0].cat_container_id%>" method="POST">
-                <div class="form-group d-flex flex-column">
-                    <p>
-                        Etes vous sur de supprimer un groupe ?
-                    <input type="checkbox" required>
-                    </p>
-                    <button type="submit" class="button button-danger">Supprimer</button>
-                </div>
-            </form>
+          <legend>Supprimer le groupe</legend>
+          <form action="/admin/forum/container/delete/<%=container[0].cat_container_id%>" method="POST">
+            <div class="form-group d-flex flex-column">
+              <p>
+                Etes vous sur de supprimer un groupe ?
+                <input type="checkbox" required>
+              </p>
+              <button type="submit" class="button button-danger">Supprimer</button>
+            </div>
+          </form>
         </fieldset>
-    </section>
-    
+      </section>
 
-  <div id="center-text">
-    <a href="#" class="button button-info" id="precedent">< Précédent</a>
-    <a href="#" class="button button-info" id="suivant">Suivant ></a>
-  </div>
-    <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+      <div id="center-text">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+      <main role="main">
+
+        <%- include ('../include/footer.ejs'); -%>
+          <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+</body>
+
 </html>
 
 <style>
-    #form{
-        width: 70%;
-        margin-left: 15%;
-    }
+  #form {
+    width: 70%;
+    margin-left: 15%;
+  }
 </style>

@@ -1,29 +1,32 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <link  rel="stylesheet" href="/static/css/forum/topic.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/forum/topic.css">
     <%- include ('../include/meta'); -%>
-    <title>FGF Forum</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
-    <% console.log(topic) %>
-    <div id="container">
-      <div id="container-topic">
-        <% if(topic.topic.length){ %>
-        <% const modo = topic.modos.find(modo => modo.modo_user_id === userConnected.id)%>
-        <% topic.topic.forEach(element => { %>
-        <%  const post_date = new Date(parseInt(element.post_time)) %>
-        <%  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
-        <%  const year = post_date.getFullYear() %>
-        <%  const month = months[post_date.getMonth()] %>
-        <%  const date = post_date.getDate() %>
-        <%  const arrayBadges = element.badges.split(', ') %>
+      <title>FGF Forum</title>
+</head>
+
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+      <div id="container">
+        <div id="container-topic">
+          <% if(topic.topic.length){ %>
+            <% const modo=topic.modos.find(modo=> modo.modo_user_id === userConnected.id)%>
+              <% topic.topic.forEach(element=> { %>
+                <% const post_date=new Date(parseInt(element.post_time)) %>
+                  <% const months=['01','02','03','04','05','06','07','08','09','10','11','12']; %>
+                    <% const year=post_date.getFullYear() %>
+                      <% const month=months[post_date.getMonth()] %>
+                        <% const date=post_date.getDate() %>
+                          <% const arrayBadges=element.badges.split(', ') %>
           <div id="element">
             <div class="container-message" id="<%=element.post_id%>">
               <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
@@ -37,50 +40,60 @@
                 <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img class="button-control right" src ="/static/images/btn_report.svg"></a>
                 </p>
                 <% arrayBadges.forEach(badge => { %>
-                  <%  const colorBadge = badge.split('-') %>
-                    <% if(colorBadge[1]){%>
-                      <% const badgeName = colorBadge[0] %>
-                      <!--<span class="badge bg-<%=//colorBadge[1]%> rounded-pill" ><%=//badgeName%></span>-->
-                      <span class="badge bg-<%=colorBadge[1]%>" ><%=badgeName%></span>
-                    <% }else{ %>
-                      <!--<span class="badge bg-secondary rounded-pill" ><%=//badge%></span>-->
-                      <span class="badge bg-secondary" ><%=badge%></span>
-                    <% } %>
-                  <% }); %>
-                <p><a href="#<%=element.post_id%>" class="link-msg"><%= `${date}/${month}/${year}`%></a></p>
-                <div id='<%=element.post_id%>'></div>
-                <div id="edit-<%=element.post_id%>"></div>
-                <hr>
-                <p><%= element.post_texte %></p>
-            </div>          
+                  <%  const colorBadge = badge.split(' -') %>
+                            <% if(colorBadge[1]){%>
+                              <% const badgeName=colorBadge[0] %>
+                                <!--<span class="badge bg-<%=//colorBadge[1]%> rounded-pill" ><%=//badgeName%></span>-->
+                                <span class="badge bg-<%=colorBadge[1]%>">
+                                  <%=badgeName%>
+                                </span>
+                                <% }else{ %>
+                                  <!--<span class="badge bg-secondary rounded-pill" ><%=//badge%></span>-->
+                                  <span class="badge bg-secondary">
+                                    <%=badge%>
+                                  </span>
+                                  <% } %>
+                                    <% }); %>
+                                      <p><a href="#<%=element.post_id%>" class="link-msg">
+                                          <%= `${date}/${month}/${year}`%>
+                                        </a></p>
+                                      <div id='<%=element.post_id%>'></div>
+                                      <div id="edit-<%=element.post_id%>"></div>
+                                      <hr>
+                                      <p>
+                                        <%= element.post_texte %>
+                                      </p>
+        </div>
+      </div>
+      <% }); %>
+        <div id="container-reply">
+          <div id="container-form-reply">
+            <form action="/forum/message/<%=topic.topic[0].topic_id%>" method="post">
+              <fieldset class="form-group">
+                <legend class="reply-legent">Poster un message</legend>
+                <textarea id="content" class="form-control" placeholder="Votre réponce" cols="30" rows="5"
+                  name="content"></textarea>
+                <button type="submit" class="button button-success" id="send">Poster</button>
+              </fieldset>
+            </form>
           </div>
-        <% }); %>
-          <div id="container-reply">
-            <div id="container-form-reply">
-                <form action="/forum/message/<%=topic.topic[0].topic_id%>" method="post">
-                  <fieldset class="form-group">
-                    <legend class="reply-legent">Poster un message</legend>
-                    <textarea id = "content" class="form-control" placeholder="Votre réponce"cols="30" rows="5" name="content"></textarea>
-                    <button type="submit" class="button button-success" id="send">Poster</button>
-                  </fieldset>
-                </form>
-            </div>
         </div>
         <% }else{ %>
-            <h4 id="text-center">Ce forum ne contient pas/plus de message et n'est donc pas accessible.</h4>
-        <% } %>
-      </div>
-    </div>
-    <div id="button-pages">
-      <a href="#" class="button button-info" id="precedent">< Précédent</a>
-      <a href="#" class="button button-info" id="suivant">Suivant ></a>
-    </div>
+          <h4 id="text-center">Ce forum ne contient pas/plus de message et n'est donc pas accessible.</h4>
+          <% } %>
+            </div>
+            </div>
+            <div id="button-pages">
+              <a href="#" class="button button-info" id="precedent">
+                < Précédent</a>
+                  <a href="#" class="button button-info" id="suivant">Suivant ></a>
+            </div>
 
+    </main>
 
-
-<%- include ('../include/footer.ejs'); -%>
-<%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
-<script src="/static/js/forum/topic.js"></script>
+    <%- include ('../include/footer.ejs'); -%>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+        <script src="/static/js/forum/topic.js"></script>
 </body>
-</html>
 
+</html>

@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/member/post.article.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <link  rel="stylesheet" href="/static/markdown/css/simplemde.css">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/member/post.article.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/markdown/css/simplemde.css">
     <script src="/static/js/img-preview.js"></script>
     <script src="/static/markdown/js/simplemde.js"></script>
     <script src="/static/markdown/js/simplemde2.js"></script>
@@ -15,71 +16,82 @@
     <title>API Members</title>
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
-    function onSubmit(token) {
-        document.getElementById("form_post_article").submit();
-    }
-    window.onbeforeunload = function (e) {return confirm()}
+      /*function onSubmit(token) {
+          document.getElementById("form_post_article").submit();
+      }
+      window.onbeforeunload = function (e) {return confirm()}*/
     </script>
-  </head>
- <body>
-    <%- include ('../include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">Espace de rédaction</h1>
-    <div class="container-fluid">
-      <section>
-        <fieldset class="form-group">
-                  <legend>Informations</legend>
-                  <ul>
-                  <li>Les images : le format recommandé est de 1920x1080.Le format minimum conseillé est de 1280x720.<br>Si votre image n'est pas au bon format,votre publication peut se voir refusée.</li><br>
-                  <li>Les paragraphes : Vous pouvez mettre en page vos articles grace au wysiwyg ou à l'aide d'une autre plateforme.</li><br>
-                  <li>Les vidéos: Les seules vidéos autorisées sont les vidéos youtube.Vous devez copier/coller le lien de la vidéo pour pouvoir l'envoyer.</li>
-                  </ul>
-      </fieldset>
-          <form action="/member/articles" method="post" class="mt-5" id="form_post_article" enctype="multipart/form-data">
-              
-              <fieldset class="form-group">
-                  <legend>Type d'article</legend>
-                  <div class="form-group d-flex flex-column">
-                      <label for="categorie">Catégorie de votre article :</label>
-                      <select id="categorie" name="categorie">
-                          <option value="1">Console</option>
-                          <option value="2">Jeux</option>
-                          <option value="3">Informatique</option>
-                          <option value="4">Musique</option>
-                          <option value="5">Partenaires</option>
-                          <option value="6">Divers</option>
-                      </select>
-                  </div>
-              </fieldset>
+</head>
 
-              <fieldset class="form-group">
-                  <legend>Votre article</legend>
-                  <div class="form-group d-flex flex-column">
-                      <label for="title">Le titre de votre article</label>
-                      <input type="text" class="form-control" id="title" name="title" placeholder="Titre">
-                      <label class="custom-file-upload" for="miniature-upload">
-                        <input  id="miniature-upload" type="file" onchange="preview_image(event,'miniature-form')" name="miniature-upload"/>
-                        Choisir un fichier
-                      </label>
-                      <img style="width:30%;height:30%;" id="miniature-form">
-                      <label style="font-size:20px;" for="intro">Ecrivez ci-dessous l'intro de l'article :</label>
-                      <textarea type="hidden" name="intro" id="intro"></textarea>
-                      <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
-                      <textarea type="hidden" name="contenu" id="contenu"></textarea>
-                      <h6>Poster votre article :</h6>
-                      <button id="button_submit" type="submit" class="button button-primary g-recaptcha" data-sitekey="6LcgLPIUAAAAAE3WY-fLlh4HjVM6yiY7NNa0mETn" data-callback='onSubmit' data-action='submit'>Envoyer</button>
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
 
-              </fieldset>
+      <h1 class="mb-5 text-center">Espace de rédaction</h1>
+      <div class="container-fluid">
+        <section>
+          <fieldset class="form-group">
+            <legend>Informations</legend>
+            <ul>
+              <li>Les images : le format recommandé est de 1920x1080.Le format minimum conseillé est de 1280x720.<br>Si
+                votre image n'est pas au bon format,votre publication peut se voir refusée.</li><br>
+              <li>Les paragraphes : Vous pouvez mettre en page vos articles grace au wysiwyg ou à l'aide d'une autre
+                plateforme.</li><br>
+              <li>Les vidéos: Les seules vidéos autorisées sont les vidéos youtube.Vous devez copier/coller le lien de
+                la vidéo pour pouvoir l'envoyer.</li>
+            </ul>
+          </fieldset>
+          <form action="/member/articles" method="post" class="mt-5" id="form_post_article"
+            enctype="multipart/form-data">
+
+            <fieldset class="form-group">
+              <legend>Type d'article</legend>
+              <div class="form-group d-flex flex-column">
+                <label for="categorie">Catégorie de votre article :</label>
+                <select id="categorie" name="categorie">
+                  <option value="1">Console</option>
+                  <option value="2">Jeux</option>
+                  <option value="3">Informatique</option>
+                  <option value="4">Musique</option>
+                  <option value="5">Partenaires</option>
+                  <option value="6">Divers</option>
+                </select>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <legend>Votre article</legend>
+              <div class="form-group d-flex flex-column">
+                <label for="title">Le titre de votre article</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Titre">
+                <label class="custom-file-upload" for="miniature-upload">
+                  <input id="miniature-upload" type="file" onchange="preview_image(event,'miniature-form')"
+                    name="miniature-upload" />
+                  Choisir un fichier
+                </label>
+                <img style="width:30%;height:30%;" id="miniature-form">
+                <label style="font-size:20px;" for="intro">Ecrivez ci-dessous l'intro de l'article :</label>
+                <textarea type="hidden" name="intro" id="intro"></textarea>
+                <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
+                <textarea type="hidden" name="contenu" id="contenu"></textarea>
+                <h6>Poster votre article :</h6>
+                <button id="button_submit" type="submit" class="button button-primary g-recaptcha"
+                  data-sitekey="6LcgLPIUAAAAAE3WY-fLlh4HjVM6yiY7NNa0mETn" data-callback='onSubmit'
+                  data-action='submit'>Envoyer</button>
+
+            </fieldset>
 
           </form>
-      </section>
+        </section>
 
-  </div>
-
+      </div>
+    </main>
     <%- include('../include/footer.ejs') %>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
 
-  </body>
+</body>
+
 </html>
 
 
@@ -138,5 +150,3 @@ document.getElementById('reading').innerHTML =
       marked('# Sample Markdown\n[Don\'t use Simplemde for read-only content](https://github.com/sparksuite/simplemde-markdown-editor/issues/274#issuecomment-196614437).  Use [marked](https://github.com/markedjs/marked)\n- one\n- two\n- three');
     </script>
     -->
-
-

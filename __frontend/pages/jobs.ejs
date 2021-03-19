@@ -1,85 +1,105 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%- include ('include/bootstrap/bootstrap.css.ejs'); -%>
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/jobs.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <%- include ('include/meta'); -%>
-    <title>French Gaming Family</title>
-  </head>
-  <body>
-    
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/jobs.css">
+        <link rel="stylesheet" href="/static/css/footer.css">
+        <%- include ('include/meta'); -%>
+            <title>French Gaming Family</title>
+</head>
+
+<body>
+
     <%- include ('include/nav.ejs'); -%>
-    <div id="container-job">
-    <p>Vous aimez l'entreprise French Gaming Family et vous souhaitez pouvoir y contribuer ? Vous etes au bon endroit ! <br> Actuellement nous recrutons des bénévoles pour assurer la modération et la vie du site. </p>
-    <p>Si vous souhaitez intégrer l'équipe de modération vous devez remplire les conditions minimum ci-dessous : 
-        <ul>
-            <li>• Etre majeur</li>
-            <li>• Avoir un minimum de temps par jour à consacrer au site</li>
-            <li>• Etre capable de s'exprimer en francais</li>
-            <li>• Avoir l'esprit d'équipe</li>
-        </ul>
-        Vous pensse avoir tous ca ?
-        Vous pouvez remplire le formulaire ci-dessous et vous serez recontacter via mail ou l'espace messages du site par un administrateur qui vous expliquera la suite. Bonne chance !
-    </p>
-    
-  </div>
-  <div id="contact" class="row d-flex flex-column align-items-center col-lg-12 m-0 p-0">
-    <form id="staff_form" class="col-lg-8" autocomplete="off" method="post" action="/request/jobs">
-        <legend >Formulaire : rejoindre le staff</legend>
-        <fieldset class="form-group m-0">
-            <legend>Informations</legend>
-            <div>
-            <label for="age">Avez vous plus de 18 ans ?</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="age" id="yes" value="1" checked>
-                    <label class="form-check-label" for="yes">Oui</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="age" id="no" value="0">
-                    <label class="form-check-label" for="no">Non</label>
-                </div>
+        <main role="main">
+            <div id="container-job">
+                <p>Vous aimez l'entreprise French Gaming Family et vous souhaitez pouvoir y contribuer ? Vous etes au
+                    bon endroit ! <br> Actuellement nous recrutons des bénévoles pour assurer la modération et la vie du
+                    site. </p>
+                <p>Si vous souhaitez intégrer l'équipe de modération vous devez remplire les conditions minimum
+                    ci-dessous :
+                <ul>
+                    <li>• Etre majeur</li>
+                    <li>• Avoir un minimum de temps par jour à consacrer au site</li>
+                    <li>• Etre capable de s'exprimer en francais</li>
+                    <li>• Avoir l'esprit d'équipe</li>
+                </ul>
+                Vous pensse avoir tous ca ?
+                Vous pouvez remplire le formulaire ci-dessous et vous serez recontacter via mail ou l'espace messages du
+                site par un administrateur qui vous expliquera la suite. Bonne chance !
+                </p>
+
             </div>
-            <div class="form-group">
-                <label for="q1">Pour quels raisons voulez vous devenir modérateur du site French Gaming Family ?</label>
-                <input type="text" class="form-control question" id="q1" name="q1" placeholder="Quels sont vos motivations ?">
-            </div> 
-            <div class="form-group">
-                <label for="q2">Avez-vous déjà été modérateur d'un projet communautaire ? Si oui, le(s)quel(s) ?</label>
-                <input type="text" class="form-control question" id="q2" name="q2" placeholder="Serveur(s) discord , associations, groupes etc...">
-            </div>  
-            <div class="form-group">
-                <label for="q3">Votre principale qualité ?</label>
-                <input type="text" class="form-control question" id="q3" name="q3" placeholder="Soyez sincère. Votre réponse n'aura aucune conséquence sur votre recrutement.">
+            <div id="contact" class="row d-flex flex-column align-items-center col-lg-12 m-0 p-0">
+                <form id="staff_form" class="col-lg-8" autocomplete="off" method="post" action="/request/jobs">
+                    <legend>Formulaire : rejoindre le staff</legend>
+                    <fieldset class="form-group m-0">
+                        <legend>Informations</legend>
+                        <div>
+                            <label for="age">Avez vous plus de 18 ans ?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="age" id="yes" value="1" checked>
+                                <label class="form-check-label" for="yes">Oui</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="age" id="no" value="0">
+                                <label class="form-check-label" for="no">Non</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="q1">Pour quels raisons voulez vous devenir modérateur du site French Gaming
+                                Family ?</label>
+                            <input type="text" class="form-control question" id="q1" name="q1"
+                                placeholder="Quels sont vos motivations ?">
+                        </div>
+                        <div class="form-group">
+                            <label for="q2">Avez-vous déjà été modérateur d'un projet communautaire ? Si oui,
+                                le(s)quel(s) ?</label>
+                            <input type="text" class="form-control question" id="q2" name="q2"
+                                placeholder="Serveur(s) discord , associations, groupes etc...">
+                        </div>
+                        <div class="form-group">
+                            <label for="q3">Votre principale qualité ?</label>
+                            <input type="text" class="form-control question" id="q3" name="q3"
+                                placeholder="Soyez sincère. Votre réponse n'aura aucune conséquence sur votre recrutement.">
+                        </div>
+                        <div class="form-group">
+                            <label for="q4">Votre principale défaut ? </label>
+                            <input type="text" class="form-control question" id="q4" name="q4"
+                                placeholder="Soyez sincère. Votre réponse n'aura aucune conséquence sur votre recrutement.">
+                        </div>
+                        <div class="form-group">
+                            <label for="q5"> Etes vous pret à donner un peu de votre temps chaque jour pour gérer vos
+                                salons, et chaque semaine pour recruter de nouveaux joueurs sur les reseaux ? </label>
+                            <input type="text" class="form-control question" id="q5" name="q5"
+                                placeholder="Soyez sincère. Nous avons absolument besoin d'un staff actif">
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            <label for="q6">Avez vous une demande, question, remarque à laisser a l'intention des admins
+                                ?</label>
+                            <textarea class="question" name="q6" id="q6" cols="40" rows="4"> </textarea>
+                        </div>
+                        <a>
+                            <div class="g-recaptcha" data-sitekey="6Lc2VNsUAAAAACUt1YxoQYnV2KuxwWumlQETVM_E"></div>
+                        </a><br>
+
+                        <div style="text-align:center;"><button id="button_submit" type="submit" name="submit"
+                                class="button button-primary">Envoyer</button></div>
+
+                    </fieldset>
+
+
+
+
+                </form>
             </div>
-            <div class="form-group">
-                <label for="q4">Votre principale défaut ? </label>
-                <input type="text" class="form-control question" id="q4" name="q4" placeholder="Soyez sincère. Votre réponse n'aura aucune conséquence sur votre recrutement.">
-            </div> 
-            <div class="form-group">
-                <label for="q5"> Etes vous pret à donner un peu de votre temps chaque jour pour gérer vos salons, et chaque semaine pour recruter de nouveaux joueurs sur les reseaux ? </label>
-                <input type="text" class="form-control question" id="q5" name="q5" placeholder="Soyez sincère. Nous avons absolument besoin d'un staff actif">
-            </div> 
-            <div class="form-group d-flex flex-column">
-                <label for="q6">Avez vous une demande, question, remarque à laisser a l'intention des admins ?</label>
-                <textarea class="question" name="q6" id="q6" cols="40" rows="4"> </textarea>
-            </div>
-            <a><div class="g-recaptcha" data-sitekey="6Lc2VNsUAAAAACUt1YxoQYnV2KuxwWumlQETVM_E"></div></a><br>
+        </main>
+        <%- include ('include/footer.ejs'); -%>
+            <%- include ('include/bootstrap/bootstrap.js.ejs'); -%>
+</body>
 
-            <div style="text-align:center;"><button id="button_submit" type="submit" name="submit" class="button button-primary">Envoyer</button></div>
-
-        </fieldset>
-        
-
-        
-
-    </form>      
-</div>    
-
-    <%- include ('include/footer.ejs'); -%>
-    <%- include ('include/bootstrap/bootstrap.js.ejs'); -%>
-  </body>
 </html>

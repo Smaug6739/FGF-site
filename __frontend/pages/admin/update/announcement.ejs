@@ -1,46 +1,54 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
-    <%- include ('../../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+  <!-- Bootstrap CSS -->
+  <%- include ('../../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <title>FGF Annonces</title>
-  </head>
-  <body>
-    <%- include ('../../include/nav.ejs'); -%>
-    <section id="form">
+</head>
+
+<body>
+  <%- include ('../../include/nav.ejs'); -%>
+    <main role="main">
+
+      <section id="form">
         <fieldset class="form-group">
-            <legend>Modifier l'annonce</legend>
-            <form action="/admin/announcement/update/<%=announcement.announcement_id%>" method="POST">
-                <div class="form-group d-flex flex-column">
-                    <label style="font-size:20px;" for="title">Titre de l'annonce :</label>
-                    <input type="text" class="title form-control" name="title" id="title" value="<%=announcement.announcement_title%>">
-                    <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre annonce :</label>
-                    <textarea type="hidden" name="contenu" id="contenu"><%=announcement.announcement_text%></textarea>
-                    <button type="submit" class="button button-success">Modifier</button>
-                </div>
-            </form>
+          <legend>Modifier l'annonce</legend>
+          <form action="/admin/announcement/update/<%=announcement.announcement_id%>" method="POST">
+            <div class="form-group d-flex flex-column">
+              <label style="font-size:20px;" for="title">Titre de l'annonce :</label>
+              <input type="text" class="title form-control" name="title" id="title"
+                value="<%=announcement.announcement_title%>">
+              <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre annonce :</label>
+              <textarea type="hidden" name="contenu" id="contenu"><%=announcement.announcement_text%></textarea>
+              <button type="submit" class="button button-success">Modifier</button>
+            </div>
+          </form>
         </fieldset>
-    </section>
+      </section>
 
-  <div id="center-text">
-    <a href="#" class="button button-info" id="precedent">< Précédent</a>
-    <a href="#" class="button button-info" id="suivant">Suivant ></a>
-  </div>
+      <div id="center-text">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+    </main>
     <%- include ('../../include/footer.ejs'); -%>
-    <%- include ('../../include/bootstrap/bootstrap.js.ejs'); -%>
+      <%- include ('../../include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+</body>
+
 </html>
 
 <style>
-    #form{
-        width: 70%;
-        margin-left: 15%;
-    }
+  #form {
+    width: 70%;
+    margin-left: 15%;
+  }
 </style>

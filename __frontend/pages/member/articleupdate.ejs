@@ -1,94 +1,103 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <link  rel="stylesheet" href="/static/markdown/css/simplemde.css">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/markdown/css/simplemde.css">
     <script src="/static/js/preview.js"></script>
     <script src="/static/markdown/js/simplemde.js"></script>
     <script src="/static/markdown/js/simplemde2.js"></script>
-    <title>API Members</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">Mettre à jour votre article :</h1>
-    <div class="container-fluid">
-      <section>
-          <form action="/member/articles/update/<%= article.id %>" method="post" class="mt-5" id="create_form" enctype="multipart/form-data">
-              <fieldset class="form-group">
-                  <legend>Type d'article</legend>
-                  <div class="form-group d-flex flex-column">
-                      <label for="categorie">Catégorie de votre article :</label>
-                      <select id="categorie" name="categorie">
-                          <option value="1" <%if(article.categorie === 1){%> selected <%}%>>Console</option>
-                          <option value="2" <%if(article.categorie === 2){%> selected <%}%>>Jeux</option>
-                          <option value="3" <%if(article.categorie === 3){%> selected <%}%>>Informatique</option>
-                          <option value="4" <%if(article.categorie === 4){%> selected <%}%>>Musique</option>
-                          <option value="5" <%if(article.categorie === 5){%> selected <%}%>>Partenaires</option>
-                          <option value="6" <%if(article.categorie === 6){%> selected <%}%>>Divers</option>
-                      </select>
-                  </div>
-              </fieldset>
-              <fieldset class="form-group">
-                  <legend>Votre article</legend>
-                  <div class="form-group d-flex flex-column">
-                      <label for="title">Le titre de votre article</label>
-                      <input type="text" class="form-control" id="title" name="title" placeholder="Titre" value="<%= article.title %>">
-                      <label for="miniature-upload">Miniature de l'article :</label>
-                      <img style="width:30%;height:30%;" id="miniature-form" src="/uploads/articles/<%= article.lien_miniature %>">
-                      <label class="custom-file-upload" for="miniature-upload">
-                        <input class="invisible" id="miniature-upload" type="file" onchange="preview_image(event)" name="miniature-upload"/>
-                        Choisir un fichier
-                      </label>
-                      <label style="font-size:20px;" for="intro">Ecrivez ci-dessous l'intro de l'article :</label>
-                      <textarea type="hidden" name="intro" id="intro"><%=article.intro%></textarea>
-                      <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
-                      <textarea type="hidden" name="contenu" id="contenu"><%= article.content %></textarea>
-                      <label style="font-size:20px;" for="button_submit">Poster votre article :</label>
-                      <button id="button_submit" type="submit" class="button button-primary">Mettre a jour votre article</button>
-                  </div>
-              </fieldset>
+    <title>Articles</title>
+</head>
+
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+      <h1 class="mb-5 text-center">Mettre à jour votre article :</h1>
+      <div class="container-fluid">
+        <section>
+          <form action="/member/articles/update/<%= article.id %>" method="post" class="mt-5" id="create_form"
+            enctype="multipart/form-data">
+            <fieldset class="form-group">
+              <legend>Type d'article</legend>
+              <div class="form-group d-flex flex-column">
+                <label for="categorie">Catégorie de votre article :</label>
+                <select id="categorie" name="categorie">
+                  <option value="1" <%if(article.categorie===1){%> selected <%}%>>Console</option>
+                  <option value="2" <%if(article.categorie===2){%> selected <%}%>>Jeux</option>
+                  <option value="3" <%if(article.categorie===3){%> selected <%}%>>Informatique</option>
+                  <option value="4" <%if(article.categorie===4){%> selected <%}%>>Musique</option>
+                  <option value="5" <%if(article.categorie===5){%> selected <%}%>>Partenaires</option>
+                  <option value="6" <%if(article.categorie===6){%> selected <%}%>>Divers</option>
+                </select>
+              </div>
+            </fieldset>
+            <fieldset class="form-group">
+              <legend>Votre article</legend>
+              <div class="form-group d-flex flex-column">
+                <label for="title">Le titre de votre article</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Titre"
+                  value="<%= article.title %>">
+                <label for="miniature-upload">Miniature de l'article :</label>
+                <img style="width:30%;height:30%;" id="miniature-form"
+                  src="/uploads/articles/<%= article.lien_miniature %>">
+                <label class="custom-file-upload" for="miniature-upload">
+                  <input class="invisible" id="miniature-upload" type="file" onchange="preview_image(event)"
+                    name="miniature-upload" />
+                  Choisir un fichier
+                </label>
+                <label style="font-size:20px;" for="intro">Ecrivez ci-dessous l'intro de l'article :</label>
+                <textarea type="hidden" name="intro" id="intro"><%=article.intro%></textarea>
+                <label style="font-size:20px;" for="contenu">Ecrivez ci-dessous votre article :</label>
+                <textarea type="hidden" name="contenu" id="contenu"><%= article.content %></textarea>
+                <label style="font-size:20px;" for="button_submit">Poster votre article :</label>
+                <button id="button_submit" type="submit" class="button button-primary">Mettre a jour votre
+                  article</button>
+              </div>
+            </fieldset>
           </form>
           <fieldset class="form-group">
             <label style="font-size:20px;" for="button_submit">Supprimer votre article :</label>
             <form action="/member/articles/delete/<%= article.id %>" method="POST">
-              <p>Je suis sur de vouloir supprimer cet article : <input type="checkbox" required  name="confirm"></p>
+              <p>Je suis sur de vouloir supprimer cet article : <input type="checkbox" required name="confirm"></p>
               <button id="button_submit" type="submit" class="button button-danger">Supprimer</button>
             </form>
           </fieldset>
-      </section>
-  </div>
-
+        </section>
+      </div>
+    </main>
     <%- include('../include/footer.ejs') %>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+</body>
+
 </html>
 
 
 <style>
   /* don't mess with MDE textarea attributes */
-.mdeContainer {
-  display: inline-block;
-  width: 48%;
-  vertical-align: top;
-}
+  .mdeContainer {
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+  }
 </style>
 
 
 
 <script>
   const editMde = new SimpleMDE({
-  element: document.getElementById('contenu'),
-  initialValue: '',
-  hideIcons: ['guide', 'fullscreen', 'side-by-side']
-  // guide implmentation is open to you
-  // fullscreen and sxs muss up layout
-});
+    element: document.getElementById('contenu'),
+    initialValue: '',
+    hideIcons: ['guide', 'fullscreen', 'side-by-side']
+    // guide implmentation is open to you
+    // fullscreen and sxs muss up layout
+  });
 
 </script>
-

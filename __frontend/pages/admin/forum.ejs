@@ -1,116 +1,139 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+  <!-- Bootstrap CSS -->
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="/static/css/admin/announcements.css">
     <title>FGF Album</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
+</head>
 
-       
-    <section id="announcements">
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+
+
+      <section id="announcements">
         <table class="table table-striped" id="table-announcements">
-            <thead>
+          <thead>
+            <tr>
+              <th scope="col">Titre</th>
+              <th scope="col">Description</th>
+              <th scope="col">Icon</th>
+              <th scope="col">Groupe</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% forums.forEach(element=> { %>
               <tr>
-                <th scope="col">Titre</th>
-                <th scope="col">Description</th>
-                <th scope="col">Icon</th>
-                <th scope="col">Groupe</th>
-                <th scope="col">Action</th>
+                <td>
+                  <%=element.cat_nom%>
+                </td>
+                <td>
+                  <%= element.cat_description %>
+                </td>
+                <td>
+                  <%= element.cat_icon%>
+                </td>
+                <td>
+                  <%= element.cat_container%>
+                </td>
+                <td> <a href="/admin/forum/<%=element.cat_id%>" class="button button-primary">Modifier</a> </td>
               </tr>
-            </thead>
-            <tbody>
-        
-              <%  forums.forEach(element => { %>
-                    <tr>
-                    <td> <%=element.cat_nom%></td>
-                    <td> <%= element.cat_description  %> </td>
-                    <td> <%= element.cat_icon%></td>
-                    <td> <%= element.cat_container%></td>
-                    <td> <a href="/admin/forum/<%=element.cat_id%>" class="button button-primary">Modifier</a> </td>
-                    </tr>
               <% }) %>
-            </tbody>
-          </table>
-    </section>
-    <section id="form">
-      <fieldset class="form-group">
+          </tbody>
+        </table>
+      </section>
+      <section id="form">
+        <fieldset class="form-group">
           <legend>Nouvelle catégorie</legend>
           <form action="/admin/forum/categorie" method="POST">
-              <div class="form-group d-flex flex-column">
-                  <label style="font-size:20px;" for="title">Titre de la catégorie :</label>
-                  <input type="text" class="title form-control" name="title" id="title">
-                  <label style="font-size:20px;" for="content">Description de la catégorie (max 255 caractères) :</label>
-                  <textarea type="hidden" name="content" id="content"></textarea>
-                  <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
-                  <input type="text" class="icon form-control" name="icon" id="icon">
-                  <label style="font-size:20px;" for="icon">Groupe (id) de la catégorie :</label>
-                  <input type="text" class="groupe form-control" name="groupe" id="groupe">
-                  <button type="submit" class="button button-success">Poster</button>
-              </div>
-          </form>
-      </fieldset>
-  </section>
-  <table class="table table-striped" id="table-announcements">
-    
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Date</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%  containers.forEach(element => { %>
-        <%  const account_date = new Date(parseInt(element.cat_container_time)) %>
-        <%  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
-        <%  const year = account_date.getFullYear() %>
-        <%  const month = months[account_date.getMonth()] %>
-        <%  const date = account_date.getDate() %>
-            <tr>
-              <td> <%=element.cat_container_id%></td>
-              <td> <%=element.cat_container_name%></td>
-              <td> <%=`${date}/${month}/${year}`%></td>
-              <td> <a href="/admin/forum/container/<%=element.cat_container_id%>" class="button button-primary">Modifier</a> </td>
-            </tr>
-      <% }) %>
-    </tbody>
-  </table>
-  <section id="form">
-    <fieldset class="form-group">
-        <legend>Nouveau groupe</legend>
-        <form action="/admin/forum/container" method="POST">
             <div class="form-group d-flex flex-column">
-                <label style="font-size:20px;" for="title">Titre du groupe :</label>
-                <input type="text" class="title form-control" name="title" id="title">
-                <button type="submit" class="button button-success">Poster</button>
+              <label style="font-size:20px;" for="title">Titre de la catégorie :</label>
+              <input type="text" class="title form-control" name="title" id="title">
+              <label style="font-size:20px;" for="content">Description de la catégorie (max 255 caractères) :</label>
+              <textarea type="hidden" name="content" id="content"></textarea>
+              <label style="font-size:20px;" for="icon">Icon de la catégorie :</label>
+              <input type="text" class="icon form-control" name="icon" id="icon">
+              <label style="font-size:20px;" for="icon">Groupe (id) de la catégorie :</label>
+              <input type="text" class="groupe form-control" name="groupe" id="groupe">
+              <button type="submit" class="button button-success">Poster</button>
             </div>
-        </form>
-    </fieldset>
-</section>
+          </form>
+        </fieldset>
+      </section>
+      <table class="table table-striped" id="table-announcements">
 
-  <div id="center-text">
-    <a href="#" class="button button-info" id="precedent">< Précédent</a>
-    <a href="#" class="button button-info" id="suivant">Suivant ></a>
-  </div>
-    <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% containers.forEach(element=> { %>
+            <% const account_date=new Date(parseInt(element.cat_container_time)) %>
+              <% const months=['01','02','03','04','05','06','07','08','09','10','11','12']; %>
+                <% const year=account_date.getFullYear() %>
+                  <% const month=months[account_date.getMonth()] %>
+                    <% const date=account_date.getDate() %>
+                      <tr>
+                        <td>
+                          <%=element.cat_container_id%>
+                        </td>
+                        <td>
+                          <%=element.cat_container_name%>
+                        </td>
+                        <td>
+                          <%=`${date} /${month}/${year}`%>
+                        </td>
+                        <td> <a href="/admin/forum/container/<%=element.cat_container_id%>"
+                            class="button button-primary">Modifier</a> </td>
+                      </tr>
+                      <% }) %>
+        </tbody>
+      </table>
+      <section id="form">
+        <fieldset class="form-group">
+          <legend>Nouveau groupe</legend>
+          <form action="/admin/forum/container" method="POST">
+            <div class="form-group d-flex flex-column">
+              <label style="font-size:20px;" for="title">Titre du groupe :</label>
+              <input type="text" class="title form-control" name="title" id="title">
+              <button type="submit" class="button button-success">Poster</button>
+            </div>
+          </form>
+        </fieldset>
+      </section>
 
-  </body>
+      <div id="center-text">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+      <main role="main">
+
+        <%- include ('../include/footer.ejs'); -%>
+          <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+</body>
+
 </html>
 
 <style>
-    #form{
-        width: 70%;
-        margin-left: 15%;
-    }
+  #form {
+    width: 70%;
+    margin-left: 15%;
+  }
 </style>

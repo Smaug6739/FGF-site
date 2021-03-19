@@ -1,71 +1,83 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
     <!-- Bootstrap CSS -->
     <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <link rel="stylesheet" href="/static/css/admin/procedures.css">
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/footer.css">
+        <link rel="stylesheet" href="/static/css/admin/procedures.css">
 
-    <title>FGF - Procédures</title>
-  </head>
-  <body>
+        <title>FGF - Procédures</title>
+</head>
+
+<body>
     <%- include ('../include/nav.ejs'); -%>
-  
-        <h1 style="text-align: center;">Les procédures de gestion :</h1>
-        <section id="container">
-            <h3>Membres :</h3>
-            <h5>Mot de passe oublier :</h5>
-            <p>
+        <main role="main">
+
+            <h1 style="text-align: center;">Les procédures de gestion :</h1>
+            <section id="container">
+                <h3>Membres :</h3>
+                <h5>Mot de passe oublier :</h5>
+                <p>
                 <ol>
-                    1 • Demander une information non publique sur le compte. <br> 
-                        Exemple : Demander le nom, prénom, numéro de téléphone, pseudo, email de la personne. <br>
-                        Si la personne n'est pas en mesure de donner des informations sur le compte, demander un autre élément comme un article encore en attente ou une photo encore en attente. <br>
-                    
-                    2 • Vérifier que les informations que la personne a fournis sont correctes grace a la partie membre de l'interface admin. <br>
-                    
-                    3 • Si les informations sont correct, changer le mot de passe de la personne grace a l'interface admin du site et renvoyer le nouveau mot de passe par mail en lui indiquant de le changer dès que elle ce connectera. <br>
-                    
+                    1 • Demander une information non publique sur le compte. <br>
+                    Exemple : Demander le nom, prénom, numéro de téléphone, pseudo, email de la personne. <br>
+                    Si la personne n'est pas en mesure de donner des informations sur le compte, demander un autre
+                    élément comme un article encore en attente ou une photo encore en attente. <br>
+
+                    2 • Vérifier que les informations que la personne a fournis sont correctes grace a la partie membre
+                    de l'interface admin. <br>
+
+                    3 • Si les informations sont correct, changer le mot de passe de la personne grace a l'interface
+                    admin du site et renvoyer le nouveau mot de passe par mail en lui indiquant de le changer dès que
+                    elle ce connectera. <br>
+
                 </ol>
-            </p>
-            <h5 id="memberBan">Banissement :</h5>
-            <p>
+                </p>
+                <h5 id="memberBan">Banissement :</h5>
+                <p>
                 <ol>
                     Lorsque cela est nécéssaire un membre peut etre banni depuis l'interface admin. <br>
-                    Pendant un banissement la personne ne pourra plus ce connecter, elle ne pourra donc plus recevoir/envoyé de messages privés. <br>
-                    
+                    Pendant un banissement la personne ne pourra plus ce connecter, elle ne pourra donc plus
+                    recevoir/envoyé de messages privés. <br>
+
                     1 • Rechercher la personne dans l'interface admin. <br>
-                    
-                    2 • Une fois la personne trouvée, aller dans « modifier », tous en bas dans « ban » choisir une durée au format "YYY-MM-DD" ou parcourir une date avec le calendrier. <br>
-                    
-                    3 • Etant donner que la personne ne pourra plus ce connecté pendant son banissement il faudra lui notifier sa sanction par email. <br>
+
+                    2 • Une fois la personne trouvée, aller dans « modifier », tous en bas dans « ban » choisir une
+                    durée au format "YYY-MM-DD" ou parcourir une date avec le calendrier. <br>
+
+                    3 • Etant donner que la personne ne pourra plus ce connecté pendant son banissement il faudra lui
+                    notifier sa sanction par email. <br>
 
                 </ol>
-            </p>
-            <h5 id="memberBan">Révoquer un banissement :</h5>
-            <p>
+                </p>
+                <h5 id="memberBan">Révoquer un banissement :</h5>
+                <p>
                 <ol>
                     Il est possible de révouqer une banissement. <br>
 
                     1 • Rechercher la personne dans l'interface admin. <br>
-                    
-                    2 • Une fois la personne trouvée, aller dans « modifier », tous en bas dans « ban » choisir une durée au format "YYY-MM-DD" ou parcourir une date avec le calendrier. <br>
-                    
+
+                    2 • Une fois la personne trouvée, aller dans « modifier », tous en bas dans « ban » choisir une
+                    durée au format "YYY-MM-DD" ou parcourir une date avec le calendrier. <br>
+
                     3 • Choisir la date du jour aurra pour effet d'annuler le banissement. <br>
                 </ol>
-            </p>
-            <h3>Articles :</h3>
-            <h5 id="articleApprouver">Approuver un article :</h5>
-            <p>
+                </p>
+                <h3>Articles :</h3>
+                <h5 id="articleApprouver">Approuver un article :</h5>
+                <p>
                 <ol>
                     1 • Aprouver les articles par ordre d'arriver (vérifier la date) <br>
-                    
-                    2 • Lire l'article, l'intro, vérifier l'orthographe et les images. Controler que l'article ne contient aucun code javascript et/ou balises de style <br>
-                    
+
+                    2 • Lire l'article, l'intro, vérifier l'orthographe et les images. Controler que l'article ne
+                    contient aucun code javascript et/ou balises de style <br>
+
                     3 • Si nécéssaire modifier son ilustration et/ou son texte. <br>
 
                     4 • Si l'article est conforme modifier son statut (En attente -> Validé). <br>
@@ -73,26 +85,28 @@
                     5 • Sinon supprimer l'article. (Tous en bas de la page de modification). <br>
 
                 </ol>
-            </p>
-            <h5 id="articleSupprimer">Supprimer un article :</h5>
-            <p>
+                </p>
+                <h5 id="articleSupprimer">Supprimer un article :</h5>
+                <p>
                 <ol>
                     Une fois approuvés les membres peuvent modifier leur article sans nouvelle vérification. <br>
                     Par conséquent il sera parfois nécéssaire de supprimer l'article <br>
-                    
-                    1 • Supprimer l'article via l'interface admin.  <br>
+
+                    1 • Supprimer l'article via l'interface admin. <br>
 
                     2 • En informer l'auteur via les messages privés en donnant le motif. <br>
 
-                    3 • Si cela est nécéssaire bannir temporairement son auteur. Dans ce cas voir <a href="#membreBanissement"></a> la partie banissement.<br>
+                    3 • Si cela est nécéssaire bannir temporairement son auteur. Dans ce cas voir <a
+                        href="#membreBanissement"></a> la partie banissement.<br>
 
                 </ol>
-            </p>
-        </section>
-        
+                </p>
+            </section>
 
-    <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+        </main>
+        <%- include ('../include/footer.ejs'); -%>
+            <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+</body>
+
 </html>

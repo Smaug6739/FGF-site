@@ -1,58 +1,76 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="/static/css/admin/jobs.css">
     <script src="/static/js/admin/jobs.js"></script>
     <title>API Members</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
-    <h2 class="mb-5 text-center">Demandes de posts à la modération :</h2>
-    <div id="container">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Utilisateur</th>
-            <th scope="col">Statut</th>
-            <th scope="col">Date d'envoi</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%  demandes.forEach(element => { %>
-          <%  const request_date = new Date(parseInt(element.date_insert)) %>
-          <%  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
-          <%  const year = request_date.getFullYear() %>
-          <%  const month = months[request_date.getMonth()] %>
-          <%  const date = request_date.getDate() %>
-                <tr>
-                <td> <%=element.user_id%></td>
-                <% if(element.statut === 1){ %>
-                  <td> <div class="badge badge-success"> Traiter </div> </td>
-                 <% } else if(element.statut === 2){ %>
-                    <td> <div class="badge badge-danger"> Refuser </div> </td>
-                 <% }else{%>
-                  <td> <div class="badge badge-secondary"> En attente </div> </td>
-                 <% } %>                
-                 <td> <%= `${date}/${month}/${year}`  %> </td>
-                <td> <a class="button button-primary mt-3"href="/admin/jobs/view/<%=element.id%>">Voir </a></td>
-                </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    </div>
-  
-  <div id="center-text">
-    <a href="#" class="button button-info" id="precedent">< Précédent</a>
-    <a href="#" class="button button-info" id="suivant">Suivant ></a>
-  </div>
-    <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+</head>
 
-  </body>
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+      <h2 class="mb-5 text-center">Demandes de posts à la modération :</h2>
+      <div id="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Utilisateur</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Date d'envoi</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% demandes.forEach(element=> { %>
+              <% const request_date=new Date(parseInt(element.date_insert)) %>
+                <% var months=['01','02','03','04','05','06','07','08','09','10','11','12']; %>
+                  <% const year=request_date.getFullYear() %>
+                    <% const month=months[request_date.getMonth()] %>
+                      <% const date=request_date.getDate() %>
+                        <tr>
+                          <td>
+                            <%=element.user_id%>
+                          </td>
+                          <% if(element.statut===1){ %>
+                            <td>
+                              <div class="badge badge-success"> Traiter </div>
+                            </td>
+                            <% } else if(element.statut===2){ %>
+                              <td>
+                                <div class="badge badge-danger"> Refuser </div>
+                              </td>
+                              <% }else{%>
+                                <td>
+                                  <div class="badge badge-secondary"> En attente </div>
+                                </td>
+                                <% } %>
+                                  <td>
+                                    <%= `${date}/${month}/${year}` %>
+                                  </td>
+                                  <td> <a class="button button-primary mt-3"
+                                      href="/admin/jobs/view/<%=element.id%>">Voir </a></td>
+                        </tr>
+                        <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="center-text">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+    </main>
+    <%- include ('../include/footer.ejs'); -%>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+</body>
+
 </html>

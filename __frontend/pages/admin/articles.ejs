@@ -1,64 +1,80 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
-    <!-- Bootstrap CSS -->
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
+  <!-- Bootstrap CSS -->
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="/static/css/admin/articles.css">
     <script src="/static/js/admin/articles.js"></script>
 
     <title>API Members</title>
-  </head>
-  <body>
-    <%- include ('../include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">Tous les articles</h1>
-<div id="container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Titre</th>
-        <th scope="col">Date</th>
-        <th scope="col">Status</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%  articles.forEach(element => { %>
-      <%  const date_insert = new Date(parseInt(element.date_insert)) %>
-      <%  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
-      <%  const year = date_insert.getFullYear() %>
-      <%  const month = months[date_insert.getMonth()] %>
-      <%  const date = date_insert.getDate() %>
+</head>
+
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+      <h1 class="mb-5 text-center">Tous les articles</h1>
+      <div id="container">
+        <table class="table table-striped">
+          <thead>
             <tr>
-            <td> <%= element.title  %> </td>
-            <td> <%= `${date}/${month}/${year}`  %> </td>
-            <% if(element.status === 1){ %>
-                <td> <div class="badge badge-success"> Validé </div> </td>
-               <% } else { %>
-                  <td> <div class="badge badge-secondary"> En attente </div> </td>
-               <% } %>
-            <td> <a class="button button-primary mt-3"href="/admin/articles/update/<%=element.id%>">Modiffier </a></td>
+              <th scope="col">Titre</th>
+              <th scope="col">Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
             </tr>
-      <% }) %>
-    </tbody>
-  </table>
-  <a href="/admin/articles/random/createur" class="btn btn-outline-warning">+ Random créateur</a>
-  <div id="statut"></div>
-</div>
+          </thead>
+          <tbody>
+            <% articles.forEach(element=> { %>
+              <% const date_insert=new Date(parseInt(element.date_insert)) %>
+                <% var months=['01','02','03','04','05','06','07','08','09','10','11','12']; %>
+                  <% const year=date_insert.getFullYear() %>
+                    <% const month=months[date_insert.getMonth()] %>
+                      <% const date=date_insert.getDate() %>
+                        <tr>
+                          <td>
+                            <%= element.title %>
+                          </td>
+                          <td>
+                            <%= `${date}/${month}/${year}` %>
+                          </td>
+                          <% if(element.status===1){ %>
+                            <td>
+                              <div class="badge badge-success"> Validé </div>
+                            </td>
+                            <% } else { %>
+                              <td>
+                                <div class="badge badge-secondary"> En attente </div>
+                              </td>
+                              <% } %>
+                                <td> <a class="button button-primary mt-3"
+                                    href="/admin/articles/update/<%=element.id%>">Modiffier </a></td>
+                        </tr>
+                        <% }) %>
+          </tbody>
+        </table>
+        <a href="/admin/articles/random/createur" class="btn btn-outline-warning">+ Random créateur</a>
+        <div id="statut"></div>
+      </div>
 
-  <div id="center-text">
-    <a href="#" class="button button-info" id="precedent">< Précédent</a>
-    <a href="#" class="button button-info" id="suivant">Suivant ></a>
-  </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <div id="center-text">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    </main>
     <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
-  </body>
+</body>
+
 </html>

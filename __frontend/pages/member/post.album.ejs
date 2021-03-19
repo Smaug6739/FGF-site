@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
     <script src="/static/js/img-preview.js"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
@@ -14,40 +15,47 @@
       }
     </script>
     <title>API Members</title>
-  </head>
- <body>
-    <%- include ('../include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">Espace de rédaction</h1>
-    <div class="container-fluid">
-      <section>
+</head>
+
+<body>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+      <h1 class="mb-5 text-center">Espace de rédaction</h1>
+      <div class="container-fluid">
+        <section>
           <form action="/member/album" method="post" class="mt-5" id="form_album" enctype="multipart/form-data">
 
-              <fieldset class="form-group">
-                  <legend>Votre article</legend>
-                  <div class="form-group d-flex flex-column">
-                      <label for="title">Le titre de votre image</label>
-                      <input type="text" class="form-control" id="title" name="title" placeholder="Titre">
-                      <label class="custom-file-upload" for="album-upload">
-                        <input  id="album-upload" type="file" onchange="preview_image(event,'album-form')" name="album-upload"/>
-                        Choisir un fichier
-                      </label>
-                      <img style="width:30%;height:30%;" id="album-form">
-                      
-                      <h6>Poster votre image :</h6>
-                      <button id="button_submit" type="submit" class="button button-primary g-recaptcha" data-sitekey="6LcgLPIUAAAAAE3WY-fLlh4HjVM6yiY7NNa0mETn" data-callback='onSubmit' data-action='submit'>Envoyer</button>
-                      
-              </fieldset>
+            <fieldset class="form-group">
+              <legend>Votre article</legend>
+              <div class="form-group d-flex flex-column">
+                <label for="title">Le titre de votre image</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Titre">
+                <label class="custom-file-upload" for="album-upload">
+                  <input id="album-upload" type="file" onchange="preview_image(event,'album-form')"
+                    name="album-upload" />
+                  Choisir un fichier
+                </label>
+                <img style="width:30%;height:30%;" id="album-form">
+
+                <h6>Poster votre image :</h6>
+                <button id="button_submit" type="submit" class="button button-primary g-recaptcha"
+                  data-sitekey="6LcgLPIUAAAAAE3WY-fLlh4HjVM6yiY7NNa0mETn" data-callback='onSubmit'
+                  data-action='submit'>Envoyer</button>
+
+            </fieldset>
 
           </form>
-      </section>
+        </section>
 
-  </div>
-
+      </div>
+    </main>
     <%- include('../include/footer.ejs') %>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
 
 
-  </body>
+</body>
+
 </html>
 
 
@@ -106,5 +114,3 @@ document.getElementById('reading').innerHTML =
       marked('# Sample Markdown\n[Don\'t use Simplemde for read-only content](https://github.com/sparksuite/simplemde-markdown-editor/issues/274#issuecomment-196614437).  Use [marked](https://github.com/markedjs/marked)\n- one\n- two\n- three');
     </script>
     -->
-
-

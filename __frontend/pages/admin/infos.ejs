@@ -1,102 +1,116 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--<script type="text/javascript" src="/static/js/admin.js"></script>-->
     <!-- Bootstrap CSS -->
     <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <link rel="stylesheet" href="/static/css/admin/infos.css">
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/footer.css">
+        <link rel="stylesheet" href="/static/css/admin/infos.css">
 
-    <title>FGF Admin - Infos</title>
-  </head>
-  <body>
+        <title>FGF Admin - Infos</title>
+</head>
+
+<body>
     <%- include ('../include/nav.ejs'); -%>
-    <h1 class="mb-5 text-center">Informations sur l'interface admin</h1>
-    <section id="container">
-      <h4>Module d'informations :</h4>
-      <p>
-          C'est cette page 😉 <br>
-          -Donne des informations sur les différents modules. <br>
-          -Explique le fonctionnement de chacun des modules.
-      </p>
-      <h4>Module de resources :</h4>
-      <p>
-          Liste les différents documents publiques du site : <br>
-          On y retrouve : <br>
-          La liste des PDFs présents dans les formulaires pour les donner aux membres en cas de bseoin. <br>
-          La liste des icons avec leurs noms. (nécéssaire lors de la création d'une catégorie dans le forum)
+        <main role="main">
 
-      </p>
-      <h4>Module de procédures :</h4>
-      <p>
-          C'est le guide des actions pour les admins. <br>
-          Il donne les procédures à suivre pour effectuer certaines actions importantes (bannir un membre, réinitialiser un mot de passe...) <br>
-      </p>
-      <h4>Module de membres :</h4>
-      <p>
-          C'est sans doute le module le plus important. <br>
-          Il permet de modifier les comptes des membres inscrits <br>
-          -Il permet de changer des mots de passes <br>
-          -De changer des paramètres aux comptes <br>
-          -Il permet de bannir un membre (consulter l'onglet « procédures » )
-      </p>
-      <h4>Module d'annonces :</h4>
-      <p>
-          Il permet de gérer les annonces du site. <br>
-          Les annonces sont des texts informatifs composés uniquement de caractères (pas d'images) visibles par les membres dans la page annonces.<br>
-          -Il permet de créer une annonce <br>
-          -De modifier une annonce <br>
-          -De supprimer une annonce
-      </p>
-      <h4>Module d'articles :</h4>
-      <p>
-          Il permet de gérer les articles du site. <br>
-          Les articles doivent etres approuvés ou rejetés depuis ce module.<br>
-          -Il permet d'approuver des articles <br>
-          -De supprimer des articles <br>
-          -De modifier des articles
-      </p>
-      <h4>Module d'album :</h4>
-      <p>
-          Il permet de gérer les photos du site. <br>
-          Les photos doivent etres approuvés ou rejetés depuis ce module.<br>
-          -Il permet d'approuver des photos <br>
-          -De supprimer des photos <br>
-          -De modifier des photos
-      </p>
-      <h4>Module de Forum :</h4>
-      <p>
-          Il permet de gérer les catégories du forum du site. <br>
-          Attention, ce module permet la supression d'une catégorie entière. Si une catégorie est supprimeé tous les topics avec tous leurs messages seront inaccessibles.
-          Ce module permet également d'ajouter une catégorie. Pour la partie "icon" dans le formulaire, les noms utilisés doivent etres ceux présents dans la partie "resources" de l'interface admin. (Le nom comprend l'extension)
-          
-      </p>
-      <h4>Module de modérateurs :</h4>
-      <p>
-          Il permet de gérer les modérateurs du forum du site. <br>
-          Pour ajouter un modérateur il faut utiliser le pseudo exact de la personne (il peut etre recherché via le module membres de l'interface admin) <br>
-          Il faut également séléctionner le nom exact de la catégorie.
-          
-      </p>
-      <h4>Module de demandes :</h4>
-      <p>
-         Ce module asser simple permet de voir les demandes effectués, de changer leur statut.
-      </p>
-      <h4>Module de demandes modérateurs :</h4>
-      <p>
-         Ce module asser simple permet de voir les demandes pour le post de modérateur effectués, de changer leur statut.
-      </p>
-      <h4>Module de demandes partenariats :</h4>
-      <p>
-         Ce module asser simple permet de voir les demandes de partenariats effectués, de changer leur statut.
-      </p>
-  </section>
-    <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+            <h1 class="mb-5 text-center">Informations sur l'interface admin</h1>
+            <section id="container">
+                <h4>Module d'informations :</h4>
+                <p>
+                    C'est cette page 😉 <br>
+                    -Donne des informations sur les différents modules. <br>
+                    -Explique le fonctionnement de chacun des modules.
+                </p>
+                <h4>Module de resources :</h4>
+                <p>
+                    Liste les différents documents publiques du site : <br>
+                    On y retrouve : <br>
+                    La liste des PDFs présents dans les formulaires pour les donner aux membres en cas de bseoin. <br>
+                    La liste des icons avec leurs noms. (nécéssaire lors de la création d'une catégorie dans le forum)
 
-  </body>
+                </p>
+                <h4>Module de procédures :</h4>
+                <p>
+                    C'est le guide des actions pour les admins. <br>
+                    Il donne les procédures à suivre pour effectuer certaines actions importantes (bannir un membre,
+                    réinitialiser un mot de passe...) <br>
+                </p>
+                <h4>Module de membres :</h4>
+                <p>
+                    C'est sans doute le module le plus important. <br>
+                    Il permet de modifier les comptes des membres inscrits <br>
+                    -Il permet de changer des mots de passes <br>
+                    -De changer des paramètres aux comptes <br>
+                    -Il permet de bannir un membre (consulter l'onglet « procédures » )
+                </p>
+                <h4>Module d'annonces :</h4>
+                <p>
+                    Il permet de gérer les annonces du site. <br>
+                    Les annonces sont des texts informatifs composés uniquement de caractères (pas d'images) visibles
+                    par les membres dans la page annonces.<br>
+                    -Il permet de créer une annonce <br>
+                    -De modifier une annonce <br>
+                    -De supprimer une annonce
+                </p>
+                <h4>Module d'articles :</h4>
+                <p>
+                    Il permet de gérer les articles du site. <br>
+                    Les articles doivent etres approuvés ou rejetés depuis ce module.<br>
+                    -Il permet d'approuver des articles <br>
+                    -De supprimer des articles <br>
+                    -De modifier des articles
+                </p>
+                <h4>Module d'album :</h4>
+                <p>
+                    Il permet de gérer les photos du site. <br>
+                    Les photos doivent etres approuvés ou rejetés depuis ce module.<br>
+                    -Il permet d'approuver des photos <br>
+                    -De supprimer des photos <br>
+                    -De modifier des photos
+                </p>
+                <h4>Module de Forum :</h4>
+                <p>
+                    Il permet de gérer les catégories du forum du site. <br>
+                    Attention, ce module permet la supression d'une catégorie entière. Si une catégorie est supprimeé
+                    tous les topics avec tous leurs messages seront inaccessibles.
+                    Ce module permet également d'ajouter une catégorie. Pour la partie "icon" dans le formulaire, les
+                    noms utilisés doivent etres ceux présents dans la partie "resources" de l'interface admin. (Le nom
+                    comprend l'extension)
+
+                </p>
+                <h4>Module de modérateurs :</h4>
+                <p>
+                    Il permet de gérer les modérateurs du forum du site. <br>
+                    Pour ajouter un modérateur il faut utiliser le pseudo exact de la personne (il peut etre recherché
+                    via le module membres de l'interface admin) <br>
+                    Il faut également séléctionner le nom exact de la catégorie.
+
+                </p>
+                <h4>Module de demandes :</h4>
+                <p>
+                    Ce module asser simple permet de voir les demandes effectués, de changer leur statut.
+                </p>
+                <h4>Module de demandes modérateurs :</h4>
+                <p>
+                    Ce module asser simple permet de voir les demandes pour le post de modérateur effectués, de changer
+                    leur statut.
+                </p>
+                <h4>Module de demandes partenariats :</h4>
+                <p>
+                    Ce module asser simple permet de voir les demandes de partenariats effectués, de changer leur
+                    statut.
+                </p>
+            </section>
+        </main>
+        <%- include ('../include/footer.ejs'); -%>
+            <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+
+</body>
+
 </html>

@@ -17,55 +17,57 @@
 
 <body>
   <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
 
-    <table class="table table-striped" id="table-albums">
-      <thead>
-        <tr>
-          <th scope="col">Image</th>
-          <th scope="col">Titre</th>
-          <th scope="col">Date de publication</th>
-          <th scope="col">Actions</th>
-          <th scope="col">Statut</th>
-        </tr>
-      </thead>
-      <tbody>
+      <table class="table table-striped" id="table-albums">
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Date de publication</th>
+            <th scope="col">Actions</th>
+            <th scope="col">Statut</th>
+          </tr>
+        </thead>
+        <tbody>
 
-        <% albums.forEach(element=> { %>
-          <% const albumDate=new Date(parseInt(element.album_date)) %>
-            <% var months=['1','2','3','4','5','6','7','8','9','10','11','12']; %>
-              <% const year=albumDate.getFullYear() %>
-                <% const month=months[albumDate.getMonth()] %>
-                  <% const date=albumDate.getDate() %>
-                    <tr>
-                      <td> <img src="/uploads/album/<%=element.album_image%>" class="image"></td>
-                      <td>
-                        <%= element.album_title %>
-                      </td>
-                      <td>
-                        <%= `${date}/${month}/${year}` %>
-                      </td>
-                      <% if(element.album_statut===1){ %>
+          <% albums.forEach(element=> { %>
+            <% const albumDate=new Date(parseInt(element.album_date)) %>
+              <% var months=['1','2','3','4','5','6','7','8','9','10','11','12']; %>
+                <% const year=albumDate.getFullYear() %>
+                  <% const month=months[albumDate.getMonth()] %>
+                    <% const date=albumDate.getDate() %>
+                      <tr>
+                        <td> <img src="/uploads/album/<%=element.album_image%>" class="image"></td>
                         <td>
-                          <div class="badge badge-success"> Validé </div>
+                          <%= element.album_title %>
                         </td>
-                        <% } else { %>
+                        <td>
+                          <%= `${date}/${month}/${year}` %>
+                        </td>
+                        <% if(element.album_statut===1){ %>
                           <td>
-                            <div class="badge badge-secondary"> En attente </div>
+                            <div class="badge badge-success"> Validé </div>
                           </td>
-                          <% } %>
-                            <td> <a class="button button-primary mt-3"
-                                href="/admin/albums/update/<%=element.album_id%>">Modiffier </a></td>
-                    </tr>
-                    <% }) %>
-      </tbody>
-    </table>
-    <div id="center">
-      <a href="#" class="button button-info" id="precedent">
-        < Précédent</a>
-          <a href="#" class="button button-info" id="suivant">Suivant ></a>
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+                          <% } else { %>
+                            <td>
+                              <div class="badge badge-secondary"> En attente </div>
+                            </td>
+                            <% } %>
+                              <td> <a class="button button-primary mt-3"
+                                  href="/admin/albums/update/<%=element.album_id%>">Modiffier </a></td>
+                      </tr>
+                      <% }) %>
+        </tbody>
+      </table>
+      <div id="center">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    </main>
     <%- include ('../include/footer.ejs'); -%>
       <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
         <script src="/static/js/admin/albums.js"></script>

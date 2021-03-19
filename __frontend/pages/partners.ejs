@@ -1,175 +1,194 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%- include ('include/bootstrap/bootstrap.css.ejs'); -%>
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/jobs.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <%- include ('include/meta'); -%>
-    <title>French Gaming Family</title>
-  </head>
-  <body>
-    
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/jobs.css">
+        <link rel="stylesheet" href="/static/css/footer.css">
+        <%- include ('include/meta'); -%>
+            <title>French Gaming Family</title>
+</head>
+
+<body>
+
     <%- include ('include/nav.ejs'); -%>
-    <div id="partenariat" class="container-fluid">
+        <main role="main">
+            <div id="partenariat" class="container-fluid">
 
-        <div id="contact" class="d-flex flex-column align-items-center col-lg-12">
+                <div id="contact" class="d-flex flex-column align-items-center col-lg-12">
 
-            <form class="mt-5 col-lg-8" autocomplete="off" method="post" action="/request/partners">
+                    <form class="mt-5 col-lg-8" autocomplete="off" method="post" action="/request/partners">
 
-                <fieldset class="form-group" >
+                        <fieldset class="form-group">
 
-                    <legend>Qu'est ce que le rôle de partenaire ?</legend>
+                            <legend>Qu'est ce que le rôle de partenaire ?</legend>
 
-                    <p>
+                            <p>
 
-                        Ce rôle est donné aux personnes ayant postuler pour mettre en avant un projet, un serveur discord, un site internet etc... 
+                                Ce rôle est donné aux personnes ayant postuler pour mettre en avant un projet, un
+                                serveur discord, un site internet etc...
 
-                        Il a pour avantage d'être plus visible que les autres et d'octroyer des permissions supplémentaires. 
+                                Il a pour avantage d'être plus visible que les autres et d'octroyer des permissions
+                                supplémentaires.
 
-                        Vous pourrez parler de votre projet sur une page dédiée de notre site
+                                Vous pourrez parler de votre projet sur une page dédiée de notre site
 
-                        Si vous êtes propriétaire d'un projet répondant aux critères ci-dessous vous êtes invité à postuler pour éventuellement devenir partenaire.
+                                Si vous êtes propriétaire d'un projet répondant aux critères ci-dessous vous êtes invité
+                                à postuler pour éventuellement devenir partenaire.
 
-                    </p>
+                            </p>
 
-                </fieldset>
+                        </fieldset>
 
 
 
-                <fieldset class="form-group" >
+                        <fieldset class="form-group">
 
-                    <legend >Conditions pour devenir partenaire :</legend>
+                            <legend>Conditions pour devenir partenaire :</legend>
 
-                    <ul>
+                            <ul>
 
-                        <li>• Nous ne traitons qu'avec des personnes majeures</li>
+                                <li>• Nous ne traitons qu'avec des personnes majeures</li>
 
-                        <li>• Votre projet/serveur/site...etc doit être accessible par tous.</li>
+                                <li>• Votre projet/serveur/site...etc doit être accessible par tous.</li>
 
-                        <li>• Votre projet/serveur/site...etc doit être visité par un administrateur qui validera ensuite la demande.</li>
+                                <li>• Votre projet/serveur/site...etc doit être visité par un administrateur qui
+                                    validera ensuite la demande.</li>
 
-                    </ul>
+                            </ul>
 
-                </fieldset>
+                        </fieldset>
 
 
 
-                <fieldset class="form-group">
+                        <fieldset class="form-group">
 
-                    <legend>Vos coordonnées</legend>
+                            <legend>Vos coordonnées</legend>
 
-                    <div class="form-group">
+                            <div class="form-group">
 
-                        <label for="in_pseudo">Votre pseudo discord</label>
+                                <label for="in_pseudo">Votre pseudo discord</label>
 
-                        <input type="text" class="form-control" id="in_pseudo" name="pseudo" placeholder="User#0000">
+                                <input type="text" class="form-control" id="in_pseudo" name="pseudo"
+                                    placeholder="User#0000">
 
-                    </div>
+                            </div>
 
-                    <div class="form-group">
+                            <div class="form-group">
 
-                        <label for="in_mail">Votre adresse mail</label>
+                                <label for="in_mail">Votre adresse mail</label>
 
-                        <input type="email" class="form-control" id="in_mail" name="email" placeholder="Votre mail">
+                                <input type="email" class="form-control" id="in_mail" name="email"
+                                    placeholder="Votre mail">
 
-                    </div>
+                            </div>
 
-                </fieldset>
+                        </fieldset>
 
 
 
-                <fieldset class="form-group">
-                <div>
-                    <legend>Informations</legend>
+                        <fieldset class="form-group">
+                            <div>
+                                <legend>Informations</legend>
 
-                    <label for="age">Avez vous plus de 18 ans ?</label>
+                                <label for="age">Avez vous plus de 18 ans ?</label>
 
-                    <div class="form-check">
+                                <div class="form-check">
 
-                        <input class="form-check-input" type="radio" name="age" id="yes" value="1" checked>
+                                    <input class="form-check-input" type="radio" name="age" id="yes" value="1" checked>
 
-                        <label class="form-check-label" for="yes">Oui</label>
+                                    <label class="form-check-label" for="yes">Oui</label>
 
-                      </div>
+                                </div>
 
-                      <div class="form-check">
+                                <div class="form-check">
 
-                        <input class="form-check-input" type="radio" name="age" id="no" value="0">
+                                    <input class="form-check-input" type="radio" name="age" id="no" value="0">
 
-                        <label class="form-check-label" for="no">Non</label>
+                                    <label class="form-check-label" for="no">Non</label>
 
-                      </div>
+                                </div>
 
-                    <div class="form-group">
+                                <div class="form-group">
 
-                        <label for="q1">Pour quelles raisons voulez-vous devenir partenaire du serveur discord French Gaming Family ?</label>
+                                    <label for="q1">Pour quelles raisons voulez-vous devenir partenaire du serveur
+                                        discord French Gaming Family ?</label>
 
-                        <input type="text" class="form-control question" id="q1" name="q1" placeholder="Quels sont vos motivations ?">
+                                    <input type="text" class="form-control question" id="q1" name="q1"
+                                        placeholder="Quels sont vos motivations ?">
 
-                    </div> 
+                                </div>
 
-                    <div class="form-group">
+                                <div class="form-group">
 
-                        <label for="q2">Avez-vous déjà été partenaire d'un projet communautaire ? Si oui, le(s)quel(s) ?</label>
+                                    <label for="q2">Avez-vous déjà été partenaire d'un projet communautaire ? Si oui,
+                                        le(s)quel(s) ?</label>
 
-                        <input type="text" class="form-control question" id="q2" name="q2" placeholder="Serveur(s) discord , associations, groupes etc...">
+                                    <input type="text" class="form-control question" id="q2" name="q2"
+                                        placeholder="Serveur(s) discord , associations, groupes etc...">
 
-                    </div>  
+                                </div>
 
-                    <div class="form-group">
+                                <div class="form-group">
 
-                        <label for="q3">Quel projet vous a pousser à faire cette requête ?</label>
+                                    <label for="q3">Quel projet vous a pousser à faire cette requête ?</label>
 
-                        <input type="text" class="form-control question" id="q3" name="q3" placeholder="">
+                                    <input type="text" class="form-control question" id="q3" name="q3" placeholder="">
 
-                    </div>
+                                </div>
 
-                    <div class="form-group">
+                                <div class="form-group">
 
-                        <label for="q4">Pourquoi nous avoir choisis ?</label>
+                                    <label for="q4">Pourquoi nous avoir choisis ?</label>
 
-                        <input type="text" class="form-control question" id="q4" name="q4" placeholder="">
+                                    <input type="text" class="form-control question" id="q4" name="q4" placeholder="">
 
-                    </div>
+                                </div>
 
-                    <div class="form-group">
+                                <div class="form-group">
 
-                        <label for="q5">Pouvez-vous nous donner des informations en plus sur votre projet ?</label>
+                                    <label for="q5">Pouvez-vous nous donner des informations en plus sur votre projet
+                                        ?</label>
 
-                        <input type="text" class="form-control question" id="q5" name="q5" placeholder="lien du serveur discord etc.">
+                                    <input type="text" class="form-control question" id="q5" name="q5"
+                                        placeholder="lien du serveur discord etc.">
 
-                    </div>
+                                </div>
 
 
 
-                    <div class="form-group d-flex flex-column">
+                                <div class="form-group d-flex flex-column">
 
-                        <label for="q6">Avez-vous une demande, question, remarque à laisser à notre intention ?</label>
+                                    <label for="q6">Avez-vous une demande, question, remarque à laisser à notre
+                                        intention ?</label>
 
-                        <textarea class=" question" id="q6" name="q6" id="question" cols="40" rows="4"> </textarea>
+                                    <textarea class=" question" id="q6" name="q6" id="question" cols="40"
+                                        rows="4"> </textarea>
 
-                    </div>
-                    <div class="g-recaptcha" data-sitekey="6Lc2VNsUAAAAACUt1YxoQYnV2KuxwWumlQETVM_E"></div>
+                                </div>
+                                <div class="g-recaptcha" data-sitekey="6Lc2VNsUAAAAACUt1YxoQYnV2KuxwWumlQETVM_E"></div>
+
+                            </div>
+                        </fieldset>
+                        <button id="button_submit" type="submit" name="submit"
+                            class="button button-primary">Envoyer</button>
+
+
+
+
+
+
+                    </form>
 
                 </div>
-                </fieldset>
-                <button id="button_submit" type="submit" name="submit" class="button button-primary">Envoyer</button>
-               
 
+            </div>
+        </main>
+        <%- include ('include/footer.ejs'); -%>
+            <%- include ('include/bootstrap/bootstrap.js.ejs'); -%>
+</body>
 
-
-
-
-            </form> 
-
-        </div>
-
-    </div>
-
-    <%- include ('include/footer.ejs'); -%>
-    <%- include ('include/bootstrap/bootstrap.js.ejs'); -%>
-  </body>
 </html>

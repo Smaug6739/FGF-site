@@ -1,55 +1,61 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <link  rel="stylesheet" href="/static/css/album/album.css">
-    <script  src="/static/js/album/album.js"></script>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/album/album.css">
+    <script src="/static/js/album/album.js"></script>
     <%- include ('../include/meta'); -%>
-    <title>FGF - Album</title>
-  </head>
-  <body>
+      <title>FGF - Album</title>
+</head>
 
-    <%- include ('../include/nav.ejs'); -%>
-    <div id="container">
-      <% const tailleArray = images.length %>
-      <% const taille = Math.floor(tailleArray/4) %>
-      <% const array1 = images.slice(0,taille) %>
-      <% const array2 = images.length %>
-      <% const array3 = images.length %>
-      <% const array4 = images.length %>
-    <%if(images.length){%>
-      <div class="row">
-      <% images.forEach(element => { %>
-            <img class="image" src="/uploads/album/<%=element.album_image%>">
-      <%});%>
-      <div id="myModal" class="modal">
+<body>
 
-        <!-- The Close Button -->
-        <span class="close">&times;</span>
-      
-        <!-- Modal Content (The Image) -->
-        <img class="modal-content" id="img01">
-      
-        <!-- Modal Caption (Image Text) -->
-        <div id="caption"></div>
+  <%- include ('../include/nav.ejs'); -%>
+    <main role="main">
+
+      <div id="container">
+        <% const tailleArray=images.length %>
+          <% const taille=Math.floor(tailleArray/4) %>
+            <% const array1=images.slice(0,taille) %>
+              <% const array2=images.length %>
+                <% const array3=images.length %>
+                  <% const array4=images.length %>
+                    <%if(images.length){%>
+                      <div class="row">
+                        <% images.forEach(element=> { %>
+                          <img class="image" src="/uploads/album/<%=element.album_image%>">
+                          <%});%>
+                            <div id="myModal" class="modal">
+
+                              <!-- The Close Button -->
+                              <span class="close">&times;</span>
+
+                              <!-- Modal Content (The Image) -->
+                              <img class="modal-content" id="img01">
+
+                              <!-- Modal Caption (Image Text) -->
+                              <div id="caption"></div>
+                            </div>
+                      </div>
+
+                      <%}else{%>
+                        <h2>Aucune image sur cette page</h2>
+                        <%}%>
       </div>
-    </div>
-
-    <%}else{%>
-      <h2>Aucune image sur cette page</h2>
-    <%}%>
-    </div>
-    <div id="buttons-page">
-      <a href="#" class="button button-info" id="precedent">< Précédent</a>
-      <a href="#" class="button button-info" id="suivant">Suivant ></a>
-    </div>
-
+      <div id="buttons-page">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
+    </main>
     <%- include('../include/footer.ejs') %>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
-  </body>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+</body>
+
 </html>
