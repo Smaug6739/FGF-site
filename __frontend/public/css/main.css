@@ -4,20 +4,19 @@
     padding: 0;
 }
 body{
-    background-color: #dbdbdb;
+    background-color: rgb(240, 240, 240);
 }
 ::selection{
     color: #fff;
     background: black;
 }
+a:hover{color:black}
 .grecaptcha-badge { z-index : 10 ; }
-
-#center-text{
-    text-align:center;
-}
+.margin-5-right{margin-right: 5px;}
+#center-text{text-align:center;}
 /* NAV */
 .nav-li{margin-top: 10px;}
-.navigation-bar{background-color:#236281}
+.navigation-bar{background-color:#013650}
 .ban{width:400px;margin-top : -20px}
 #menu-compte{margin-right: 10px;}
 

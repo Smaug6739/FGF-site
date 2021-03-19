@@ -13,7 +13,6 @@
     color : var(--dark-red);
     margin-left:1%;
 }
-
 /*  ANNONCES  */
 
 #annonces{
@@ -205,8 +204,10 @@
 
 .image-album{
     height: 25em;
-    width: 50%;
-    margin-left: 25%;
+    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -234,9 +235,15 @@
         padding : 3%;
     }
     .image-album{
-        height: 180px;
+        /*height: 100%;
         width: 80%;
-        margin-left: 10%;
+        margin-left: 10%;*/
+        height: 12em;
+        width: auto;
+        max-width: 95%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
     }
 }
 
