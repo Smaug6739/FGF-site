@@ -5,7 +5,7 @@ The French Gaming Family site is accessible via the link http://french-gaming-fa
 
 
 
-## Comment l'installer en locale
+## How to install
 1. Clone the repo.
 2. Install the tools to be able to operate it: <br> 
 	   -Nodejs : https://nodejs.org/en/ <br>
