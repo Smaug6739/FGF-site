@@ -24,7 +24,7 @@ hr{color:white}
 #center-text{text-align:center;}
 /* NAV */
 .nav-li{margin-top: 10px;}
-.navigation-bar{background-color:#013650}
+.navigation-bar{background-color:var(--container-color)}
 .ban{width:400px;margin-top : -20px}
 #menu-compte{margin-right: 10px;}
 .form-control{color:white;font-weight: 600;background: var(--container-color);}
