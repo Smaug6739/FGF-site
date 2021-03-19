@@ -2,15 +2,23 @@
 * {
     margin: 0;
     padding: 0;
+    color: whitesmoke
 }
 body{
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(24, 0, 56);
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+main{
+    flex: 1 0 auto;
 }
 ::selection{
     color: #fff;
     background: black;
 }
 a:hover{color:black}
+hr{color:white}
 .grecaptcha-badge { z-index : 10 ; }
 .margin-5-right{margin-right: 5px;}
 #center-text{text-align:center;}
@@ -160,12 +168,9 @@ legend {
 .alert-dark{color:var(--dark);background-color:#d3d3d4;border-color:#bcbebf}
 
 @media screen and (max-width:700px){
-    #avatar{
-        position: absolute; right:5%;top : 18%;}
+    #avatar{ position: absolute; right:5%;top : 18%; }
     #envelope{margin-left:0px}
-    .ban{
-        width:255px
-    }
+    .ban{width:255px;}
     .nav-li,.nav-item{
         margin-left: 10px;
     }

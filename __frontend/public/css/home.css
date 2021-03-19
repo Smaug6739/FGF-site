@@ -4,15 +4,18 @@
     background-position: center;
     background-size: cover;
     height:95vh;
-    opacity: 1;
 }
 
 .separation{
     font-size: xx-large;
     font-weight: 800;
-    color : var(--dark-red);
-    margin-left:1%;
+    background-color: #1b1e3d;
 }
+.separation-title{
+  margin-left:1%;
+}
+
+
 /*  ANNONCES  */
 
 #annonces{
@@ -22,7 +25,7 @@
     align-items: stretch;
 }
 .annonce{
-    background-color: #ffffff;
+    background-color: #1b1e3d;
     margin-left: 1%;
     margin-right: 1%;
     margin-top: 1.5%;
@@ -51,7 +54,7 @@
 }
  
 .article{
-    background-color: #ffffff;
+    background-color: #1b1e3d;
     margin-left: 1%;
     margin-right: 1%;
     margin-top: 1.5%;

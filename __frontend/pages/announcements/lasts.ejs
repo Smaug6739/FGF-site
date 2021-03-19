@@ -1,52 +1,66 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <%- include ('../include/bootstrap/bootstrap.css.ejs'); -%>
     <!-- CSS FILES -->
-    <link  rel="stylesheet" href="/static/css/main.css">
-    <link  rel="stylesheet" href="/static/css/footer.css">
-    <link  rel="stylesheet" href="/static/css/site/announcements.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/site/announcements.css">
     <%- include ('../include/meta'); -%>
-    <title>FGF - Annonces</title>
-  </head>
-  <body>
-    
-    <%- include ('../include/nav.ejs'); -%>
+      <title>FGF - Annonces</title>
+</head>
+
+<body>
+
+  <%- include ('../include/nav.ejs'); -%>
+
+    <main>
+      <section id="container-announcements">
+        <%if(announcements.length){%>
+          <% announcements.forEach(element=> { %>
+            <% const time=new Date(parseInt(element.announcement_date_insert)) %>
+              <% var months=['01','02','03','04','05','06','07','08','09','10','11','12']; %>
+                <% const year=time.getFullYear() %>
+                  <% const month=months[time.getMonth()] %>
+                    <% const date=time.getDate() %>
+                      <% const hour=time.getHours() %>
+                        <% const minutes=time.getMinutes() %>
+                          <div class="announcement col-xl-3 p-0 mt-3 text-center">
+                            <div class="card-body">
+                              <h5 class="title">
+                                <%=element.announcement_title%>
+                              </h5>
+                              <hr>
+                              <p class="card-text">
+                                <%=element.announcement_text%>
+                              </p>
+                              <p>
+                                Annonce postée le <%=`${date} /${month}/${year} à ${hour}h${minutes}`%>
+                              </p>
+                              <hr>
+                              <div class="author"> <img src="/uploads/avatars/<%=element.member_avatar%>"
+                                  class="author-avatar" alt="Avatar"> Ecrit par : <%= element.member_pseudo %> le
+                                  <%=date%>/<%=month%>/<%=year%> à <%=hour%>h<%=minutes%>
+                              </div>
+
+                            </div>
+                          </div>
+                          <% }); %>
+                            <% }else{%>
+                              <h2>Aucune annonce trouvée...</h2>
+                              <%} %>
+      </section>
+    </main>
 
 
-    <section id="container-announcements">
-        <% announcements.forEach(element => { %>
-            <%  const time = new Date(parseInt(element.announcement_date_insert)) %>
-            <%  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];  %>
-            <%  const year = time.getFullYear() %>
-            <%  const month = months[time.getMonth()] %>
-            <%  const date = time.getDate() %>
-            <%  const hour = time.getHours() %>
-            <%  const minutes = time.getMinutes() %>
-            <div class="announcement col-xl-3 p-0 mt-3 text-center">
-                <div class="card-body">
-                    <h5 class="title"><%=element.announcement_title%></h5>
-                    <hr>
-                    <p class="card-text"><%=element.announcement_text%></p>
-                    <p>
-                        Annonce postée le <%=`${date}/${month}/${year} à ${hour}h${minutes}`%>
-                    </p>
-                    <hr>
-                    <div class="author"> <img src="/uploads/avatars/<%=element.member_avatar%>" class="author-avatar" alt="Avatar"> Ecrit par : <%= element.member_pseudo %> le <%=date%>/<%=month%>/<%=year%> à <%=hour%>h<%=minutes%></div>
-
-                </div>
-            </div>
-        <% }); %>    
-    </section>
-    
-
-    
 
     <%- include ('../include/footer.ejs'); -%>
-    <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
-  </body>
+      <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
+</body>
+
 </html>

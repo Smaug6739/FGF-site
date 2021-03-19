@@ -1,16 +1,15 @@
 @import "./theme-variable.css";
 footer{
-    position:relative;
-    margin-top: 30px;
-    bottom:0px;
+    /*position:relative;*/
+    /*margin-top: 30px;*/
     flex-shrink: 0;
-    bottom: 0;
+    /*bottom: -20px;*/
     border-top: 1px dashed #000;
     width: 100%;
     /*background: #dbdbdb;*/
-    background: rgb(240, 240, 240);
-    color: #333;
+    background: #1b1e3d;
     font-weight: 600;
+
 }
 .contenu-footer{
     width: 1280px;
@@ -21,6 +20,7 @@ footer{
     font-size: 20px;
     padding: 50px 0 100px;
 } 
+.copy{text-align: center;}
 .footer-bloc{
     width: 25%;
     margin: 0 30px;
@@ -42,19 +42,19 @@ footer{
 }
 .liste-services a{
     text-decoration: none;
-    color: #333;
+    color: whitesmoke;
 }
 .liste-contact a{
     text-decoration: none;
-    color: #333;
+    color: whitesmoke;
 }
 .liste-connexion a{
     text-decoration: none;
-    color: #333;
+    color: whitesmoke;
 }
 .liste-medias a{
     text-decoration: none;
-    color: #333;
+    color: whitesmoke;
 }
 .liste-services a:hover{
     color: rgb(3,3,3);
@@ -73,10 +73,10 @@ footer{
 }
 .footer-subtitle{
     font-weight: 600;
-    color : var(--dark-red)
+    color : var(--white-smoke)
 }
 .fgf-footer{
-    color: var(--dark-red)
+    color: var(--white-smoke)
 }
 @media screen and (max-width: 1200px ){
     .contenu-footer{
@@ -91,20 +91,12 @@ footer{
     .liste-contact{
         margin-bottom: 50px;
     }
-
-
 }
 
 @media screen and (max-width: 700px){
     .contenu-footer{
         width: 320px;
-        float: left;
-        margin-left: 25px;
-    }
-    .footer-bottom{
-        width: 320px;
-        float: left;
-        margin-left: 25px;
+        margin-left: 0;
     }
     .footer-bloc{
         width: 300px;

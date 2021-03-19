@@ -20,133 +20,146 @@
 </head>
 
 <body>
-  <%- include ('include/nav.ejs'); -%>
-    <div id="home-img"></div>
-    <p class="separation">Dernières photos :</p>
-    <hr>
-    <div id="images">
-      <% if(albums.length){ %>
-        <% albums.forEach((photo, index)=> { %>
-          <div class="mySlides transitionFade">
-            <div class="numbertext">
-              <%=(index+1)%> / <%=albums.length%>
+  <main>
+    <%- include ('include/nav.ejs'); -%>
+      <div id="home-img"></div>
+      <div class="separation">
+        <hr>
+        <p class="separation-title"> Dernières photos :</p>
+        <hr>
+      </div>
+      <div id="images">
+        <% if(albums.length){ %>
+          <% albums.forEach((photo, index)=> { %>
+            <div class="mySlides transitionFade">
+              <div class="numbertext">
+                <%=(index+1)%> / <%=albums.length%>
+              </div>
+              <img src="/uploads/album/<%=photo.album_image%>" class="image-album">
+              <div class="text title">
+                <%=photo.album_title%>
+              </div>
             </div>
-            <img src="/uploads/album/<%=photo.album_image%>" class="image-album">
-            <div class="text title">
-              <%=photo.album_title%>
-            </div>
-          </div>
-          <% }); %>
-            <% } %>
-    </div>
-    <div class="slideshow-container">
-      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-      <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br>
+            <% }); %>
+              <% } %>
+      </div>
+      <div class="slideshow-container">
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+      <br>
 
-    <!-- The dots/circles -->
-    <div style="text-align:center">
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(Math.floor(<%=albums.length  / 2%>))"></span>
-      <span class="dot" onclick="currentSlide(<%=albums.length%>)"></span>
-    </div>
-    <hr>
-    <p class="separation">Dernières annonces :</p>
-    <hr>
-    <div id="annonces">
-      <%if(annonces.length){%>
-        <% annoncesToWatch=annonces.slice(0,3); %>
-          <% annoncesToWatch.forEach(annonceUnique=> { %>
-            <% const date_insert=new Date(parseInt(annonceUnique.announcement_date_insert)) %>
+      <!-- The dots/circles -->
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(Math.floor(<%=albums.length  / 2%>))"></span>
+        <span class="dot" onclick="currentSlide(<%=albums.length%>)"></span>
+      </div>
+      <div class="separation">
+        <hr>
+        <p class="separation-title"> Dernières annonces :</p>
+        <hr>
+      </div>
+      <div id="annonces">
+        <%if(annonces.length){%>
+          <% annoncesToWatch=annonces.slice(0,3); %>
+            <% annoncesToWatch.forEach(annonceUnique=> { %>
+              <% const date_insert=new Date(parseInt(annonceUnique.announcement_date_insert)) %>
+                <% var
+                  months=['janvier','février','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','décembre'];
+                  %>
+                  <% const year=date_insert.getFullYear() %>
+                    <% const month=months[date_insert.getMonth()] %>
+                      <% const date=date_insert.getDate() %>
+                        <div class="annonce">
+                          <h5 class="title">
+                            <%=annonceUnique.announcement_title%>
+                          </h5>
+                          <p>
+                            <%= annonceUnique.announcement_text.substring(0,300);%>
+                          </p>
+                          <span class="date"><i class="far fa-clock"> </i>
+                            <%=date%>
+                              <%=month%>
+                                <%=year%>
+                          </span> <br> <br>
+                          <a href="/announcements/1" class="button button-danger">Lire l'annonce</a>
+                        </div>
+                        <% }) %>
+                          <%}else{%>
+                            <h2 class="text-center">Aucune annonce trouvée...</h2>
+                            <%}%>
+      </div>
+      <div class="separation">
+        <hr>
+        <p class="separation-title"> Derniers articles :</p>
+        <hr>
+      </div>
+      <div id="container-articles">
+        <%if(articles.length){%>
+          <% articles.forEach(article=> { %>
+            <% const date_insert=new Date(parseInt(article.date_insert)) %>
               <% var
                 months=['janvier','février','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','décembre'];
                 %>
                 <% const year=date_insert.getFullYear() %>
                   <% const month=months[date_insert.getMonth()] %>
                     <% const date=date_insert.getDate() %>
-                      <div class="annonce">
-                        <h5 class="title">
-                          <%=annonceUnique.announcement_title%>
-                        </h5>
-                        <p>
-                          <%= annonceUnique.announcement_text.substring(0,300);%>
-                        </p>
+                      <div class="article">
+                        <img src="/uploads/articles/<%=article.lien_miniature%>" class="card-img-top">
                         <span class="date"><i class="far fa-clock"> </i>
                           <%=date%>
                             <%=month%>
                               <%=year%>
-                        </span> <br> <br>
-                        <a href="/announcements" class="button button-danger">Lire l'annonce</a>
+                        </span>
+
+                        <h6><a class="title" href="/articles/view/<%=article.id%>">
+                            <%=article.title%>
+                          </a></h6>
+                        <div class="card-intro mt-3">
+                          <%=article.intro.substring(0,90)%>...
+                        </div>
                       </div>
-                      <% }) %>
+                      <% }); %>
                         <%}else{%>
-                          <h2 class="text-center">Aucune annonce trouvée...</h2>
+                          <h2 class="text-center">Aucun article trouvé...</h2>
                           <%}%>
-    </div>
-    <hr>
-    <div class="separation">Derniers articles :</div>
-    <hr>
-    <div id="container-articles">
-      <%if(articles.length){%>
-        <% articles.forEach(article=> { %>
-          <% const date_insert=new Date(parseInt(article.date_insert)) %>
-            <% var
-              months=['janvier','février','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','décembre'];
-              %>
-              <% const year=date_insert.getFullYear() %>
-                <% const month=months[date_insert.getMonth()] %>
-                  <% const date=date_insert.getDate() %>
-                    <div class="article">
-                      <img src="/uploads/articles/<%=article.lien_miniature%>" class="card-img-top">
-                      <span class="date"><i class="far fa-clock"> </i>
-                        <%=date%>
-                          <%=month%>
-                            <%=year%>
-                      </span>
+      </div>
+      <div class="separation">
+        <hr>
+        <p class="separation-title"> A propos de nous :</p>
+        <hr>
+      </div>
+      <div id="container-description">
+        <li style="font-weight:bold;font-size:28px">Qui sommes-nous ?</li>
+        <p>Nous sommes une communauté multi-gaming francophone de joueurs et créateurs de contenu, réunis sur un même
+          serveur Discord.</p>
 
-                      <h6><a class="title" href="/articles/view/<%=article.id%>">
-                          <%=article.title%>
-                        </a></h6>
-                      <div class="card-intro mt-3">
-                        <%=article.intro.substring(0,90)%>...
-                      </div>
-                    </div>
-                    <% }); %>
-                      <%}else{%>
-                        <h2 class="text-center">Aucun article trouvé...</h2>
-                        <%}%>
-    </div>
-    <hr>
-    <p class="separation">Description :</p>
-    <hr>
-    <div id="container-description">
-      <li style="font-weight:bold;font-size:28px">Qui sommes-nous ?</li>
-      <p>Nous sommes une communauté multi-gaming francophone de joueurs et créateurs de contenu, réunis sur un même
-        serveur Discord.</p>
-
-      <li style="font-weight:bold;font-size:28px">Notre but ?</li>
-      <p>Créer des liens avec d'autres personnes sur n'importe quel jeu, pouvoir les retrouver plus tard quelque soit le
-        jeu, appartenir à une équipe soudée partageant les mêmes centres d'intérêts et les mêmes passions, soutenir nos
-        créateurs de contenu en mettant en avant leur travail et encourager l'entraide au sein de la communauté.
-        Mais aussi se retrouver lors de conventions FR, organiser des événements IG et IRL...etc etc. Voici les idées de
-        base qui ont poussées la création de la French Gaming Family.
-      </p>
-      <li style="font-weight:bold;font-size:28px">Comment ça marche ?</li>
-      <p>
-        Pour nous rejoindre, il suffit de cliquer sur le lien de notre serveur Discord (Si vous n'avez pas de compte
-        Discord il faudra en créer un. C'est complètement gratuit et cela prend une minute.
-        Une fois sur notre serveur il suffira que vous choisissiez votre (ou vos) plateforme(s) ainsi que vos jeux et
-        centres d'intérêts. Cela fera apparaître pour vous les salons adéquats et vous pourrez commencer à communiquer
-        et jouer avec nous (L'application est disponible sur smartphone et pc);)
-      </p>
-    </div>
+        <li style="font-weight:bold;font-size:28px">Notre but ?</li>
+        <p>Créer des liens avec d'autres personnes sur n'importe quel jeu, pouvoir les retrouver plus tard quelque soit
+          le
+          jeu, appartenir à une équipe soudée partageant les mêmes centres d'intérêts et les mêmes passions, soutenir
+          nos
+          créateurs de contenu en mettant en avant leur travail et encourager l'entraide au sein de la communauté.
+          Mais aussi se retrouver lors de conventions FR, organiser des événements IG et IRL...etc etc. Voici les idées
+          de
+          base qui ont poussées la création de la French Gaming Family.
+        </p>
+        <li style="font-weight:bold;font-size:28px">Comment ça marche ?</li>
+        <p>
+          Pour nous rejoindre, il suffit de cliquer sur le lien de notre serveur Discord (Si vous n'avez pas de compte
+          Discord il faudra en créer un. C'est complètement gratuit et cela prend une minute.
+          Une fois sur notre serveur il suffira que vous choisissiez votre (ou vos) plateforme(s) ainsi que vos jeux et
+          centres d'intérêts. Cela fera apparaître pour vous les salons adéquats et vous pourrez commencer à communiquer
+          et jouer avec nous (L'application est disponible sur smartphone et pc);)
+        </p>
+      </div>
 
 
-
-    <%- include ('include/footer.ejs'); -%>
-      <%- include ('include/bootstrap/bootstrap.js.ejs'); -%>
-        <script src="/static/js/home.js"></script>
+  </main>
+  <%- include ('include/footer.ejs'); -%>
+    <%- include ('include/bootstrap/bootstrap.js.ejs'); -%>
+      <script src="/static/js/home.js"></script>
 </body>
 
 </html>
