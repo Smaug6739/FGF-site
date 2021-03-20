@@ -457,7 +457,7 @@ exports.postUpdateArticle = (req, res) => {
     let file = "";
     if (req.file && req.file.filename) file = req.file.filename
     let htmlContent = "";
-    htmlContent = converter.makeHtml(req.body.contenu)
+    htmlContent = md.render(req.body.contenu)
     axios.put(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
         categorie: req.body.categorie,
         title: req.body.title,

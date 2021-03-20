@@ -1,4 +1,4 @@
-@import '../theme-variable.css';
+
 table,td,th {
     border: var(--border-size) var(--border-type) var(--border-color);
 }

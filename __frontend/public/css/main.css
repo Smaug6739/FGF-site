@@ -2,10 +2,10 @@
 * {
     margin: 0;
     padding: 0;
-    color: whitesmoke;
+    color: var(--light);
 }
 body{
-    background-color: rgb(24, 0, 56);
+    background-color: var(--default-color);
     display: flex;
     height: 100vh;
     flex-direction: column;

@@ -1,4 +1,4 @@
-@import "../theme-variable.css";
+
 
 #container-announcements{
     display: flex;
@@ -6,12 +6,23 @@
     flex-wrap: wrap;
 }
 .author{color:var(--color-grey)}
-.author-avatar{width: 12%;}
-
+.author-avatar{width: 45px;}
+.announcement img{
+    max-width: 100%;
+}
 .announcement{
     background-color: var(--container-color);;
     border-radius: 1%;
     margin-top :  2%;
     margin-right: 2%;
     margin-left: 2%;
+    width: 40%
+}
+
+@media screen and (max-width:1000px){
+    .announcement{
+        width:  95%;
+        margin-left: 2.5%;
+        margin-bottom: 1%;
+    }
 }

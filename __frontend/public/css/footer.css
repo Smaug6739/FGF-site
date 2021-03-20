@@ -1,4 +1,3 @@
-@import "./theme-variable.css";
 footer{
     /*position:relative;*/
     /*margin-top: 30px;*/
@@ -7,7 +6,7 @@ footer{
     border-top: 1px dashed #000;
     width: 100%;
     /*background: #dbdbdb;*/
-    background: #1b1e3d;
+    background: var(--container-color);
     font-weight: 600;
 
 }
@@ -73,10 +72,10 @@ footer{
 }
 .footer-subtitle{
     font-weight: 600;
-    color : var(--white-smoke)
+    color : var(--white)
 }
 .fgf-footer{
-    color: var(--white-smoke)
+    color: var(--white)
 }
 @media screen and (max-width: 1200px ){
     .contenu-footer{

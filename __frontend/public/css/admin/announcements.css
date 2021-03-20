@@ -1,6 +1,8 @@
-@import '../theme-variable.css';
-.form-control{
-  background: var(--container-color) ;
+
+.mdeContainer {
+  display: inline-block;
+  width: 48%;
+  vertical-align: top;
 }
 .switch {
     position: relative;

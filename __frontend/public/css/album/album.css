@@ -1,4 +1,4 @@
-@import '../theme-variable.css';
+
 #container{
     background-color: var(--container-color);
     width: 98%;

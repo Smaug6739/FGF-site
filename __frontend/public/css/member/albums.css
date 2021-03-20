@@ -1,4 +1,4 @@
-@import "../theme-variable.css";
+
 #container{
     width: var(--width);
     margin-left: var(--margin-left);
