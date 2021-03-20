@@ -4,70 +4,134 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
 
 <url>
   <loc>http://french-gaming-family.ga/</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/site/announcements/1</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/forum/categories</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/album/1</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/articles/1</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/member/login</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/member/register</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://french-gaming-family.ga/request/partners</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/request/jobs</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/announcements/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/articles/view/13</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/articles/view/12</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/request/partners</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/infos</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/request</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/privacy</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://french-gaming-family.ga/terms</loc>
-  <lastmod>2021-03-18T18:52:55+00:00</lastmod>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
   <priority>0.80</priority>
 </url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/13/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/4/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/15/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/8/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/10/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/9/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/12/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/11/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://french-gaming-family.ga/forum/categorie/14/1</loc>
+  <lastmod>2021-03-20T16:26:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
 </urlset>
