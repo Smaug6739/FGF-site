@@ -1,6 +1,7 @@
 const path = require('path');
 const { statusUser } = require('../functions');
 const axios = require('axios')
+const fs = require('fs')
 const config = require('../config.js')
 
 exports.getAnnouncements = (req, res) => {
@@ -29,13 +30,17 @@ exports.getAnnouncements = (req, res) => {
 exports.getHome = async (req, res) => {
     const articles = await axios.get(`http://localhost:8080/api/v1/articles/all/1`)
     const annonces = await axios.get(`http://localhost:8080/api/v1/announcements/all/1`)
-    const album = await axios.get(`http://localhost:8080/api/v1/album/valides/1`)
-    res.render(path.join(__dirname, '../pages/index.ejs'), {
-        userConnected: await statusUser(req.session),
-        articles: articles.data.result,
-        annonces: annonces.data.result,
-        albums: album.data.result
+    fs.readdir(path.join(__dirname, '../public/images/home_slider'), async (err, album) => {
+        if (err) console.error(err)
+        console.log(album)
+        res.render(path.join(__dirname, '../pages/index.ejs'), {
+            userConnected: await statusUser(req.session),
+            articles: articles.data.result,
+            annonces: annonces.data.result,
+            albums: album
+        })
     })
+
 
 }
 
