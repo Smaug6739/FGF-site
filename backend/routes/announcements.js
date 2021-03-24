@@ -6,11 +6,11 @@ const auth = require('../middleware/auth');
 AnnouncementsRouter.get('/all/:page', announcementCtrl.getAnnouncements)
 AnnouncementsRouter.get('/:announcementId', announcementCtrl.getAnnouncement)
 
-AnnouncementsRouter.post('/:userId', auth, announcementCtrl.postAnnouncements)
+AnnouncementsRouter.post('/', auth, announcementCtrl.postAnnouncements)
 
-AnnouncementsRouter.put('/:announcementId/:userId', auth, announcementCtrl.updateAnnouncements)
+AnnouncementsRouter.put('/:announcementId', auth, announcementCtrl.updateAnnouncements)
 
-AnnouncementsRouter.delete('/:announcementId/:userId', auth, announcementCtrl.deleteAnnouncements)
+AnnouncementsRouter.delete('/:announcementId/', auth, announcementCtrl.deleteAnnouncements)
 
 
 

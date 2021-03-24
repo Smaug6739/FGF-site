@@ -23,8 +23,7 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Couleur</th>
+            <th scope="col">Badge</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -37,9 +36,6 @@
               <td>
                 <%=element.badge_name%>
               </td>
-              <td>
-                <%=element.badge_color%>
-              </td>
               <td> <a href="/admin/badges/delete/<%=element.badge_id%>" class="button button-danger">Supprimer</a> </td>
             </tr>
             <% }) %>
@@ -50,10 +46,19 @@
           <legend>Nouveau badge</legend>
           <form action="/admin/badges/insert" method="POST">
             <div class="form-group d-flex flex-column">
-              <label style="font-size:20px;" for="name">Nom :</label>
-              <input type="text" class="name form-control" name="name" id="name">
-              <label style="font-size:20px;" for="color">Color :</label>
-              <input type="text" class="color form-control" name="color" id="color">
+              <label style="font-size:20px;" for="name">Badge :</label>
+              <select id="badge" name="badge" class="form-control">
+                <option class="form-control" value="1">Admin
+                </option>
+                <option class="form-control" value="2">Modo
+                </option>
+                <option class="form-control" value="3">Rédacteur
+                </option>
+                <option class="form-control" value="4">Partenaire
+                </option>
+                <option class="form-control" value="5">Testeur
+                </option>
+              </select>
               <label style="font-size:20px;" for="user">Utilisateur :</label>
               <input type="text" class="user form-control" name="user" id="user">
               <button type="submit" class="button button-success">Ajouter</button>

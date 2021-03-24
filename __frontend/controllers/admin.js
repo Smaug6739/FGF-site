@@ -1028,9 +1028,14 @@ exports.getBadges = (req, res) => {
 
 
 exports.addBadge = (req, res) => {
+    let badge = 'default';
+    if (req.body.badge == '1') badge = "Admin"
+    if (req.body.badge == '2') badge = "Modo"
+    if (req.body.badge == '3') badge = "Rédacteur"
+    if (req.body.badge == '4') badge = "Partenaire"
+    if (req.body.badge == '5') badge = "Testeur"
     axios.post(`http://localhost:8080/api/v1/badges/${req.session.user.id}`, {
-        name: req.body.name,
-        color: req.body.color,
+        name: badge,
         user: req.body.user
     }, {
         headers: { 'Authorization': `token ${req.session.user.token}` }

@@ -4,14 +4,14 @@ const albumCtrl = require('../controllers/album');
 const auth = require('../middleware/auth');
 
 AlbumRouter.get('/valides/:page', albumCtrl.getPublicAlbums)
-AlbumRouter.get('/member/:userId/:page', auth, albumCtrl.getAlbumsOfMember)
-AlbumRouter.get('/:userId/all/:page', auth, albumCtrl.getAllAlbums)
-AlbumRouter.get('/:userId/:albumId', auth, albumCtrl.getAlbum)
+AlbumRouter.get('/member/:userId/:page', albumCtrl.getAlbumsOfMember)
+AlbumRouter.get('/all/:page', auth, albumCtrl.getAllAlbums)
+AlbumRouter.get('/:albumId', auth, albumCtrl.getAlbum)
 
-AlbumRouter.post('/:userId', auth, albumCtrl.createAlbum);//Create article
+AlbumRouter.post('/', auth, albumCtrl.createAlbum);//Create article
 
-AlbumRouter.put('/:userId/:albumId', auth, albumCtrl.updateAlbum)
-AlbumRouter.delete('/:userId/:albumId', auth, albumCtrl.deleteAlbum)
+AlbumRouter.put('/:albumId', auth, albumCtrl.updateAlbum)
+AlbumRouter.delete('/:albumId/:userId', auth, albumCtrl.deleteAlbum)
 
 
 module.exports = AlbumRouter;

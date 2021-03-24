@@ -22,10 +22,8 @@ let Announcements = class Announcements {
             })
         })
     }
-    static add(title, content, staff, userId, userPermissions) {
+    static add(title, content, staff, userId) {
         return new Promise(async (resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             if (!title) return reject(errors.missing.title)
             if (!content) return reject(errors.missing.content)
             if (staff !== 0 && staff !== 1) return reject(errors.badValue)
@@ -36,7 +34,7 @@ let Announcements = class Announcements {
             })
         })
     }
-    static put(announcementId, userPermissions, title, content) {
+    static put(announcementId, title, content) {
         return new Promise(async (resolve, reject) => {
             if (!announcementId) return reject(errors.missing.announcementId)
             if (!userPermissions) return reject(errors.badPermissions)
