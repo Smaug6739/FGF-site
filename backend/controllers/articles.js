@@ -1,5 +1,5 @@
 let Articles = require('../assets/classes/articles-class')
-const { checkAndChange } = require('../util/functions')
+const { checkAndChange, hasPermissions, error } = require('../util/functions')
 
 exports.createArticle = (req, res) => {
     Articles.add(
@@ -19,34 +19,37 @@ exports.getMemberArticles = (req, res) => {
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getRandomArticle = (req, res) => {
-    Articles.getRandom(req.params.userId, req.user.userPermissions)
-        .then((result) => res.json(checkAndChange(result)))
-        .catch(error => res.json(checkAndChange(new Error(error))))
+    if (hasPermissions(req.user.permissions, ['MANAGE_ARTICLES'])) {
+        Articles.getRandom(req.params.userId)
+            .then((result) => res.json(checkAndChange(result)))
+            .catch(error => res.json(checkAndChange(new Error(error))))
+    } else return res.status(401).json(error('Missing permissions'))
+
 }
 exports.putArticle = (req, res) => {
-    Articles.put(
-        req.user.userPermissions,
-        req.params.userId,
-        req.params.articleId,
-        req.body.categorie,
-        req.body.title,
-        req.body.miniature,
-        req.body.intro,
-        req.body.content,
-        req.body.status,
-    )
-        .then((result) => res.json(checkAndChange(result)))
-        .catch(error => res.json(checkAndChange(new Error(error))))
+    if (hasPermissions(req.user.permissions, ['MANAGE_ARTICLES']) || req.params.userId === req.user.id) {
+        Articles.put(
+            req.params.userId,
+            req.params.articleId,
+            req.body.categorie,
+            req.body.title,
+            req.body.miniature,
+            req.body.intro,
+            req.body.content,
+            req.body.status,
+        )
+            .then((result) => res.json(checkAndChange(result)))
+            .catch(error => res.json(checkAndChange(new Error(error))))
+    } else return res.status(401).json(error('Missing permissions'))
 }
 exports.deleteArticle = (req, res) => {
-    Articles.delete(req.params.articleId, req.params.userId)
-        .then(result => res.json(checkAndChange(result)))
-        .catch(error => res.json(checkAndChange(new Error(error))))
+    if (hasPermissions(req.user.permissions, ['MANAGE_ARTICLES']) || req.params.userId === req.user.id) {
+        Articles.delete(req.params.articleId, req.params.userId)
+            .then(result => res.json(checkAndChange(result)))
+            .catch(error => res.json(checkAndChange(new Error(error))))
+    } else return res.status(401).json(error('Missing permissions'))
+
 }
-
-
-
-
 exports.getArticle = (req, res) => {
     Articles.getArticle(req.params.articleId)
         .then(result => {
@@ -56,25 +59,22 @@ exports.getArticle = (req, res) => {
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 
-
 exports.getAllArticles = (req, res) => {
-    if (hasPermissions(req.user.permissions, 'MANAGE_ARTICLES')) {
-        Articles.getAll(req.params.page, req.user.userPermissions)
+    if (hasPermissions(req.user.permissions, ['MANAGE_ARTICLES'])) {
+        Articles.getAll(req.params.page)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
 
 }
+exports.getPublicArticles = (req, res) => {
+    Articles.getArticles(req.params.page)
+        .then(result => res.json(checkAndChange(result)))
+        .catch(error => res.json(checkAndChange(new Error(error))))
+}
 exports.searchArticles = (req, res) => {
-    Articles.searchArticles(req.body.search)
+    Articles.searchArticles(req.query.q)
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
-
-exports.getLastedArticles = (req, res) => {
-    Articles.getLastsArticles(6)
-        .then(result => res.json(checkAndChange(result)))
-        .catch(error => res.json(checkAndChange(new Error(error))))
-}
-
 

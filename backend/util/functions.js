@@ -25,9 +25,9 @@ exports.checkAndChange = (obj) => {
 
 
 exports.hasPermissions = (userPermissions, permissionsRequested) => {
-  if (userPermissions.includes('ADMINISTRATOR')) return true
+  if (userPermissions[0].permission === 'ADMINISTRATOR') return true;
   for (permRequested of permissionsRequested) {
-    if (!userPermissions.includes(permRequested)) return false;
+    if (!permissionsRequested.includes(permRequested)) return false;
   }
   return true;
 }

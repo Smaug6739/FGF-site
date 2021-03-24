@@ -1,6 +1,6 @@
 
 let Announcements = require('../assets/classes/announcements-class')
-const { checkAndChange } = require('../util/functions')
+const { checkAndChange, hasPermissions } = require('../util/functions')
 
 exports.getAnnouncements = (req, res) => {
     Announcements.getAll(req.params.page)
@@ -14,7 +14,7 @@ exports.getAnnouncement = (req, res) => {
 }
 
 exports.postAnnouncements = (req, res) => {
-    if (hasPermissions(req.user.permissions, 'MANAGE_ANNOUNCEMENTS')) {
+    if (hasPermissions(req.user.permissions, ['MANAGE_ANNOUNCEMENTS'])) {
         Announcements.add(
             req.body.title,
             req.body.content,
@@ -26,7 +26,7 @@ exports.postAnnouncements = (req, res) => {
 
 }
 exports.updateAnnouncements = (req, res) => {
-    if (hasPermissions(req.user.permissions, 'MANAGE_ANNOUNCEMENTS')) {
+    if (hasPermissions(req.user.permissions, ['MANAGE_ANNOUNCEMENTS'])) {
         Announcements.put(
             req.params.announcementId,
             req.body.title,
@@ -38,7 +38,7 @@ exports.updateAnnouncements = (req, res) => {
 }
 
 exports.deleteAnnouncements = (req, res) => {
-    if (hasPermissions(req.user.permissions, 'MANAGE_ANNOUNCEMENTS')) {
+    if (hasPermissions(req.user.permissions, ['MANAGE_ANNOUNCEMENTS'])) {
         Announcements.delete(req.params.announcementId, req.user.userPermissions)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))

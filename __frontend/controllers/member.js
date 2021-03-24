@@ -155,7 +155,7 @@ exports.disconnection = (req, res) => {
 
 exports.getAccount = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
@@ -179,7 +179,7 @@ exports.getAccount = (req, res) => {
 }
 exports.getRequests = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/request/${req.session.user.id}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
@@ -204,7 +204,7 @@ exports.getRequests = (req, res) => {
 
 exports.getEditAccount = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
@@ -239,7 +239,7 @@ exports.updateMember = (req, res) => {
         email: req.body.email || "",
         phoneNumber: req.body.phoneNumber || ""
     }, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'error') {
@@ -271,7 +271,7 @@ exports.updateMemberMedia = (req, res) => {
         desc_desc: htmlContent || "",
         desc_image: file || "",
     }, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'error') {
@@ -296,7 +296,7 @@ exports.updatePassword = (req, res) => {
         password1: req.body.password1,
         password2: req.body.password2
     }, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'error') {
@@ -316,7 +316,7 @@ exports.updatePassword = (req, res) => {
 
 exports.deleteMember = (req, res) => {
     axios.delete(`http://localhost:8080/api/v1/members/${req.session.user.id}/${req.body.password}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` }
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
         .then(async (responce) => {
             if (responce.data.status === 'error') {
@@ -336,7 +336,7 @@ exports.deleteMember = (req, res) => {
 
 exports.getArticlesOfMember = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
@@ -386,7 +386,7 @@ exports.postArticle = async (req, res) => {
                         intro: req.body.intro,
                         content: htmlContent,
                         authorId: req.session.user.id
-                    }, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+                    }, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
                         .then(async (responce) => {
                             if (responce.data.status === 'error') {
                                 res.render(path.join(__dirname, '../pages/error.ejs'), {
@@ -428,7 +428,7 @@ exports.postArticle = async (req, res) => {
 
 exports.getUpdateArticle = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
@@ -465,7 +465,7 @@ exports.postUpdateArticle = (req, res) => {
         intro: req.body.intro,
         content: htmlContent,
     }, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'error') {
@@ -486,7 +486,7 @@ exports.postDeleteArticle = (req, res) => {
     let file = "";
     if (req.file && req.file.filename) file = req.file.filename
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async result => {
             if (result.data.status === 'success') {
@@ -494,7 +494,7 @@ exports.postDeleteArticle = (req, res) => {
                     //if (err) console.log(err);
                 });
                 axios.delete(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
-                    headers: { 'Authorization': `token ${req.session.user.token}` },
+                    headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
                 })
                     .then(async (responce) => {
                         if (responce.data.status === 'error') {
@@ -524,7 +524,7 @@ exports.postDeleteArticle = (req, res) => {
 
 
 exports.getDirectMessages = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/dm/all/${req.session.user.id}/${req.params.page}`, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    axios.get(`http://localhost:8080/api/v1/dm/all/${req.session.user.id}/${req.params.page}`, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
                 res.render(path.join(__dirname, '../pages/member/direct-messages.ejs'), {
@@ -546,7 +546,7 @@ exports.getDirectMessages = (req, res) => {
         });
 }
 exports.test = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/dm/${req.params.channelId}/${req.params.page}/${req.session.user.id}`, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    axios.get(`http://localhost:8080/api/v1/dm/${req.params.channelId}/${req.params.page}/${req.session.user.id}`, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
                 const resArray = [];
@@ -576,7 +576,7 @@ exports.test = (req, res) => {
         });
 }
 exports.getDirectMessage = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/dm/${req.params.channelId}/${req.params.page}/${req.session.user.id}`, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    axios.get(`http://localhost:8080/api/v1/dm/${req.params.channelId}/${req.params.page}/${req.session.user.id}`, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
                 res.render(path.join(__dirname, '../pages/member/direct-message.ejs'), {
@@ -604,7 +604,7 @@ exports.postDirectMessage = (req, res) => {
         author: req.params.expediteurId,
         client: req.params.clientId,
         dmId: req.params.channelId
-    }, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    }, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
                 /*socket.ioObject.emit(`message`, {dm_post_message:'test'}); 
@@ -628,7 +628,7 @@ exports.postDirectMessage = (req, res) => {
 exports.updateMessage = (req, res) => {
     axios.put(`http://localhost:8080/api/v1/dm/message/${req.params.messageId}/${req.session.user.id}`, {
         message: req.body.contentEdit,
-    }, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    }, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(req.get('referer'));
             else {
@@ -652,7 +652,7 @@ exports.postNewChannel = (req, res) => {
         title: req.body.title,
         author: req.session.user.id,
         client: req.body.client,
-    }, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    }, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(req.get('referer'));
             else {
@@ -670,7 +670,7 @@ exports.postNewChannel = (req, res) => {
         });
 }
 exports.deleteChannel = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/dm/channel/${req.session.user.id}/${req.params.channelId}`, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    axios.delete(`http://localhost:8080/api/v1/dm/channel/${req.session.user.id}/${req.params.channelId}`, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(req.get('referer'));
             else {
@@ -688,7 +688,7 @@ exports.deleteChannel = (req, res) => {
         });
 }
 exports.deleteMessage = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/dm/message/${req.session.user.id}/${req.params.messageId}`, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    axios.delete(`http://localhost:8080/api/v1/dm/message/${req.session.user.id}/${req.params.messageId}`, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(req.get('referer'));
             else {
@@ -732,7 +732,7 @@ exports.postAlbum = async (req, res) => {
                         title: req.body.title,
                         image: file,
                         authorId: req.session.user.id
-                    }, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+                    }, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
                         .then(async (responce) => {
                             if (responce.data.status === 'error') {
                                 res.render(path.join(__dirname, '../pages/error.ejs'), {
@@ -776,7 +776,7 @@ exports.postAlbum = async (req, res) => {
 
 
 exports.getAlbums = async (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/album/member/${req.session.user.id}/${req.params.page}`, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    axios.get(`http://localhost:8080/api/v1/album/member/${req.session.user.id}/${req.params.page}`, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'error') {
                 res.render(path.join(__dirname, '../pages/error.ejs'), {
@@ -800,7 +800,7 @@ exports.getAlbums = async (req, res) => {
 
 
 exports.deleteAlbum = async (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    axios.delete(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'error') {
                 res.render(path.join(__dirname, '../pages/error.ejs'), {

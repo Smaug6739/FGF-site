@@ -7,7 +7,9 @@ module.exports = async (req, res, next) => {
         const requestToken = req.headers.authorization.split(' ')[1];
         const requestAuthor = req.headers.authorization.split(' ')[0];
         const decoded = jwt.verify(requestToken, config.secret);
-        if (requestAuthor !== decoded.userId) throw 'Bad user';
+        if (requestAuthor != decoded.userId) throw 'Bad user';
+
+
         let userPermissions = [];
         for (let permission of config.permissions) {
             const rest = decoded.userPermissions % permission.value;
@@ -26,6 +28,7 @@ module.exports = async (req, res, next) => {
         }
         next()
     } catch (err) {
+        console.log(err)
         res.status(401).json(checkAndChange(new Error('Requete non authentifiée')));
     }
 };

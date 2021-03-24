@@ -2,7 +2,7 @@ let Album = require('../assets/classes/album-class')
 const { checkAndChange, error, hasPermissions } = require('../util/functions')
 
 exports.getAllAlbums = (req, res) => {
-    if (hasPermissions(req.user.permissions, 'MANAGE_ALBUM')) {
+    if (hasPermissions(req.user.permissions, ['MANAGE_ALBUM'])) {
         Album.getAll(req.params.page, req.user.userPermissions)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
@@ -14,7 +14,7 @@ exports.getPublicAlbums = (req, res) => {
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getAlbum = (req, res) => {
-    if (hasPermissions(req.user.permissions, 'MANAGE_ALBUM')) {
+    if (hasPermissions(req.user.permissions, ['MANAGE_ALBUM'])) {
         Album.getById(req.params.albumId, req.user.userPermissions)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
@@ -33,7 +33,7 @@ exports.createAlbum = (req, res) => {
 }
 
 exports.updateAlbum = (req, res) => {
-    if (hasPermissions(req.user.permissions, 'MANAGE_ALBUM')) {
+    if (hasPermissions(req.user.permissions, ['MANAGE_ALBUM'])) {
         Album.put(req.params.albumId, req.body.title, req.body.statut)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
@@ -42,7 +42,7 @@ exports.updateAlbum = (req, res) => {
 
 }
 exports.deleteAlbum = (req, res) => {
-    if (hasPermissions(req.user.permissions, 'MANAGE_ALBUM') || req.params.userId === req.user.id) {
+    if (hasPermissions(req.user.permissions, ['MANAGE_ALBUM']) || req.params.userId === req.user.id) {
         Album.delete(req.params.albumId)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))

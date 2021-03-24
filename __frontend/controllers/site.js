@@ -28,7 +28,7 @@ exports.getAnnouncements = (req, res) => {
 }
 
 exports.getHome = async (req, res) => {
-    const articles = await axios.get(`http://localhost:8080/api/v1/articles/all/1`)
+    const articles = await axios.get(`http://localhost:8080/api/v1/articles/public/1`)
     const annonces = await axios.get(`http://localhost:8080/api/v1/announcements/all/1`)
     fs.readdir(path.join(__dirname, '../public/images/home_slider'), async (err, album) => {
         if (err) console.error(err)

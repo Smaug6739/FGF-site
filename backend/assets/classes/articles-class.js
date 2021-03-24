@@ -26,10 +26,8 @@ let Articles = class Articles {
                 .catch(error => { return reject(new Error(error)) })
         })
     }
-    static getRandom(userId, userPermissions) {
+    static getRandom(userId) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
-            if (userPermissions && userPermissions < 3) return reject(errors.badPermissions)
             db.query('SELECT * FROM members WHERE (member_youtube != "" OR member_twitch != "") AND member_media_title != "" AND member_media_desc != "" AND member_media_image != "" ORDER BY RAND() LIMIT 1', (err, result) => {
                 if (err) return reject(new Error(err))
                 else {
@@ -79,11 +77,9 @@ let Articles = class Articles {
         })
     }
 
-    static getAll(page, userPermissions) {
+    static getAll(page) {
         return new Promise((resolve, reject) => {
             if (!page) return reject(errors.missing.page)
-            if (!userPermissions) return reject(errors.badPermissions)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             const skip = (page * 5) - 5
             dbFunctions.getAllArticles(skip)
                 .then((result) => resolve(result))
@@ -142,7 +138,7 @@ let Articles = class Articles {
         })
     }
 
-    static put(userPermissions, userId, articleId, categorie, title, miniature, intro, content, status) {
+    static put(userId, articleId, categorie, title, miniature, intro, content, status) {
         return new Promise(async (next, reject) => {
             if (!articleId) return reject(errors.missing.articleId)
             if (!userId) return reject(errors.missing.userId)
@@ -161,18 +157,13 @@ let Articles = class Articles {
             content = xss(content, {
                 onIgnoreTagAttr: function (tag, name, value, isWhiteAttr) {
                     if (name + '=' + value === "id=img-article") {
-                        // escape its value using built-in escapeAttrValue function
                         return name.substring(0) + '="' + xss.escapeAttrValue(value) + '"';
                     }
                 }
             })
             dbFunctions.getArticle(articleId).then(async article => {
                 if (article) {
-                    if (userPermissions < 3) status = article.status
-                    else if (status) status = status
-                    else status = article.status
                     if (!miniature) miniature = article.lien_miniature
-                    if (article.author_id !== userId && userPermissions < 3) return reject(errors.badPermissions)
                     const newArticle = {
                         categorie: categorie,
                         title: title,
@@ -189,20 +180,12 @@ let Articles = class Articles {
         })
     }
 
-    static delete(id, userId) {
+    static delete(id) {
         return new Promise((next, reject) => {
             if (!id) return reject(errors.missing.articleId);
-            if (!userId) return reject(errors.missing.userId);
-            if (!userPermissions) return reject(errors.badPermissions);
-            if (userPermissions >= 3) {
-                dbFunctions.deleteArticleByModo(id)
-                    .then(() => next(true))
-                    .catch((err) => { return reject(new Error(err)) })
-            } else {
-                dbFunctions.deleteArticleByAuthor(id, userId)
-                    .then(() => next(true))
-                    .catch((err) => { return reject(new Error(err)) })
-            }
+            dbFunctions.deleteArticle(id)
+                .then(() => next(true))
+                .catch((err) => { return reject(new Error(err)) })
         })
     }
 }

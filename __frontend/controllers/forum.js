@@ -104,7 +104,7 @@ exports.postTopic = (req, res) => {
         author: req.session.user.id,
         title: req.body.title,
         content: req.body.content
-    }, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    }, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(`/forum/categorie/${req.params.categorieId}/1`)
             else {
@@ -126,7 +126,7 @@ exports.postMessage = (req, res) => {
         author: req.session.user.id,
         content: req.body.content,
         topicId: req.params.topicId
-    }, { headers: { 'Authorization': `token ${req.session.user.token}` } })
+    }, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(req.get('referer'));
             else {
@@ -148,7 +148,7 @@ exports.updateMessage = (req, res) => {
     axios.put(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.id}`, {
         content: req.body.contentEdit
     }, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(req.get('referer'));
@@ -170,7 +170,7 @@ exports.updateMessage = (req, res) => {
 
 exports.deleteMessage = (req, res) => {
     axios.delete(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.params.categorieId}/${req.session.user.id}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` },
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(req.get('referer'));
@@ -192,7 +192,7 @@ exports.deleteMessage = (req, res) => {
 
 exports.deleteTopic = (req, res) => {
     axios.delete(`http://localhost:8080/api/v1/forum/topic/${req.params.topicId}/${req.session.user.id}`, {
-        headers: { 'Authorization': `token ${req.session.user.token}` }
+        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') res.redirect(req.get('referer'));
@@ -218,26 +218,3 @@ exports.deleteTopic = (req, res) => {
 
 
 
-
-exports.getVoirForum = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/forum/voirForum/${req.params.forum}`)
-        .then(async (responce) => {
-            if (responce.data.status === 'success') {
-                res.render(path.join(__dirname, '../pages/forum/forum.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    forum: responce.data.result,
-                })
-            } else {
-                res.render(path.join(__dirname, '../pages/error.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    error: responce.data.message,
-                })
-            }
-        })
-        .catch(async (error) => {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected: await statusUser(req.session),
-                error: error,
-            })
-        });
-}

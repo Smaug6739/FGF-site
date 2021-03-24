@@ -3,56 +3,31 @@ let ForumRouter = express.Router();
 const forumCtrl = require('../controllers/forum');
 const auth = require('../middleware/auth');
 
-//ForumRouter.get('/getForums', forumCtrl.getForums)
-ForumRouter.get('/admin', forumCtrl.getAdmin)
-ForumRouter.get('/getCategories', forumCtrl.getCategories)
-ForumRouter.get('/getCategorie/:categorieId/:page', forumCtrl.getCategorie)
-ForumRouter.get('/getTopic/:topicId/:page', forumCtrl.getTopic)
-ForumRouter.get('/voirForum/:forum', forumCtrl.voirForum)
-
-ForumRouter.post('/message/:userId', auth, forumCtrl.postMessage)
-ForumRouter.post('/topic/:userId', auth, forumCtrl.postTopic)
-
-ForumRouter.put('/message/:messageId/:userId', auth, forumCtrl.updateMessage)
-
-ForumRouter.delete('/message/:messageId/:categorieId/:userId', auth, forumCtrl.deleteMessage)
-ForumRouter.delete('/topic/:topicId/:userId', auth, forumCtrl.deleteTopic)
+ForumRouter.get('/structure', forumCtrl.getStructure)//Permissions : OK
+ForumRouter.get('/getCategories', forumCtrl.getCategories)//Permissions : OK
+ForumRouter.get('/getCategorie/:categorieId/:page', forumCtrl.getCategorie)//Permissions : OK
+ForumRouter.get('/getTopic/:topicId/:page', forumCtrl.getTopic)//Permissions : OK
+ForumRouter.get('/container/:containerId', forumCtrl.getContainer)//Permissions : OK
+ForumRouter.get('/categories/:categorieId', forumCtrl.getCategorieAdmin)//Permissions : OK
 
 
-ForumRouter.get('/modos/:userId', auth, forumCtrl.getModos)
+ForumRouter.post('/message/:userId', auth, forumCtrl.postMessage)//Permissions : OK
+ForumRouter.post('/topic/:userId', auth, forumCtrl.postTopic)//Permissions : OK
+//Admin-dashboard
+ForumRouter.post('/categories/:userId', auth, forumCtrl.postCategorie)//Permissions : OK
+ForumRouter.post('/container/:userId', auth, forumCtrl.postContainer)//Permissions : OK
 
-ForumRouter.post('/modos/:userId', auth, forumCtrl.postModo)
 
-ForumRouter.delete('/modos/:modoId/:categorieId/:userId', auth, forumCtrl.deleteModo)
+ForumRouter.put('/message/:messageId/:userId', auth, forumCtrl.updateMessage)//Permissions : OK
+//Admin-dashboard
+ForumRouter.put('/categories/:categorieId/:userId', auth, forumCtrl.updateCategorie)//Permissions : OK
+ForumRouter.put('/container/:containerId/:userId', auth, forumCtrl.updateContainer)//Permissions : OK
 
-
-ForumRouter.get('/categories/:categorieId', forumCtrl.getCategorieAdmin)
-ForumRouter.post('/categories/:userId', auth, forumCtrl.postCategorie)
-ForumRouter.put('/categories/:categorieId/:userId', auth, forumCtrl.updateCategorie)
-ForumRouter.delete('/categories/:categorieId/:userId', auth, forumCtrl.deleteCategorie)
-
-ForumRouter.get('/container/:containerId', forumCtrl.getContainer)
-ForumRouter.post('/container/:userId', auth, forumCtrl.postContainer)
-ForumRouter.put('/container/:containerId/:userId', auth, forumCtrl.updateContainer)
+ForumRouter.delete('/message/:messageId/:categorieId/:userId', auth, forumCtrl.deleteMessage)//Permissions : OK
+ForumRouter.delete('/topic/:topicId', auth, forumCtrl.deleteTopic)//Permissions : OK
+//Admin-dashboard
+ForumRouter.delete('/categories/:categorieId/:userId', auth, forumCtrl.deleteCategorie)//Permissions : OK
 ForumRouter.delete('/container/:containerId/:userId', auth, forumCtrl.deleteContainer)
-
-
-/*ForumRouter.get('/:userId/all/:page', auth, forumCtrl.getAllArticles);
-
-ForumRouter.post('/:userId', auth, forumCtrl.createArticle);//Create article
-ForumRouter.get('/:userId/:articleId', auth, forumCtrl.getArticle);
-ForumRouter.get('/:userId', auth, forumCtrl.getMemberArticles);
-ForumRouter.put('/:userId/:articleId', auth, forumCtrl.putArticle);//OK
-ForumRouter.delete('/:userId/:articleId', auth, forumCtrl.deleteArticle);//OK*/
-
-
-
-/*ForumRouter.get('/all/:page', auth, forumCtrl.getAllMembers);//OK
-ForumRouter.get('/login', forumCtrl.authMember);//OK
-ForumRouter.get('/:id', auth, forumCtrl.getMember);//OK
-ForumRouter.put('/:id', auth, forumCtrl.updateMember);//OK
-ForumRouter.put('/:id/password', auth, forumCtrl.updateMemberPassword);//OK
-ForumRouter.delete('/:id/:password', auth, forumCtrl.deleteMember);*/
 
 
 module.exports = ForumRouter;
