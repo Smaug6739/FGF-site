@@ -1,5 +1,5 @@
 let Request = require('../assets/classes/request-class')
-const { checkAndChange } = require('../util/functions')
+const { checkAndChange, hasPermissions } = require('../util/functions')
 
 exports.getMemberRequests = (req, res) => {
     if (req.user.id != req.params.userId) return res.status(401).json(error('Missing permissions'))
@@ -9,7 +9,7 @@ exports.getMemberRequests = (req, res) => {
 }
 exports.getGenerals = (req, res) => {
     if (hasPermissions(req.user.permissions, ['MANAGE_REQUESTS'])) {
-        Request.getGenerals(req.user.userPermissions, req.params.page)
+        Request.getGenerals(req.params.page)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
@@ -17,7 +17,7 @@ exports.getGenerals = (req, res) => {
 }
 exports.getJobs = (req, res) => {
     if (hasPermissions(req.user.permissions, ['MANAGE_REQUESTS'])) {
-        Request.getJobs(req.user.userPermissions, req.params.page)
+        Request.getJobs(req.params.page)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
@@ -28,27 +28,27 @@ exports.getPartners = (req, res) => {
 
 
     } else return res.status(401).json(error('Missing permissions'))
-    Request.getPartners(req.user.userPermissions, req.params.page)
+    Request.getPartners(req.params.page)
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getGeneral = (req, res) => {
     if (hasPermissions(req.user.permissions, ['MANAGE_REQUESTS'])) {
-        Request.getGeneral(req.user.userPermissions, req.params.requestId)
+        Request.getGeneral(req.params.requestId)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
 }
 exports.getJob = (req, res) => {
     if (hasPermissions(req.user.permissions, ['MANAGE_REQUESTS'])) {
-        Request.getJob(req.user.userPermissions, req.params.requestId)
+        Request.getJob(req.params.requestId)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
 }
 exports.getPartner = (req, res) => {
     if (hasPermissions(req.user.permissions, ['MANAGE_REQUESTS'])) {
-        Request.getPartner(req.user.userPermissions, req.params.requestId)
+        Request.getPartner(req.params.requestId)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
@@ -87,7 +87,7 @@ exports.postPartner = (req, res) => {
 }
 exports.updateGeneral = (req, res) => {
     if (hasPermissions(req.user.permissions, ['MANAGE_REQUESTS'])) {
-        Request.updateGeneral(req.user.userPermissions, req.params.requestId, req.body.statut)
+        Request.updateGeneral(req.params.requestId, req.body.statut)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
@@ -95,7 +95,7 @@ exports.updateGeneral = (req, res) => {
 }
 exports.updateJob = (req, res) => {
     if (hasPermissions(req.user.permissions, ['MANAGE_REQUESTS'])) {
-        Request.updateJob(req.user.userPermissions, req.params.requestId, req.body.statut)
+        Request.updateJob(req.params.requestId, req.body.statut)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
@@ -103,7 +103,7 @@ exports.updateJob = (req, res) => {
 }
 exports.updatePartner = (req, res) => {
     if (hasPermissions(req.user.permissions, ['MANAGE_REQUESTS'])) {
-        Request.updatePartner(req.user.userPermissions, req.params.requestId, req.body.statut)
+        Request.updatePartner(req.params.requestId, req.body.statut)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))

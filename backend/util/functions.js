@@ -1,5 +1,3 @@
-const Members = require('../assets/classes/members-class')
-
 exports.success = function (result) {
   return {
     status: 'success',
@@ -25,7 +23,7 @@ exports.checkAndChange = (obj) => {
 
 
 exports.hasPermissions = (userPermissions, permissionsRequested) => {
-  if (userPermissions[0].permission === 'ADMINISTRATOR') return true;
+  if (userPermissions.includes('ADMINISTRATOR')) return true;
   for (permRequested of permissionsRequested) {
     if (!permissionsRequested.includes(permRequested)) return false;
   }

@@ -1,6 +1,6 @@
 const axios = require('axios')
 const path = require('path');
-const { statusUser } = require('../functions');
+const { statusUser, hasPermissions } = require('../functions');
 const config = require('../config');
 const { WebhookClient } = require('discord.js')
 const WebhookReport = new WebhookClient(config.webhook.forumReport.id, config.webhook.forumReport.token);
@@ -54,10 +54,12 @@ exports.getCategorie = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/forum/getCategorie/${req.params.categorieId}/${req.params.page}`)
         .then(async (responce) => {
             if (responce.data.status === 'success') {
+                const status = await statusUser(req.session)
                 res.render(path.join(__dirname, '../pages/forum/categorie.ejs'), {
-                    userConnected: await statusUser(req.session),
+                    userConnected: status,
                     topics: responce.data.result,
-                    categorieId: req.params.categorieId
+                    categorieId: req.params.categorieId,
+                    modo: hasPermissions(status.permissions, ['MODERATOR'])
                 })
             } else {
                 res.render(path.join(__dirname, '../pages/error.ejs'), {
@@ -169,7 +171,7 @@ exports.updateMessage = (req, res) => {
 
 
 exports.deleteMessage = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.params.categorieId}/${req.session.user.id}`, {
+    axios.delete(`http://localhost:8080/api/v1/forum/message/${req.params.messageId}/${req.session.user.id}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
@@ -191,7 +193,7 @@ exports.deleteMessage = (req, res) => {
 }
 
 exports.deleteTopic = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/forum/topic/${req.params.topicId}/${req.session.user.id}`, {
+    axios.delete(`http://localhost:8080/api/v1/forum/topic/${req.params.topicId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
         .then(async (responce) => {

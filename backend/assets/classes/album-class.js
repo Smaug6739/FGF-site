@@ -3,11 +3,9 @@ const errors = require('../album-errors')
 let Album = class Album {
 
 
-    static getAll(page, userPermissions) {
+    static getAll(page) {
         return new Promise(async (resolve, reject) => {
             if (!page || page && page.trim() == '') return reject(errors.missing.page)
-            if (!userPermissions) return reject(errors.badPermissions)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             const skip = (page * 15) - 15
             db.query('SELECT * FROM album ORDER BY album_date DESC LIMIT 15 OFFSET ?', [skip], (err, result) => {
                 if (err) return reject(new Error(err.message))
@@ -41,11 +39,9 @@ let Album = class Album {
         })
     }
 
-    static getById(albumId, userPermissions) {
+    static getById(albumId) {
         return new Promise((resolve, reject) => {
             if (!albumId) return reject(new Error("Missing albumId"))
-            if (!userPermissions) return reject(new Error("Missing user permissions"))
-            if (userPermissions < 3) return reject(new Error("Bad permissions"))
             db.query('SELECT * FROM album WHERE album_id = ?', [albumId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(result)

@@ -1,16 +1,19 @@
 const axios = require('axios')
 const path = require('path');
-const { statusUser } = require('../functions');
+const { statusUser, convertPermissions } = require('../functions');
 const fs = require('fs')
 var md = require('markdown-it')();
 
 
 exports.getIndex = async (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('STAFF')) return res.status(401).redirect('/')
     res.render(path.join(__dirname, '../pages/admin/index.ejs'), {
         userConnected: await statusUser(req.session),
+        permissions: req.user.permissions
     })
 }
 exports.getResources = async (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('STAFF')) return res.status(401).redirect('/')
     const icons = fs.readdirSync(path.join(__dirname, '../public/images/icons'))
     res.render(path.join(__dirname, '../pages/admin/resources.ejs'), {
         userConnected: await statusUser(req.session),
@@ -18,17 +21,20 @@ exports.getResources = async (req, res) => {
     })
 }
 exports.getProcedures = async (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('STAFF')) return res.status(401).redirect('/')
     res.render(path.join(__dirname, '../pages/admin/procedures.ejs'), {
         userConnected: await statusUser(req.session),
     })
 }
 exports.getInfos = async (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('STAFF')) return res.status(401).redirect('/')
     res.render(path.join(__dirname, '../pages/admin/infos.ejs'), {
         userConnected: await statusUser(req.session),
     })
 }
 
 exports.getAnnouncements = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ANNOUNCEMENTS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/announcements/all/${req.params.page}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -53,6 +59,7 @@ exports.getAnnouncements = (req, res) => {
         });
 }
 exports.getAnnouncement = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ANNOUNCEMENTS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/announcements/${req.params.announcementId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -77,13 +84,15 @@ exports.getAnnouncement = (req, res) => {
         });
 }
 exports.postAnnouncement = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ANNOUNCEMENTS')) return res.status(401).redirect('/')
     let staff = 0;
     if (req.body.staff === 'on') staff = 1;
     let htmlContent = md.render(req.body.contenu)
-    axios.post(`http://localhost:8080/api/v1/announcements/${req.session.user.id}`, {
+    axios.post(`http://localhost:8080/api/v1/announcements`, {
         title: req.body.title,
         content: htmlContent,
-        staff: staff
+        staff: staff,
+        author: req.session.user.id
     }, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -104,7 +113,8 @@ exports.postAnnouncement = (req, res) => {
         });
 }
 exports.updateAnnouncement = (req, res) => {
-    axios.put(`http://localhost:8080/api/v1/announcements/${req.params.announcementId}/${req.session.user.id}`, {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ANNOUNCEMENTS')) return res.status(401).redirect('/')
+    axios.put(`http://localhost:8080/api/v1/announcements/${req.params.announcementId}`, {
         title: req.body.title,
         content: req.body.contenu
     }, {
@@ -127,7 +137,8 @@ exports.updateAnnouncement = (req, res) => {
         });
 }
 exports.deleteAnnouncement = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/announcements/${req.params.announcementId}/${req.session.user.id}`, {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ANNOUNCEMENTS')) return res.status(401).redirect('/')
+    axios.delete(`http://localhost:8080/api/v1/announcements/${req.params.announcementId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
         .then(async (responce) => {
@@ -147,6 +158,7 @@ exports.deleteAnnouncement = (req, res) => {
         });
 }
 exports.getForum = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/forum/admin`)
         .then(async (responce) => {
             if (responce.data.status === 'success') {
@@ -171,6 +183,7 @@ exports.getForum = (req, res) => {
         });
 }
 exports.getCategorie = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/forum/categories/${req.params.categorieId}`)
         .then(async (responce) => {
             if (responce.data.status === 'success') {
@@ -194,6 +207,7 @@ exports.getCategorie = (req, res) => {
         });
 }
 exports.getContainer = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/forum/container/${req.params.containerId}`)
         .then(async (responce) => {
             if (responce.data.status === 'success') {
@@ -218,6 +232,7 @@ exports.getContainer = (req, res) => {
 }
 
 exports.createForumCategorie = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.post(`http://localhost:8080/api/v1/forum/categories/${req.session.user.id}`, {
         title: req.body.title,
         content: req.body.content,
@@ -243,6 +258,7 @@ exports.createForumCategorie = (req, res) => {
         })
 }
 exports.createForumContainer = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.post(`http://localhost:8080/api/v1/forum/container/${req.session.user.id}`, {
         title: req.body.title,
     },
@@ -265,6 +281,7 @@ exports.createForumContainer = (req, res) => {
         })
 }
 exports.updateCategorie = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.put(`http://localhost:8080/api/v1/forum/categories/${req.params.categorieId}/${req.session.user.id}`, {
         title: req.body.title,
         content: req.body.content,
@@ -290,6 +307,7 @@ exports.updateCategorie = (req, res) => {
         })
 }
 exports.updateContainer = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.put(`http://localhost:8080/api/v1/forum/container/${req.params.containerId}/${req.session.user.id}`, {
         title: req.body.title,
     },
@@ -312,6 +330,7 @@ exports.updateContainer = (req, res) => {
         })
 }
 exports.deleteCategorie = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.delete(`http://localhost:8080/api/v1/forum/categories/${req.params.categorieId}/${req.session.user.id}`,
         {
             headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
@@ -332,6 +351,7 @@ exports.deleteCategorie = (req, res) => {
         })
 }
 exports.deleteContainer = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
     axios.delete(`http://localhost:8080/api/v1/forum/container/${req.params.containerId}/${req.session.user.id}`,
         {
             headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
@@ -351,74 +371,8 @@ exports.deleteContainer = (req, res) => {
             })
         })
 }
-exports.getModos = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/forum/modos/${req.session.user.id}`, {
-        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
-    })
-        .then(async (responce) => {
-            if (responce.data.status === 'success') {
-                res.render(path.join(__dirname, '../pages/admin/forum.modos.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    modos: responce.data.result,
-                })
-            } else {
-                res.render(path.join(__dirname, '../pages/error.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    error: responce.data.message,
-                })
-            }
-        })
-        .catch(async (error) => {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected: await statusUser(req.session),
-                error: error,
-            })
-        });
-}
-exports.postModo = (req, res) => {
-    axios.post(`http://localhost:8080/api/v1/forum/modos/${req.session.user.id}`, {
-        pseudo: req.body.pseudo,
-        categorie: req.body.categorie
-    }, {
-        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
-    })
-        .then(async (responce) => {
-            if (responce.data.status === 'success') res.redirect('/admin')
-            else {
-                res.render(path.join(__dirname, '../pages/error.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    error: responce.data.message,
-                })
-            }
-        })
-        .catch(async (error) => {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected: await statusUser(req.session),
-                error: error,
-            })
-        });
-}
-exports.deleteModo = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/forum/modos/${req.params.modoId}/${req.params.categorieId}/${req.session.user.id}`, {
-        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
-    })
-        .then(async (responce) => {
-            if (responce.data.status === 'success') res.redirect('/admin')
-            else {
-                res.render(path.join(__dirname, '../pages/error.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    error: responce.data.message,
-                })
-            }
 
-        })
-        .catch(async (error) => {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected: await statusUser(req.session),
-                error: error,
-            })
-        });
-}
+
 exports.searchMember = (req, res) => {
     axios.post(`http://localhost:8080/api/v1/members/search`, {
         search: req.query.search
@@ -449,6 +403,7 @@ exports.searchMember = (req, res) => {
         });
 }
 exports.getMembers = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_MEMBERS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/members/${req.session.user.id}/all/${req.params.page}`, {
         //headers : { 'x-access-token' : req.session.user.token}
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
@@ -477,14 +432,17 @@ exports.getMembers = (req, res) => {
 }
 
 exports.getUpdatePage = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_MEMBERS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/members/${req.params.id}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
+                const permissions = convertPermissions(responce.data.result.member_user_permissions).join(' ')
                 res.render(path.join(__dirname, '../pages/admin/update/member.ejs'), {
                     userConnected: await statusUser(req.session),
                     member: responce.data.result,
+                    perms: permissions
                 })
             } else {
                 res.render(path.join(__dirname, '../pages/error.ejs'), {
@@ -504,6 +462,7 @@ exports.getUpdatePage = (req, res) => {
 
 
 exports.postUpdateMember = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_MEMBERS')) return res.status(401).redirect('/')
     axios.put(`http://localhost:8080/api/v1/members/${req.params.id}`, {
         pseudo: req.body.pseudo,
         firstName: req.body.firstName,
@@ -511,7 +470,8 @@ exports.postUpdateMember = (req, res) => {
         age: req.body.age,
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
-        ban: Date.parse(req.body.ban)
+        ban: Date.parse(req.body.ban),
+        permissions: req.body.permissions
     },
         {
             headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
@@ -532,6 +492,7 @@ exports.postUpdateMember = (req, res) => {
         })
 }
 exports.postUpdateMemberPassword = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_MEMBERS')) return res.status(401).redirect('/')
     axios.put(`http://localhost:8080/api/v1/members/${req.params.id}/password`, {
         password1: req.body.password1,
         password2: req.body.password2,
@@ -556,8 +517,8 @@ exports.postUpdateMemberPassword = (req, res) => {
 }
 
 exports.postDeleteMember = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_MEMBERS')) return res.status(401).redirect('/')
     axios.delete(`http://localhost:8080/api/v1/members/${req.params.id}/admin`, {
-        //headers : { 'x-access-token' : req.session.user.token}
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {
@@ -579,7 +540,8 @@ exports.postDeleteMember = (req, res) => {
 
 
 exports.getArticles = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/all/${req.params.page}`, {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ARTICLES')) return res.status(401).redirect('/')
+    axios.get(`http://localhost:8080/api/v1/articles/all/${req.params.page}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
         .then(async (responce) => {
@@ -603,6 +565,7 @@ exports.getArticles = (req, res) => {
         });
 }
 exports.getRandom = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ARTICLES')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/articles/admin/random/${req.session.user.id}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -619,6 +582,7 @@ exports.getRandom = (req, res) => {
 }
 
 exports.getUpdateArticlePage = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ARTICLES')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
@@ -644,6 +608,7 @@ exports.getUpdateArticlePage = (req, res) => {
 }
 
 exports.updateArticle = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ARTICLES')) return res.status(401).redirect('/')
     let file = "";
     if (req.file && req.file.filename) file = req.file.filename
     axios.put(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
@@ -673,6 +638,7 @@ exports.updateArticle = (req, res) => {
 }
 
 exports.getAlbum = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ALBUM')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -698,7 +664,8 @@ exports.getAlbum = (req, res) => {
 }
 
 exports.getAlbums = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/album/${req.session.user.id}/all/${req.params.page}`, {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ALBUM')) return res.status(401).redirect('/')
+    axios.get(`http://localhost:8080/api/v1/album/all/${req.params.page}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
         .then(async (responce) => {
@@ -724,6 +691,7 @@ exports.getAlbums = (req, res) => {
 
 
 exports.updateAlbum = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ALBUM')) return res.status(401).redirect('/')
     axios.put(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`, {
         statut: req.body.statut,
         title: req.body.title,
@@ -746,6 +714,7 @@ exports.updateAlbum = (req, res) => {
 
 
 exports.deleteAlbum = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ALBUM')) return res.status(401).redirect('/')
     axios.delete(`http://localhost:8080/api/v1/album/${req.session.user.id}/${req.params.albumId}`, { headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` } })
         .then(async (responce) => {
             if (responce.data.status === 'error') {
@@ -771,6 +740,7 @@ exports.deleteAlbum = (req, res) => {
 
 
 exports.getDemandes = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/request/general/all/${req.session.user.id}/${req.params.page}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -796,6 +766,7 @@ exports.getDemandes = (req, res) => {
         });
 }
 exports.getJobs = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/request/jobs/all/${req.session.user.id}/${req.params.page}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -820,6 +791,7 @@ exports.getJobs = (req, res) => {
         });
 }
 exports.getPartners = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/request/partners/all/${req.session.user.id}/${req.params.page}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -846,6 +818,7 @@ exports.getPartners = (req, res) => {
 
 
 exports.getRequest = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/request/general/${req.session.user.id}/${req.params.requestId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -870,6 +843,7 @@ exports.getRequest = (req, res) => {
         });
 }
 exports.getJob = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/request/jobs/${req.session.user.id}/${req.params.requestId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -894,6 +868,7 @@ exports.getJob = (req, res) => {
         });
 }
 exports.getPartner = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.get(`http://localhost:8080/api/v1/request/partners/${req.session.user.id}/${req.params.requestId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
     })
@@ -920,6 +895,7 @@ exports.getPartner = (req, res) => {
 
 
 exports.updateRequest = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.put(`http://localhost:8080/api/v1/request/general/${req.session.user.id}/${req.params.requestId}`, {
         statut: req.body.statut
     }, {
@@ -927,10 +903,7 @@ exports.updateRequest = (req, res) => {
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
-                res.render(path.join(__dirname, '../pages/admin/index.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    request: responce.data.result,
-                })
+                res.redirect('/admin')
             } else {
                 res.render(path.join(__dirname, '../pages/error.ejs'), {
                     userConnected: await statusUser(req.session),
@@ -946,6 +919,7 @@ exports.updateRequest = (req, res) => {
         });
 }
 exports.updateJob = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.put(`http://localhost:8080/api/v1/request/jobs/${req.session.user.id}/${req.params.requestId}`, {
         statut: req.body.statut
     }, {
@@ -953,10 +927,7 @@ exports.updateJob = (req, res) => {
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
-                res.render(path.join(__dirname, '../pages/admin/index.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    request: responce.data.result,
-                })
+                res.redirect('/admin')
             } else {
                 res.render(path.join(__dirname, '../pages/error.ejs'), {
                     userConnected: await statusUser(req.session),
@@ -972,6 +943,7 @@ exports.updateJob = (req, res) => {
         });
 }
 exports.updatePartner = (req, res) => {
+    if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_REQUESTS')) return res.status(401).redirect('/')
     axios.put(`http://localhost:8080/api/v1/request/partners/${req.session.user.id}/${req.params.requestId}`, {
         statut: req.body.statut
     }, {
@@ -979,10 +951,7 @@ exports.updatePartner = (req, res) => {
     })
         .then(async (responce) => {
             if (responce.data.status === 'success') {
-                res.render(path.join(__dirname, '../pages/admin/index.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    request: responce.data.result,
-                })
+                res.redirect('/admin')
             } else {
                 res.render(path.join(__dirname, '../pages/error.ejs'), {
                     userConnected: await statusUser(req.session),
@@ -998,82 +967,3 @@ exports.updatePartner = (req, res) => {
         });
 }
 
-
-
-
-exports.getBadges = (req, res) => {
-    axios.get(`http://localhost:8080/api/v1/badges/${req.params.page}`, {
-        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
-    })
-        .then(async (responce) => {
-            if (responce.data.status === 'success') {
-                res.render(path.join(__dirname, '../pages/admin/badges.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    badges: responce.data.result,
-                })
-            } else {
-                res.render(path.join(__dirname, '../pages/error.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    error: responce.data.message,
-                })
-            }
-        })
-        .catch(async (error) => {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected: await statusUser(req.session),
-                error: error,
-            })
-        });
-}
-
-
-exports.addBadge = (req, res) => {
-    let badge = 'default';
-    if (req.body.badge == '1') badge = "Admin"
-    if (req.body.badge == '2') badge = "Modo"
-    if (req.body.badge == '3') badge = "Rédacteur"
-    if (req.body.badge == '4') badge = "Partenaire"
-    if (req.body.badge == '5') badge = "Testeur"
-    axios.post(`http://localhost:8080/api/v1/badges/${req.session.user.id}`, {
-        name: badge,
-        user: req.body.user
-    }, {
-        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
-    })
-        .then(async (responce) => {
-            if (responce.data.status === 'success') res.redirect('/admin/badges/1')
-            else {
-                res.render(path.join(__dirname, '../pages/error.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    error: responce.data.message,
-                })
-            }
-        })
-        .catch(async (error) => {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected: await statusUser(req.session),
-                error: error,
-            })
-        });
-}
-
-exports.deleteBadge = (req, res) => {
-    axios.delete(`http://localhost:8080/api/v1/badges/${req.session.user.id}/${req.params.badgeId}`, {
-        headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` }
-    })
-        .then(async (responce) => {
-            if (responce.data.status === 'success') res.redirect('/admin/badges/1')
-            else {
-                res.render(path.join(__dirname, '../pages/error.ejs'), {
-                    userConnected: await statusUser(req.session),
-                    error: responce.data.message,
-                })
-            }
-        })
-        .catch(async (error) => {
-            res.render(path.join(__dirname, '../pages/error.ejs'), {
-                userConnected: await statusUser(req.session),
-                error: error,
-            })
-        });
-}

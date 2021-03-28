@@ -57,7 +57,7 @@ exports.authMember = async (req, res) => {
 }
 
 exports.getMember = (req, res) => {
-    if (req.user.id != req.params.userId) return res.status(401).json(error('Missing permissions'))
+    if (!hasPermissions(req.user.permissions, ['MANAGE_MEMBERS']) && req.params.userId != req.user.id) return res.status(401).json(error('Missing permissions'))
     Members.getByID(req.params.userId)
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
@@ -68,6 +68,7 @@ exports.updateMember = async (req, res) => {
         Members.put(
             req.user.permissions,
             req.params.userId,
+            req.body.permissions,
             req.body.avatar,
             req.body.pseudo,
             req.body.firstName,
@@ -77,7 +78,7 @@ exports.updateMember = async (req, res) => {
             req.body.phoneNumber,
             req.body.status,
             req.body.site,
-            req.body.ban
+            req.body.ban,
         )
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
@@ -85,7 +86,7 @@ exports.updateMember = async (req, res) => {
 
 }
 exports.updateMedias = async (req, res) => {
-    if (req.user.id != req.params.userId) return res.status(401).json(error('Missing permissions'))
+    if (!hasPermissions(req.user.permissions, ['MANAGE_MEMBERS']) && !req.params.userId != req.user.id) res.status(401).json(error('Missing permissions'))
     Members.updateUserMedias(
         req.params.userId,
         req.body.site,
@@ -99,7 +100,7 @@ exports.updateMedias = async (req, res) => {
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.updateMemberPassword = async (req, res) => {
-    if (req.user.id != req.params.userId) return res.status(401).json(error('Missing permissions'))
+    if (!hasPermissions(req.user.permissions, ['MANAGE_MEMBERS']) && !req.params.userId != req.user.id) res.status(401).json(error('Missing permissions'))
     Members.updatePassword(
         req.params.userId,
         req.body.oldPassword,
@@ -107,7 +108,10 @@ exports.updateMemberPassword = async (req, res) => {
         req.body.password2,
         req.user.permissions)
         .then(result => res.json(checkAndChange(result)))
-        .catch(error => res.json(checkAndChange(new Error(error))))
+        .catch(error => {
+            console.log(error)
+            res.json(checkAndChange(new Error(error)))
+        })
 }
 
 exports.deleteMember = async (req, res) => {

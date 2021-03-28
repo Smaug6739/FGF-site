@@ -1,5 +1,5 @@
 let Forum = require('../assets/classes/forum-class')
-const { checkAndChange } = require('../util/functions')
+const { checkAndChange, error, hasPermissions } = require('../util/functions')
 
 
 exports.getStructure = (req, res) => {
@@ -73,15 +73,16 @@ exports.updateMessage = (req, res) => {
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.deleteMessage = (req, res) => {
-    if (hasPermissions(req.user.permissions, ['MODERATE_FORUM']) || req.params.userId === req.user.id) {
-        Forum.deleteMessage(req.params.messageId, req.params.categorieId, req.params.userId, req.user.userPermissions)
+    console.log(hasPermissions(req.user.permissions, ['MODERATOR']) || req.params.userId === req.user.id)
+    if (hasPermissions(req.user.permissions, ['MODERATOR']) || req.params.userId === req.user.id) {
+        Forum.deleteMessage(req.params.messageId, req.user.id, req.user.permissions)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))
     } else return res.status(401).json(error('Missing permissions'))
 
 }
 exports.deleteTopic = (req, res) => {
-    if (hasPermissions(req.user.permissions, ['MANAGE_FORUM'])) {
+    if (hasPermissions(req.user.permissions, ['MODERATOR'])) {
         Forum.deleteTopic(req.params.topicId)
             .then(result => res.json(checkAndChange(result)))
             .catch(error => res.json(checkAndChange(new Error(error))))

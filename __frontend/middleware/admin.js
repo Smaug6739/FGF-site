@@ -1,11 +1,13 @@
-
+const { convertPermissions } = require('../functions')
 module.exports = async (req, res, next) => {
-    try{
-        if(!req.session || !req.session.user) throw 'Missing session'
-        else if(req.session.user && req.session.user.userPermissions < 3) throw 'Missing permissions'
-        next()
-    }catch(err){
+    try {
+        const userPermissions = convertPermissions(req.session.user.userPermissions)
+        req.user = {
+            permissions: userPermissions
+        }
+        if (userPermissions.length) next()
+        else throw 'Bad permissions'
+    } catch (err) {
         res.status(401).redirect('/')
-        //json(checkAndChange(new Error('Requete non authentifiée')));
     }
 };

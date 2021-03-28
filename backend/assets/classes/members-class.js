@@ -3,7 +3,7 @@ const config = require("../../config")
 const errors = require("../member-error")
 const crypto = require("crypto");
 const xss = require('xss')
-
+const { hasPermissions } = require('../../util/functions')
 let Members = class Members {
 
     static search(pseudo) {
@@ -127,7 +127,7 @@ let Members = class Members {
         return new Promise((next, reject) => {
             if (!id) return reject(errors.missing.userId);
             if (!oldPassword || oldPassword && oldPassword.trim() == '') {
-                if (!userPermissions.includes('MANAGE_MEMBERS')) return reject(errors.missing.oldPassword);
+                if (!hasPermissions(userPermissions, ['MANAGE_MEMBERS'])) return reject(errors.missing.oldPassword);
             }
             if (!password1 || password1 && password1.trim() == '') return reject(errors.missing.password);
             if (!password2 || password2 && password2.trim() == '') return reject(errors.missing.password);
@@ -140,7 +140,7 @@ let Members = class Members {
             const passwordHash = crypto.createHash('sha256').update(password1).digest('hex');
             dbFunctions.getUserById(id).then(user => {
                 if (user) {
-                    if (oldPasswordHash !== user.member_password && userPermissions < 3) return reject(errors.oldPasswordsNotCorrect);
+                    if (oldPasswordHash !== user.member_password && !hasPermissions(userPermissions, ['MANAGE_MEMBERS'])) return reject(errors.oldPasswordsNotCorrect);
                     dbFunctions.updateUserPassword(user.member_id, passwordHash)
                         .then(result => next(true))
                         .catch(error => { return reject(new Error(error)) })
@@ -149,7 +149,7 @@ let Members = class Members {
         })
     }
 
-    static put(userPermissions, id, avatar, pseudo, firstName, lastName, age, email, phoneNumber, status, site, ban) {
+    static put(userPermissions, id, permissions, avatar, pseudo, firstName, lastName, age, email, phoneNumber, status, site, ban) {
         return new Promise(async (next, reject) => {
             if (!userPermissions) return reject(errors.badPermissions)
             if (!id) return reject(errors.missing.userId)
@@ -174,14 +174,17 @@ let Members = class Members {
             if (!site) site = ""
             dbFunctions.getUserById(id).then(user => {
                 if (user) {
-                    if (userPermissions.includes('MANAGE_MEMBERS')) ban = ban
+                    if (hasPermissions(userPermissions, ['MANAGE_MEMBERS']) && ban) ban = ban
                     else ban = user.member_ban
+                    if (hasPermissions(userPermissions, ['MANAGE_MEMBERS']) && permissions) permissions = permissions
+                    else permissions = user.member_user_permissions
                     dbFunctions.isUniquePseudo(pseudo)
                         .then(result => {
                             if (!result && pseudo !== user.member_pseudo) return reject(errors.pseudoAlreadyTaken)
                             else {
                                 if (!avatar) avatar = user.member_avatar
                                 const newUser = {
+                                    permissions: permissions || 0,
                                     avatar: avatar || 'default.png',
                                     pseudo: pseudo || 'non renseigné',
                                     firstName: firstName || 'non renseigné',
@@ -242,25 +245,12 @@ let Members = class Members {
             })
         })
     }
-    static delete(id, password, userPermissions) {
+    static delete(id) {
         return new Promise((next, reject) => {
             if (!id) return reject(errors.missing.userId);
-            let passwordHash = "";
-            if (password) passwordHash = crypto.createHash('sha256').update(password).digest('hex');
-            if (userPermissions >= 3) {
-                dbFunctions.deleteUser(id)
-                    .then(() => next(true))
-                    .catch((err) => { return reject(new Error(err)) })
-            } else {
-                dbFunctions.getUserById(id).then(result => {
-                    if (result) {
-                        if (passwordHash !== result.member_password && userPermissions < 3) return reject(errors.passwordNotCorrect)
-                        dbFunctions.deleteUser(result.member_id)
-                            .then(() => next(true))
-                            .catch((err) => { return reject(new Error(err)) })
-                    } else return reject(errors.wrongId);
-                })
-            }
+            dbFunctions.deleteUser(id)
+                .then(() => next(true))
+                .catch((err) => { return reject(new Error(err)) })
         })
     }
 }

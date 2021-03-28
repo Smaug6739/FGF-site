@@ -45,6 +45,72 @@
                       value="<%= member.member_phone_number  %>">
                     <label for="ban">Ban</label>
                     <input type="date" class="form-control" id="ban" name="ban" value="<%=`${year}-${month}-${date}`%>">
+                    <input type="hidden" class="form-control" id="permissions" name="permissions">
+                    <ul>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="ADMINISTRATOR"
+                            onclick="recalculate()" value="1">
+                          <label class="form-check-label" for="ADMINISTRATOR">Administrator</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="STAFF" onclick="recalculate()"
+                            value="2">
+                          <label class="form-check-label" for="STAFF">STAFF</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="MODERATOR"
+                            onclick="recalculate()" value="4">
+                          <label class="form-check-label" for="MODERATOR">MODERATOR</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="MANAGE_MEMBERS"
+                            onclick="recalculate()" value="8">
+                          <label class="form-check-label" for="MANAGE_MEMBERS">MANAGE_MEMBERS</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="MANAGE_ARTICLES"
+                            onclick="recalculate()" value="16">
+                          <label class="form-check-label" for="MANAGE_ARTICLES">MANAGE_ARTICLES</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="MANAGE_FORUM"
+                            onclick="recalculate()" value="32">
+                          <label class="form-check-label" for="MANAGE_FORUM">MANAGE_FORUM</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="MANAGE_REQUESTS"
+                            onclick="recalculate()" value="64">
+                          <label class="form-check-label" for="MANAGE_REQUESTS">MANAGE_REQUESTS</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="MANAGE_ANNOUNCEMENTS"
+                            onclick="recalculate()" value="128">
+                          <label class="form-check-label" for="MANAGE_ANNOUNCEMENTS">MANAGE_ANNOUNCEMENTS</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input permission" type="checkbox" id="MANAGE_ALBUM"
+                            onclick="recalculate()" value="256">
+                          <label class="form-check-label" for="MANAGE_ALBUM">MANAGE_ALBUM</label>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
 
                   <button type="submit" class="button button-primary">Modifier</button>
@@ -93,7 +159,30 @@
     </main>
     <%- include ('../../include/footer.ejs'); -%>
       <%- include ('../../include/bootstrap/bootstrap.js.ejs'); -%>
-
 </body>
 
 </html>
+
+<script>
+  function recalculate() {
+    const permissions = document.getElementsByClassName('permission')
+    let i = 0;
+    for (let permission of permissions) {
+      if (permission.checked) i += parseInt(permission.value)
+    }
+    document.getElementById('permissions').value = i
+  }
+
+  const w = '<%=perms%>'
+  function visualise(w) {
+    const permissionsPage = document.getElementsByClassName('permission')
+    const permsUserArray = w.split(' ')
+    for (let permissionPage of permissionsPage) {
+      console.log(permissionPage);
+      if (permsUserArray.includes(permissionPage.id)) permissionPage.checked = true;
+    }
+
+  }
+  visualise(w)
+  const userP = document.getElementById('permissions').value
+</script>

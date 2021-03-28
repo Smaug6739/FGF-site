@@ -27,11 +27,9 @@ let Request = class Request {
             })
         })
     }
-    static getJobs(userPermissions, page) {
+    static getJobs(page) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!page) return reject(errors.missing.page)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             const skip = (page * 10) - 10;
             db.query("SELECT * FROM staff LIMIT 10 OFFSET ?", [skip], (err, result) => {
                 if (err) return reject(new Error(err.message))
@@ -39,11 +37,9 @@ let Request = class Request {
             })
         })
     }
-    static getPartners(userPermissions, page) {
+    static getPartners(page) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!page) return reject(errors.missing.page)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             const skip = (page * 10) - 10;
             db.query("SELECT * FROM partenaires LEFT JOIN members ON partenaires.user_id = members.member_id LIMIT 10 OFFSET ?", [skip], (err, result) => {
                 if (err) return reject(new Error(err.message))
@@ -51,33 +47,27 @@ let Request = class Request {
             })
         })
     }
-    static getGeneral(userPermissions, requestId) {
+    static getGeneral(requestId) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!requestId) return reject(errors.missing.authorId)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             db.query("SELECT * FROM demandes WHERE id = ?", [requestId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(result)
             })
         })
     }
-    static getJob(userPermissions, requestId) {
+    static getJob(requestId) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!requestId) return reject(errors.missing.requestId)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             db.query("SELECT * FROM staff WHERE id = ?", [requestId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(result)
             })
         })
     }
-    static getPartner(userPermissions, requestId) {
+    static getPartner(requestId) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!requestId) return reject(errors.missing.requestId)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             db.query("SELECT * FROM partenaires WHERE id = ?", [requestId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(result)
@@ -133,33 +123,27 @@ let Request = class Request {
         })
 
     }
-    static updateGeneral(userPermissions, requestId, statut) {
+    static updateGeneral(requestId, statut) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!requestId) return reject(errors.missing.authorId)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             db.query("UPDATE demandes SET statut = ? WHERE id = ?", [statut, requestId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(result)
             })
         })
     }
-    static updateJob(userPermissions, requestId, statut) {
+    static updateJob(requestId, statut) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!requestId) return reject(errors.missing.authorId)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             db.query("UPDATE staff SET statut = ? WHERE id = ?", [statut, requestId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(result)
             })
         })
     }
-    static updatePartner(userPermissions, requestId, statut) {
+    static updatePartner(requestId, statut) {
         return new Promise((resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!requestId) return reject(errors.missing.authorId)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             db.query("UPDATE partenaires SET statut = ? WHERE id = ?", [statut, requestId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(result)

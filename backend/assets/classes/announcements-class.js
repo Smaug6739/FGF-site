@@ -37,20 +37,16 @@ let Announcements = class Announcements {
     static put(announcementId, title, content) {
         return new Promise(async (resolve, reject) => {
             if (!announcementId) return reject(errors.missing.announcementId)
-            if (!userPermissions) return reject(errors.badPermissions)
             if (!title) return reject(errors.missing.title)
             if (!content) return reject(errors.missing.content)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             db.query('UPDATE announcements SET announcement_title = ?, announcement_text = ? WHERE announcement_id = ?', [title, content, announcementId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(true)
             })
         })
     }
-    static delete(announcementId, userPermissions) {
+    static delete(announcementId) {
         return new Promise(async (resolve, reject) => {
-            if (!userPermissions) return reject(errors.badPermissions)
-            if (userPermissions < 3) return reject(errors.badPermissions)
             db.query('DELETE FROM announcements WHERE announcement_id = ?', [announcementId], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 else resolve(true)

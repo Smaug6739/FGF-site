@@ -11,12 +11,9 @@ AdminRouter.get('/resources', adminMid, adminCtrl.getResources)
 AdminRouter.get('/procedures', adminMid, adminCtrl.getProcedures)
 
 AdminRouter.get('/forum', adminMid, adminCtrl.getForum)
-AdminRouter.get('/forum/modos', adminMid, adminCtrl.getModos)
-AdminRouter.get('/forum/modos/delete/:modoId/:categorieId', adminMid, adminCtrl.deleteModo)
 AdminRouter.get('/forum/container/:containerId', adminMid, adminCtrl.getContainer)
 AdminRouter.get('/forum/:categorieId', adminMid, adminCtrl.getCategorie)
 
-AdminRouter.post('/forum/modos', adminMid, adminCtrl.postModo)
 
 AdminRouter.post('/forum/categorie', adminMid, adminCtrl.createForumCategorie)
 AdminRouter.post('/forum/container', adminMid, adminCtrl.createForumContainer)
@@ -55,7 +52,7 @@ AdminRouter.get('/members/update/:id', adminMid, adminCtrl.getUpdatePage)
 AdminRouter.post('/members/update/member/:id', adminMid, adminCtrl.postUpdateMember)
 AdminRouter.post('/members/update/member/password/:id', adminMid, adminCtrl.postUpdateMemberPassword)
 AdminRouter.post('/members/delete/member/:id', adminMid, adminCtrl.postDeleteMember)
-    
+
 
 AdminRouter.get('/articles/random/createur', adminMid, adminCtrl.getRandom)
 AdminRouter.get('/articles/:page', adminMid, adminCtrl.getArticles)
@@ -68,10 +65,6 @@ AdminRouter.get('/albums/update/:albumId', adminMid, adminCtrl.getAlbum)
 
 AdminRouter.post('/albums/update/:albumId', adminMid, adminCtrl.updateAlbum)
 AdminRouter.post('/albums/delete/:albumId', adminMid, adminCtrl.deleteAlbum)
-
-AdminRouter.get('/badges/:page', adminMid, adminCtrl.getBadges)
-AdminRouter.post('/badges/insert', adminMid, adminCtrl.addBadge)
-AdminRouter.get('/badges/delete/:badgeId', adminMid, adminCtrl.deleteBadge)
 
 
 module.exports = AdminRouter;

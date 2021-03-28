@@ -21,59 +21,58 @@
   <%- include ('../include/nav.ejs'); -%>
     <main role="main">
 
-      <% const modo=topics.modos.find(modo=> modo.modo_user_id === userConnected.id)%>
-        <div id="container">
-          <% if(topics.forum[0]){ %>
-            <h3 class="title-categorie">Forum <%= topics.forum[0].cat_nom %>
-            </h3>
-            <div id="container-table">
-              <table id="table-forums" class="table table-striped">
-                <th scope="col">Sujets</th>
-                <th scope="col" class="author-column">Auteur</th>
-                <th scope="col" class="cat-column">Catégorie</th>
-                <% if(modo){ %>
-                  <th scope="col" class="modo-column">Modo</th>
-                  <% } %>
-                    <% topics.forum.forEach(topic=> { %>
-                      <tr>
-                        <td><a href="/forum/topic/<%=topic.topic_id%>/1">
-                            <%=topic.topic_titre.substring(0,65)%>
-                          </a></td>
-                        <td class="author-column">
-                          <%=topic.member_pseudo%>
-                        </td>
-                        <td class="cat-column">
-                          <%=topic.cat_nom%>
-                        </td>
-                        <% if(modo){ %>
-                          <td scope="col" class="modo-column"><a href="/forum/topic/delete/<%=topic.topic_id%>"><img
-                                src="/static/images/btn_delete.svg" class="img-delete"></a></td>
-                          <% } %>
-                      </tr>
-                      <% }); %>
-              </table>
-            </div>
-            <% }else{ %>
-              <h2>Aucun topic</h2>
-              <% } %>
-                <div id="container-form-message">
-                  <fieldset class="form-group">
-                    <legend>Nouveau topic :</legend>
-                    <form action="/forum/topic/<%=categorieId%>" id="post" method="POST">
-                      <input id="title" name="title" class="form-control" placeholder="Titre"><br>
-                      <textarea id="content" class="form-control" name="content"
-                        placeholder="Votre message ici"></textarea><br>
-                      <button id="send" class="button button-success">Envoyer</button>
-                    </form>
-                  </fieldset>
+      <div id="container">
+        <% if(topics.forum[0]){ %>
+          <h3 class="title-categorie">Forum <%= topics.forum[0].cat_nom %>
+          </h3>
+          <div id="container-table">
+            <table id="table-forums" class="table table-striped">
+              <th scope="col">Sujets</th>
+              <th scope="col" class="author-column">Auteur</th>
+              <th scope="col" class="cat-column">Catégorie</th>
+              <% if(modo){ %>
+                <th scope="col" class="modo-column">Modo</th>
+                <% } %>
+                  <% topics.forum.forEach(topic=> { %>
+                    <tr>
+                      <td><a href="/forum/topic/<%=topic.topic_id%>/1">
+                          <%=topic.topic_titre.substring(0,65)%>
+                        </a></td>
+                      <td class="author-column">
+                        <%=topic.member_pseudo%>
+                      </td>
+                      <td class="cat-column">
+                        <%=topic.cat_nom%>
+                      </td>
+                      <% if(modo){ %>
+                        <td scope="col" class="modo-column"><a href="/forum/topic/delete/<%=topic.topic_id%>"><img
+                              src="/static/images/btn_delete.svg" class="img-delete"></a></td>
+                        <% } %>
+                    </tr>
+                    <% }); %>
+            </table>
+          </div>
+          <% }else{ %>
+            <h2>Aucun topic</h2>
+            <% } %>
+              <div id="container-form-message">
+                <fieldset class="form-group">
+                  <legend>Nouveau topic :</legend>
+                  <form action="/forum/topic/<%=categorieId%>" id="post" method="POST">
+                    <input id="title" name="title" class="form-control" placeholder="Titre"><br>
+                    <textarea id="content" class="form-control" name="content"
+                      placeholder="Votre message ici"></textarea><br>
+                    <button id="send" class="button button-success">Envoyer</button>
+                  </form>
+                </fieldset>
 
-                </div>
-                <div id="text-center">
-                  <a href="#" class="button button-info" id="precedent">
-                    < Précédent</a>
-                      <a href="#" class="button button-info" id="suivant">Suivant ></a>
-                </div>
-        </div>
+              </div>
+              <div id="text-center">
+                <a href="#" class="button button-info" id="precedent">
+                  < Précédent</a>
+                    <a href="#" class="button button-info" id="suivant">Suivant ></a>
+              </div>
+      </div>
     </main>
     <%- include ('../include/footer.ejs'); -%>
       <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>

@@ -23,7 +23,7 @@ ForumRouter.put('/message/:messageId/:userId', auth, forumCtrl.updateMessage)//P
 ForumRouter.put('/categories/:categorieId/:userId', auth, forumCtrl.updateCategorie)//Permissions : OK
 ForumRouter.put('/container/:containerId/:userId', auth, forumCtrl.updateContainer)//Permissions : OK
 
-ForumRouter.delete('/message/:messageId/:categorieId/:userId', auth, forumCtrl.deleteMessage)//Permissions : OK
+ForumRouter.delete('/message/:messageId/:userId', auth, forumCtrl.deleteMessage)//Permissions : OK
 ForumRouter.delete('/topic/:topicId', auth, forumCtrl.deleteTopic)//Permissions : OK
 //Admin-dashboard
 ForumRouter.delete('/categories/:categorieId/:userId', auth, forumCtrl.deleteCategorie)//Permissions : OK
@@ -31,3 +31,4 @@ ForumRouter.delete('/container/:containerId/:userId', auth, forumCtrl.deleteCont
 
 
 module.exports = ForumRouter;
+
