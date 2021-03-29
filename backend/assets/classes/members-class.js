@@ -95,7 +95,7 @@ let Members = class Members {
                         const passwordHash = crypto.createHash('sha256').update(password1).digest('hex');
                         const user = {
                             userID: userID,
-                            userPermissions: config.defaultSettings.members.userPermissions,
+                            userPermissions: 0,
                             avatar: avatar || 'default.png',
                             accountDate: Date.now(),
                             pseudo: pseudo || 'non renseigné',
