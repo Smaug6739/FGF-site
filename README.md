@@ -4,7 +4,6 @@ The French Gaming Family site is accessible via the link http://french-gaming-fa
 ![All](https://user-images.githubusercontent.com/59796136/111838133-2f7eb780-88f9-11eb-9386-3913e0ff04b4.png)
 
 
-
 ## How to install
 1. Clone the repo.
 2. Install the tools to be able to operate it: <br> 
