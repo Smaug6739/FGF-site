@@ -1,5 +1,5 @@
 # FGF Site
-The French Gaming Family site is accessible via the link http://french-gaming-family.ga 
+The French Gaming Family site is accessible via the link https://french-gaming-family.com
 
 ![All](https://user-images.githubusercontent.com/59796136/111838133-2f7eb780-88f9-11eb-9386-3913e0ff04b4.png)
 
