@@ -53,6 +53,7 @@ exports.convertPermissions = (userPermsNumber) => {
     return userPermissions;
 }
 exports.hasPermissions = (userPermissions, permissionsRequested) => {
+    if (!userPermissions || userPermissions && !userPermissions.length) return false;
     if (userPermissions[0].permission === 'ADMINISTRATOR') return true;
     for (permRequested of permissionsRequested) {
         if (!permissionsRequested.includes(permRequested)) return false;

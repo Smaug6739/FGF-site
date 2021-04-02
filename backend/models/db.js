@@ -1,17 +1,18 @@
 var mysql = require('mysql');
 const config = require('../config')
-var connection  = mysql.createConnection({
-  host            : config.database.host,
-  user            : config.database.user,
-  password        : config.database.password,
-  database        : config.database.name
+var connection = mysql.createConnection({
+  host: config.database.host,
+  user: config.database.user,
+  password: config.database.password,
+  database: config.database.name,
+  charset: 'utf8mb4'
 });
-connection.connect(function(err) {
-    if (err) {
-      console.error('Mysql error connecting: ' + err.stack);
-      return;
-    }
-  
-    console.log('Mysql connected as id: ' + connection.threadId);
-  });
+connection.connect(function (err) {
+  if (err) {
+    console.error('Mysql error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('Mysql connected as id: ' + connection.threadId);
+});
 module.exports = connection;
