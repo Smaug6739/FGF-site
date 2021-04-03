@@ -1,6 +1,6 @@
 const axios = require('axios')
 const path = require('path');
-const { statusUser, hasPermissions } = require('../functions');
+const { statusUser, hasPermissions, convertPermissions } = require('../functions');
 const config = require('../config');
 const { WebhookClient } = require('discord.js')
 const WebhookReport = new WebhookClient(config.webhook.forumReport.id, config.webhook.forumReport.token);
@@ -79,6 +79,9 @@ exports.getTopic = (req, res) => {
     axios.get(`http://localhost:8080/api/v1/forum/getTopic/${req.params.topicId}/${req.params.page}`)
         .then(async (responce) => {
             if (responce.data.status === 'success') {
+                for (let topic of responce.data.result.topic) {
+                    topic.member_user_permissions = convertPermissions(topic.member_user_permissions)
+                }
                 res.render(path.join(__dirname, '../pages/forum/topic.ejs'), {
                     userConnected: await statusUser(req.session),
                     topic: responce.data.result,

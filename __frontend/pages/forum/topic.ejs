@@ -29,11 +29,11 @@
                             <p class="header-author"><img class="author-avatar"
                                 src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
                               <%=element.member_pseudo%>
-                                <%- include('../include/badges',{permissions:userConnected.permissions}) %>
+                                <%- include('../include/badges',{permissions:element.member_user_permissions}) %>
 
-                                  <% if(element.member_id===userConnected.id ||
+                                  <% if(element.member_id===userConnected.id || userConnected.permissions &&(
                                     userConnected.permissions.includes('MODERATOR') ||
-                                    userConnected.permissions.includes('ADMINISTRATOR')){ %>
+                                    userConnected.permissions.includes('ADMINISTRATOR'))){ %>
                                     <a href="/forum/message/delete/<%=element.post_id%>/<%=element.topic_categorie%>"><img
                                         class="button-control right" src="/static/images/btn_delete.svg"></a>
                                     <%} if(element.member_id===userConnected.id){ %>
@@ -44,7 +44,6 @@
                                         <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img
                                             class="button-control right" src="/static/images/btn_report.svg"></a>
                             </p>
-
                             <p><a href="#<%=element.post_id%>" class="link-msg">
                                 <%= `${date}/${month}/${year}`%>
                               </a></p>
