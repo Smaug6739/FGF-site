@@ -22,9 +22,8 @@
     margin-right: 5px;
 }
 .author-avatar{
-    width: 6%;
-    height: 6%;
-    border-radius: 50%;
+    border-radius: 50%;width: 64px;height:64px;
+
 }
 .header-author{
     font-size: 125%;

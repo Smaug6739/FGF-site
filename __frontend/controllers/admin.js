@@ -159,7 +159,7 @@ exports.deleteAnnouncement = (req, res) => {
 }
 exports.getForum = (req, res) => {
     if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_FORUM')) return res.status(401).redirect('/')
-    axios.get(`http://localhost:8080/api/v1/forum/admin`)
+    axios.get(`http://localhost:8080/api/v1/forum/structure`)
         .then(async (responce) => {
             if (responce.data.status === 'success') {
                 res.render(path.join(__dirname, '../pages/admin/forum.ejs'), {
