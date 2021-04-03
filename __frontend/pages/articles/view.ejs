@@ -38,7 +38,9 @@
                     </div>
                     <hr>
                     <div class="author"> <img src="/uploads/avatars/<%=article.member_avatar%>" class="author-avatar"
-                        alt="Avatar"> Ecrit par : <%= article.member_pseudo %> le <%=date%>/<%=month%>/<%=year%>
+                        alt="Avatar"> Ecrit par : <%= article.member_pseudo %>
+                        <%- include('../include/badges',{permissions:authorPerms}) %>
+                          le <%=date%>/<%=month%>/<%=year%>
                     </div>
         </div>
       </div>

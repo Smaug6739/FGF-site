@@ -12,7 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
       integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
       crossorigin="anonymous"></script>
-    <script src="/socket.io/socket.io.js"></script> <!-- || ./socket -->
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+    <!-- || ./socket -->
     <title>French Gaming Family</title>
 </head>
 
@@ -26,26 +27,24 @@
             <% const dmSize=dm.length %>
               <% dm.forEach((element,index)=> { %>
                 <div id="element">
-                  <div class="container-message" <%if(index===(dmSize -1)){%> id="lastMessage" <%}%>>
-                      <p class="header-author"><img class="author-avatar"
-                          src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
-                        <%=element.member_pseudo%>
-                          <% if(element.member_id===userConnected.id){ %>
-                            <a href="/member/messages-prives/delete/message/<%=element.dm_post_id%>"><img
-                                class="button-control right" src="/static/images/btn_delete.svg"></a>
-                            <%} if(element.member_id===userConnected.id){ %>
-                              <a onclick="viewEdit(`<%=element.dm_post_id%>`, `<%=element.dm_post_message%>`)"
-                                href="#"><img class="button-control right" src="/static/images/btn_edit.svg"></a>
-                              <div id="edit-<%=element.dm_post_id%>"></div>
-                              <% } %>
-                      </p>
-                      <p><a href="#" class="link-msg">
-                          <%= ``%>
-                        </a></p>
-                      <hr>
-                      <p>
-                        <%= element.dm_post_message %>
-                      </p>
+                  <div <%if(index===(dmSize -1)){%> id="lastMessage" <%}%>
+                      <% if(element.dm_post_author==userConnected.id){%>class="container-message me"<%}else{%>
+                          class="container-message" <%} %> >
+                            <p class="header-author"><img class="author-avatar"
+                                src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
+                              <%=element.member_pseudo%>
+                                <% if(element.member_id===userConnected.id){ %>
+                                  <a href="/member/messages-prives/delete/message/<%=element.dm_post_id%>"><img
+                                      class="button-control right" src="/static/images/btn_delete.svg"></a>
+                                  <%} if(element.member_id===userConnected.id){ %>
+                                    <a onclick="viewEdit(`<%=element.dm_post_id%>`, `<%=element.dm_post_message%>`)"
+                                      href="#"><img class="button-control right" src="/static/images/btn_edit.svg"></a>
+                                    <div id="edit-<%=element.dm_post_id%>"></div>
+                                    <% } %>
+                                      <hr>
+                                      <p class="msg">
+                                        <%= element.dm_post_message %>
+                                      </p>
                   </div>
                 </div>
                 <% }); %>

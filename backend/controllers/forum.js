@@ -14,10 +14,7 @@ exports.getCategories = (req, res) => {
 }
 exports.getCategorie = (req, res) => {
     Forum.getCategorie(req.params.categorieId, req.params.page)
-        .then(result => {
-            console.log(result)
-            res.json(checkAndChange(result))
-        })
+        .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 exports.getTopic = (req, res) => {
@@ -70,7 +67,7 @@ exports.deleteCategorie = (req, res) => {
 
 }
 exports.updateMessage = (req, res) => {
-    if (req.params.id != req.user.id) return res.status(401).json(error('Missing permissions'))
+    if (req.params.userId != req.user.id) return res.status(401).json(error('Missing permissions'))
     Forum.updateMessage(req.params.messageId, req.params.userId, req.body.content)
         .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))

@@ -56,7 +56,9 @@ let Forum = class Forum {
             const postTime = Date.now()
             db.query('INSERT INTO forum_post (`post_createur`, `post_texte`, `post_time`, `topic_id`) VALUES (?, ?, ?, ?)', [author, content, postTime, topicId], (err, result) => {
                 if (err) return reject(new Error(err.message))
-                else resolve(result)
+                else {
+                    resolve(result)
+                }
             })
         })
     }

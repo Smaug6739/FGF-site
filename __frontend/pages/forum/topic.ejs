@@ -15,97 +15,75 @@
 <body>
   <%- include ('../include/nav.ejs'); -%>
     <main role="main">
-
       <div id="container">
         <div id="container-topic">
           <% if(topic.topic.length){ %>
-            <% const modo=topic.modos.find(modo=> modo.modo_user_id === userConnected.id)%>
-              <% topic.topic.forEach(element=> { %>
-                <% const post_date=new Date(parseInt(element.post_time)) %>
-                  <% const months=['01','02','03','04','05','06','07','08','09','10','11','12']; %>
-                    <% const year=post_date.getFullYear() %>
-                      <% const month=months[post_date.getMonth()] %>
-                        <% const date=post_date.getDate() %>
-                          <% const arrayBadges=element.badges.split(', ') %>
-                          <%console.log(arrayBadges)%>
-          <div id="element">
-            <div class="container-message" id="<%=element.post_id%>">
-              <p class="header-author"><img class="author-avatar" src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
-              <%=element.member_pseudo%> 
-              
-                <% if(element.member_id === userConnected.id || modo){ %>
-                <a href="/forum/message/delete/<%=element.post_id%>/<%=element.topic_categorie%>"><img class="button-control right" src ="/static/images/btn_delete.svg"></a>
-                <%} if(element.member_id === userConnected.id){ %>
-                <a onclick="viewEdit(<%=element.post_id%>, `<%=element.post_texte%>`)" href="#"><img class="button-control right" src ="/static/images/btn_edit.svg"></a>
-                <% } %>
-                <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img class="button-control right" src ="/static/images/btn_report.svg"></a>
-                </p>
-                <% if(arrayBadges && arrayBadges.length){%>
-                  <% arrayBadges.forEach(badge=> { %>
-                    <% if(badge===' Admin' ){ %> <span class="badge bg-danger">
-                              <%=badge%>
-                            </span>
-                            <%}%>
-                              <% if(badge==='Testeur' ){ %> <span class="badge bg-dark">
-                                  <%=badge%>
-                                </span>
-                                <%}%>
-                                  <% if(badge==='Partenaire' ){ %> <span class="badge bg-success">
-                                      <%=badge%>
-                                    </span>
-                                    <%}%>
-                                      <% if(badge==='Rédacteur' ){ %> <span class="badge bg-info">
-                                          <%=badge%>
-                                        </span>
-                                        <%}%>
-                                          <% if(badge==='Modo' ){ %> <span class="badge bg-warning">
-                                              <%=badge%>
-                                            </span>
-                                            <%}%>
+            <% topic.topic.forEach(element=> { %>
+              <% const post_date=new Date(parseInt(element.post_time)) %>
+                <% const months=['01','02','03','04','05','06','07','08','09','10','11','12']; %>
+                  <% const year=post_date.getFullYear() %>
+                    <% const month=months[post_date.getMonth()] %>
+                      <% const date=post_date.getDate() %>
+                        <div id="element">
+                          <div class="container-message" id="<%=element.post_id%>">
+                            <p class="header-author"><img class="author-avatar"
+                                src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
+                              <%=element.member_pseudo%>
+                                <%- include('../include/badges',{permissions:userConnected.permissions}) %>
 
-                                              <% }); %>
-                                                <%}%>
-                                                  <p><a href="#<%=element.post_id%>" class="link-msg">
-                                                      <%= `${date}/${month}/${year}`%>
-                                                    </a></p>
-                                                  <div id=' <%=element.post_id%>'>
-                                                  </div>
-                                                  <div id="edit-<%=element.post_id%>"></div>
-                                                  <hr>
-                                                  <p>
-                                                    <%= element.post_texte %>
-                                                  </p>
+                                  <% if(element.member_id===userConnected.id ||
+                                    userConnected.permissions.includes('MODERATOR') ||
+                                    userConnected.permissions.includes('ADMINISTRATOR')){ %>
+                                    <a href="/forum/message/delete/<%=element.post_id%>/<%=element.topic_categorie%>"><img
+                                        class="button-control right" src="/static/images/btn_delete.svg"></a>
+                                    <%} if(element.member_id===userConnected.id){ %>
+                                      <a onclick="viewEdit(<%=element.post_id%>, `<%=element.post_texte%>`)"
+                                        href="#"><img class="button-control right"
+                                          src="/static/images/btn_edit.svg"></a>
+                                      <% } %>
+                                        <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img
+                                            class="button-control right" src="/static/images/btn_report.svg"></a>
+                            </p>
+
+                            <p><a href="#<%=element.post_id%>" class="link-msg">
+                                <%= `${date}/${month}/${year}`%>
+                              </a></p>
+                            <div id=' <%=element.post_id%>'>
+                            </div>
+                            <div id="edit-<%=element.post_id%>"></div>
+                            <hr>
+                            <p>
+                              <%= element.post_texte %>
+                            </p>
+                          </div>
+                        </div>
+                        <% }); %>
+                          <div id="container-reply">
+                            <div id="container-form-reply">
+                              <form action="/forum/message/<%=topic.topic[0].topic_id%>" method="post">
+                                <fieldset class="form-group">
+                                  <legend class="reply-legent">Poster un message</legend>
+                                  <textarea id="content" class="form-control" placeholder="Votre réponce" cols="30"
+                                    rows="5" name="content"></textarea>
+                                  <button type="submit" class="button button-success" id="send">Poster</button>
+                                </fieldset>
+                              </form>
+                            </div>
+                          </div>
+                          <% }else{ %>
+                            <h4 id="text-center">Ce forum ne contient pas/plus de message et n'est donc pas
+                              accessible.
+                            </h4>
+                            <% } %>
         </div>
       </div>
-      <% }); %>
-        <div id="container-reply">
-          <div id="container-form-reply">
-            <form action="/forum/message/<%=topic.topic[0].topic_id%>" method="post">
-              <fieldset class="form-group">
-                <legend class="reply-legent">Poster un message</legend>
-                <textarea id="content" class="form-control" placeholder="Votre réponce" cols="30" rows="5"
-                  name="content"></textarea>
-                <button type="submit" class="button button-success" id="send">Poster</button>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <% }else{ %>
-          <h4 id="text-center">Ce forum ne contient pas/plus de message et n'est donc pas accessible.</h4>
-          <% } %>
-            </div>
-            </div>
-            <div id="button-pages">
-              <a href="#" class="button button-info" id="precedent">
-                < Précédent</a>
-                  <a href="#" class="button button-info" id="suivant">Suivant ></a>
-            </div>
-
+      <div id="button-pages">
+        <a href="#" class="button button-info" id="precedent">
+          < Précédent</a>
+            <a href="#" class="button button-info" id="suivant">Suivant ></a>
+      </div>
     </main>
-
     <%- include ('../include/footer.ejs'); -%>
       <%- include ('../include/bootstrap/bootstrap.js.ejs'); -%>
         <script src="/static/js/forum/topic.js"></script>
 </body>
-
-</html>

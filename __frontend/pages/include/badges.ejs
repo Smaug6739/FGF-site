@@ -1,25 +1,11 @@
-<% if(arrayBadges && arrayBadges.length){%>
-  <% arrayBadges.forEach(badge=> { %>
-    <% if(badge==='Admin' ){ %> <span class="badge bg-danger">
-        <%=badge%>
-      </span>
-      <%}%>
-        <% if(badge==='Testeur' ){ %> <span class="badge bg-dark">
-            <%=badge%>
-          </span>
-          <%}%>
-            <% if(badge==='Partenaire' ){ %> <span class="badge bg-success">
-                <%=badge%>
-              </span>
-              <%}%>
-                <% if(badge==='Rédacteur' ){ %> <span class="badge bg-info">
-                    <%=badge%>
-                  </span>
-                  <%}%>
-                    <% if(badge==='Modo' ){ %> <span class="badge bg-warning">
-                        <%=badge%>
-                      </span>
-                      <%}%>
+<%if(permissions && permissions.length){ %>
+  <% if(permissions.includes('ADMINISTRATOR')){%> <span class="badge bg-dark">Administrateur</span>
+    <%} %>
 
-                        <% }); %>
-                          <%}%>
+      <% if(permissions.includes('STAFF')){%> <span class="badge bg-danger">Staff</span>
+        <%} %>
+
+          <% if(permissions.includes('MODERATOR')){%> <span class="badge bg-primary">Modérateur</span>
+            <%} %>
+
+              <%} %>

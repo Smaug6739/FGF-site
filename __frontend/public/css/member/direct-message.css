@@ -4,21 +4,47 @@
     justify-content: center;
 }
 #container-dm{
-    width: 60%;
+    width: 80%;
     background-color: var(--container-color);
 }
 #element{
     margin-top: 15px;
     margin-bottom: 15px;
-    border: 2px black solid;
+    border: 2px var(--light) solid;
+    width: 75%;
+    margin-left: 12.5%;
+}
+p.msg {
+	position: relative;
+	max-width: 30em;
+	
+	background-color: var(--container-color);
+    border: #fff 1px solid;
+	padding: 1.125em 1.5em;
+	font-size: 1.25em;
+	border-radius: 1rem;
+  box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+}
+
+p.msg::before {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	bottom: 100%;
+	left: 1.5em;
+	border: .75rem solid transparent;
+	border-top: none;
+
+	border-bottom-color: #fff;
+	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
 }
 .container-message{
-    margin-top: 4px;
-    margin-left: 5px;
-    margin-right: 5px;
+    padding: 5px;
 }
 .author-avatar{
     width: 6%;
+    height: 6%;
     border-radius: 50%;
 }
 .header-author{
@@ -56,8 +82,7 @@
 @media screen and (max-width: 1200px ){
     #container-dm{
         width: 80%;
-        background-color: #ffffff;
-    }
+        }
     .reply-legent{
         font-size: 20px;
     }
@@ -66,12 +91,15 @@
 @media screen and (max-width: 700px){
     #container-dm{
         width: 98%;
-        background-color: #ffffff;
     }
     .button-control{
         width: 5%;
     }
     #container-form-reply{
         width : 80%;
+    }
+    #element{
+        width: 95%;
+        margin-left: 2.5%; 
     }
 }

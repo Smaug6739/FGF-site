@@ -13,7 +13,12 @@ exports.getForums = () => {
 
 exports.getCategories = () => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT * from forum_categorie ORDER BY cat_nom', (err, resultCategories) => {
+        db.query(`SELECT 
+        forum_categorie.cat_id, forum_categorie.cat_nom, forum_categorie.cat_description, forum_categorie.cat_ordre, forum_categorie.cat_icon, forum_categorie.cat_container, MAX(forum_post.post_id) AS 'last_post_id', forum_post.post_createur AS 'last_post_author', forum_post.post_texte, members.member_id, members.member_pseudo, members.member_avatar FROM forum_categorie
+            LEFT JOIN forum_topic ON forum_categorie.cat_id = forum_topic.topic_categorie
+            LEFT JOIN forum_post ON forum_post.topic_id = forum_topic.topic_id
+            LEFT JOIN members ON members.member_id = forum_post.post_createur
+            GROUP BY forum_categorie.cat_id`, (err, resultCategories) => {
             if (err) reject(err.message)
             else {
                 db.query('SELECT * FROM forum_cat_container ORDER BY cat_container_name', (err, resultContainers) => {

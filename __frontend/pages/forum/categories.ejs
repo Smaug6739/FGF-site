@@ -24,22 +24,35 @@
         <br>
         <% groupes.forEach(element=> { %>
           <h3 class="sub-title">
-            <%=element.cat_container_name%> :
+            <%console.log(element)%>
+              <%=element.cat_container_name%> :
           </h3>
           <div class="cat_container">
             <% categories.forEach(categorie=> { %>
-              <% if(element.cat_container_id===categorie.cat_container){ %>
-                <div class="categorie">
-                  <h4><img src="/static/images/icons/<%=categorie.cat_icon%>" alt="icon" class="icon">&nbsp;<a
-                      href="/forum/categorie/<%=categorie.cat_id%>/1">
-                      <%=categorie.cat_nom%>
-                    </a></h4>
-                  <p>
-                    <%=categorie.cat_description%>
-                  </p>
-                </div>
-                <% } %>
-                  <% }); %>
+              <%console.log(categorie)%>
+                <% if(element.cat_container_id===categorie.cat_container){ %>
+                  <div class="categorie">
+                    <h4><img src="/static/images/icons/<%=categorie.cat_icon%>" alt="icon" class="icon">&nbsp;<a
+                        href="/forum/categorie/<%=categorie.cat_id%>/1">
+                        <%=categorie.cat_nom%>
+                      </a></h4>
+                    <p>
+                      <%=categorie.cat_description%>
+                    </p>
+                    <h6>Dernier message :</h6>
+                    <hr>
+                    <%if(categorie.post_texte && categorie.member_id){%>
+                      <p>
+                        <img src="/uploads/avatars/<%=categorie.member_avatar%>" alt="avatar" width="35">
+                        <%= categorie.member_pseudo + ':' %>
+                          <%=categorie.post_texte %>
+                      </p>
+                      <%}else{%>
+                        <p>Aucun dernier message dans ce topic</p>
+                        <%}%>
+                  </div>
+                  <% } %>
+                    <% }); %>
           </div>
           <% }); %>
 
