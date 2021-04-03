@@ -238,7 +238,7 @@
         padding : 3%;
     }
     #home-img {
-        background: url(../images/elements_site/accueil-mobile.jpg) center no-repeat;
+        background: url(../images/elements_site/accueil-mobile.webp) center no-repeat;
         background-position: center;
         background-size: cover;
         height:100vh;
