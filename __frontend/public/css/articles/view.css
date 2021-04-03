@@ -18,7 +18,9 @@ thead,tfoot {
     background-color: rgb(143, 138, 138);
     color: #fff;
 }
-
+.content img{
+    max-width: 80%;
+}
 #center{
     display: block;
     text-align: center;

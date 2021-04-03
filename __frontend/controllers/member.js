@@ -379,7 +379,7 @@ exports.postArticle = async (req, res) => {
                     }
                     let htmlContent = "";
                     htmlContent = md.render(req.body.contenu) //converter.makeHtml(req.body.contenu)
-                    axios.post(`http://localhost:8080/api/v1/articles/${req.session.user.id}`, {
+                    axios.post(`http://localhost:8080/api/v1/articles`, {
                         categorie: req.body.categorie,
                         title: req.body.title,
                         miniature: file,

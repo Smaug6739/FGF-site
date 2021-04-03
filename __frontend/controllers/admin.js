@@ -583,7 +583,7 @@ exports.getRandom = (req, res) => {
 
 exports.getUpdateArticlePage = (req, res) => {
     if (!req.user.permissions.includes('ADMINISTRATOR') && !req.user.permissions.includes('MANAGE_ARTICLES')) return res.status(401).redirect('/')
-    axios.get(`http://localhost:8080/api/v1/articles/${req.session.user.id}/${req.params.articleId}`, {
+    axios.get(`http://localhost:8080/api/v1/articles/view/${req.params.articleId}`, {
         headers: { 'Authorization': `${req.session.user.id} ${req.session.user.token}` },
     })
         .then(async (responce) => {

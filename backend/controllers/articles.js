@@ -27,6 +27,7 @@ exports.getRandomArticle = (req, res) => {
 
 }
 exports.putArticle = (req, res) => {
+    console.log('log');
     if (hasPermissions(req.user.permissions, ['MANAGE_ARTICLES']) || req.params.userId === req.user.id) {
         Articles.put(
             req.params.userId,
@@ -52,10 +53,7 @@ exports.deleteArticle = (req, res) => {
 }
 exports.getArticle = (req, res) => {
     Articles.getArticle(req.params.articleId)
-        .then(result => {
-            if (result.status !== 1) res.json(checkAndChange(new Error("Cet article n'est pas encore aprouvé.")))
-            else res.json(checkAndChange(result))
-        })
+        .then(result => res.json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(new Error(error))))
 }
 

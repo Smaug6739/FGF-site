@@ -58,7 +58,7 @@ AdminRouter.get('/articles/random/createur', adminMid, adminCtrl.getRandom)
 AdminRouter.get('/articles/:page', adminMid, adminCtrl.getArticles)
 AdminRouter.get('/articles/update/:articleId', adminMid, adminCtrl.getUpdateArticlePage)
 
-AdminRouter.post('/articles/update/:articleId', multerMidMiniature, adminCtrl.updateArticle)
+AdminRouter.post('/articles/update/:articleId', adminMid, multerMidMiniature, adminCtrl.updateArticle)
 
 AdminRouter.get('/albums/:page', adminMid, adminCtrl.getAlbums)
 AdminRouter.get('/albums/update/:albumId', adminMid, adminCtrl.getAlbum)
