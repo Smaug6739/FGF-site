@@ -728,7 +728,7 @@ exports.postAlbum = async (req, res) => {
                             error: "Merci d'uploader un fichier dans un format accepté (png, jpg, jpeg ou gif)."
                         })
                     }
-                    axios.post(`http://localhost:8080/api/v1/album/${req.session.user.id}`, {
+                    axios.post(`http://localhost:8080/api/v1/album`, {
                         title: req.body.title,
                         image: file,
                         authorId: req.session.user.id
