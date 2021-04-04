@@ -29,6 +29,8 @@ exports.statusUser = async (session) => {
 exports.convertPermissions = (userPermsNumber) => {
     let userPermissions = [];
     const permissions = [
+        { value: 1024, permission: 'TESTEUR' },
+        { value: 512, permission: 'EDITOR' },
         { value: 256, permission: 'MANAGE_ALBUM' },
         { value: 128, permission: 'MANAGE_ANNOUNCEMENTS' },
         { value: 64, permission: 'MANAGE_REQUESTS' },

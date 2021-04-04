@@ -7,5 +7,9 @@
 
           <% if(permissions.includes('MODERATOR')){%> <span class="badge bg-primary">Modérateur</span>
             <%} %>
+              <% if(permissions.includes('EDITOR')){%> <span class="badge bg-success">Rédacteur</span>
+                <%} %>
+                  <% if(permissions.includes('TESTEUR')){%> <span class="badge bg-warning">Testeur</span>
+                    <%} %>
 
-              <%} %>
+                      <%} %>
