@@ -34,7 +34,7 @@
                             <li><a class="dropdown-item" href="/member/album/1">Galerie</a></li>
                             <li><a class="dropdown-item" href="/member/articles">Vos articles</a></li>
                             <li><a class="dropdown-item" href="/member/demandes">Vos demandes</a></li>
-                            <% if(userConnected.userPermissions> 0){ %>
+                            <% if(userConnected.permissions && userConnected.permissions.length && (userConnected.permissions.includes('ADMINISTRATOR')||userConnected.permissions.includes('STAFF'))){ %>
                                 <li><a class="dropdown-item" href="/admin">Admin</a></li>
                                 <% } %>
                                     <li role="separator" class="dropdown-divider"></li>

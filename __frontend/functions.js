@@ -15,11 +15,12 @@ exports.statusUser = async (session) => {
         }
     } else {
         const msgs = await axios.get(`${config.urlAPI}dm/nb-msgs-new/${session.user.id}`, { headers: { 'Authorization': `token ${session.user.token}` } })
+        const permissions = this.convertPermissions(session.user.userPermissions)
         return userConnected = {
             auth: true,
             id: session.user.id,
             userPermissions: session.user.userPermissions,
-            permissions: this.convertPermissions(session.user.userPermissions),
+            permissions: permissions,
             userAvatar: session.user.userAvatar,
             nbMsgs: msgs.data.result.nb_msgs || 0
         }
