@@ -28,10 +28,13 @@
                       <% const date=post_date.getDate() %>
                         <div id="element">
                           <div class="container-message" id="<%=element.post_id%>">
-                            <p class="header-author"><img class="author-avatar"
-                                src="/uploads/avatars/<%=element.member_avatar%>" alt="Avatar">
-                              <%=element.member_pseudo%>
-                                <%- include('../include/badges',{permissions:element.member_user_permissions}) %>
+
+                            <%=element.member_pseudo%><a href="#<%=element.post_id%>" class="link-msg">
+                                <%= `${date}/${month}/${year}`%>
+                              </a>
+                              </p>
+                              <%- include('../include/badges',{permissions:element.member_user_permissions}) %>
+                                <%- include('../include/procfile',{user:element}) %>
 
                                   <% if(element.member_id===userConnected.id || userConnected.permissions &&(
                                     userConnected.permissions.includes('MODERATOR') ||
@@ -45,17 +48,14 @@
                                       <% } %>
                                         <a onclick="report(<%=element.topic_id%>, <%=element.post_id%>)" href="#"><img
                                             class="button-control right" src="/static/images/btn_report.svg"></a>
-                            </p>
-                            <p><a href="#<%=element.post_id%>" class="link-msg">
-                                <%= `${date}/${month}/${year}`%>
-                              </a></p>
-                            <div id=' <%=element.post_id%>'>
-                            </div>
-                            <div id="edit-<%=element.post_id%>"></div>
-                            <hr>
-                            <p>
-                              <%= element.post_texte %>
-                            </p>
+                                        </p>
+                                        <div id=' <%=element.post_id%>'>
+                                        </div>
+                                        <div id="edit-<%=element.post_id%>"></div>
+                                        <hr>
+                                        <p>
+                                          <%= element.post_texte %>
+                                        </p>
                           </div>
                         </div>
                         <% }); %>

@@ -1,129 +1,23 @@
-let villes = [
-  {
-    montpellier: [
-      {
-        ville: "clermontFerrand",
-        temps: 196
-      },
-      {
-        ville: "saintEtienne",
-        temps: 188
-      },
-      {
-        ville: "avignon",
-        temps: 71
+module.exports = {
+  name: 'mute',
+  execute(message, prefix) {
+    if (message.author.bot) return;
+    if (message.channel.type === 'dm') return;
+
+    if (message.content.startsWith(`${prefix}mute`)) {
+      let mention = message.mentions.members.first()
+      if (!message.member.hasPermission("MANAGE_ROLES"))
+        message.channel.send("Vous n'avez pas la permission !").then(message.delete({ timeout: 50 }, message.author)).then(message => message.delete({ timeout: 5000 }))
+
+      else if (mention === undefined) {
+        message.channel.send("Veuillez mentionner un utilisateur !").then(message.delete({ timeout: 50 }, message.author)).then(message => message.delete({ timeout: 5000 }))
       }
-    ]
-  },
-  {
-    avignon: [
-      {
-        ville: "valence",
-        temps: 77
-      },
-      {
-        ville: "montpellier",
-        temps: 71
+      else if (mention.hasPermission("VIEW_AUDIT_LOG"))
+        message.channel.send("Vous ne pouvez pas mute cet utilisateur !").then(message.delete({ timeout: 50 }, message.author)).then(message => message.delete({ timeout: 5000 }))
+      else {
+        mention.roles.add("787786199673995284");
+        message.channel.send(`<@${mention.user.id}> a été mute avec succès`).then(message.delete({ timeout: 50 }, message.author)).then(message => message.delete({ timeout: 5000 }));
       }
-    ]
-  },
-  {
-    valence: [
-      {
-        ville: "avignon",
-        temps: 77
-      },
-      {
-        ville: "lyon",
-        temps: 68
-      }
-    ]
-  },
-  {
-    lyon: [
-      {
-        ville: "saintEtienne",
-        temps: 54
-      },
-      {
-        ville: "valence",
-        temps: 68
-      },
-      {
-        ville: "clermontFerrand",
-        temps: 102
-      }
-    ]
-  },
-  {
-    saintEtienne: [
-      {
-        ville: "lyon",
-        temps: 54
-      },
-      {
-        ville: "montpellier",
-        temps: 188
-      }
-    ]
-  },
-  {
-    clermontFerrand: [
-      {
-        ville: "lyon",
-        temps: 102
-      },
-      {
-        ville: "montpellier",
-        temps: 196
-      }
-    ]
-  }
-]
-
-let villePrecedente = "";
-let villeActuelle = "saintEtienne";
-let destination = "valence";
-
-let tempsTotal = 0;
-
-let etapesPossibles = [];
-
-let i = 0;
-
-async function villeF(villeActu, villePre, dest, temps) {
-  //console.log(`ville actuelle : ${villeActu}\nville précedente : ${villePre}\ntemps : ${tempsTotal}`)
-
-
-  if (!villes[i][villeActu]) {
-    i = i + 1;
-    if (i > 10) return
-    villeF(villeActuelle, villePrecedente, destination, tempsTotal);
-  }
-  else {
-    for (const villesProches of villes[i][villeActu]) {
-      if (villesProches.ville != villePre) {
-        etapesPossibles.push(villesProches);
-      };
-
-    };
-
-    etapesPossibles.sort(function (a, b) {
-      return a.temps - b.temps;
-    });
-
-    let villePrec = villeActu;
-    let villeActue = etapesPossibles[0].ville;
-    let tempsTota = temps + etapesPossibles[0].temps;
-
-    console.log(`Etape : ${etapesPossibles[0].ville}`);
-
-    if (villeActu != dest) {
-      villeF(villeActue, villePrec, destination, tempsTota)
-    } else {
-      console.log(`Temps Total : ${temps}`)
     }
   }
-};
-
-villeF(villeActuelle, villePrecedente, destination, tempsTotal);
+}
