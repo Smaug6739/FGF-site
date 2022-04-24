@@ -1,0 +1,5 @@
+* text=auto
+
+.git* text
+*.json text
+*.js linguist-detectable=false
